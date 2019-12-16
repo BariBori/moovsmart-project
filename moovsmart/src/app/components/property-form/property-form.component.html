@@ -1,0 +1,82 @@
+<div class="container">
+  <h2>Register New Room</h2>
+  <hr/>
+  <form (ngSubmit)="submit()" [formGroup]="propertyForm">
+    <div class="form-group">
+      <label for="from">Property Name</label>
+      <input
+        class="form-control"
+        formControlName="name"
+        id="from"
+        name="from"
+        placeholder="Enter name for the property"
+      />
+      <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
+        {{propertyForm.get('name').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="numberOfRooms">Number of rooms</label>
+      <input
+        class="form-control"
+        formControlName="numberOfRooms"
+        id="numberOfRooms"
+        placeholder="Enter the number of rooms"
+        type="number"
+      />
+      <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+        {{propertyForm.get('numberOfRooms').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="price">Price</label>
+      <input
+        class="form-control"
+        formControlName="price"
+        id="price"
+        placeholder="Enter the price"
+        type="number"
+      />
+      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
+        {{propertyForm.get('price').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="description">Description</label>
+      <textarea
+        aria-multiline="true"
+        class="form-control"
+        formControlName="description"
+        id="description"
+        placeholder="Enter description"
+        rows="3"
+      ></textarea>
+      <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
+        {{propertyForm.get('description').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="imageUrl">Image</label>
+      <input
+        class="form-control"
+        formControlName="imageUrl"
+        id="imageUrl"
+        placeholder="Enter an url for the image"
+      />
+      <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
+        {{propertyForm.get('imageUrl').errors['serverError']}}
+      </small>
+    </div>
+
+    <br/>
+    <button class="btn btn-primary my-buttons">Save Property</button>
+  </form>
+</div>

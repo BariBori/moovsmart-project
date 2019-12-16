@@ -1,0 +1,1 @@
+CREATE DATABASE moovsmart CHARACTER SET utf8;
