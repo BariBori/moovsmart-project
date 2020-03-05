@@ -1,7 +1,5 @@
 package com.progmasters.moovsmart.domain;
 
-import com.progmasters.moovsmart.dto.UserDto;
-
 import javax.persistence.*;
 
 @Entity

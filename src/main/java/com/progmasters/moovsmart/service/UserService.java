@@ -1,7 +1,7 @@
 package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.User;
-import com.progmasters.moovsmart.dto.UserDto;
+import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +29,7 @@ public class UserService {
         return encoder.encode(rawPassword);
     }
 
-    public User saveUser(UserDto userDto) {
+    public User saveUser(UserForm userDto) {
         return repository.save(
                 new User(
                         userDto.getEmail(),
