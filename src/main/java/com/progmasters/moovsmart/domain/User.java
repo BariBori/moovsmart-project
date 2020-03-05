@@ -1,5 +1,7 @@
 package com.progmasters.moovsmart.domain;
 
+import com.progmasters.moovsmart.dto.UserDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,12 +16,12 @@ public class User {
     private String passwordHash;
 
     @OneToOne(mappedBy = "user")
-    private UserDetails userDetails;
+    private PersonalDetails personalDetails;
 
-    public User(String email, String passwordHash, UserDetails userDetails) {
+    public User(String email, String passwordHash, PersonalDetails personalDetails) {
         this.email = email;
         this.passwordHash = passwordHash;
-        this.userDetails = userDetails;
+        this.personalDetails = personalDetails;
     }
 
     public User() {
