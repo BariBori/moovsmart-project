@@ -2,10 +2,8 @@ package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.UserDto;
-import com.progmasters.moovsmart.repository.PersonalDetailsRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,6 @@ public class UserService {
 
     @Autowired
     public UserService(UserRepository repository,
-                       PersonalDetailsRepository detailsRepository,
                        PersonalDetailsService service,
                        PasswordEncoder encoder) {
         this.repository = repository;
