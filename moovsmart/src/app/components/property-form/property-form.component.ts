@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import {PropertyService} from "../../services/property.service";
-import {Router} from "@angular/router";
-import {validationHandler} from "../../utils/validationHandler";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { PropertyService } from '../../services/property.service';
+import { Router } from '@angular/router';
+import { validationHandler } from '../../utils/validationHandler';
 
 @Component({
   selector: 'app-property-form',
@@ -12,28 +12,26 @@ import {validationHandler} from "../../utils/validationHandler";
 export class PropertyFormComponent implements OnInit {
 
   propertyForm = this.formBuilder.group({
-    "name": ['',],
-    "numberOfRooms": [0],
-    "price": [0],
-    "description": [''],
-    "imageUrl": ['']
+    name: [''],
+    numberOfRooms: [0],
+    price: [0],
+    description: [''],
+    imageUrl: ['']
   });
 
-  constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService,
-              private router: Router) {
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private propertyService: PropertyService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
-  submit = () => {
+  submit = () =>
     this.propertyService.createProperty(this.propertyForm.value).subscribe(
-      () => this.router.navigate(["property-list"]),
+      () => this.router.navigate(['property-list']),
       error => validationHandler(error, this.propertyForm),
-    );
-
-  };
-
+    )
 
 }
