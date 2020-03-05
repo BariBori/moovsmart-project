@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.dto;
 
-public class PersonalDetailsDto {
+public class PersonalDetailsForm {
     private String fullName;
 
     public String getFullName() {

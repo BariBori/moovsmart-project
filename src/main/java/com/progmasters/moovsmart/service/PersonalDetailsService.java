@@ -1,7 +1,7 @@
 package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.PersonalDetails;
-import com.progmasters.moovsmart.dto.PersonalDetailsDto;
+import com.progmasters.moovsmart.dto.PersonalDetailsForm;
 import com.progmasters.moovsmart.repository.PersonalDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ public class PersonalDetailsService {
         this.repository = repository;
     }
 
-    public PersonalDetails save(PersonalDetailsDto personalDetailsDto) {
+    public PersonalDetails save(PersonalDetailsForm personalDetailsForm) {
         return repository.save(
-                new PersonalDetails(personalDetailsDto.getFullName())
+                new PersonalDetails(personalDetailsForm.getFullName())
         );
     }
 }

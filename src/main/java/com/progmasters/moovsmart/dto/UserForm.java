@@ -1,11 +1,11 @@
 package com.progmasters.moovsmart.dto;
 
-public class UserDto {
+public class UserForm {
     private String email;
     private String passwordEncoded;
-    private PersonalDetailsDto userDetails;
+    private PersonalDetailsForm userDetails;
 
-    public UserDto() {
+    public UserForm() {
     }
 
     public String getEmail() {
@@ -16,7 +16,7 @@ public class UserDto {
         return passwordEncoded;
     }
 
-    public PersonalDetailsDto getPersonalDetails() {
+    public PersonalDetailsForm getPersonalDetails() {
         return userDetails;
     }
 }
