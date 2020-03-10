@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.progmasters.moovsmart.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,19 +19,13 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserDetailsService userDetailsService;
 
-    @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    private CustomUserDetailsService detailsService;
+
+    public SecurityConfig(CustomUserDetailsService detailsService) {
+        this.detailsService = detailsService;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
-
-    //TODO constrain further
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.cors().and()
@@ -44,6 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic();
     }
 
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(detailsService)
+                .passwordEncoder(passwordEncoder());
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

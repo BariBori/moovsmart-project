@@ -17,23 +17,21 @@ public class UserService {
     private PasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository repository,
-                       PersonalDetailsService service,
-                       PasswordEncoder encoder) {
+    public UserService(
+            UserRepository repository,
+            PersonalDetailsService service,
+            PasswordEncoder encoder
+    ) {
         this.repository = repository;
         this.service = service;
         this.encoder = encoder;
     }
 
-    private String encryptPassword(String rawPassword) {
-        return encoder.encode(rawPassword);
-    }
-
-    public User saveUser(UserForm userDto) {
+    public User registerUser(UserForm userDto) {
         return repository.save(
                 new User(
                         userDto.getEmail(),
-                        encryptPassword(userDto.getPasswordEncoded()),
+                        encoder.encode(userDto.getPassword()),
                         service.save(userDto.getPersonalDetails())
                 )
         );
