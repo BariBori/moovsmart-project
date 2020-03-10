@@ -2,8 +2,8 @@
   background:
     /* top, transparent red */
     linear-gradient(
-      rgba(120, 200, 200, 0.45),
-      rgba(120, 200, 200, 0.45)
+      rgba(120, 200, 200, 0.60),
+      rgba(120, 200, 200, 0.60)
     ), url("https://res.cloudinary.com/dqmt1lieq/image/upload/v1583836204/moovsmart_home_cut_min_zld0ps.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -12,8 +12,23 @@
 }
 
 .home-welcome{
-  padding-top: 100px;
+  padding: 50px 0px 50px 0px;
   color: white;
   margin: auto;
   text-align: center;
+}
+
+.marketing{
+  padding-top: 50px;
+}
+
+.wrapper{
+  text-align: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.icon{
+  font-size: 36px;
+  text-align: center;
+  color: #5cb85c;
 }
