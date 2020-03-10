@@ -5,6 +5,7 @@ import { PropertyFormComponent } from './components/property-form/property-form.
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { UserregisterFormComponent } from './components/userregister-form/userregister-form.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
   { path: '', component: PropertyListComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'property-details/:id', component: PropertyDetailsComponent },
   { path: 'userregister-form', component: UserregisterFormComponent },
   { path: 'user-login', component: UserLoginComponent },
+  {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({

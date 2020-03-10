@@ -10,8 +10,11 @@ import { PropertyFormComponent } from './components/property-form/property-form.
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { UserregisterFormComponent } from './components/userregister-form/userregister-form.component';
+import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,11 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     PropertyDetailsComponent,
     PropertyListComponent,
     UserregisterFormComponent,
-    UserLoginComponent
+    HomeComponent,
+    FooterComponent,
+    UserregisterFormComponent,
+    UserLoginComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
