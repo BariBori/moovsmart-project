@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Credentials } from 'src/app/models/Credentials';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Credentials} from 'src/app/models/Credentials';
 
 @Component({
   selector: 'app-user-login',
@@ -29,7 +29,6 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit(): void {
     const credentials = this.loginForm.value as Credentials;
-    console.log(credentials)
     this.authService.authenticate(credentials)
       .subscribe(
         success => this.authService.credentials = credentials,
