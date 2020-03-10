@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     HomeComponent,
     FooterComponent,
     UserregisterFormComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
