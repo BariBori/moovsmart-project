@@ -35,13 +35,16 @@ public class PropertyAdvertValidator implements Validator {
         }
         List<Image> listOfImages = propertyAdvertFormData.getListOfImages();
         if (listOfImages == null) {
-            errors.rejectValue("listOfImages", "moovsmart.price.listOfImages");
+            errors.rejectValue("listOfImages", "moovsmart.listOfImages.invalid");
         }
         String title = propertyAdvertFormData.getTitle();
         if (title.length() < 10 || title.length() > 50) {
+            errors.rejectValue("title", "moovsmart.title.invalid");
+        }
+        Integer area = propertyAdvertFormData.getArea();
+        if (area <= 0) {
 
         }
-
 
     }
 }
