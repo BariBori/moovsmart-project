@@ -15,6 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SearchComponent } from './components/search/search.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     {

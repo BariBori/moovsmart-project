@@ -2,24 +2,28 @@
   <h1>Regisztráció</h1>
   <hr>
 <form [formGroup]="registerNewUserForm" id="registerForm">
+
   <div class="form-group">
-    <label for="InputFullName">Full name</label>
-    <input aria-describedby="emailHelp" class="form-control" formControlName="personalDetails" id="InputFullName"
-           type="text">
+
+    <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="email"
+           type="email" placeholder="e-mail">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="exampleInputEmail1"
-           type="email">
+        <input class="form-control" formControlName="password" id="password" type="password" placeholder="jelszó">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input class="form-control" formControlName="password" id="exampleInputPassword1" type="password">
+    <input class="form-control" formControlName="password" id="passwordConfirm" type="password" placeholder="jelszó megerősítése">
   </div>
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <input type="checkbox" class="form-check-input" id="privacyPolicy">
+    <label class="form-check-label" for="privacyPolicy">Az adatkezelési szabályzatot tudomásul veszem és elfogadom </label>
   </div>
-  <button type="submit" class="btn btn-primary" (click)="saveUser()">Save</button>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="termsCondition">
+    <label class="form-check-label" for="termsCondition">Az ÁSZF-et megismertem és elfogadom </label>
+  </div>
+  <button type="submit" class="btn btn-success" (click)="saveUser()">Regisztráció</button>
 </form>
 </div>
+
+<app-footer></app-footer>
