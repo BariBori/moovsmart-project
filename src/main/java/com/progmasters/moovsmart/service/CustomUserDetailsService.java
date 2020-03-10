@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByEmail(email)
                 .map(user ->
                         org.springframework.security.core.userdetails.User.builder()
-                                .authorities(new SimpleGrantedAuthority("user"))
+                                .authorities(new SimpleGrantedAuthority("USER"))
                                 .username(user.getEmail())
                                 .password(user.getPasswordHash())
                                 .disabled(false)

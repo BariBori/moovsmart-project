@@ -3,7 +3,6 @@ package com.progmasters.moovsmart.config;
 import com.progmasters.moovsmart.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,21 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity security) throws Exception {
-        security.cors().and()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .anyRequest().authenticated()
-                .and().logout().deleteCookies("JSESSIONID")
-                .and().httpBasic();
-    }
-
-    @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(detailsService)
                 .passwordEncoder(passwordEncoder());
     }
+
+    @Override
+    protected void configure(HttpSecurity security) throws Exception {
+        security.cors().and()
+                .csrf().disable();
+    }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

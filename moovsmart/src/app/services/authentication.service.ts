@@ -1,54 +1,31 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Credentials } from '../models/Credentials';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  // BASE_PATH: 'http://localhost:8080'
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  private BASE_URL = 'http://localhost:8080/api/users';
 
-  public username: String;
-  public password: String;
+  public credentials: Credentials;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
 
-  }
+  authenticate = (credentials: Credentials): Observable<void> => this.http.get<void>(
+    this.BASE_URL + '/authenticate',
+    { headers: this.getAuthenticationHeaders(credentials) }
+  )
 
-  authenticationService(username: String, password: String) {
-    return this.http.get(`http://localhost:8080/api/v1/basicauth`,
-      { headers: { authorization: this.createBasicAuthToken(username, password) } }).pipe(map((res) => {
-        this.username = username;
-        this.password = password;
-        this.registerSuccessfulLogin(username, password);
-      }));
-  }
 
-  createBasicAuthToken(username: String, password: String) {
-    return 'Basic ' + window.btoa(username + ":" + password)
-  }
 
-  registerSuccessfulLogin(username, password) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-  }
+  isLoggedIn = (): boolean => this.credentials ? true : false;
 
-  logout() {
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    this.username = null;
-    this.password = null;
-  }
+  logOut = (): void => this.credentials = null;
 
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return false
-    return true
-  }
-
-  getLoggedInUserName() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return ''
-    return user
-  }
+  public getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
+    authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
+  })
 }
