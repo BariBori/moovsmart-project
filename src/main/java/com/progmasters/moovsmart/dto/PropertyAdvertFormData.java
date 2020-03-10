@@ -14,9 +14,9 @@ public class PropertyAdvertFormData {
 
     private PropertyType propertyType;
 
-    private PropertyCondition propertyCondition;
+    private PropertyConditionType propertyConditionType;
 
-    private ConstructionType constructionType;
+    private PropertyConstructionType propertyConstructionType;
 
     private ParkingType parkingType;
 
@@ -43,8 +43,8 @@ public class PropertyAdvertFormData {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
         this.propertyType = propertyAdvert.getPropertyType();
-        this.propertyCondition = propertyAdvert.getPropertyCondition();
-        this.constructionType = propertyAdvert.getConstructionType();
+        this.propertyConditionType = propertyAdvert.getPropertyConditionType();
+        this.propertyConstructionType = propertyAdvert.getPropertyConstructionType();
         this.parkingType = propertyAdvert.getParkingType();
         this.name = propertyAdvert.getName();
         this.address = propertyAdvert.getAddress();
@@ -92,20 +92,20 @@ public class PropertyAdvertFormData {
         this.propertyType = propertyType;
     }
 
-    public PropertyCondition getPropertyCondition() {
-        return propertyCondition;
+    public PropertyConditionType getPropertyConditionType() {
+        return propertyConditionType;
     }
 
-    public void setPropertyCondition(PropertyCondition propertyCondition) {
-        this.propertyCondition = propertyCondition;
+    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+        this.propertyConditionType = propertyConditionType;
     }
 
-    public ConstructionType getConstructionType() {
-        return constructionType;
+    public PropertyConstructionType getPropertyConstructionType() {
+        return propertyConstructionType;
     }
 
-    public void setConstructionType(ConstructionType constructionType) {
-        this.constructionType = constructionType;
+    public void setPropertyConstructionType(PropertyConstructionType propertyConstructionType) {
+        this.propertyConstructionType = propertyConstructionType;
     }
 
     public ParkingType getParkingType() {

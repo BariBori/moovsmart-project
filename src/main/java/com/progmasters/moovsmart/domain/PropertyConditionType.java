@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.domain;
 
-public enum PropertyCondition {
+public enum PropertyConditionType {
 
     NEW("Újépítésű"),
     RENEWED("Felújított"),
@@ -11,7 +11,7 @@ public enum PropertyCondition {
 
     private String displayName;
 
-    PropertyCondition(String displayName) {
+    PropertyConditionType(String displayName) {
         this.displayName = displayName;
     }
 

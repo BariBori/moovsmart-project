@@ -1,13 +1,13 @@
 package com.progmasters.moovsmart.domain;
 
-public enum ConstructionType {
+public enum PropertyConstructionType {
 
     BRICK("Tégla"),
     PANEL("Panel");
 
     private String displayName;
 
-    ConstructionType(String displayName) {
+    PropertyConstructionType(String displayName) {
         this.displayName = displayName;
     }
 

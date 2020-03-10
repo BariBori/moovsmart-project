@@ -27,10 +27,10 @@ public class PropertyAdvert {
     private PropertyType propertyType;
 
     @Enumerated(EnumType.STRING)
-    private PropertyCondition propertyCondition;
+    private PropertyConditionType propertyConditionType;
 
     @Enumerated(EnumType.STRING)
-    private ConstructionType constructionType;
+    private PropertyConstructionType propertyConstructionType;
 
     @Enumerated(EnumType.STRING)
     private ParkingType parkingType;
@@ -67,8 +67,8 @@ public class PropertyAdvert {
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertId = propertyAdvertFormData.getAdvertId();
         this.propertyType = propertyAdvertFormData.getPropertyType();
-        this.propertyCondition = propertyAdvertFormData.getPropertyCondition();
-        this.constructionType = propertyAdvertFormData.getConstructionType();
+        this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
+        this.propertyConstructionType = propertyAdvertFormData.getPropertyConstructionType();
         this.parkingType = propertyAdvertFormData.getParkingType();
         this.name = propertyAdvertFormData.getName();
         this.address = propertyAdvertFormData.getAddress();
@@ -132,20 +132,20 @@ public class PropertyAdvert {
         this.propertyType = propertyType;
     }
 
-    public PropertyCondition getPropertyCondition() {
-        return propertyCondition;
+    public PropertyConditionType getPropertyConditionType() {
+        return propertyConditionType;
     }
 
-    public void setPropertyCondition(PropertyCondition propertyCondition) {
-        this.propertyCondition = propertyCondition;
+    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+        this.propertyConditionType = propertyConditionType;
     }
 
-    public ConstructionType getConstructionType() {
-        return constructionType;
+    public PropertyConstructionType getPropertyConstructionType() {
+        return propertyConstructionType;
     }
 
-    public void setConstructionType(ConstructionType constructionType) {
-        this.constructionType = constructionType;
+    public void setPropertyConstructionType(PropertyConstructionType propertyConstructionType) {
+        this.propertyConstructionType = propertyConstructionType;
     }
 
     public ParkingType getParkingType() {
