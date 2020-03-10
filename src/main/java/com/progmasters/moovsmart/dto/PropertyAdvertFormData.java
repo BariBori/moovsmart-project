@@ -20,7 +20,7 @@ public class PropertyAdvertFormData {
 
     private ParkingType parkingType;
 
-    private String name;
+    private String title;
 
     private String address;
 
@@ -46,7 +46,7 @@ public class PropertyAdvertFormData {
         this.propertyConditionType = propertyAdvert.getPropertyConditionType();
         this.propertyConstructionType = propertyAdvert.getPropertyConstructionType();
         this.parkingType = propertyAdvert.getParkingType();
-        this.name = propertyAdvert.getName();
+        this.title = propertyAdvert.getTitle();
         this.address = propertyAdvert.getAddress();
         this.district = propertyAdvert.getDistrict();
         this.street = propertyAdvert.getStreet();
@@ -116,12 +116,12 @@ public class PropertyAdvertFormData {
         this.parkingType = parkingType;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAddress() {

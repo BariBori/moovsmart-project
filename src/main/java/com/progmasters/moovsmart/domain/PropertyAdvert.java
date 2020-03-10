@@ -2,7 +2,11 @@ package com.progmasters.moovsmart.domain;
 import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 public class PropertyAdvert {
@@ -12,9 +16,11 @@ public class PropertyAdvert {
     private long id;
 
     @Column
+    @NotNull
     private Integer price;
 
     @OneToMany(mappedBy = "propertyAdvert")
+    @NotEmpty
     private List<Image> listOfImages;
 
     @Column
@@ -36,7 +42,8 @@ public class PropertyAdvert {
     private ParkingType parkingType;
 
     @Column
-    private String name;
+    @Size(min = 10, max = 50)
+    private String title;
 
     @Column
     private String address;
@@ -48,29 +55,34 @@ public class PropertyAdvert {
     private String street;
 
     @Column
+    @NotNull
     private Integer area;
 
     @Column
+    @Size(min = 1)
     private Integer numberOfRooms;
 
     @Column
+    @NotNull
     private boolean elevator;
 
     @Column
+    @NotNull
     private boolean balcony;
 
     @Column
+    @Size(min = 20, max = 600)
     private String description;
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
-        this.advertId = propertyAdvertFormData.getAdvertId();
+        this.advertId = new Random().nextInt(1000000);
         this.propertyType = propertyAdvertFormData.getPropertyType();
         this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
         this.propertyConstructionType = propertyAdvertFormData.getPropertyConstructionType();
         this.parkingType = propertyAdvertFormData.getParkingType();
-        this.name = propertyAdvertFormData.getName();
+        this.title = propertyAdvertFormData.getTitle();
         this.address = propertyAdvertFormData.getAddress();
         this.district = propertyAdvertFormData.getDistrict();
         this.street = propertyAdvertFormData.getStreet();
@@ -148,6 +160,8 @@ public class PropertyAdvert {
         this.propertyConstructionType = propertyConstructionType;
     }
 
+
+
     public ParkingType getParkingType() {
         return parkingType;
     }
@@ -156,12 +170,12 @@ public class PropertyAdvert {
         this.parkingType = parkingType;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public String getAddress() {
