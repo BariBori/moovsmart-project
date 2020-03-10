@@ -1,4 +1,7 @@
-<form [formGroup]="registerNewUserForm">
+<div class="wrapper">
+  <h1>Regisztráció</h1>
+  <hr>
+<form [formGroup]="registerNewUserForm" id="registerForm">
   <div class="form-group">
     <label for="InputFullName">Full name</label>
     <input aria-describedby="emailHelp" class="form-control" formControlName="personalDetails" id="InputFullName"
@@ -19,3 +22,4 @@
   </div>
   <button type="submit" class="btn btn-primary" (click)="saveUser()">Save</button>
 </form>
+</div>
