@@ -13,6 +13,10 @@ public class User {
 
     private String passwordHash;
 
+    public PersonalDetails getPersonalDetails() {
+        return personalDetails;
+    }
+
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
 
