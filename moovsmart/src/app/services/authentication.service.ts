@@ -14,15 +14,12 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate = (credentials: Credentials): Subscription => this.http.get(
+  authenticate = (credentials: Credentials): Observable<void> => this.http.get<void>(
     this.BASE_URL + '/authenticate',
     { headers: this.getAuthenticationHeaders(credentials) }
   )
-    .subscribe(
-      success => this.credentials = credentials,
-      failure => console.warn('Authentication failed'),
-      console.log
-    )
+
+
 
   isLoggedIn = (): boolean => this.credentials ? true : false;
 

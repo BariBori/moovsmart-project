@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserFormDataModel } from 'src/app/models/userFormData.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Credentials } from 'src/app/models/Credentials';
 
@@ -29,7 +28,14 @@ export class UserLoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.authenticate(this.loginForm.value as Credentials);
+    const credentials = this.loginForm.value as Credentials;
+    console.log(credentials)
+    this.authService.authenticate(credentials)
+      .subscribe(
+        success => this.authService.credentials = credentials,
+        failure => console.warn('Authentication failed'),
+        console.log
+      );
     this.router.navigate(['']);
   }
 }

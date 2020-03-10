@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    //TODO constrain further
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.cors().and()
