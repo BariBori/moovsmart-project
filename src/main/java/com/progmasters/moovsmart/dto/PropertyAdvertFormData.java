@@ -24,6 +24,8 @@ public class PropertyAdvertFormData {
 
     private String address;
 
+    private String city;
+
     private String district;
 
     private String street;
@@ -48,6 +50,7 @@ public class PropertyAdvertFormData {
         this.parkingType = propertyAdvert.getParkingType();
         this.title = propertyAdvert.getTitle();
         this.address = propertyAdvert.getAddress();
+        this.city = propertyAdvert.getCity();
         this.district = propertyAdvert.getDistrict();
         this.street = propertyAdvert.getStreet();
         this.area = propertyAdvert.getArea();
@@ -186,5 +189,13 @@ public class PropertyAdvertFormData {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
