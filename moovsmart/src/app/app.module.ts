@@ -10,6 +10,7 @@ import { PropertyFormComponent } from './components/property-form/property-form.
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { UserregisterFormComponent } from './components/userregister-form/userregister-form.component';
+import { UserLoginComponent } from './components/user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserregisterFormComponent } from './components/userregister-form/userre
     PropertyFormComponent,
     PropertyDetailsComponent,
     PropertyListComponent,
-    UserregisterFormComponent
+    UserregisterFormComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

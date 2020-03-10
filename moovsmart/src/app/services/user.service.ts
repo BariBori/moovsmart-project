@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {UserFormDataModel} from '../models/userFormData.model';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { UserFormDataModel } from '../models/userFormData.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +15,6 @@ export class UserService {
 
   createUser(data: UserFormDataModel): Observable<void> {
     return this.http.post<void>(this.BASE_URL + '/register', data);
-  }
+  };
+
 }
