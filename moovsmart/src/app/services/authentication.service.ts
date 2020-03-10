@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class AuthenticationService {
 
-  private BASE_URL = 'http://localhost:8080:users';
+  private BASE_URL = 'http://localhost:8080/api/users';
 
   public credentials: Credentials;
 

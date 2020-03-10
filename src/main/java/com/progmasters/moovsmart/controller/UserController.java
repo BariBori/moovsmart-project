@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("api/users")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService service;
@@ -34,9 +34,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/authenticate")
-    @Secured("USER")
+    @GetMapping("/authenticate")
     public ResponseEntity<Void> authenticateUser() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/me")
+    @Secured("USER")
+    public ResponseEntity<Void> foo() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -33,7 +33,7 @@ export class UserLoginComponent implements OnInit {
     this.authService.authenticate(credentials)
       .subscribe(
         success => this.authService.credentials = credentials,
-        failure => console.warn('Authentication failed'),
+        failure => console.warn(failure),
         console.log
       );
     this.router.navigate(['']);
