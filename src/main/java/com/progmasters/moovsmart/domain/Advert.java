@@ -1,7 +1,10 @@
 package com.progmasters.moovsmart.domain;
 
+import com.progmasters.moovsmart.dto.AdvertFormData;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 public class Advert {
@@ -23,10 +26,10 @@ public class Advert {
     @OneToOne
     private User user;
 
-    public Advert(Integer price, List<Image> listOfImages, Integer advertId, Property property, User user) {
-        this.price = price;
-        this.listOfImages = listOfImages;
-        this.advertId = advertId;
+    public Advert(AdvertFormData advertFormData) {
+        this.price = advertFormData.getPrice();
+        this.listOfImages = advertFormData.getListOfImages();
+        this.advertId = new Random().nextInt(1000000);
         this.property = property;
         this.user = user;
     }
