@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
-import { UserFormDataModel } from 'src/app/models/userFormData.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Credentials} from 'src/app/models/Credentials';
 
 @Component({
   selector: 'app-user-login',
@@ -16,7 +16,7 @@ export class UserLoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private authService: AuthenticationService,
     private router: Router
   ) { }
 
@@ -27,16 +27,14 @@ export class UserLoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    const formData: UserFormDataModel = this.loginForm.value;
-    this.userService.createUser(formData).subscribe(
-      (response) => {
-        this.router.navigate(['']);
-        console.log('New user is created');
-      },
-      error => {
-        console.warn(error);
-        //validationHandler(error, this.createNewBlogPost);
-      });
+  onSubmit(): void {
+    const credentials = this.loginForm.value as Credentials;
+    this.authService.authenticate(credentials)
+      .subscribe(
+        success => this.authService.credentials = credentials,
+        failure => console.warn(failure),
+        console.log
+      );
+    this.router.navigate(['']);
   }
 }

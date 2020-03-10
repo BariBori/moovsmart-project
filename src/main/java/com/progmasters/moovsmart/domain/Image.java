@@ -9,14 +9,16 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String imageUrl;
 
     @ManyToOne
-    private Advert advert;
+    @JoinColumn
+    private PropertyAdvert propertyAdvert;
 
-    public Image(String imageUrl, Advert advert) {
+    public Image(String imageUrl, PropertyAdvert propertyAdvert) {
         this.imageUrl = imageUrl;
-        this.advert = advert;
+        this.propertyAdvert = propertyAdvert;
     }
 
     public Image() {
@@ -38,11 +40,11 @@ public class Image {
         this.imageUrl = imageUrl;
     }
 
-    public Advert getAdvert() {
-        return advert;
+    public PropertyAdvert getPropertyAdvert() {
+        return propertyAdvert;
     }
 
-    public void setAdvert(Advert advert) {
-        this.advert = advert;
+    public void setPropertyAdvert(PropertyAdvert propertyAdvert) {
+        this.propertyAdvert = propertyAdvert;
     }
 }

@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.domain;
 
-public enum Parking {
+public enum ParkingType {
 
     YARD("Udvari beálló"),
     GARAGE("Garázs"),
@@ -8,7 +8,7 @@ public enum Parking {
 
     private String displayName;
 
-    Parking(String displayName) {
+    ParkingType(String displayName) {
         this.displayName = displayName;
     }
 
