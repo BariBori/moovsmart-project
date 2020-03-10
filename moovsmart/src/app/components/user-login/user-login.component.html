@@ -1,17 +1,20 @@
-<div class="container">
+<div class="wrapper">
   <h1>Bejelentkezés</h1>
   <hr>
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" id="loginForm">
     <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="exampleInputEmail1"
-            type="email">
+
+        <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="email"
+            type="email" placeholder="e-mail">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input class="form-control" formControlName="password" id="exampleInputPassword1" type="password">
+
+        <input class="form-control" formControlName="password" id="password" type="password" placeholder="jelszó">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Login</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Bejelentkezés</button>
+
+  <div class="info-reg">Még nem regisztráltál? <a routerLink="/userregister-form" >Itt</a> megteheted.</div>
 </form>
+
 </div>
 <app-footer></app-footer>
