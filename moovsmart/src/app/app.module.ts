@@ -10,6 +10,8 @@ import { PropertyFormComponent } from './components/property-form/property-form.
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { UserregisterFormComponent } from './components/userregister-form/userregister-form.component';
+import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 
@@ -20,6 +22,9 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     PropertyFormComponent,
     PropertyDetailsComponent,
     PropertyListComponent,
+    UserregisterFormComponent,
+    HomeComponent,
+    FooterComponent,
     UserregisterFormComponent,
     UserLoginComponent
   ],
