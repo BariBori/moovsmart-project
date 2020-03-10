@@ -57,6 +57,9 @@ public class PropertyAdvertFormData {
         this.description = propertyAdvert.getDescription();
     }
 
+    public PropertyAdvertFormData() {
+    }
+
     public Integer getPrice() {
         return price;
     }

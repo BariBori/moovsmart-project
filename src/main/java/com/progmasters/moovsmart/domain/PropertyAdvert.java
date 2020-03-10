@@ -66,20 +66,19 @@ public class PropertyAdvert {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertId = propertyAdvertFormData.getAdvertId();
-        this.user = propertyAdvertFormData.;
-        this.propertyType = propertyType;
-        this.propertyCondition = propertyCondition;
-        this.constructionType = constructionType;
-        this.parkingType = parkingType;
-        this.name = name;
-        this.address = address;
-        this.district = district;
-        this.street = street;
-        this.area = area;
-        this.numberOfRooms = numberOfRooms;
-        this.elevator = elevator;
-        this.balcony = balcony;
-        this.description = description;
+        this.propertyType = propertyAdvertFormData.getPropertyType();
+        this.propertyCondition = propertyAdvertFormData.getPropertyCondition();
+        this.constructionType = propertyAdvertFormData.getConstructionType();
+        this.parkingType = propertyAdvertFormData.getParkingType();
+        this.name = propertyAdvertFormData.getName();
+        this.address = propertyAdvertFormData.getAddress();
+        this.district = propertyAdvertFormData.getDistrict();
+        this.street = propertyAdvertFormData.getStreet();
+        this.area = propertyAdvertFormData.getArea();
+        this.numberOfRooms = propertyAdvertFormData.getNumberOfRooms();
+        this.elevator = propertyAdvertFormData.isElevator();
+        this.balcony = propertyAdvertFormData.isBalcony();
+        this.description = propertyAdvertFormData.getDescription();
     }
 
     public PropertyAdvert() {
