@@ -4,18 +4,18 @@ import com.progmasters.moovsmart.domain.Image;
 
 import java.util.List;
 
-public class AdvertFormData {
+public class PropertyAdvertFormData {
 
     private Integer price;
 
     private List<Image> listOfImages;
 
-       public AdvertFormData(Integer price, List<Image> listOfImages) {
+       public PropertyAdvertFormData(Integer price, List<Image> listOfImages) {
         this.price = price;
         this.listOfImages = listOfImages;
     }
 
-    public AdvertFormData() {
+    public PropertyAdvertFormData() {
     }
 
     public Integer getPrice() {
