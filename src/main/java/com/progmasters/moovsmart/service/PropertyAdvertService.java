@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AdvertService {
+public class PropertyAdvertService {
 
     private AdvertRepository advertRepository;
 
     @Autowired
-    public AdvertService(AdvertRepository advertRepository) {
+    public PropertyAdvertService(AdvertRepository advertRepository) {
         this.advertRepository = advertRepository;
     }
 

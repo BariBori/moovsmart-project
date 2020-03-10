@@ -1,4 +1,6 @@
 package com.progmasters.moovsmart.domain;
+import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class PropertyAdvert {
     private ConstructionType constructionType;
 
     @Enumerated(EnumType.STRING)
-    private Parking parking;
+    private ParkingType parkingType;
 
     @Column
     private String name;
@@ -60,18 +62,15 @@ public class PropertyAdvert {
     @Column
     private String description;
 
-    public PropertyAdvert(Integer price, List<Image> listOfImages, Integer advertId, User user, PropertyType propertyType,
-                          PropertyCondition propertyCondition, ConstructionType constructionType, Parking parking,
-                          String name, String address, String district, String street, Integer area,
-                          Integer numberOfRooms, boolean elevator, boolean balcony, String description) {
-        this.price = price;
-        this.listOfImages = listOfImages;
-        this.advertId = advertId;
-        this.user = user;
+    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+        this.price = propertyAdvertFormData.getPrice();
+        this.listOfImages = propertyAdvertFormData.getListOfImages();
+        this.advertId = propertyAdvertFormData.getAdvertId();
+        this.user = propertyAdvertFormData.;
         this.propertyType = propertyType;
         this.propertyCondition = propertyCondition;
         this.constructionType = constructionType;
-        this.parking = parking;
+        this.parkingType = parkingType;
         this.name = name;
         this.address = address;
         this.district = district;
@@ -150,12 +149,12 @@ public class PropertyAdvert {
         this.constructionType = constructionType;
     }
 
-    public Parking getParking() {
-        return parking;
+    public ParkingType getParkingType() {
+        return parkingType;
     }
 
-    public void setParking(Parking parking) {
-        this.parking = parking;
+    public void setParkingType(ParkingType parkingType) {
+        this.parkingType = parkingType;
     }
 
     public String getName() {
