@@ -14,12 +14,15 @@ public class PropertyAdvertListItem {
 
     private String description;
 
+    private Integer advertId;
+
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.title = propertyAdvert.getTitle();
         this.numberOfRooms = propertyAdvert.getNumberOfRooms();
         this.price = propertyAdvert.getPrice();
         this.description = propertyAdvert.getDescription();
+        this.advertId = propertyAdvert.getAdvertId();
     }
 
     public PropertyAdvertListItem() {
@@ -37,16 +40,8 @@ public class PropertyAdvertListItem {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Integer getNumberOfRooms() {
         return numberOfRooms;
-    }
-
-    public void setNumberOfRooms(Integer numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
     }
 
     public Integer getPrice() {
@@ -61,7 +56,7 @@ public class PropertyAdvertListItem {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Integer getAdvertId() {
+        return advertId;
     }
 }

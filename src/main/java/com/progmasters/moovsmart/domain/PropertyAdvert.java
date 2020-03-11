@@ -1,8 +1,8 @@
 package com.progmasters.moovsmart.domain;
+
 import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -88,7 +88,7 @@ public class PropertyAdvert {
     @Column
     private LocalDate timeOfActivation;
 
-        public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();
@@ -126,17 +126,10 @@ public class PropertyAdvert {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public LocalDate getTimeOfActivation() {
         return timeOfActivation;
     }
 
-    public void setTimeOfActivation(LocalDate timeOfActivation) {
-        this.timeOfActivation = timeOfActivation;
-    }
 
     public long getId() {
         return id;
@@ -158,17 +151,11 @@ public class PropertyAdvert {
         return listOfImages;
     }
 
-    public void setListOfImages(List<Image> listOfImages) {
-        this.listOfImages = listOfImages;
-    }
 
     public Integer getAdvertId() {
         return advertId;
     }
 
-    public void setAdvertId(Integer advertId) {
-        this.advertId = advertId;
-    }
 
     public User getUser() {
         return user;
@@ -182,113 +169,67 @@ public class PropertyAdvert {
         return propertyType;
     }
 
-    public void setPropertyType(PropertyType propertyType) {
-        this.propertyType = propertyType;
-    }
 
     public PropertyConditionType getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
-        this.propertyConditionType = propertyConditionType;
-    }
 
     public PropertyConstructionType getPropertyConstructionType() {
         return propertyConstructionType;
     }
 
-    public void setPropertyConstructionType(PropertyConstructionType propertyConstructionType) {
-        this.propertyConstructionType = propertyConstructionType;
-    }
-
-
-
     public ParkingType getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(ParkingType parkingType) {
-        this.parkingType = parkingType;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String name) {
-        this.title = name;
-    }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
 
     public String getStreet() {
         return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public Integer getArea() {
         return area;
     }
 
-    public void setArea(Integer area) {
-        this.area = area;
-    }
 
     public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
-    public void setNumberOfRooms(Integer numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
-    }
 
     public boolean isElevator() {
         return elevator;
     }
 
-    public void setElevator(boolean elevator) {
-        this.elevator = elevator;
-    }
 
     public boolean isBalcony() {
         return balcony;
     }
 
-    public void setBalcony(boolean balcony) {
-        this.balcony = balcony;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 }
