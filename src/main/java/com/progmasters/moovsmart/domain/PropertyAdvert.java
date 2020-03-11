@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class PropertyAdvert {
     private Integer price;
 
     @OneToMany(mappedBy = "propertyAdvert")
-    @NotEmpty
+//    @NotEmpty
     private List<Image> listOfImages;
 
     @Column
@@ -62,7 +63,7 @@ public class PropertyAdvert {
     private Integer area;
 
     @Column
-    @Size(min = 1)
+    @NotNull
     private Integer numberOfRooms;
 
     @Column
@@ -77,9 +78,22 @@ public class PropertyAdvert {
     @Size(min = 20, max = 600)
     private String description;
 
-    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+    @Enumerated(EnumType.STRING)
+    @Column
+    private AdvertStatusType advertStatus;
+
+    @Column
+    private LocalDate createdAt;
+
+    @Column
+    private LocalDate timeOfActivation;
+
+        public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
+        this.advertStatus = propertyAdvertFormData.getAdvertStatus();
+        this.createdAt = LocalDate.now();
+        this.timeOfActivation = LocalDate.now();
         this.advertId = new Random().nextInt(1000000);
         this.propertyType = propertyAdvertFormData.getPropertyType();
         this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
@@ -98,6 +112,30 @@ public class PropertyAdvert {
     }
 
     public PropertyAdvert() {
+    }
+
+    public AdvertStatusType getAdvertStatus() {
+        return advertStatus;
+    }
+
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getTimeOfActivation() {
+        return timeOfActivation;
+    }
+
+    public void setTimeOfActivation(LocalDate timeOfActivation) {
+        this.timeOfActivation = timeOfActivation;
     }
 
     public long getId() {

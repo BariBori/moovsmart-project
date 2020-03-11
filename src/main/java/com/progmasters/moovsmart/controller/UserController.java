@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("api/users")
@@ -25,7 +26,6 @@ public class UserController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         //TODO add validator
-        //binder.addValidators(new OrcDetailsValidator());
     }
 
     @PostMapping("/register")
@@ -35,12 +35,13 @@ public class UserController {
     }
 
     @GetMapping("/authenticate")
-    public ResponseEntity<Void> authenticateUser() {
+    public ResponseEntity<Void> authenticateUser(Principal principal) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/me")
-    @Secured("USER")
-    public ResponseEntity<Void> foo() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    @Secured("ROLE_USER")
+    public ResponseEntity<String> foo(Principal principal) {
+        return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
     }
 }
