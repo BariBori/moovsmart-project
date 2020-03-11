@@ -10,6 +10,7 @@ export interface PropertyFormDataModel {
   title: string;
 
   address: string;
+  city: string;
   district: string;
   street: string;
 
@@ -20,5 +21,7 @@ export interface PropertyFormDataModel {
   balcony: boolean;
 
   description: string;
+
+  status: string;
 
 }

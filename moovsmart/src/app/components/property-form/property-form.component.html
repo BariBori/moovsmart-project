@@ -1,19 +1,47 @@
 <div class="container">
-  <h2>Register New Property</h2>
+  <h2>Új ingatlan feltöltése</h2>
   <hr/>
   <form (ngSubmit)="submit()" [formGroup]="propertyForm">
     <div class="form-group">
-      <label for="from">Property Name</label>
+      <label for="title">Ingatlan megnevezése</label>
       <input
         class="form-control"
-        formControlName="name"
-        id="from"
-        name="from"
-        placeholder="Enter name for the property"
+        formControlName="title"
+        id="title"
+        name="title"
+        placeholder="Ingatlan rövid megnevezése"
       />
-      <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
-        {{propertyForm.get('name').errors['serverError']}}
+      <small *ngIf="propertyForm.get('title').errors?.serverError" class="text-danger">
+        {{propertyForm.get('title').errors['serverError']}}
       </small>
+    </div>
+
+    <div class="form-group">
+      <label for="propertyType">Ingatlan típusa</label>
+      <select name="propertyType"
+              id="propertyType"
+              ng-model="data.singleSelect"
+              formControlName="propertyType">
+
+      <option *ngFor="let propType for propertyTypes" value="{{propType.name}}">
+        {{propType.displayName}}
+      </option>
+
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="propertyCondition">Ingatlan állapota</label>
+      <select name="propertyCondition"
+              id="propertyCondition"
+              ng-model="data.singleSelect"
+              formControlName="propertyCondition">
+
+        <option *ngFor="let propCond for propertyConditionTypes" value="{{propCond.name}}">
+          {{propCond.displayName}}
+        </option>
+
+      </select>
     </div>
 
     <div class="form-group">
