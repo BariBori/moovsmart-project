@@ -1,9 +1,10 @@
 package com.progmasters.moovsmart.config;
 
-import com.progmasters.moovsmart.service.CustomUserDetailsService;
+import com.progmasters.moovsmart.service.UserDetailsServiceImplementation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,26 +18,28 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private CustomUserDetailsService detailsService;
+    private UserDetailsServiceImplementation userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService detailsService) {
-        this.detailsService = detailsService;
+    public SecurityConfig(UserDetailsServiceImplementation userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(detailsService)
+        auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.cors().and()
-                .csrf().disable();
+                .csrf().disable()
+                .logout().deleteCookies("JSESSIONID")
+                .and().httpBasic();
     }
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
