@@ -40,6 +40,8 @@ public class PropertyAdvertFormData {
 
     private String description;
 
+    private AdvertStatusType advertStatus;
+
     public PropertyAdvertFormData(PropertyAdvert propertyAdvert) {
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
@@ -58,6 +60,11 @@ public class PropertyAdvertFormData {
         this.elevator = propertyAdvert.isElevator();
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
+        this.advertStatus = propertyAdvert.getAdvertStatus();
+    }
+
+    public AdvertStatusType getAdvertStatus() {
+        return advertStatus;
     }
 
     public PropertyAdvertFormData() {

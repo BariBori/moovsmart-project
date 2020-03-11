@@ -49,7 +49,9 @@ public class PropertyAdvertValidator implements Validator {
         if (numberOfRooms <= 0) {
             errors.rejectValue("numberOfRooms", "moovsmart.numberOfRooms.invalid" );
         }
-
-
+        String description = propertyAdvertFormData.getDescription();
+        if(description.length() < 20 ||description.length() > 600) {
+            errors.rejectValue("description", "moovsmart.description.invalid");
+        }
     }
 }
