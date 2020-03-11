@@ -43,8 +43,13 @@ public class PropertyAdvertValidator implements Validator {
         }
         Integer area = propertyAdvertFormData.getArea();
         if (area <= 0) {
-
+            errors.rejectValue("area", "moovsmart.area.invalid");
         }
+        Integer numberOfRooms = propertyAdvertFormData.getNumberOfRooms();
+        if (numberOfRooms <= 0) {
+            errors.rejectValue("numberOfRooms", "moovsmart.numberOfRooms.invalid" );
+        }
+
 
     }
 }
