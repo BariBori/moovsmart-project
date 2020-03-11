@@ -1,7 +1,12 @@
 export interface PropertyListItemModel {
   id: number;
-  name: string;
-  numberOfRooms: number;
-  price: number;
   imageUrl: string;
+  title: string;
+  advertId: number;
+  numberOfRooms: number;
+  area: number;
+  price: number;
+
+  district: string;
+
 }

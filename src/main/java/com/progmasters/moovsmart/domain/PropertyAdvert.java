@@ -49,6 +49,9 @@ public class PropertyAdvert {
     private String address;
 
     @Column
+    private String city;
+
+    @Column
     private String district;
 
     @Column
@@ -83,6 +86,7 @@ public class PropertyAdvert {
         this.propertyConstructionType = propertyAdvertFormData.getPropertyConstructionType();
         this.parkingType = propertyAdvertFormData.getParkingType();
         this.title = propertyAdvertFormData.getTitle();
+        this.city = propertyAdvertFormData.getCity();
         this.address = propertyAdvertFormData.getAddress();
         this.district = propertyAdvertFormData.getDistrict();
         this.street = propertyAdvertFormData.getStreet();
@@ -240,5 +244,13 @@ public class PropertyAdvert {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
