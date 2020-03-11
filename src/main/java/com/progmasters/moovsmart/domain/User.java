@@ -12,7 +12,6 @@ public class User {
     private String email;
 
     private String passwordHash;
-
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
 
@@ -24,6 +23,10 @@ public class User {
 
     public User() {
 
+    }
+
+    public PersonalDetails getPersonalDetails() {
+        return personalDetails;
     }
 
     public Long getId() {

@@ -31,10 +31,12 @@ export class UserLoginComponent implements OnInit {
     const credentials = this.loginForm.value as Credentials;
     this.authService.authenticate(credentials)
       .subscribe(
-        success => this.authService.credentials = credentials,
+        success => {
+          this.authService.credentials = credentials;
+          this.router.navigate(['user-home']);
+        },
         failure => console.warn(failure),
         console.log
       );
-    this.router.navigate(['']);
   }
 }
