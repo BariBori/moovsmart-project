@@ -21,7 +21,7 @@ public class PropertyAdvert {
     private Integer price;
 
     @OneToMany(mappedBy = "propertyAdvert")
-    @NotEmpty
+//    @NotEmpty
     private List<Image> listOfImages;
 
     @Column
@@ -63,7 +63,7 @@ public class PropertyAdvert {
     private Integer area;
 
     @Column
-    @Size(min = 1)
+    @NotNull
     private Integer numberOfRooms;
 
     @Column
