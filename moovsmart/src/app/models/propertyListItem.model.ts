@@ -7,6 +7,8 @@ export interface PropertyListItemModel {
   area: number;
   price: number;
 
-  district: string;
+  address: string;
+
+  //TODO négyzetméterár?
 
 }
