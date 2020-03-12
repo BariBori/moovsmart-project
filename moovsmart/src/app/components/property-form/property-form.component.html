@@ -94,7 +94,7 @@
         ng-model="data.singleSelect"
         formControlName="propertyTypes">
 
-      <option *ngFor="let propType of propertyTypes" value="{{propType.name}}">
+      <option *ngFor="let propType of propertyType" value="{{propType.name}}">
         {{propType.displayName}}
       </option>
 
@@ -113,7 +113,7 @@
         ng-model="data.singleSelect"
         formControlName="propertyConditionTypes">
 
-        <option *ngFor="let propCond of propertyConditionTypes" value="{{propCond.name}}">
+        <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
           {{propCond.displayName}}
         </option>
       </select>
@@ -132,7 +132,7 @@
         ng-model="data.singleSelect"
         formControlName="parkingTypes">
 
-        <option *ngFor="let parking of parkingTypes" value="{{parking.name}}">
+        <option *ngFor="let parking of parkingType" value="{{parking.name}}">
           {{parking.displayName}}
         </option>
       </select>

@@ -16,9 +16,9 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
-  propertyTypes: Array<PropertyTypeOptionItemModel>;
-  propertyConditionTypes: Array<PropertyConditionTypeOptionItemModel>;
-  parkingTypes: Array<ParkingTypeOptionItemModel>;
+  propertyType: Array<PropertyTypeOptionItemModel>;
+  propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
+  parkingType: Array<ParkingTypeOptionItemModel>;
 
     private geoCoder;
     zoom: number;
@@ -79,9 +79,9 @@ export class PropertyFormComponent implements OnInit {
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
       (initData: FormInitDataModel) =>{
-        this.propertyTypes = initData.propertyTypes;
-        this.propertyConditionTypes = initData.propertyConditionTypes;
-        this.parkingTypes = initData.parkingTypes;
+        this.propertyType = initData.propertyTypes;
+        this.propertyConditionType = initData.propertyConditionTypes;
+        this.parkingType = initData.parkingTypes;
       },
       error => console.warn(error)
     )
