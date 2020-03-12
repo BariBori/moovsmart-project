@@ -17,6 +17,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,11 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
+      libraries: ['places']
+    })
   ],
   providers: [
     {

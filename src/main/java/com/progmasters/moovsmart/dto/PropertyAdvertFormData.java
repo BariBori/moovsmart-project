@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PropertyAdvertFormData {
 
-    private Integer price;
+    private Double price;
 
     private List<Image> listOfImages;
 
@@ -16,11 +16,12 @@ public class PropertyAdvertFormData {
 
     private PropertyConditionType propertyConditionType;
 
-    private PropertyConstructionType propertyConstructionType;
 
     private ParkingType parkingType;
 
     private String title;
+
+    private String placeId;
 
     private String address;
 
@@ -42,13 +43,15 @@ public class PropertyAdvertFormData {
 
     private AdvertStatusType advertStatus;
 
+    public PropertyAdvertFormData() {
+    }
+
     public PropertyAdvertFormData(PropertyAdvert propertyAdvert) {
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
         this.propertyType = propertyAdvert.getPropertyType();
         this.propertyConditionType = propertyAdvert.getPropertyConditionType();
-        this.propertyConstructionType = propertyAdvert.getPropertyConstructionType();
         this.parkingType = propertyAdvert.getParkingType();
         this.title = propertyAdvert.getTitle();
         this.address = propertyAdvert.getAddress();
@@ -61,20 +64,26 @@ public class PropertyAdvertFormData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.advertStatus = propertyAdvert.getAdvertStatus();
+        this.placeId = propertyAdvert.getPlaceId();
+    }
+
+    public String getPlaceId() {
+        return placeId;
     }
 
     public AdvertStatusType getAdvertStatus() {
         return advertStatus;
     }
 
-    public PropertyAdvertFormData() {
-    }
-
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
+    }
+
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -108,14 +117,6 @@ public class PropertyAdvertFormData {
 
     public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
-    }
-
-    public PropertyConstructionType getPropertyConstructionType() {
-        return propertyConstructionType;
-    }
-
-    public void setPropertyConstructionType(PropertyConstructionType propertyConstructionType) {
-        this.propertyConstructionType = propertyConstructionType;
     }
 
     public ParkingType getParkingType() {

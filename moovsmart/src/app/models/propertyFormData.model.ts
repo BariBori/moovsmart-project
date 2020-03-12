@@ -5,11 +5,11 @@ export interface PropertyFormDataModel {
   advertId: number;
   propertyType: string;
   propertyConditionType: string;
-  propertyConstructionType: string;
   parkingType: string;
   title: string;
 
   address: string;
+  city: string;
   district: string;
   street: string;
 
@@ -20,5 +20,7 @@ export interface PropertyFormDataModel {
   balcony: boolean;
 
   description: string;
+
+  advertStatus: string;
 
 }
