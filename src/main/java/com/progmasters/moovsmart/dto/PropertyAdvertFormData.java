@@ -16,7 +16,6 @@ public class PropertyAdvertFormData {
 
     private PropertyConditionType propertyConditionType;
 
-
     private ParkingType parkingType;
 
     private String title;

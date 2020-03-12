@@ -33,16 +33,13 @@ export class PropertyFormComponent implements OnInit {
     @ViewChild('search')
     public searchElementRef: ElementRef;
 
-  //
-
     propertyForm = this.formBuilder.group({
     price: [0 ,Validators.required],
     listOfImages: [null],
 
-    propertyTypes: ['',Validators.required],
-    propertyConditionTypes: ['',Validators.required],
-    propertyConstructionTypes: ['',Validators.required],
-    parkingTypes: ['',Validators.required],
+    propertyType: ['',Validators.required],
+    propertyConditionType: ['',Validators.required],
+    parkingType: ['',Validators.required],
     title: ['',Validators.required],
 
 
@@ -79,9 +76,9 @@ export class PropertyFormComponent implements OnInit {
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
       (initData: FormInitDataModel) =>{
-        this.propertyType = initData.propertyTypes;
-        this.propertyConditionType = initData.propertyConditionTypes;
-        this.parkingType = initData.parkingTypes;
+        this.propertyType = initData.propertyType;
+        this.propertyConditionType = initData.propertyConditionType;
+        this.parkingType = initData.parkingType;
       },
       error => console.warn(error)
     )

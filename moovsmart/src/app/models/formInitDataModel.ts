@@ -3,7 +3,7 @@ import {PropertyConditionTypeOptionItemModel} from "./propertyConditionTypeOptio
 import {PropertyTypeOptionItemModel} from "./propertyTypeOptionItem.model";
 
 export interface FormInitDataModel {
-  parkingTypes: Array<ParkingTypeOptionItemModel>;
-  propertyConditionTypes: Array<PropertyConditionTypeOptionItemModel>;
-  propertyTypes: Array<PropertyTypeOptionItemModel>;
+  parkingType: Array<ParkingTypeOptionItemModel>;
+  propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
+  propertyType: Array<PropertyTypeOptionItemModel>;
 }
