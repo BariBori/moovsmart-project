@@ -1,17 +1,29 @@
 <div class="container">
-
-  <div *ngFor="let property of propertyListItemModels">
-    <div class="row">
-      <div class="col-auto">
-        <img (click)="details(property.id)" alt="Room" class="room-list-item__image" src="{{property.imageUrl}}"/>
+<table id="list-table" class="table table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th>Image</th>
+    <th>Title</th>
+    <th>Number of rooms</th>
+    <th>Price</th>
+    <th>AdvertId</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let property of propertyListItemModels">
+    <td>{{ property.imageUrl }}</td>
+    <td>{{ property.title }}</td>
+    <td>{{ property.numberOfRooms }}</td>
+    <td>{{ property.price }}</td>
+    <td>{{ property.advertId }}</td>
+    <td>
+      <div class="btn-group">
+        <button class="btn btn-primary" >edit</button>
+        <button class="btn btn-danger" (click)="archivePropertyAdvert(property.id)">Archivál</button>
       </div>
-      <div class="col text-left">
-        <h3>{{property.title}}</h3>
-        <p><strong>Number of rooms: </strong> {{property.numberOfRooms}}</p>
-        <p><strong>Property price: </strong> {{property.price}}</p>
-      </div>
-    </div>
-  </div>
-
-
+    </td>
+  </tr>
+  </tbody>
+</table>
 </div>

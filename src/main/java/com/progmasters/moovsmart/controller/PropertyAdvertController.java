@@ -43,7 +43,7 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.listPropertyAdverts(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<List<PropertyAdvertListItem>> archivePropertyAdvert(@PathVariable Long id) {
         boolean isDeleteSuccessful = propertyAdvertService.archivePropertyAdvert(id);
         ResponseEntity<List<PropertyAdvertListItem>> result;
@@ -54,7 +54,5 @@ public class PropertyAdvertController {
         }
         return result;
     }
-
-
 
 }

@@ -12,8 +12,6 @@ const BASE_URL = "http://localhost:8080/api/properties";
 })
 export class PropertyService {
 
-
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -29,6 +27,8 @@ export class PropertyService {
     return  this.httpClient.get<FormInitDataModel>(`${BASE_URL}/formData`)
   }
 
-
+  archivePropertyAdvert(id: number): Observable<Array<PropertyListItemModel>> {
+    return this.httpClient.delete<Array<PropertyListItemModel>>(BASE_URL + '/' + id);
+  }
 
 }

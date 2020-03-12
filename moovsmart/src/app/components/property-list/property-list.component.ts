@@ -25,4 +25,14 @@ export class PropertyListComponent implements OnInit {
   details(id: number) {
     this.router.navigate(['property-details', id]);
   }
+
+  archivePropertyAdvert(id: number) {
+    this.propertyService.archivePropertyAdvert(id).subscribe(
+      (response: PropertyListItemModel[]) => {
+        this.propertyListItemModels = response;
+      },
+      error => console.warn(error),
+    );
+  }
+
 }

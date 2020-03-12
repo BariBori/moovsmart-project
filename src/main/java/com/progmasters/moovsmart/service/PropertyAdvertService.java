@@ -38,7 +38,7 @@ public class PropertyAdvertService {
 
     public List<PropertyAdvertListItem> listPropertyAdverts() {
         return advertRepository.findByOrderByTimeOfActivationDesc().stream()
-                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
+                .map(PropertyAdvertListItem::new).collect(Collectors.toList());
     }
 
     public boolean archivePropertyAdvert(Long id) {
