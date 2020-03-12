@@ -63,8 +63,8 @@
         <span class="input-group-text" id="area-addon">m2</span>
       </div>
       </div>
-      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
-        {{propertyForm.get('price').errors['serverError']}}
+      <small *ngIf="propertyForm.get('area').errors?.serverError" class="text-danger">
+        {{propertyForm.get('area').errors['serverError']}}
       </small>
     </div>
 
@@ -122,23 +122,6 @@
       </small>
     </div>
 
-    <div class="form-group">
-      <label for="propertyConstructionTypes">Építés típusa*</label>
-      <select
-        class="form-control col-lg-4 col-md-6 col-sm-6"
-        name="propertyConstructionTypes"
-        id="propertyConstructionTypes"
-        ng-model="data.singleSelect"
-        formControlName="propertyConstructionTypes">
-
-        <option *ngFor="let propConst of propertyConstructionTypes" value="{{propConst.name}}">
-          {{propConst.displayName}}
-        </option>
-      </select>
-      <small *ngIf="propertyForm.get('propertyConstructionTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('propertyConstructionTypes').errors['serverError']}}
-      </small>
-    </div>
 
     <div class="form-group">
       <label for="parkingTypes">Parkolás*</label>

@@ -5,7 +5,6 @@ export interface PropertyFormDataModel {
   advertId: number;
   propertyType: string;
   propertyConditionType: string;
-  propertyConstructionType: string;
   parkingType: string;
   title: string;
 
