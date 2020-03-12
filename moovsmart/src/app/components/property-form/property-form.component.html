@@ -100,15 +100,15 @@
         name="propertyTypes"
         id="propertyTypes"
         ng-model="data.singleSelect"
-        formControlName="propertyTypes">
+        formControlName="propertyType">
 
       <option *ngFor="let propType of propertyType" value="{{propType.name}}">
         {{propType.displayName}}
       </option>
 
       </select>
-      <small *ngIf="propertyForm.get('propertyTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('propertyTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('propertyType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyType').errors['serverError']}}
       </small>
     </div>
 
@@ -119,14 +119,14 @@
         name="propertyConditionTypes"
         id="propertyConditionTypes"
         ng-model="data.singleSelect"
-        formControlName="propertyConditionTypes">
+        formControlName="propertyConditionType">
 
         <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
           {{propCond.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('propertyConditionTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('propertyConditionTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('propertyConditionType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyConditionType').errors['serverError']}}
       </small>
     </div>
 
@@ -138,14 +138,14 @@
         name="parkingTypes"
         id="parkingTypes"
         ng-model="data.singleSelect"
-        formControlName="parkingTypes">
+        formControlName="parkingType">
 
         <option *ngFor="let parking of parkingType" value="{{parking.name}}">
           {{parking.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('parkingTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('parkingTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('parkingType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('parkingType').errors['serverError']}}
       </small>
     </div>
 
