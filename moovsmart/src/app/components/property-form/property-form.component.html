@@ -16,6 +16,8 @@
     <div>Kerület: {{district}}</div>
     <div>Utca: {{street}}</div>
     <div>Irányítószám: {{postalCode}}</div>
+    <div>placeId: {{placeId}}</div>
+
     </div>
 
     <div class="form-group">
@@ -35,14 +37,20 @@
     <div class="form-group">
       <label
         for="price">Irányár*</label>
+      <div class="input-group">
       <input
         class="form-control col-lg-4 col-md-6 col-sm-6"
         formControlName="price"
         id="price"
-        placeholder="Irányár - csak szám"
+        placeholder="Irányár - csak szám pl.: 45,6"
         type="number"
+        aria-describedby="price-addon"
 
       />
+        <div class="input-group-append">
+          <span class="input-group-text" id="price-addon">millió Ft</span>
+        </div>
+      </div>
       <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
         {{propertyForm.get('price').errors['serverError']}}
       </small>
@@ -92,15 +100,15 @@
         name="propertyTypes"
         id="propertyTypes"
         ng-model="data.singleSelect"
-        formControlName="propertyTypes">
+        formControlName="propertyType">
 
       <option *ngFor="let propType of propertyType" value="{{propType.name}}">
         {{propType.displayName}}
       </option>
 
       </select>
-      <small *ngIf="propertyForm.get('propertyTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('propertyTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('propertyType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyType').errors['serverError']}}
       </small>
     </div>
 
@@ -111,14 +119,14 @@
         name="propertyConditionTypes"
         id="propertyConditionTypes"
         ng-model="data.singleSelect"
-        formControlName="propertyConditionTypes">
+        formControlName="propertyConditionType">
 
         <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
           {{propCond.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('propertyConditionTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('propertyConditionTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('propertyConditionType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyConditionType').errors['serverError']}}
       </small>
     </div>
 
@@ -130,14 +138,14 @@
         name="parkingTypes"
         id="parkingTypes"
         ng-model="data.singleSelect"
-        formControlName="parkingTypes">
+        formControlName="parkingType">
 
         <option *ngFor="let parking of parkingType" value="{{parking.name}}">
           {{parking.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('parkingTypes').errors?.serverError" class="text-danger">
-        {{propertyForm.get('parkingTypes').errors['serverError']}}
+      <small *ngIf="propertyForm.get('parkingType').errors?.serverError" class="text-danger">
+        {{propertyForm.get('parkingType').errors['serverError']}}
       </small>
     </div>
 

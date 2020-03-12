@@ -27,22 +27,19 @@ export class PropertyFormComponent implements OnInit {
     district: string;
     street: string;
     postalCode: string;
-    addressId: string;
+    placeId: string;
     addressComponent: any;
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
 
-  //
-
     propertyForm = this.formBuilder.group({
     price: [0 ,Validators.required],
     listOfImages: [null],
 
-    propertyTypes: ['',Validators.required],
-    propertyConditionTypes: ['',Validators.required],
-    propertyConstructionTypes: ['',Validators.required],
-    parkingTypes: ['',Validators.required],
+    propertyType: ['',Validators.required],
+    propertyConditionType: ['',Validators.required],
+    parkingType: ['',Validators.required],
     title: ['',Validators.required],
 
 
@@ -79,9 +76,9 @@ export class PropertyFormComponent implements OnInit {
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
       (initData: FormInitDataModel) =>{
-        this.propertyType = initData.propertyTypes;
-        this.propertyConditionType = initData.propertyConditionTypes;
-        this.parkingType = initData.parkingTypes;
+        this.propertyType = initData.propertyType;
+        this.propertyConditionType = initData.propertyConditionType;
+        this.parkingType = initData.parkingType;
       },
       error => console.warn(error)
     )
@@ -109,7 +106,7 @@ export class PropertyFormComponent implements OnInit {
           //this.latitude = place.geometry.location.lat();
           //this.longitude = place.geometry.location.lng();
           this.address = place.formatted_address;
-          this.addressId = place.place_id;
+          this.placeId = place.place_id;
           this.addressComponent = place.address_components;
           console.log(this.addressComponent.length);
           console.log(this.addressComponent);
@@ -148,11 +145,19 @@ export class PropertyFormComponent implements OnInit {
 
 
 
-  submit = () =>
-    this.propertyService.createProperty(this.propertyForm.value).subscribe(
+  submit = () => {
+    let propertyFormDataModel = this.propertyForm.value;
+    propertyFormDataModel.address = this.address;
+    propertyFormDataModel.city = this.city;
+    propertyFormDataModel.district = this.district;
+    propertyFormDataModel.street = this.street;
+    propertyFormDataModel.postalCode = this.postalCode;
+    propertyFormDataModel.placeId = this.placeId;
+    this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['property-list']),
-      error => validationHandler(error, this.propertyForm),
+      error => validationHandler(error, this.propertyForm)
     )
+  };
 
   clearAddressDetails() {
     this.street='';

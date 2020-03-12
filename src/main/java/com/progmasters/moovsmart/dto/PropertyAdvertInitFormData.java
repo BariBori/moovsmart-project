@@ -5,43 +5,42 @@ import java.util.List;
 
 public class PropertyAdvertInitFormData {
 
-    private List<PropertyTypeOption> propertyTypes = new ArrayList<>();
-    private List<PropertyConditionOption> propertyConditionTypes = new ArrayList<>();
-    private List<ParkingTypeOption> parkingTypes = new ArrayList<>();
+    private List<PropertyTypeOption> propertyType = new ArrayList<>();
+    private List<PropertyConditionOption> propertyConditionType = new ArrayList<>();
+    private List<ParkingTypeOption> parkingType = new ArrayList<>();
 
     public PropertyAdvertInitFormData(List<PropertyTypeOption> propertyTypes,
                                       List<PropertyConditionOption> propertyConditionTypes,
                                       List<ParkingTypeOption> parkingTypes) {
-        this.propertyTypes = propertyTypes;
-        this.propertyConditionTypes = propertyConditionTypes;
-        this.parkingTypes = parkingTypes;
+        this.propertyType = propertyTypes;
+        this.propertyConditionType = propertyConditionTypes;
+        this.parkingType = parkingTypes;
     }
 
     public PropertyAdvertInitFormData() {
     }
 
-    public List<PropertyTypeOption> getPropertyTypes() {
-        return propertyTypes;
+    public List<PropertyTypeOption> getPropertyType() {
+        return propertyType;
     }
 
-    public void setPropertyTypes(List<PropertyTypeOption> propertyTypes) {
-        this.propertyTypes = propertyTypes;
+    public void setPropertyType(List<PropertyTypeOption> propertyType) {
+        this.propertyType = propertyType;
     }
 
-    public List<PropertyConditionOption> getPropertyConditionTypes() {
-        return propertyConditionTypes;
+    public List<PropertyConditionOption> getPropertyConditionType() {
+        return propertyConditionType;
     }
 
-    public void setPropertyConditionTypes(List<PropertyConditionOption> propertyConditionTypes) {
-        this.propertyConditionTypes = propertyConditionTypes;
+    public void setPropertyConditionType(List<PropertyConditionOption> propertyConditionType) {
+        this.propertyConditionType = propertyConditionType;
     }
 
-
-    public List<ParkingTypeOption> getParkingTypes() {
-        return parkingTypes;
+    public List<ParkingTypeOption> getParkingType() {
+        return parkingType;
     }
 
-    public void setParkingTypes(List<ParkingTypeOption> parkingTypes) {
-        this.parkingTypes = parkingTypes;
+    public void setParkingType(List<ParkingTypeOption> parkingType) {
+        this.parkingType = parkingType;
     }
 }
