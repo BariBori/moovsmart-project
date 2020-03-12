@@ -18,8 +18,7 @@ export class PropertyListComponent implements OnInit {
 
   ngOnInit() {
     this.propertyService.getPropertyList().subscribe(
-      propertyListItems => this.propertyListItemModels = propertyListItems
-    );
+      propertyListItems => this.propertyListItemModels = propertyListItems);
   }
 
   details(id: number) {

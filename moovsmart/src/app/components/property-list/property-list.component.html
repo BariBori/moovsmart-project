@@ -3,19 +3,19 @@
   <thead class="thead-dark">
   <tr>
     <th>Image</th>
-    <th>Title</th>
-    <th>Number of rooms</th>
-    <th>Price</th>
+    <th><button>Title</button></th>
+    <th><button>Number of rooms</button></th>
+    <th><button>Price</button></th>
     <th>AdvertId</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let property of propertyListItemModels">
-    <td>{{ property.imageUrl }}</td>
-    <td>{{ property.title }}</td>
-    <td>{{ property.numberOfRooms }}</td>
-    <td>{{ property.price }}</td>
+    <td>{{ property.imageUrl}} </td>
+    <td>{{ property.title}}</td>
+    <td>{{ property.numberOfRooms}}</td>
+    <td>{{ property.price}}</td>
     <td>{{ property.advertId }}</td>
     <td>
       <div class="btn-group">

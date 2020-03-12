@@ -4,11 +4,13 @@ import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 import com.progmasters.moovsmart.dto.PropertyAdvertInitFormData;
 import com.progmasters.moovsmart.dto.PropertyAdvertListItem;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
+import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +22,16 @@ public class PropertyAdvertController {
     private static final Logger logger = LoggerFactory.getLogger(PropertyAdvertController.class);
 
     private PropertyAdvertService propertyAdvertService;
+    private PropertyAdvertValidator propertyAdvertValidator;
 
     @Autowired
     public PropertyAdvertController(PropertyAdvertService propertyAdvertService) {
         this.propertyAdvertService = propertyAdvertService;
+    }
+
+    @InitBinder("propertyAdvertFormData")
+    public void bind(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(propertyAdvertValidator);
     }
 
     @PostMapping
