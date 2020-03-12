@@ -18,7 +18,7 @@ public class PropertyAdvert {
 
     @Column
     @NotNull
-    private Integer price;
+    private Double price;
 
     @OneToMany(mappedBy = "propertyAdvert")
 //    @NotEmpty
@@ -31,20 +31,23 @@ public class PropertyAdvert {
     private User user;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private PropertyType propertyType;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private PropertyConditionType propertyConditionType;
 
     @Enumerated(EnumType.STRING)
-    private PropertyConstructionType propertyConstructionType;
-
-    @Enumerated(EnumType.STRING)
+    @Column
     private ParkingType parkingType;
 
     @Column
     @Size(min = 10, max = 50)
     private String title;
+
+    @Column
+    private String placeId;
 
     @Column
     private String address;
@@ -92,12 +95,12 @@ public class PropertyAdvert {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();
+        this.placeId = propertyAdvertFormData.getPlaceId();
         this.createdAt = LocalDate.now();
         this.timeOfActivation = LocalDate.now();
         this.advertId = new Random().nextInt(1000000);
         this.propertyType = propertyAdvertFormData.getPropertyType();
         this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
-        this.propertyConstructionType = propertyAdvertFormData.getPropertyConstructionType();
         this.parkingType = propertyAdvertFormData.getParkingType();
         this.title = propertyAdvertFormData.getTitle();
         this.city = propertyAdvertFormData.getCity();
@@ -112,6 +115,10 @@ public class PropertyAdvert {
     }
 
     public PropertyAdvert() {
+    }
+
+    public String getPlaceId() {
+        return placeId;
     }
 
     public AdvertStatusType getAdvertStatus() {
@@ -139,11 +146,11 @@ public class PropertyAdvert {
         this.id = id;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -174,10 +181,6 @@ public class PropertyAdvert {
         return propertyConditionType;
     }
 
-
-    public PropertyConstructionType getPropertyConstructionType() {
-        return propertyConstructionType;
-    }
 
     public ParkingType getParkingType() {
         return parkingType;

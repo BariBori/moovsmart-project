@@ -16,10 +16,10 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
-    propertyTypes: Array<PropertyTypeOptionItemModel>;
-    propertyConditionTypes: Array<PropertyConditionTypeOptionItemModel>;
-    propertyConstructionTypes: Array<PropertyConditionTypeOptionItemModel>;
-    parkingTypes: Array<ParkingTypeOptionItemModel>;
+    propertyType: Array<PropertyTypeOptionItemModel>;
+    propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
+    propertyConstructionType: Array<PropertyConditionTypeOptionItemModel>;
+    parkingType: Array<ParkingTypeOptionItemModel>;
 
   //Google maps
     private geoCoder;

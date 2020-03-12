@@ -10,7 +10,7 @@ public class PropertyAdvertListItem {
 
     private Integer numberOfRooms;
 
-    private Integer price;
+    private Double price;
 
     private String description;
 
@@ -44,11 +44,11 @@ public class PropertyAdvertListItem {
         return numberOfRooms;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

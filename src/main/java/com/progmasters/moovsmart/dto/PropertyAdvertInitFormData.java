@@ -1,9 +1,5 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.ParkingType;
-import com.progmasters.moovsmart.domain.PropertyConditionType;
-import com.progmasters.moovsmart.domain.PropertyConstructionType;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,16 +7,13 @@ public class PropertyAdvertInitFormData {
 
     private List<PropertyTypeOption> propertyTypes = new ArrayList<>();
     private List<PropertyConditionOption> propertyConditionTypes = new ArrayList<>();
-    private List<ConstructionTypeOption> propertyConstructionTypes = new ArrayList<>();
     private List<ParkingTypeOption> parkingTypes = new ArrayList<>();
 
     public PropertyAdvertInitFormData(List<PropertyTypeOption> propertyTypes,
                                       List<PropertyConditionOption> propertyConditionTypes,
-                                      List<ConstructionTypeOption> propertyConstructionTypes,
                                       List<ParkingTypeOption> parkingTypes) {
         this.propertyTypes = propertyTypes;
         this.propertyConditionTypes = propertyConditionTypes;
-        this.propertyConstructionTypes = propertyConstructionTypes;
         this.parkingTypes = parkingTypes;
     }
 
@@ -43,13 +36,6 @@ public class PropertyAdvertInitFormData {
         this.propertyConditionTypes = propertyConditionTypes;
     }
 
-    public List<ConstructionTypeOption> getPropertyConstructionTypes() {
-        return propertyConstructionTypes;
-    }
-
-    public void setPropertyConstructionTypes(List<ConstructionTypeOption> propertyConstructionTypes) {
-        this.propertyConstructionTypes = propertyConstructionTypes;
-    }
 
     public List<ParkingTypeOption> getParkingTypes() {
         return parkingTypes;
