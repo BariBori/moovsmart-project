@@ -81,7 +81,6 @@ export class PropertyFormComponent implements OnInit {
       (initData: FormInitDataModel) =>{
         this.propertyTypes = initData.propertyTypes;
         this.propertyConditionTypes = initData.propertyConditionTypes;
-        this.propertyConstructionTypes = initData.propertyConstructionTypes;
         this.parkingTypes = initData.parkingTypes;
       },
       error => console.warn(error)
