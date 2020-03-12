@@ -29,14 +29,15 @@ public class PropertyAdvertValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         PropertyAdvertFormData propertyAdvertFormData = (PropertyAdvertFormData) o;
-        Integer price = propertyAdvertFormData.getPrice();
+        Double price = propertyAdvertFormData.getPrice();
         if(price <= 0) {
             errors.rejectValue("price", "moovsmart.price.invalid");
         }
-        List<Image> listOfImages = propertyAdvertFormData.getListOfImages();
-        if (listOfImages == null) {
-            errors.rejectValue("listOfImages", "moovsmart.listOfImages.invalid");
-        }
+       // List<Image> listOfImages = propertyAdvertFormData.getListOfImages();
+       // if (listOfImages == null) {
+       //     errors.rejectValue("listOfImages", "moovsmart.listOfImages.invalid");
+       // }
+        //TODO
         String title = propertyAdvertFormData.getTitle();
         if (title.length() < 10 || title.length() > 50) {
             errors.rejectValue("title", "moovsmart.title.invalid");

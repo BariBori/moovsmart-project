@@ -1,45 +1,47 @@
 <div class="container">
-  <h2>Register New Property</h2>
+  <h2>Új ingatlan feltöltése</h2>
   <hr/>
   <form (ngSubmit)="submit()" [formGroup]="propertyForm">
     <div class="form-group">
-      <label for="from">Property Name</label>
+      <label>Cím megadása</label>
+      <input type="text" class="form-control"
+             (keypress)="clearAddressDetails()"
+             (keydown.enter)="$event.preventDefault()" placeholder="pl.: V. kerület vagy Cegléd Kossuth Ferenc utca" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+    </div>
+
+    <div class="checkAddress" >
+      <div>Cím ellenőrző</div>
+    <div >Teljes cím: {{address}} </div>
+    <div>Város: {{city}}</div>
+    <div>Kerület: {{district}}</div>
+    <div>Utca: {{street}}</div>
+    <div>Irányítószám: {{postalCode}}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Ingatlan rövid megnevezése*</label>
       <input
         class="form-control"
-        formControlName="name"
-        id="from"
-        name="from"
-        placeholder="Enter name for the property"
+        formControlName="title"
+        id="title"
+        name="title"
+        placeholder="Ingatlan rövid megnevezése"
       />
-      <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
-        {{propertyForm.get('name').errors['serverError']}}
+      <small *ngIf="propertyForm.get('title').errors?.serverError" class="text-danger">
+        {{propertyForm.get('title').errors['serverError']}}
       </small>
     </div>
 
     <div class="form-group">
       <label
-        for="numberOfRooms">Number of rooms</label>
+        for="price">Irányár*</label>
       <input
-        class="form-control"
-        formControlName="numberOfRooms"
-        id="numberOfRooms"
-        placeholder="Enter the number of rooms"
-        type="number"
-      />
-      <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        {{propertyForm.get('numberOfRooms').errors['serverError']}}
-      </small>
-    </div>
-
-    <div class="form-group">
-      <label
-        for="price">Price</label>
-      <input
-        class="form-control"
+        class="form-control col-lg-4 col-md-6 col-sm-6"
         formControlName="price"
         id="price"
-        placeholder="Enter the price"
+        placeholder="Irányár - csak szám"
         type="number"
+
       />
       <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
         {{propertyForm.get('price').errors['serverError']}}
@@ -47,14 +49,129 @@
     </div>
 
     <div class="form-group">
+      <label for="area">Alapterület*</label>
+      <div class="input-group">
+      <input
+        class="form-control col-lg-4 col-md-6 col-sm-6"
+        formControlName="area"
+        id="area"
+        placeholder="Alapterület - csak szám"
+        type="number"
+        aria-describedby="area-addon"
+      />
+      <div class="input-group-append">
+        <span class="input-group-text" id="area-addon">m2</span>
+      </div>
+      </div>
+      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
+        {{propertyForm.get('price').errors['serverError']}}
+      </small>
+    </div>
+
+
+    <div class="form-group">
       <label
-        for="description">Description</label>
+        for="price">Szobák száma*</label>
+      <input
+        class="form-control col-lg-4 col-md-6 col-sm-6"
+        formControlName="numberOfRooms"
+        id="numberOfRooms"
+        placeholder="Szobák száma - csak szám"
+        type="number"
+      />
+      <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+        {{propertyForm.get('numberOfRooms').errors['serverError']}}
+      </small>
+    </div>
+
+
+    <div class="form-group">
+      <label for="propertyTypes">Ingatlan típusa*</label>
+      <select
+        class="form-control col-lg-4 col-md-6 col-sm-6"
+        name="propertyTypes"
+        id="propertyTypes"
+        ng-model="data.singleSelect"
+        formControlName="propertyTypes">
+
+      <option *ngFor="let propType of propertyType" value="{{propType.name}}">
+        {{propType.displayName}}
+      </option>
+
+      </select>
+      <small *ngIf="propertyForm.get('propertyTypes').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyTypes').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="propertyConditionTypes">Ingatlan állapota*</label>
+      <select
+        class="form-control col-lg-4 col-md-6 col-sm-6"
+        name="propertyConditionTypes"
+        id="propertyConditionTypes"
+        ng-model="data.singleSelect"
+        formControlName="propertyConditionTypes">
+
+        <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
+          {{propCond.displayName}}
+        </option>
+      </select>
+      <small *ngIf="propertyForm.get('propertyConditionTypes').errors?.serverError" class="text-danger">
+        {{propertyForm.get('propertyConditionTypes').errors['serverError']}}
+      </small>
+    </div>
+
+
+    <div class="form-group">
+      <label for="parkingTypes">Parkolás*</label>
+      <select
+        class="form-control col-lg-4 col-md-6 col-sm-6"
+        name="parkingTypes"
+        id="parkingTypes"
+        ng-model="data.singleSelect"
+        formControlName="parkingTypes">
+
+        <option *ngFor="let parking of parkingType" value="{{parking.name}}">
+          {{parking.displayName}}
+        </option>
+      </select>
+      <small *ngIf="propertyForm.get('parkingTypes').errors?.serverError" class="text-danger">
+        {{propertyForm.get('parkingTypes').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="elevator">Lift</label>
+      <input
+        class="form-control col-lg-1 col-md-1 col-sm-1"
+        type="checkbox"
+        value="true"
+        name="elevator"
+        id="elevator"
+        formControlName="elevator"> van
+    </div>
+
+    <div class="form-group">
+      <label for="balcony">Erkély</label>
+      <input
+        class="form-control col-lg-1 col-md-1 col-sm-1"
+        type="checkbox"
+        value="true"
+        name="balcony"
+        id="balcony"
+        formControlName="balcony"> van
+    </div>
+
+    <div class="form-group">
+      <label
+        for="description">Leírás</label>
       <textarea
         aria-multiline="true"
         class="form-control"
         formControlName="description"
         id="description"
-        placeholder="Enter description"
+        placeholder="Ingatlan leírása"
         rows="3"
       ></textarea>
       <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
@@ -62,19 +179,7 @@
       </small>
     </div>
 
-    <div class="form-group">
-      <label
-        for="imageUrl">Image</label>
-      <input
-        class="form-control"
-        formControlName="imageUrl"
-        id="imageUrl"
-        placeholder="Enter an url for the image"
-      />
-      <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
-        {{propertyForm.get('imageUrl').errors['serverError']}}
-      </small>
-    </div>
+
 
     <br/>
     <button class="btn btn-primary my-buttons">Save Property</button>

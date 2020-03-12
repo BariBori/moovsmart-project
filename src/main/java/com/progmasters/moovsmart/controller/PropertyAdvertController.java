@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/propertyadvert-form")
+@RequestMapping("/api/properties")
 public class PropertyAdvertController {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyAdvertController.class);
