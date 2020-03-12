@@ -18,6 +18,17 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: moovsmartaltenter
+    password: 76a9b21381218048086751325aadf47c75ba7388
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:

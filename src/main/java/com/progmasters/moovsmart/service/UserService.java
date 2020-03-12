@@ -17,6 +17,7 @@ public class UserService {
     private UserRepository userRepository;
     private RegistrationTokenRepository registrationTokenRepository;
     private PersonalDetailsService personalDetailsService;
+    private UserActivationService userActivationService;
     private PasswordEncoder encoder;
 
     @Autowired
@@ -24,22 +25,24 @@ public class UserService {
             UserRepository userRepository,
             RegistrationTokenRepository registrationTokenRepository,
             PersonalDetailsService personalDetailsService,
-            PasswordEncoder encoder
+            UserActivationService userActivationService, PasswordEncoder encoder
     ) {
         this.userRepository = userRepository;
         this.registrationTokenRepository = registrationTokenRepository;
         this.personalDetailsService = personalDetailsService;
+        this.userActivationService = userActivationService;
         this.encoder = encoder;
     }
 
     public User registerUser(UserForm userDto) {
-        return registrationTokenRepository.save(RegistrationToken.forUser(
+        RegistrationToken token = registrationTokenRepository.save(RegistrationToken.forUser(
                 userRepository.save(new User(
                         userDto.getEmail(),
                         encoder.encode(userDto.getPassword()),
                         personalDetailsService.save(userDto.getPersonalDetails())
                 ))
-        ))
-                .getUser();
+        ));
+        userActivationService.sendActivationEmail(token);
+        return token.getUser();
     }
 }
