@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @GetMapping("/authenticate")
-    public ResponseEntity<Void> authenticateUser(Principal principal) {
+    public ResponseEntity<Void> authenticateUser() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/activate/{id}")
-    public ResponseEntity<String> activateUser(@PathVariable UUID id) {
-        User user = userActivationService.activateUserByTokenId(id);
+    @GetMapping("/activate/{tokenId}")
+    public ResponseEntity<String> activateUser(@PathVariable UUID tokenId) {
+        User user = userActivationService.activateUserByTokenId(tokenId);
         return ResponseEntity.ok("User " + user.getEmail() + " activated");
     }
 

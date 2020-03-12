@@ -1,5 +1,7 @@
 package com.progmasters.moovsmart.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
@@ -12,6 +14,7 @@ public class RegistrationToken {
     @OneToOne
     private User user;
     @Column(unique = true)
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
     private Instant issuedAt;
 

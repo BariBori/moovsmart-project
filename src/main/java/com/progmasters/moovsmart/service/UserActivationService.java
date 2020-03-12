@@ -8,18 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class UserActivationService {
     private RegistrationTokenRepository registrationTokenRepository;
     private UserRepository userRepository;
     private JavaMailSender mailSender;
 
     @Autowired
-    public UserActivationService(RegistrationTokenRepository registrationTokenRepository, UserRepository userRepository, JavaMailSender mailSender) {
+    public UserActivationService(RegistrationTokenRepository registrationTokenRepository,
+                                 UserRepository userRepository,
+                                 JavaMailSender mailSender) {
         this.registrationTokenRepository = registrationTokenRepository;
         this.userRepository = userRepository;
         this.mailSender = mailSender;
