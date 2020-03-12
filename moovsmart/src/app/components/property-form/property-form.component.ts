@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { PropertyService } from '../../services/property.service';
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import {PropertyTypeOptionItemModel} from "../../models/propertyTypeOptionItem.m
 import {PropertyConditionTypeOptionItemModel} from "../../models/propertyConditionTypeOptionItem.model";
 import {ParkingTypeOptionItemModel} from "../../models/parkingTypeOptionItem.model";
 import {FormInitDataModel} from "../../models/formInitDataModel";
+import {MapsAPILoader} from "@agm/core";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-property-form',
@@ -19,39 +21,61 @@ export class PropertyFormComponent implements OnInit {
     propertyConstructionTypes: Array<PropertyConditionTypeOptionItemModel>;
     parkingTypes: Array<ParkingTypeOptionItemModel>;
 
+  //Google maps
+    private geoCoder;
+    zoom: number;
+    address: string;
+    city: string;
+    district: string;
+    street: string;
+    postalCode: string;
+    addressId: string;
+    addressComponent: any;
 
-  propertyForm = this.formBuilder.group({
+    @ViewChild('search')
+    public searchElementRef: ElementRef;
+
+  //
+
+    propertyForm = this.formBuilder.group({
     price: [0 ,Validators.required],
     listOfImages: [null],
 
-    propertyType: ['',Validators.required],
-    propertyConditionType: ['',Validators.required],
-    propertyConstructionType: ['',Validators.required],
-    parkingType: ['',Validators.required],
+    propertyTypes: ['',Validators.required],
+    propertyConditionTypes: ['',Validators.required],
+    propertyConstructionTypes: ['',Validators.required],
+    parkingTypes: ['',Validators.required],
     title: ['',Validators.required],
 
-    address: ['',Validators.required],
-    city: [''],
-    district: [''],
-    street: [''],
 
     area: [0,Validators.required],
     numberOfRooms: [0,Validators.required],
 
-    elevator: ['',Validators.required],
-    balcony: ['',Validators.required],
+    elevator: [false],
+    balcony: [false],
 
     description: ['',Validators.required],
 
-    status: ['Jóváhagyás alatt'],
-    activationDate: ['']
+    advertStatus: ['FORAPPROVAL'],
+
+      address: [''],
+      city: [''],
+      street: [''],
+      district: [''],
+      postalCode: ['']
+
 
   });
+
 
   constructor(
     private formBuilder: FormBuilder,
     private propertyService: PropertyService,
-    private router: Router
+    private router: Router,
+
+    private httpClient: HttpClient,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -64,7 +88,68 @@ export class PropertyFormComponent implements OnInit {
       },
       error => console.warn(error)
     )
+
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          //this.latitude = place.geometry.location.lat();
+          //this.longitude = place.geometry.location.lng();
+          this.address = place.formatted_address;
+          this.addressId = place.place_id;
+          this.addressComponent = place.address_components;
+          console.log(this.addressComponent.length);
+          console.log(this.addressComponent);
+
+
+          for(let i = 0; i < this.addressComponent.length; i++){
+            switch (this.addressComponent[i].types[0]) {
+              case "route": {
+                this.street = place.address_components[i].long_name;
+                break;
+              }
+              case "sublocality_level_1":{
+                this.district = place.address_components[i].long_name;
+                break;
+              }
+              case "locality": {
+                this.city = place.address_components[i].long_name;
+                break;
+              }
+              case "postal_code": {
+                this.postalCode = place.address_components[i].long_name;
+                break;
+              }
+            }
+          }
+
+          this.zoom = 12;
+
+        });
+      });
+    });
+
+
+
   }
+
+
 
   submit = () =>
     this.propertyService.createProperty(this.propertyForm.value).subscribe(
@@ -72,4 +157,11 @@ export class PropertyFormComponent implements OnInit {
       error => validationHandler(error, this.propertyForm),
     )
 
+  clearAddressDetails() {
+    this.street='';
+    this.postalCode='';
+    this.address='';
+    this.city='';
+    this.district='';
+  }
 }

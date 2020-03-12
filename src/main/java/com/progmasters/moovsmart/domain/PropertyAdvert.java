@@ -67,11 +67,11 @@ public class PropertyAdvert {
     private Integer numberOfRooms;
 
     @Column
-    @NotNull
+    //@NotNull
     private boolean elevator;
 
     @Column
-    @NotNull
+    //@NotNull
     private boolean balcony;
 
     @Column
