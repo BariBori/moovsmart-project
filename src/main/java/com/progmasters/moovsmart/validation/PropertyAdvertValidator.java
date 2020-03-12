@@ -29,7 +29,7 @@ public class PropertyAdvertValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         PropertyAdvertFormData propertyAdvertFormData = (PropertyAdvertFormData) o;
-        Integer price = propertyAdvertFormData.getPrice();
+        Double price = propertyAdvertFormData.getPrice();
         if(price <= 0) {
             errors.rejectValue("price", "moovsmart.price.invalid");
         }

@@ -8,4 +8,8 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
     List<PropertyAdvert> findByOrderByTimeOfActivationDesc();
 
+    List<PropertyAdvert> findByOrderByNumberOfRoomsDesc();
+
+    List<PropertyAdvert> findByOrderByPriceDesc();
+
 }

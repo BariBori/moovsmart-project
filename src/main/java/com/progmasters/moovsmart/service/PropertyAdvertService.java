@@ -32,14 +32,13 @@ public class PropertyAdvertService {
         return new PropertyAdvertInitFormData(
                 Arrays.stream(PropertyType.values()).map(PropertyTypeOption::new).collect(Collectors.toList()),
                 Arrays.stream(PropertyConditionType.values()).map(PropertyConditionOption::new).collect(Collectors.toList()),
-                Arrays.stream(PropertyConstructionType.values()).map(ConstructionTypeOption::new).collect(Collectors.toList()),
                 Arrays.stream(ParkingType.values()).map(ParkingTypeOption::new).collect(Collectors.toList())
                 );
     }
 
     public List<PropertyAdvertListItem> listPropertyAdverts() {
         return advertRepository.findByOrderByTimeOfActivationDesc().stream()
-                .map(PropertyAdvertListItem::new).collect(Collectors.toList());
+                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
     }
 
     public boolean archivePropertyAdvert(Long id) {
