@@ -188,6 +188,29 @@
     </div>
 
 
+    <div>
+      <label>Choose file</label>
+      <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" ng2FileSelect [uploader]="uploader"   />
+      </form>
+
+      <div class="small">
+        {{listOfImages}}
+      </div>
+
+    </div>
+
+    <div class="card-columns">
+      <div class="card card-outline-success" *ngFor="let image of responses; let i = index">
+        <img class="card-img-top img-fluid" src="{{image.data.url}}" alt="Card image cap">
+        <div class="card-block">
+          <p class="card-text" > {{image.data.url}}</p>
+          <button (click)="deleteImage(responses,i)">delete</button>
+        </div>
+      </div>
+    </div>
+
+
 
     <br/>
     <button class="btn btn-primary my-buttons">Save Property</button>
