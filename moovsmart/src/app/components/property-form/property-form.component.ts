@@ -84,9 +84,8 @@ export class PropertyFormComponent implements OnInit {
     private httpClient: HttpClient,
     //-----Google Maps----
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
+    private zone: NgZone,
     //----Cloudinary-----
-    //private zone: NgZone,
     private cloudinary: Cloudinary,
   ) { }
 
@@ -142,6 +141,7 @@ export class PropertyFormComponent implements OnInit {
       // Add custom tags
       form.append('tags', tags);
 
+
       // Add file to upload
       form.append('file', fileItem);
 
@@ -156,10 +156,11 @@ export class PropertyFormComponent implements OnInit {
       // Run the update in a custom zone since for some reason change detection isn't performed
       // as part of the XHR request to upload the files.
       // Running in a custom zone forces change detection
-      this.ngZone.run(() => {
+      this.zone.run(() => {
         // Update an existing entry if it's upload hasn't completed yet
 
         // Find the id of an existing item
+
         const existingId = this.responses.reduce((prev, current, index) => {
           if (current.file.name === fileItem.file.name && !current.status) {
             return index;
@@ -219,7 +220,7 @@ export class PropertyFormComponent implements OnInit {
         types: ["address"]
       });
       autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
+        this.zone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 

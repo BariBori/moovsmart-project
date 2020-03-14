@@ -189,7 +189,7 @@
 
 
     <div>
-      <label>Choose file</label>
+      <label>Képek feltöltése</label>
       <form action="" method="post" enctype="multipart/form-data">
         <input type="file" ng2FileSelect [uploader]="uploader"   />
       </form>
@@ -205,7 +205,6 @@
         <img class="card-img-top img-fluid" src="{{image.data.url}}" alt="Card image cap">
         <div class="card-block">
           <p class="card-text" > {{image.data.url}}</p>
-          <button (click)="deleteImage(responses,i)">delete</button>
         </div>
       </div>
     </div>
