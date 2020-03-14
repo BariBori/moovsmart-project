@@ -27,6 +27,7 @@ public class PropertyAdvert {
     @Column
     private Integer advertId;
 
+
     @OneToOne
     private User user;
 
