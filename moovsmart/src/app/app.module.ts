@@ -21,6 +21,11 @@ import {AgmCoreModule} from "@agm/core";
 import {FileUploadModule} from "ng2-file-upload";
 import {CloudinaryModule} from "@cloudinary/angular-5.x";
 import * as  Cloudinary from 'cloudinary-core';
+import { NgxPopper } from 'angular-popper';
+import {MatSort, MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 @NgModule({
   declarations: [
@@ -43,14 +48,17 @@ import * as  Cloudinary from 'cloudinary-core';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSortModule,
+    MatTableModule,
+    BrowserAnimationsModule,
+    NgxPopper,
     FontAwesomeModule,
+    FileUploadModule,
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']
     }),
-    FileUploadModule,
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
-
   ],
   providers: [
     {
