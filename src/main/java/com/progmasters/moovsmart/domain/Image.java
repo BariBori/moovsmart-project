@@ -13,7 +13,7 @@ public class Image {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="property_advert_id")
     private PropertyAdvert propertyAdvert;
 
     public Image(String imageUrl, PropertyAdvert propertyAdvert) {

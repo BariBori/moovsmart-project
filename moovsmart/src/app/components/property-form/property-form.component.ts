@@ -87,7 +87,8 @@ export class PropertyFormComponent implements OnInit {
     private zone: NgZone,
     //----Cloudinary-----
     private cloudinary: Cloudinary,
-  ) { }
+  ) {this.responses = [];
+    this.imgTitle = ''; }
 
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
