@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.dto.PropertyAdvertDetailsData;
 import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 import com.progmasters.moovsmart.dto.PropertyAdvertInitFormData;
 import com.progmasters.moovsmart.dto.PropertyAdvertListItem;
@@ -62,5 +63,11 @@ public class PropertyAdvertController {
         }
         return result;
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
+        return new ResponseEntity<>(propertyAdvertService.getBlogPostDetails(id), HttpStatus.OK);
+    }
+
 
 }

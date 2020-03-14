@@ -1,13 +1,15 @@
 <div class="container">
-<table id="list-table" class="table table-striped">
+<table id="list-table" class="table table-striped" matSort (matSortChange)="sortData($event)">
   <thead class="thead-dark">
   <tr>
-    <th>Image</th>
-    <th><button>Title</button></th>
-    <th><button>Number of rooms</button></th>
-    <th><button>Price</button></th>
-    <th>AdvertId</th>
-    <th></th>
+    <th>Kép</th>
+    <th mat-sort-header="title">Cím</th>
+    <th mat-sort-header="numberOfRooms">Szobák száma</th>
+    <th mat-sort-header="area">Méret<th>
+    <th mat-sort-header="price">Ár</th>
+    <th mat-sort-header="price">Ár/négyzetméter</th>
+    <th>Hirdetésazonosító</th>
+    <th>Művelet</th>
   </tr>
   </thead>
   <tbody>
@@ -15,12 +17,15 @@
     <td>{{ property.imageUrl}} </td>
     <td>{{ property.title}}</td>
     <td>{{ property.numberOfRooms}}</td>
-    <td>{{ property.price}}</td>
+    <td>{{ property.area}}</td>
+    <td>{{property.price}}</td>
+    <td>{{property.priceForSquareMeter}}</td>
     <td>{{ property.advertId }}</td>
     <td>
       <div class="btn-group">
         <button class="btn btn-primary" >edit</button>
         <button class="btn btn-danger" (click)="archivePropertyAdvert(property.id)">Archivál</button>
+        <button class="btn btn-primary" (click)="goToDetails(property.id)">Részletek</button>
       </div>
     </td>
   </tr>

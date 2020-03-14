@@ -18,6 +18,11 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import {AgmCoreModule} from "@agm/core";
+import { NgxPopper } from 'angular-popper';
+import {MatSort, MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 @NgModule({
   declarations: [
@@ -39,11 +44,15 @@ import {AgmCoreModule} from "@agm/core";
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSortModule,
+    MatTableModule,
+    BrowserAnimationsModule,
     FontAwesomeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']
-    })
+    }),
+    NgxPopper,
   ],
   providers: [
     {

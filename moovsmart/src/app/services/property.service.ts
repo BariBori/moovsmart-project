@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {PropertyListItemModel} from "../models/propertyListItem.model";
 import {PropertyFormDataModel} from "../models/propertyFormData.model";
 import {FormInitDataModel} from "../models/formInitDataModel";
+import {PropertyAdvertDetailsModel} from "../models/propertyAdvertDetails.model";
 
 const BASE_URL = "http://localhost:8080/api/properties";
 
@@ -29,6 +30,10 @@ export class PropertyService {
 
   archivePropertyAdvert(id: number): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.delete<Array<PropertyListItemModel>>(BASE_URL + '/' + id);
+  }
+
+  fetchAdvertDetails(id: number): Observable<PropertyAdvertDetailsModel> {
+    return this.httpClient.get<PropertyAdvertDetailsModel>(`${BASE_URL}/${id}`);
   }
 
 }

@@ -6,9 +6,6 @@ export interface PropertyListItemModel {
   numberOfRooms: number;
   area: number;
   price: number;
-
+  priceForSquareMeter: number;
   address: string;
-
-  //TODO négyzetméterár?
-
 }
