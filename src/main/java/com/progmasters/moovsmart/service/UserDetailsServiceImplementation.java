@@ -26,7 +26,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
                         org.springframework.security.core.userdetails.User.builder()
                                 .username(user.getEmail())
                                 .password(user.getPasswordHash())
-                                .disabled(false)
+                                .disabled(!user.isActivated())
                                 .roles("USER")
                                 .build())
                 .orElseThrow(() ->

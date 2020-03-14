@@ -1,7 +1,9 @@
 package com.progmasters.moovsmart.service;
 
+import com.progmasters.moovsmart.domain.RegistrationToken;
 import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.UserForm;
+import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,28 +14,35 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class UserService {
-    private UserRepository repository;
-    private PersonalDetailsService service;
+    private UserRepository userRepository;
+    private RegistrationTokenRepository registrationTokenRepository;
+    private PersonalDetailsService personalDetailsService;
+    private UserActivationService userActivationService;
     private PasswordEncoder encoder;
 
     @Autowired
     public UserService(
-            UserRepository repository,
-            PersonalDetailsService service,
-            PasswordEncoder encoder
+            UserRepository userRepository,
+            RegistrationTokenRepository registrationTokenRepository,
+            PersonalDetailsService personalDetailsService,
+            UserActivationService userActivationService, PasswordEncoder encoder
     ) {
-        this.repository = repository;
-        this.service = service;
+        this.userRepository = userRepository;
+        this.registrationTokenRepository = registrationTokenRepository;
+        this.personalDetailsService = personalDetailsService;
+        this.userActivationService = userActivationService;
         this.encoder = encoder;
     }
 
     public User registerUser(UserForm userDto) {
-        return repository.save(
-                new User(
+        RegistrationToken token = registrationTokenRepository.save(RegistrationToken.forUser(
+                userRepository.save(new User(
                         userDto.getEmail(),
                         encoder.encode(userDto.getPassword()),
-                        service.save(userDto.getPersonalDetails())
-                )
-        );
+                        personalDetailsService.save(userDto.getPersonalDetails())
+                ))
+        ));
+        userActivationService.sendActivationEmail(token);
+        return token.getUser();
     }
 }

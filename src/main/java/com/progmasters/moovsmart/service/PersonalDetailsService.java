@@ -19,7 +19,8 @@ public class PersonalDetailsService {
 
     public PersonalDetails save(PersonalDetailsForm personalDetailsForm) {
         return repository.save(
-                new PersonalDetails(personalDetailsForm.getFullName())
+                //TODO fix this
+                new PersonalDetails()
         );
     }
 }

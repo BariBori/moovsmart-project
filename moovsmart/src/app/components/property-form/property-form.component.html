@@ -16,6 +16,8 @@
     <div>Kerület: {{district}}</div>
     <div>Utca: {{street}}</div>
     <div>Irányítószám: {{postalCode}}</div>
+    <div>placeId: {{placeId}}</div>
+
     </div>
 
     <div class="form-group">
@@ -35,14 +37,20 @@
     <div class="form-group">
       <label
         for="price">Irányár*</label>
+      <div class="input-group">
       <input
         class="form-control col-lg-4 col-md-6 col-sm-6"
         formControlName="price"
         id="price"
-        placeholder="Irányár - csak szám"
+        placeholder="Irányár - csak szám pl.: 45,6"
         type="number"
+        aria-describedby="price-addon"
 
       />
+        <div class="input-group-append">
+          <span class="input-group-text" id="price-addon">millió Ft</span>
+        </div>
+      </div>
       <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
         {{propertyForm.get('price').errors['serverError']}}
       </small>
@@ -177,6 +185,28 @@
       <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
         {{propertyForm.get('description').errors['serverError']}}
       </small>
+    </div>
+
+
+    <div>
+      <label>Képek feltöltése</label>
+      <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" ng2FileSelect [uploader]="uploader"   />
+      </form>
+
+      <div class="small">
+        {{listOfImages}}
+      </div>
+
+    </div>
+
+    <div class="card-columns">
+      <div class="card card-outline-success" *ngFor="let image of responses; let i = index">
+        <img class="card-img-top img-fluid" src="{{image.data.url}}" alt="Card image cap">
+        <div class="card-block">
+          <p class="card-text" > {{image.data.url}}</p>
+        </div>
+      </div>
     </div>
 
 
