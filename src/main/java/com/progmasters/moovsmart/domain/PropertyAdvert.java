@@ -24,6 +24,7 @@ public class PropertyAdvert {
 //    @NotEmpty
     private List<Image> listOfImages;
 
+
     @Column
     private Integer advertId;
 
