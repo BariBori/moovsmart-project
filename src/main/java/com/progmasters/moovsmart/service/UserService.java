@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.RegistrationToken;
 import com.progmasters.moovsmart.domain.User;
+import com.progmasters.moovsmart.domain.UserRole;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
@@ -39,7 +40,8 @@ public class UserService {
                 userRepository.save(new User(
                         userDto.getEmail(),
                         encoder.encode(userDto.getPassword()),
-                        personalDetailsService.save(userDto.getPersonalDetails())
+                        personalDetailsService.save(userDto.getPersonalDetails()),
+                        UserRole.ROLE_USER
                 ))
         ));
         userActivationService.sendActivationEmail(token);
