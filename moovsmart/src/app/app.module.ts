@@ -51,16 +51,14 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     MatSortModule,
     MatTableModule,
     BrowserAnimationsModule,
+    NgxPopper,
     FontAwesomeModule,
+    FileUploadModule,
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']
     }),
-    NgxPopper,
-    }),
-    FileUploadModule,
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
-
   ],
   providers: [
     {
