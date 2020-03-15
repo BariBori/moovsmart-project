@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.service;
 
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,18 +10,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImplementation implements UserDetailsService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    //TODO make disabled unless user confirmed reg
     public UserDetails loadUserByUsername(String email) {
         return userRepository.findByEmail(email)
-                .map(UserDetailsImpl::forUser)
+                .map(user ->
+                        org.springframework.security.core.userdetails.User.builder()
+                                .username(user.getEmail())
+                                .password(user.getPasswordHash())
+                                .disabled(!user.isActivated())
+                                .roles("USER")
+                                .build())
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 "No user found with username: " + email));

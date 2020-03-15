@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.config;
 
-import com.progmasters.moovsmart.service.UserDetailsServiceImpl;
+import com.progmasters.moovsmart.service.UserDetailsServiceImplementation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,9 +21,9 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImplementation userDetailsService;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfig(UserDetailsServiceImplementation userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
