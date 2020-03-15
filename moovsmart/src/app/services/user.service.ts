@@ -17,6 +17,6 @@ export class UserService {
     return this.http.post<void>(this.BASE_URL + '/register', data);
   }
 
-  getCredentials = (): Observable<any> => this.http.get(this.BASE_URL + '/me');
+  getCredentials = (): Observable<string> => this.http.get<string>(this.BASE_URL + '/me');
 
 }
