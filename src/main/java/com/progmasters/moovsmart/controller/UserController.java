@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/me")
     @Secured("ROLE_USER")
-    public ResponseEntity<String> foo(Principal principal) {
-        return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
+    public ResponseEntity<Principal> userDetails(Principal principal) {
+        return ResponseEntity.ok(principal);
     }
 }

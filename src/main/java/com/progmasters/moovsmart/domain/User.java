@@ -1,6 +1,9 @@
 package com.progmasters.moovsmart.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class User {
@@ -13,14 +16,18 @@ public class User {
     private String passwordHash;
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
-
+    @ElementCollection(targetClass = UserRole.class)
+    @Enumerated(EnumType.STRING)
+    private List<UserRole> userRoles;
     private Boolean activated;
 
-    public User(String email, String passwordHash, PersonalDetails personalDetails) {
+    public User(String email, String passwordHash, PersonalDetails personalDetails, UserRole... userRoles) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.personalDetails = personalDetails;
         this.activated = false;
+        this.userRoles = new ArrayList<>();
+        this.userRoles.addAll(Arrays.asList(userRoles));
     }
 
     public User() {
@@ -41,6 +48,10 @@ public class User {
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
     }
 
     public Boolean isActivated() {
