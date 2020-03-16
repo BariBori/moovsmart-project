@@ -27,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 /target/
 moovsmart/debug.log
+/src/main/resources/application-local.yaml

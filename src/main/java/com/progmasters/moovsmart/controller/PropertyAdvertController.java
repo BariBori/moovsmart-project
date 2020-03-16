@@ -26,8 +26,9 @@ public class PropertyAdvertController {
     private PropertyAdvertValidator propertyAdvertValidator;
 
     @Autowired
-    public PropertyAdvertController(PropertyAdvertService propertyAdvertService) {
+    public PropertyAdvertController(PropertyAdvertService propertyAdvertService, PropertyAdvertValidator propertyAdvertValidator) {
         this.propertyAdvertService = propertyAdvertService;
+        this.propertyAdvertValidator = propertyAdvertValidator;
     }
 
     @InitBinder("propertyAdvertFormData")

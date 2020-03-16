@@ -1,24 +1,102 @@
-<h3>Choosen advert</h3>
 
 <div class="container">
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Image</th>
-      <th scope="col">Blogpost Title</th>
-      <th scope="col">Blogpost Text</th>
-      <th scope="col">Created</th>
-    </tr>
-    </thead>
-    <tbody id="advert-list-table-body">
-    <tr>
-      <td>{{propertyAdvertDetails.title}}</td>
-      <td>{{propertyAdvertDetails.advertId}}</td>
-      <td>{{propertyAdvertDetails.advertStatus}}</td>
-      <td>{{propertyAdvertDetails.address}}</td>
-      <td>{{propertyAdvertDetails.area}}</td>
-      <td>{{propertyAdvertDetails.description}}</td>
-    </tr>
-    </tbody>
-  </table>
+
+
+<div class="container-small">
+  <div class="row owner_banner">
+    <div class="col-6">
+      {{propertyAdvertDetails?.advertStatus}}
+    </div>
+    <div class="col-6">
+      <button class="btn btn-info float-right">Szerkesztés</button>
+      <button class="btn btn-danger float-right">Törlés</button>
+    </div>
+  </div>
+
+  <!--Cím-->
+  <div class="row">
+    <div class="col-8">
+      <p class="address">{{propertyAdvertDetails?.city}}, {{propertyAdvertDetails?.district}} {{propertyAdvertDetails?.street}}</p>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-like float-right"><fa-icon [icon]="faStar"></fa-icon> Mentés</button>
+    </div>
+  </div>
+
+  <div class="card-columns">
+    <div class="card card-outline-success" *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
+      <img class="card-img-top img-fluid" src="{{image}}" alt="Card image cap">
+      <div class="card-block">
+
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-3 border-right">
+      <p>Alapterület</p>
+      <p class="label">{{propertyAdvertDetails?.area}} m2</p>
+    </div>
+    <div class="col-3 border-right" >
+      <p class="">Szobaszám</p>
+      <p class="label">{{propertyAdvertDetails?.numberOfRooms}}</p>
+    </div>
+    <div class="col-6">
+      <p class="text-right">Ár</p>
+      <p class="label text-right">{{propertyAdvertDetails?.price}} Millió Ft</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-8 title">{{propertyAdvertDetails?.title}}</div>
+    <div class="col-4 adverId">Azonosító: {{propertyAdvertDetails?.advertId}}</div>
+  </div>
+
+  <div class="row details">
+    <div class="col-4 label-small">Négyzetméter ár</div>
+    <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter}} Ft/m2</div>
+  </div>
+
+  <div class="row details">
+    <div class="col-4 label-small">Típus</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyType}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Állapot</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Parkolás</div>
+    <div class="col-8">{{propertyAdvertDetails?.parkingType}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Lift</div>
+    <div class="col-8">{{propertyAdvertDetails?.elevator}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Erkély</div>
+    <div class="col-8">{{propertyAdvertDetails?.balcony}}</div>
+  </div>
+
+  <div class="description">
+    <p>{{propertyAdvertDetails?.description}}</p>
+  </div>
+
+  <div class="label">Térkép</div>
+
+  <!--
+  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
+  -->
+
+  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="setLocation()">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
+
+</div>
+
 </div>

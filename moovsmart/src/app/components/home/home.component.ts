@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faCity, faFileContract, faFileUpload, faHandshake, faSearchLocation} from '@fortawesome/free-solid-svg-icons';
+import {faCity, faFileContract,  faHandshake} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +9,9 @@ import {faCity, faFileContract, faFileUpload, faHandshake, faSearchLocation} fro
 export class HomeComponent implements OnInit {
 
   faFileContract = faFileContract;
-  faFileUpload = faFileUpload;
-  faSearchLocation = faSearchLocation;
   faCity = faCity;
   faDeal = faHandshake;
+
 
   constructor() { }
 

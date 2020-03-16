@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.Image;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 
 import java.util.List;
@@ -9,7 +8,7 @@ public class PropertyAdvertListItem {
 
     private long id;
 
-    private List<Image> listOfImages;
+    private List<String> listOfImages;
 
     private String title;
 
@@ -19,7 +18,7 @@ public class PropertyAdvertListItem {
 
     private Integer area;
 
-    private Double priceForSquareMeter;
+    private Long priceForSquareMeter;
 
     private Double price;
 
@@ -34,7 +33,7 @@ public class PropertyAdvertListItem {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.area = propertyAdvert.getArea();
         this.address = propertyAdvert.getAddress();
-        this.priceForSquareMeter = price / area;
+        this.priceForSquareMeter = Math.round(price *1000000 / area);
     }
 
     public PropertyAdvertListItem() {
@@ -44,7 +43,7 @@ public class PropertyAdvertListItem {
         return address;
     }
 
-    public List<Image> getListOfImages() {
+    public List<String> getListOfImages() {
         return listOfImages;
     }
 
@@ -52,7 +51,7 @@ public class PropertyAdvertListItem {
         return area;
     }
 
-    public Double getPriceForSquareMeter() {
+    public Long getPriceForSquareMeter() {
         return priceForSquareMeter;
     }
 

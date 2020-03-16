@@ -22,7 +22,7 @@ export class PropertyFormComponent implements OnInit {
   //------Cloudinary file upload------------
   @Input()
   responses: Array<any>;
-  listOfImages: Array<any> = [];
+  listOfImages: Array<string> = [];
   private hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
@@ -38,6 +38,8 @@ export class PropertyFormComponent implements OnInit {
     street: string;
     postalCode: string;
     placeId: string;
+    latitude: number;
+    longitude: number;
     addressComponent: any;
 
     @ViewChild('search')
@@ -87,7 +89,8 @@ export class PropertyFormComponent implements OnInit {
     private zone: NgZone,
     //----Cloudinary-----
     private cloudinary: Cloudinary,
-  ) { }
+  ) {this.responses = [];
+    this.imgTitle = ''; }
 
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
@@ -231,6 +234,8 @@ export class PropertyFormComponent implements OnInit {
 
           this.address = place.formatted_address;
           this.placeId = place.place_id;
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
           this.addressComponent = place.address_components;
           console.log(this.addressComponent.length);
           console.log(this.addressComponent);
@@ -332,6 +337,10 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.street = this.street;
     propertyFormDataModel.postalCode = this.postalCode;
     propertyFormDataModel.placeId = this.placeId;
+    propertyFormDataModel.latitude = this.latitude;
+    propertyFormDataModel.longitude = this.longitude;
+    propertyFormDataModel.listOfImages = this.listOfImages;
+
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['property-list']),
       error => validationHandler(error, this.propertyForm)
