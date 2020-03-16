@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserFormDataModel } from '../../models/userFormData.model';
-import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {UserFormDataModel} from '../../models/userFormData.model';
+import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-userregister-form',
@@ -23,6 +23,7 @@ export class UserregisterFormComponent implements OnInit {
     this.registerNewUserForm = this.formBuilder.group({
       email: [''],
       password: [''],
+      userName: [''],
       personalDetails: [null],
     });
   }
