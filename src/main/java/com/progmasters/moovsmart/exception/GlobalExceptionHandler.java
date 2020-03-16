@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,19 +38,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ValidationError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         logger.error("A validation error occurred: ", ex);
-        BindingResult result = ex.getBindingResult();
-        List<FieldError> fieldErrors = result.getFieldErrors();
 
-        return new ResponseEntity<>(processFieldErrors(fieldErrors), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                processFieldErrors(ex
+                        .getBindingResult()
+                        .getFieldErrors()),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
     private ValidationError processFieldErrors(List<FieldError> fieldErrors) {
         ValidationError validationError = new ValidationError();
-
-        for (FieldError fieldError : fieldErrors) {
-            validationError.addFieldError(fieldError.getField(), messageSource.getMessage(fieldError, Locale.getDefault()));
-        }
-
+        fieldErrors.forEach(fieldError -> {
+                    validationError.getFieldErrors()
+                            .put(
+                                    fieldError.getField(),
+                                    messageSource.getMessage(fieldError, Locale.getDefault())
+                            );
+                    logger.error(messageSource.getMessage(fieldError, Locale.getDefault()));
+                }
+        );
         return validationError;
     }
 
