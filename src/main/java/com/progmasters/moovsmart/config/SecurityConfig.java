@@ -37,7 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         security.cors().and()
                 .csrf().disable()
-                .logout().deleteCookies("JSESSIONID")
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and().httpBasic();
     }
 
