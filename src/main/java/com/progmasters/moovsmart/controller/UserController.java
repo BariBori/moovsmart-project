@@ -55,9 +55,20 @@ public class UserController {
         return ResponseEntity.ok("User " + user.getEmail() + " activated");
     }
 
-    @GetMapping("/me")
+//    @GetMapping("/me")
+//    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+//    public ResponseEntity<Principal> userDetails(Principal principal) {
+//        return ResponseEntity.ok(principal);
+//    }
+
+    @GetMapping("/{userEmail}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Principal> userDetails(Principal principal) {
+    public ResponseEntity<Principal> userDetails(Principal principal, @PathVariable String userEmail) {
+        if(!principal.getName().equals(userEmail)){
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(principal);
+        }
         return ResponseEntity.ok(principal);
     }
 

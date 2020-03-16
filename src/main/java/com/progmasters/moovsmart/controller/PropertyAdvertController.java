@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,9 @@ public class PropertyAdvertController {
     }
 
     @PostMapping
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData, Principal principal) {
-        propertyAdvertService.saveAdvert(propertyAdvertFormData, principal.getName());
+        propertyAdvertService.saveAdvert(propertyAdvertFormData);
         logger.info("The advert is created");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -70,6 +72,5 @@ public class PropertyAdvertController {
     public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
         return new ResponseEntity<>(propertyAdvertService.getBlogPostDetails(id), HttpStatus.OK);
     }
-
 
 }

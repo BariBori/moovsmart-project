@@ -11,11 +11,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String email;
+
     private String passwordHash;
+
+    @ManyToOne
+    private PropertyAdvert propertyAdvert;
+
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
+
     @ElementCollection(targetClass = UserRole.class)
     @Enumerated(EnumType.STRING)
     private List<UserRole> userRoles;

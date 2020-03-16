@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.service;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,9 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, userEmail);
+    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+
+        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData);
         return this.advertRepository.save(propertyAdvert);
     }
 
