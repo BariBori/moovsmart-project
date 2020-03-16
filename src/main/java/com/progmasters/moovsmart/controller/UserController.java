@@ -55,4 +55,5 @@ public class UserController {
     public ResponseEntity<String> foo(Principal principal) {
         return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
     }
+
 }
