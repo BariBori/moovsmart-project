@@ -35,6 +35,10 @@ public class UserService {
         this.encoder = encoder;
     }
 
+    public Boolean isEmailTaken(String emailAddress) {
+        return userRepository.findByEmail(emailAddress).isPresent();
+    }
+
     public User registerUser(UserForm userDto) {
         RegistrationToken token = registrationTokenRepository.save(RegistrationToken.forUser(
                 userRepository.save(new User(
