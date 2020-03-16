@@ -45,9 +45,9 @@ public class UserFormValidator implements Validator {
         }
 
         String userName = userForm.getUserName();
-        if (service.isEmailTaken(userName)) {
+        if (service.isUserNameTaken(userName)) {
             errors.rejectValue("userName", "moovsmart.user.username.alreadyTaken");
-        } else if (!validEmail.test(userName)) {
+        } else if (userName.length() < 3) {
             errors.rejectValue("userName", "moovsmart.user.username.invalid");
         }
 

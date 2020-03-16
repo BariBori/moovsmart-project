@@ -3,7 +3,6 @@ package com.progmasters.moovsmart.service;
 import com.progmasters.moovsmart.dto.UserDetailsImpl;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public UserDetails loadUserByUsername(String email) {
-        return userRepository.findByEmail(email)
+    public UserDetailsImpl loadUserByUsername(String emailOrUserName) {
+        return userRepository.findByEmail(emailOrUserName)
+                .or(() ->
+                        userRepository.findByUserName(emailOrUserName)
+                )
                 .map(UserDetailsImpl::forUser)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
-                                "No user found with username: " + email));
+                                "No user found with te given email or username: "
+                                        + emailOrUserName));
     }
 }

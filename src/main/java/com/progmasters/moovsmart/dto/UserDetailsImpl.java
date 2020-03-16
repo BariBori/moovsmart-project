@@ -12,15 +12,21 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
+    private String email;
+
+    @JsonIgnore
     private String password;
+
     private String userName;
+
     @JsonIgnore
     private Boolean enabled;
+
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
     public static UserDetailsImpl forUser(User user) {
         UserDetailsImpl result = new UserDetailsImpl();
-        result.userName = user.getEmail();
+        result.userName = user.getUserName();
         result.password = user.getPasswordHash();
         result.enabled = user.isActivated();
         user.getUserRoles().forEach(role ->
@@ -31,6 +37,10 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
