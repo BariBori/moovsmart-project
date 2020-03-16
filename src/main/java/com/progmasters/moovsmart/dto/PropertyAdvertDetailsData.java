@@ -4,7 +4,7 @@ import com.progmasters.moovsmart.domain.*;
 
 import java.util.List;
 
-public class PropertyAdvertFormData {
+public class PropertyAdvertDetailsData {
 
     private Double price;
 
@@ -12,21 +12,21 @@ public class PropertyAdvertFormData {
 
     private Integer advertId;
 
-    private PropertyType propertyType;
+    private String propertyType;
 
-    private PropertyConditionType propertyConditionType;
+    private String propertyConditionType;
 
-    private ParkingType parkingType;
+    private String parkingType;
 
     private String title;
 
     private String placeId;
 
-    private Double longitude;
+    private String address;
 
     private Double latitude;
 
-    private String address;
+    private Double longitude;
 
     private String city;
 
@@ -46,20 +46,20 @@ public class PropertyAdvertFormData {
 
     private AdvertStatusType advertStatus;
 
-    public PropertyAdvertFormData() {
-    }
+    private Long priceForSquareMeter;
 
-    public PropertyAdvertFormData(PropertyAdvert propertyAdvert) {
+    public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
-        this.propertyType = propertyAdvert.getPropertyType();
-        this.propertyConditionType = propertyAdvert.getPropertyConditionType();
-        this.parkingType = propertyAdvert.getParkingType();
+        this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
+        this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
+        this.parkingType = propertyAdvert.getParkingType().getDisplayName();
         this.title = propertyAdvert.getTitle();
-        this.address = propertyAdvert.getAddress();
+        this.placeId = propertyAdvert.getPlaceId();
         this.latitude = propertyAdvert.getLatitude();
         this.longitude = propertyAdvert.getLongitude();
+        this.address = propertyAdvert.getAddress();
         this.city = propertyAdvert.getCity();
         this.district = propertyAdvert.getDistrict();
         this.street = propertyAdvert.getStreet();
@@ -69,23 +69,11 @@ public class PropertyAdvertFormData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.advertStatus = propertyAdvert.getAdvertStatus();
-        this.placeId = propertyAdvert.getPlaceId();
-    }
-
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public AdvertStatusType getAdvertStatus() {
-        return advertStatus;
+        this.priceForSquareMeter = Math.round(price *1000000 / area);
     }
 
     public Double getPrice() {
         return price;
-    }
-
-    public void setAdvertStatus(AdvertStatusType advertStatus) {
-        this.advertStatus = advertStatus;
     }
 
     public void setPrice(Double price) {
@@ -108,27 +96,29 @@ public class PropertyAdvertFormData {
         this.advertId = advertId;
     }
 
-    public PropertyType getPropertyType() {
+
+    public String getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType(PropertyType propertyType) {
+
+     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
 
-    public PropertyConditionType getPropertyConditionType() {
+    public String getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+    public void setPropertyConditionType(String propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public ParkingType getParkingType() {
+    public String getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(ParkingType parkingType) {
+    public void setParkingType(String parkingType) {
         this.parkingType = parkingType;
     }
 
@@ -140,12 +130,28 @@ public class PropertyAdvertFormData {
         this.title = title;
     }
 
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDistrict() {
@@ -204,27 +210,35 @@ public class PropertyAdvertFormData {
         this.description = description;
     }
 
-    public String getCity() {
-        return city;
+    public AdvertStatusType getAdvertStatus() {
+        return advertStatus;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Double getLongitude() {
-        return longitude;
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
     }
 
     public Double getLatitude() {
         return latitude;
     }
 
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public Long getPriceForSquareMeter() {
+        return priceForSquareMeter;
+    }
+
+    public void setPriceForSquareMeter(Long priceForSquareMeter) {
+        this.priceForSquareMeter = priceForSquareMeter;
     }
 }

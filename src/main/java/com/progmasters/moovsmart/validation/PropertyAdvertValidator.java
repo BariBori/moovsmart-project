@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.validation;
 
-import com.progmasters.moovsmart.domain.Image;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 import com.progmasters.moovsmart.service.PropertyAdvertService;

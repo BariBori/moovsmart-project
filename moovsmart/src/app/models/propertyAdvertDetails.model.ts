@@ -1,21 +1,22 @@
-export interface PropertyFormDataModel {
 
-  price: number;
-  listOfImages: Array<string>;
-  advertId: number;
+export interface PropertyAdvertDetailsModel {
+  price: number,
+  listOfImages: Array<string>,
+  advertId: number,
   propertyType: string;
   propertyConditionType: string;
   parkingType: string;
   title: string;
-
-  address: string;
+  priceForSquareMeter: number;
+  placeId: string;
 
   latitude: number;
   longitude: number;
+
+  address: string;
   city: string;
   district: string;
   street: string;
-  placeId: string;
 
   area: number;
   numberOfRooms: number;
@@ -24,7 +25,5 @@ export interface PropertyFormDataModel {
   balcony: boolean;
 
   description: string;
-
   advertStatus: string;
-
 }

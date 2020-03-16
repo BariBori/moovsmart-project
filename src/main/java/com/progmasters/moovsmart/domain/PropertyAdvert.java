@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -20,12 +21,17 @@ public class PropertyAdvert {
     @NotNull
     private Double price;
 
-    @OneToMany(mappedBy = "propertyAdvert")
+  //  @OneToMany(mappedBy = "propertyAdvert")
 //    @NotEmpty
-    private List<Image> listOfImages;
+ //   private List<Image> listOfImages;
+
+    @ElementCollection
+    @CollectionTable(name="images")
+    private List<String> listOfImages = new ArrayList<String>();
 
     @Column
     private Integer advertId;
+
 
     @OneToOne
     private User user;
@@ -45,6 +51,14 @@ public class PropertyAdvert {
     @Column
     @Size(min = 10, max = 50)
     private String title;
+
+
+
+    @Column
+    private Double longitude;
+
+    @Column
+    private Double latitude;
 
     @Column
     private String placeId;
@@ -91,11 +105,13 @@ public class PropertyAdvert {
     @Column
     private LocalDate timeOfActivation;
 
-    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();
         this.placeId = propertyAdvertFormData.getPlaceId();
+        this.latitude = propertyAdvertFormData.getLatitude();
+        this.longitude = propertyAdvertFormData.getLongitude();
         this.createdAt = LocalDate.now();
         this.timeOfActivation = LocalDate.now();
         this.advertId = new Random().nextInt(1000000);
@@ -154,7 +170,7 @@ public class PropertyAdvert {
         this.price = price;
     }
 
-    public List<Image> getListOfImages() {
+    public List<String> getListOfImages() {
         return listOfImages;
     }
 
@@ -234,5 +250,17 @@ public class PropertyAdvert {
     public String getCity() {
         return city;
     }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+
 
 }

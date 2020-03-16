@@ -22,7 +22,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: moovsmartaltenter
-    password: 76a9b21381218048086751325aadf47c75ba7388
+    password: MOOVsmart1234
     properties:
       mail:
         smtp:

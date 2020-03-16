@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,8 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData) {
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData);
+    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
+        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, userEmail);
         return this.advertRepository.save(propertyAdvert);
     }
 
@@ -50,6 +51,11 @@ public class PropertyAdvertService {
             result = true;
         }
         return result;
+    }
+
+    public PropertyAdvertDetailsData getBlogPostDetails(Long id) {
+        PropertyAdvert propertyAdvert = advertRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("Advert with id: " + id + " not found!")));
+        return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
 
