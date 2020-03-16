@@ -105,7 +105,7 @@ public class PropertyAdvert {
     @Column
     private LocalDate timeOfActivation;
 
-    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -37,8 +38,8 @@ public class PropertyAdvertController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData) {
-        propertyAdvertService.saveAdvert(propertyAdvertFormData);
+    public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData, Principal principal) {
+        propertyAdvertService.saveAdvert(propertyAdvertFormData, principal.getName());
         logger.info("The advert is created");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

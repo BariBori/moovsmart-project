@@ -24,8 +24,8 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData) {
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData);
+    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
+        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, userEmail);
         return this.advertRepository.save(propertyAdvert);
     }
 
