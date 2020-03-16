@@ -1,7 +1,10 @@
 package com.progmasters.moovsmart.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,19 +17,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     @Pattern(regexp = EMAIL_REGEXP)
     private String email;
+
+    @Column(unique = true)
+    @Size(min = 3)
+    private String userName;
+
+    @NotBlank
     private String passwordHash;
+
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
+
+    @NotNull
     @ElementCollection(targetClass = UserRole.class)
     @Enumerated(EnumType.STRING)
     private List<UserRole> userRoles;
+
+    @NotNull
     private Boolean activated;
 
-    public User(String email, String passwordHash, PersonalDetails personalDetails, UserRole... userRoles) {
+    public User(String email, String userName, String passwordHash, PersonalDetails personalDetails, UserRole... userRoles) {
         this.email = email;
+        this.userName = userName;
         this.passwordHash = passwordHash;
         this.personalDetails = personalDetails;
         this.activated = false;
@@ -44,6 +60,15 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public User setUserName(String userName) {
+        this.userName = userName;
+        return this;
     }
 
     public String getEmail() {

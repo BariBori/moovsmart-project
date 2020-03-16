@@ -35,14 +35,19 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    public Boolean isEmailTaken(String emailAddress) {
+    public boolean isEmailTaken(String emailAddress) {
         return userRepository.findByEmail(emailAddress).isPresent();
+    }
+
+    public boolean isUserNameTaken(String userName) {
+        return userRepository.findByUserName(userName).isPresent();
     }
 
     public User registerUser(UserForm userDto) {
         RegistrationToken token = registrationTokenRepository.save(RegistrationToken.forUser(
                 userRepository.save(new User(
                         userDto.getEmail(),
+                        userDto.getUserName(),
                         encoder.encode(userDto.getPassword()),
                         personalDetailsService.save(userDto.getPersonalDetails()),
                         UserRole.ROLE_USER

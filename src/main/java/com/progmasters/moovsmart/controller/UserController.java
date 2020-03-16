@@ -4,6 +4,7 @@ import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.service.UserActivationService;
 import com.progmasters.moovsmart.service.UserService;
+import com.progmasters.moovsmart.validation.UserFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,20 +23,22 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
     private UserActivationService userActivationService;
+    private UserFormValidator formValidator;
 
-    public UserController(UserService userService, UserActivationService userActivationService) {
+    public UserController(UserService userService, UserActivationService userActivationService, UserFormValidator formValidator) {
         this.userService = userService;
         this.userActivationService = userActivationService;
+        this.formValidator = formValidator;
     }
 
-    @InitBinder
+    @InitBinder("userForm")
     protected void initBinder(WebDataBinder binder) {
-        //TODO add validator
+        binder.addValidators(formValidator);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserForm userFormData) {
-        userService.registerUser(userFormData);
+    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserForm userForm) {
+        userService.registerUser(userForm);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
