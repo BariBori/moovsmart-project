@@ -25,7 +25,10 @@ import { NgxPopper } from 'angular-popper';
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCity, faFileContract,  faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']
     }),
+    NgbModule
   ],
   providers: [
     {
@@ -70,4 +74,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor() {
+    library.add(faStar, faHandshake, faFileContract, faCity);
+  }
 }

@@ -8,7 +8,7 @@ public class PropertyAdvertFormData {
 
     private Double price;
 
-    private List<Image> listOfImages;
+    private List<String> listOfImages;
 
     private Integer advertId;
 
@@ -21,6 +21,10 @@ public class PropertyAdvertFormData {
     private String title;
 
     private String placeId;
+
+    private Double longitude;
+
+    private Double latitude;
 
     private String address;
 
@@ -54,6 +58,8 @@ public class PropertyAdvertFormData {
         this.parkingType = propertyAdvert.getParkingType();
         this.title = propertyAdvert.getTitle();
         this.address = propertyAdvert.getAddress();
+        this.latitude = propertyAdvert.getLatitude();
+        this.longitude = propertyAdvert.getLongitude();
         this.city = propertyAdvert.getCity();
         this.district = propertyAdvert.getDistrict();
         this.street = propertyAdvert.getStreet();
@@ -86,11 +92,11 @@ public class PropertyAdvertFormData {
         this.price = price;
     }
 
-    public List<Image> getListOfImages() {
+    public List<String> getListOfImages() {
         return listOfImages;
     }
 
-    public void setListOfImages(List<Image> listOfImages) {
+    public void setListOfImages(List<String> listOfImages) {
         this.listOfImages = listOfImages;
     }
 
@@ -204,5 +210,21 @@ public class PropertyAdvertFormData {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 }

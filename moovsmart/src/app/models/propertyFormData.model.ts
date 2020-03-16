@@ -9,9 +9,13 @@ export interface PropertyFormDataModel {
   title: string;
 
   address: string;
+
+  latitude: number;
+  longitude: number;
   city: string;
   district: string;
   street: string;
+  placeId: string;
 
   area: number;
   numberOfRooms: number;

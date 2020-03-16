@@ -8,21 +8,25 @@ public class PropertyAdvertDetailsData {
 
     private Double price;
 
-    private List<Image> listOfImages;
+    private List<String> listOfImages;
 
     private Integer advertId;
 
-    private PropertyType propertyType;
+    private String propertyType;
 
-    private PropertyConditionType propertyConditionType;
+    private String propertyConditionType;
 
-    private ParkingType parkingType;
+    private String parkingType;
 
     private String title;
 
     private String placeId;
 
     private String address;
+
+    private Double latitude;
+
+    private Double longitude;
 
     private String city;
 
@@ -42,15 +46,19 @@ public class PropertyAdvertDetailsData {
 
     private AdvertStatusType advertStatus;
 
+    private Long priceForSquareMeter;
+
     public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
-        this.propertyType = propertyAdvert.getPropertyType();
-        this.propertyConditionType = propertyAdvert.getPropertyConditionType();
-        this.parkingType = propertyAdvert.getParkingType();
+        this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
+        this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
+        this.parkingType = propertyAdvert.getParkingType().getDisplayName();
         this.title = propertyAdvert.getTitle();
         this.placeId = propertyAdvert.getPlaceId();
+        this.latitude = propertyAdvert.getLatitude();
+        this.longitude = propertyAdvert.getLongitude();
         this.address = propertyAdvert.getAddress();
         this.city = propertyAdvert.getCity();
         this.district = propertyAdvert.getDistrict();
@@ -61,6 +69,7 @@ public class PropertyAdvertDetailsData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.advertStatus = propertyAdvert.getAdvertStatus();
+        this.priceForSquareMeter = Math.round(price *1000000 / area);
     }
 
     public Double getPrice() {
@@ -71,11 +80,11 @@ public class PropertyAdvertDetailsData {
         this.price = price;
     }
 
-    public List<Image> getListOfImages() {
+    public List<String> getListOfImages() {
         return listOfImages;
     }
 
-    public void setListOfImages(List<Image> listOfImages) {
+    public void setListOfImages(List<String> listOfImages) {
         this.listOfImages = listOfImages;
     }
 
@@ -87,27 +96,29 @@ public class PropertyAdvertDetailsData {
         this.advertId = advertId;
     }
 
-    public PropertyType getPropertyType() {
+
+    public String getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType(PropertyType propertyType) {
+
+     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
 
-    public PropertyConditionType getPropertyConditionType() {
+    public String getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+    public void setPropertyConditionType(String propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public ParkingType getParkingType() {
+    public String getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(ParkingType parkingType) {
+    public void setParkingType(String parkingType) {
         this.parkingType = parkingType;
     }
 
@@ -205,5 +216,29 @@ public class PropertyAdvertDetailsData {
 
     public void setAdvertStatus(AdvertStatusType advertStatus) {
         this.advertStatus = advertStatus;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getPriceForSquareMeter() {
+        return priceForSquareMeter;
+    }
+
+    public void setPriceForSquareMeter(Long priceForSquareMeter) {
+        this.priceForSquareMeter = priceForSquareMeter;
     }
 }

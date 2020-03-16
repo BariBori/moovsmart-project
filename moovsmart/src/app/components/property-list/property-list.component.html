@@ -7,19 +7,19 @@
     <th mat-sort-header="numberOfRooms">Szobák száma</th>
     <th mat-sort-header="area">Méret<th>
     <th mat-sort-header="price">Ár</th>
-    <th mat-sort-header="price">Ár/négyzetméter</th>
+    <th mat-sort-header="price/area">Ár/négyzetméter</th>
     <th>Hirdetésazonosító</th>
     <th>Művelet</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let property of propertyListItemModels">
-    <td>{{ property.imageUrl}} </td>
+    <td><img class="list-img" src="{{ property.listOfImages[0]}}" > </td>
     <td>{{ property.title}}</td>
     <td>{{ property.numberOfRooms}}</td>
     <td>{{ property.area}}</td>
     <td>{{property.price}}</td>
-    <td>{{property.priceForSquareMeter}}</td>
+    <td>{{property.priceForSquareMeter}} Ft/m2</td>
     <td>{{ property.advertId }}</td>
     <td>
       <div class="btn-group">

@@ -3,3 +3,11 @@
   background-color: beige;
   font-size: 12px;
 }
+
+.form-group{
+  padding-top: 20px;
+}
+
+.property-form-label{
+  font-weight: bold;
+}
