@@ -14,7 +14,7 @@ package com.progmasters.moovsmart.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidationError {
+public class ValidationErrorResponse {
     private Map<Object, String> fieldErrors = new HashMap<>();
 
     public Map<Object, String> getFieldErrors() {
