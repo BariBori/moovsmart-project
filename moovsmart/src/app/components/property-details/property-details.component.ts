@@ -13,7 +13,7 @@ import {MapsAPILoader} from "@agm/core";
 })
 export class PropertyDetailsComponent implements OnInit {
 
-  advertId: number;
+  id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
 
   faStar= faStar;
@@ -25,7 +25,8 @@ export class PropertyDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private propertyAdvertService: PropertyService,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone
+              private ngZone: NgZone,
+              private router: Router
               ) {
 
      }
@@ -34,9 +35,9 @@ export class PropertyDetailsComponent implements OnInit {
 
     this.route.paramMap.subscribe(
       paramMap => {
-        const id: number = Number(paramMap.get('id'));
+        const id = paramMap.get('id');
         if (id) {
-          this.advertId = id;
+          this.id = id;
           this.loadPropertyAdvertDetails();
         }
       },
@@ -45,7 +46,7 @@ export class PropertyDetailsComponent implements OnInit {
 
 
   loadPropertyAdvertDetails() {
-    this.propertyAdvertService.fetchAdvertDetails(this.advertId).subscribe(
+    this.propertyAdvertService.fetchAdvertDetails(this.id).subscribe(
       (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
       error => console.warn(error),
     );
@@ -63,7 +64,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
 
-
-
-
+  editProperty(id: number) {
+    this.router.navigate(['/property-form',id]);
+  }
 }

@@ -106,6 +106,7 @@ public class PropertyAdvert {
     private LocalDate timeOfActivation;
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
+        this.id = propertyAdvertFormData.getId();
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();

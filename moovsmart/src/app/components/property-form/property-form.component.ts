@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { PropertyService } from '../../services/property.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { validationHandler } from '../../utils/validationHandler';
 import {PropertyTypeOptionItemModel} from "../../models/propertyTypeOptionItem.model";
 import {PropertyConditionTypeOptionItemModel} from "../../models/propertyConditionTypeOptionItem.model";
@@ -11,6 +11,7 @@ import {MapsAPILoader} from "@agm/core";
 import {HttpClient} from "@angular/common/http";
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
 import {Cloudinary} from "@cloudinary/angular-5.x";
+import {PropertyFormDataModel} from "../../models/propertyFormData.model";
 
 
 @Component({
@@ -46,6 +47,8 @@ export class PropertyFormComponent implements OnInit {
     public searchElementRef: ElementRef;
 
     //---------------------------------
+
+  private id: number;
 
   propertyType: Array<PropertyTypeOptionItemModel>;
   propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
@@ -83,6 +86,7 @@ export class PropertyFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private propertyService: PropertyService,
     private router: Router,
+    private route: ActivatedRoute,
     private httpClient: HttpClient,
     //-----Google Maps----
     private mapsAPILoader: MapsAPILoader,
@@ -94,14 +98,22 @@ export class PropertyFormComponent implements OnInit {
 
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
-      (initData: FormInitDataModel) =>{
+      (initData: FormInitDataModel) => {
         this.propertyType = initData.propertyType;
         this.propertyConditionType = initData.propertyConditionType;
         this.parkingType = initData.parkingType;
-      },
-      error => console.warn(error)
-    );
 
+        this.route.paramMap.subscribe(
+          paraMap => {
+            const editablePropertyId = paraMap.get('id');
+            if (editablePropertyId) {
+              this.id = +editablePropertyId;
+              this.getPropertyDetails(editablePropertyId);
+            }
+          },
+          error => console.warn(error)
+        );
+      });
 
 
      //----------CLOUDINARY----------------------
@@ -268,6 +280,48 @@ export class PropertyFormComponent implements OnInit {
       });
     });
   } //NGONINIT END
+
+
+  getPropertyDetails = (id: string) =>{
+    this.propertyService.fetchAdvertDetails(id).subscribe(
+      (response: PropertyFormDataModel) =>{
+        console.log(response);
+        this.propertyForm.patchValue(
+          {
+            advertId: response.advertId,
+            advertStatus: response.advertStatus,
+
+            area: response.area,
+            numberOfRooms: response.numberOfRooms,
+            price: response.price,
+
+            title: response.title,
+
+            propertyType: response.propertyType,
+            propertyConditionType: response.propertyConditionType,
+            parkingType: response.parkingType,
+
+            address: response.address,
+            latitude: response.latitude,
+            longitude: response.longitude,
+            city: response.city,
+            district: response.district,
+            street: response.street,
+            placeId: response.placeId,
+
+            elevator: response.elevator,
+            balcony: response.balcony,
+
+            description: response.description,
+
+            listOfImages: response.listOfImages,
+
+          });
+      },
+    );
+  };
+
+
 
   //-----------GOOGLE MAPS------------
   clearAddressDetails() {
