@@ -20,6 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public UserDetailsImpl loadUserByUsername(String emailOrUserName) {
+        //TODO rewrite to JPA
         return userRepository.findByEmail(emailOrUserName)
                 .or(() ->
                         userRepository.findByUserName(emailOrUserName)

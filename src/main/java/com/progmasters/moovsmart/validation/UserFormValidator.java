@@ -25,7 +25,7 @@ public class UserFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        var userForm = (UserForm) target;
+        UserForm userForm = (UserForm) target;
         Predicate<String> validEmail = email -> {
             boolean valid;
             try {
