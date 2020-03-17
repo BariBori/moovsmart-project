@@ -5,7 +5,6 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { validationHandler } from 'src/app/utils/validationHandler';
 import { FormValidationError } from 'src/app/models/error/FormValidationError';
-import { ValidationErrorRendererService } from 'src/app/services/validation-error-renderer.service';
 
 @Component({
   selector: 'app-userregister-form',
@@ -18,7 +17,6 @@ export class UserregisterFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public validationErrorRenderer: ValidationErrorRendererService,
     private userService: UserService,
     private router: Router
   ) { }
@@ -32,7 +30,6 @@ export class UserregisterFormComponent implements OnInit {
       privacyPolicy: [null, Validators.requiredTrue],
       termsConditions: [null, Validators.requiredTrue]
     });
-    this.validationErrorRenderer.setForm(this.registerNewUserForm);
   }
 
   saveUser() {
@@ -43,7 +40,7 @@ export class UserregisterFormComponent implements OnInit {
         console.log('New user is created');
       },
       errorResponse => {
-        validationHandler(errorResponse, this.registerNewUserForm);
+        validationHandler(errorResponse as FormValidationError, this.registerNewUserForm);
       }
     );
   }
