@@ -6,6 +6,8 @@ import java.util.List;
 
 public class PropertyAdvertDetailsData {
 
+    private long id;
+
     private Double price;
 
     private List<String> listOfImages;
@@ -49,6 +51,7 @@ public class PropertyAdvertDetailsData {
     private Long priceForSquareMeter;
 
     public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
+        this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
@@ -240,5 +243,13 @@ public class PropertyAdvertDetailsData {
 
     public void setPriceForSquareMeter(Long priceForSquareMeter) {
         this.priceForSquareMeter = priceForSquareMeter;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

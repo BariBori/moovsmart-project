@@ -23,7 +23,7 @@
     <td>{{ property.advertId }}</td>
     <td>
       <div class="btn-group">
-        <button class="btn btn-primary" >edit</button>
+        <button class="btn btn-primary" (click)="editProperty(property.id)" >edit</button>
         <button class="btn btn-danger" (click)="archivePropertyAdvert(property.id)">Archivál</button>
         <button class="btn btn-primary" (click)="goToDetails(property.id)">Részletek</button>
       </div>

@@ -1,5 +1,6 @@
 
 export interface PropertyAdvertDetailsModel {
+  id: number,
   price: number,
   listOfImages: Array<string>,
   advertId: number,

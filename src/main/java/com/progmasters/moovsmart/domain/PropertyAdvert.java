@@ -21,6 +21,10 @@ public class PropertyAdvert {
     @NotNull
     private Double price;
 
+  //  @OneToMany(mappedBy = "propertyAdvert")
+//    @NotEmpty
+ //   private List<Image> listOfImages;
+
     @ElementCollection
     @CollectionTable(name="images")
     private List<String> listOfImages = new ArrayList<String>();
@@ -29,8 +33,8 @@ public class PropertyAdvert {
     private Integer advertId;
 
 
-    @OneToMany(mappedBy = "propertyAdvert")
-    private List<User> user;
+    @OneToOne
+    private User user;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -47,6 +51,8 @@ public class PropertyAdvert {
     @Column
     @Size(min = 10, max = 50)
     private String title;
+
+
 
     @Column
     private Double longitude;
@@ -99,7 +105,8 @@ public class PropertyAdvert {
     @Column
     private LocalDate timeOfActivation;
 
-    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData) {
+    public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
+        this.id = propertyAdvertFormData.getId();
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.advertStatus = propertyAdvertFormData.getAdvertStatus();
@@ -174,11 +181,11 @@ public class PropertyAdvert {
     }
 
 
-    public List<User> getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(List<User> user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -33,7 +33,7 @@ export class PropertyService {
     return this.httpClient.delete<Array<PropertyListItemModel>>(BASE_URL + '/' + id);
   }
 
-  fetchAdvertDetails(id: number): Observable<PropertyAdvertDetailsModel> {
+  fetchAdvertDetails(id: string): Observable<PropertyAdvertDetailsModel> {
     return this.httpClient.get<PropertyAdvertDetailsModel>(`${BASE_URL}/${id}`);
   }
 
