@@ -45,14 +45,14 @@ public class UserFormValidator implements Validator {
         }
 
         String userName = userForm.getUserName();
-        if (service.isUserNameTaken(userName)) {
+        if (service.isEmailTaken(userName)) {
             errors.rejectValue("userName", "moovsmart.user.username.alreadyTaken");
-        } else if (userName.length() < 3) {
-            errors.rejectValue("userName", "moovsmart.user.username.invalid");
+        } else if (!validEmail.test(userName)) {
+            errors.rejectValue("userName", "moovsmart.user.username.tooShort");
         }
 
         if (userForm.getPassword().length() < 4) {
-            errors.rejectValue("password", "moovsmart.user.password.invalid");
+            errors.rejectValue("password", "moovsmart.user.password.tooShort");
         }
 
     }

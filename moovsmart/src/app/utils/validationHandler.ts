@@ -1,13 +1,12 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {FormGroup} from '@angular/forms';
+import { FormGroup, FormControlName } from '@angular/forms';
+import { FormValidationError } from '../models/error/FormValidationError';
 
-export function validationHandler(error, form: FormGroup) {
-  if (error instanceof HttpErrorResponse && error.status === 400) {
-    for (const errorFromServer of error.error.fieldErrors) {
-      const formControl = form.get(errorFromServer.field);
-      if (formControl) {
-        formControl.setErrors({serverError: errorFromServer.message});
-      }
-    }
-  }
+export function validationHandler(moovSmartValidationError: FormValidationError, form: FormGroup) {
+  const formControlErrors = moovSmartValidationError.error.formControlErrors;
+
+  Object.keys(formControlErrors).forEach(formControlName =>
+    form
+      .get(formControlName)
+      .setErrors(formControlErrors[formControlName])
+  );
 }
