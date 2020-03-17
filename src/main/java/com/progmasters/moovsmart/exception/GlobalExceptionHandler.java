@@ -21,8 +21,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.UnaryOperator;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -36,7 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ValidationError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    protected ResponseEntity<FormValidationErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         logger.error("A validation error occurred: ", ex);
 
         return new ResponseEntity<>(
@@ -47,18 +49,34 @@ public class GlobalExceptionHandler {
         );
     }
 
-    private ValidationError processFieldErrors(List<FieldError> fieldErrors) {
-        ValidationError validationError = new ValidationError();
-        fieldErrors.forEach(fieldError -> {
-                    validationError.getFieldErrors()
+    private FormValidationErrorResponse processFieldErrors(List<FieldError> fieldErrors) {
+        UnaryOperator<FormValidationErrorResponse> addValidationErrors = errorResponse -> {
+            fieldErrors.forEach(fieldError ->
+                    errorResponse
+                            .getFormControlErrors()
                             .put(
                                     fieldError.getField(),
-                                    messageSource.getMessage(fieldError, Locale.getDefault())
-                            );
-                    logger.error(messageSource.getMessage(fieldError, Locale.getDefault()));
-                }
-        );
-        return validationError;
+                                    new HashMap<>()
+                            )
+            );
+            return errorResponse;
+        };
+        UnaryOperator<FormValidationErrorResponse> setValidationErrors = errorResponse -> {
+
+            fieldErrors.forEach(fieldError -> errorResponse
+                    .getFormControlErrors()
+                    .get(fieldError.getField())
+                    .put(
+                            fieldError.getCode(),
+                            messageSource.getMessage(fieldError, Locale.getDefault())
+                    )
+            );
+            return errorResponse;
+        };
+
+        return addValidationErrors
+                .andThen(setValidationErrors)
+                .apply(new FormValidationErrorResponse());
     }
 
     @ExceptionHandler(JsonParseException.class)

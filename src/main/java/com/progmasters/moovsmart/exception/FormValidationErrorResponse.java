@@ -14,10 +14,11 @@ package com.progmasters.moovsmart.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidationErrorResponse {
-    private Map<Object, String> fieldErrors = new HashMap<>();
+public final class FormValidationErrorResponse {
 
-    public Map<Object, String> getFieldErrors() {
-        return fieldErrors;
+    private final Map<Object, Map<String, String>> formControlErrors = new HashMap<>();
+
+    public Map<Object, Map<String, String>> getFormControlErrors() {
+        return formControlErrors;
     }
 }

@@ -1,9 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
-import { MoovSmartValidationError } from '../models/error/MoovSmartError';
+import { FormGroup, FormControlName } from '@angular/forms';
+import { FormValidationError } from '../models/error/FormValidationError';
 
-export function validationHandler(moovSmartValidationError: HttpErrorResponse & MoovSmartValidationError, form: FormGroup) {
-  for (const field in moovSmartValidationError.error.fieldErrors) {
-    form.get(field)?.setErrors(moovSmartValidationError[field]);
-  }
+export function validationHandler(moovSmartValidationError: FormValidationError, form: FormGroup) {
+  const formControlErrors = moovSmartValidationError.error.formControlErrors;
+
+  Object.keys(formControlErrors).forEach(formControlName =>
+    form
+      .get(formControlName)
+      .setErrors(formControlErrors[formControlName])
+  );
 }
