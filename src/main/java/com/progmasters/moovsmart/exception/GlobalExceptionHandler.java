@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 @ControllerAdvice
@@ -62,14 +63,19 @@ public class GlobalExceptionHandler {
             return errorResponse;
         };
         UnaryOperator<FormValidationErrorResponse> setValidationErrors = errorResponse -> {
+            fieldErrors.forEach(fieldError -> {
+                        String errorCode = Optional.ofNullable(fieldError.getCode().split("\\."))
+                                .map(tokens -> tokens[tokens.length - 1])
+                                .orElse(fieldError.getCode());
 
-            fieldErrors.forEach(fieldError -> errorResponse
-                    .getFormControlErrors()
-                    .get(fieldError.getField())
-                    .put(
-                            fieldError.getCode(),
-                            messageSource.getMessage(fieldError, Locale.getDefault())
-                    )
+                        errorResponse
+                                .getFormControlErrors()
+                                .get(fieldError.getField())
+                                .put(
+                                        errorCode,
+                                        messageSource.getMessage(fieldError, Locale.getDefault())
+                                );
+                    }
             );
             return errorResponse;
         };
