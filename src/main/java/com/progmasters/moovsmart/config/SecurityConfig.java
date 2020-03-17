@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         security.cors().and()
                 .csrf().disable()
                 .logout()
+                .logoutUrl("/api/users/logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and().httpBasic();
