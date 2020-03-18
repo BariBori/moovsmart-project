@@ -5,19 +5,19 @@ set -v
 #INIT PROJECTS RELATED INFO
 #------------- UPDATE ALWAYS CORRESPONDINGLY!
 # pom.xml Artifact id must be 'project'
+#remote_address=moovsmart-demo.progmasters.hu
 remote_address=34.254.251.78
-remote_address=moovsmart-demo.progmasters.hu
-frontend_source_location=./moovsmart/dist/moovsmart/*
 frontend_folder_name=moovsmart
+frontend_source_location=./$frontend_folder_name/dist/$frontend_folder_name/*
 
 backend_source_location=./target/project-1.0-SNAPSHOT.jar
 frontend_remote_location=/home/ubuntu/frontend
-backend_remote_location=/home/ubuntu/
+backend_remote_location=/home/ubuntu
 pem_file_full_path=2019NovGroup.pem
 
 #BUILD PROJECT
 cd $frontend_folder_name
-npm run build
+ng build --prod
 cd ..
 mvn clean package -DskipTests=true
 chmod 400 $pem_file_full_path
