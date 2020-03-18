@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 @Transactional
 public class UserActivationService {
+
     private RegistrationTokenRepository registrationTokenRepository;
     private UserRepository userRepository;
     private JavaMailSender mailSender;
@@ -24,6 +25,7 @@ public class UserActivationService {
     public UserActivationService(RegistrationTokenRepository registrationTokenRepository,
                                  UserRepository userRepository,
                                  JavaMailSender mailSender) {
+
         this.registrationTokenRepository = registrationTokenRepository;
         this.userRepository = userRepository;
         this.mailSender = mailSender;
