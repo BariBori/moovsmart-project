@@ -21,13 +21,13 @@ export class PropertyDetailsComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public zoom: number = 15;
+  isAlreadyInit : boolean = false;
 
   constructor(private route: ActivatedRoute,
               private propertyAdvertService: PropertyService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
               private router: Router,
-              private map: google.maps.Map,
               ) {
 
      }
@@ -41,7 +41,7 @@ export class PropertyDetailsComponent implements OnInit {
           this.id = id;
           this.loadPropertyAdvertDetails();
           this.setLocation();
-
+          this.isAlreadyInit = true;
         }
       },
     );
@@ -56,10 +56,10 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   //--------Google map------//
-  mapReady($event: google.maps.Map) {
+  /*mapReady($event: google.maps.Map) {
     this.latitude = this.propertyAdvertDetails?.latitude;
     this.longitude = this.propertyAdvertDetails?.longitude;
-  }
+  }*/
 
   setLocation() {
     this.latitude = this.propertyAdvertDetails?.latitude;

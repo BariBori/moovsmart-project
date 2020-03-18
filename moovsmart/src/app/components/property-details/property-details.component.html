@@ -5,16 +5,7 @@
 <div class="container-small">
   <div class="row owner_banner">
     <div class="col-6">
-      {{
-
-        propertyAdvertDetails?.advertStatus == 'FORAPPROVAL' ? 'Jóváhagyásra vár' :
-
-            (propertyAdvertDetails?.advertStatus == 'ACTIVE' ? 'Aktív' :
-
-                (propertyAdvertDetails?.advertStatus == 'ARCHIVE' ? 'Archív' :
-
-                    (propertyAdvertDetails?.advertStatus == 'BANNED' ? 'Tiltott': propertyAdvertDetails?.advertStatus)))
-      }}
+      {{propertyAdvertDetails?.advertStatus.displayName}}
 
     </div>
     <div class="col-6">
@@ -72,15 +63,15 @@
 
   <div class="row details">
     <div class="col-4 label-small">Típus</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyType}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Állapot</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Parkolás</div>
-    <div class="col-8">{{propertyAdvertDetails?.parkingType}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Lift</div>
@@ -103,7 +94,7 @@
   </agm-map>
   -->
 
-  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
+  <agm-map *ngIf="isAlreadyInit" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="setLocation()">
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
   </agm-map>
 
