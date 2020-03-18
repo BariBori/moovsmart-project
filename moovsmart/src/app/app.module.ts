@@ -29,6 +29,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCity, faFileContract,  faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -57,12 +58,13 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     NgxPopper,
     FontAwesomeModule,
     FileUploadModule,
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
+    CloudinaryModule.forRoot(Cloudinary, {cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']
     }),
-    NgbModule
+    NgbModule,
+    MatPaginatorModule
   ],
   providers: [
     {

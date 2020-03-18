@@ -5,29 +5,57 @@
 
     <div class="form-group">
       <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="email" placeholder="e-mail"
-             type="email">
+        type="email">
+      <small *ngIf="registerNewUserForm.get('email').errors" class="text-danger">
+        <span>
+          {{registerNewUserForm.get('email').errors.invalid}}
+        </span>
+        <span>
+          {{registerNewUserForm.get('email').errors.alreadyTaken}}
+        </span>
+      </small>
     </div>
+
     <div class="form-group">
+
       <input aria-describedby="emailHelp" class="form-control" formControlName="userName" id="userName"
-             placeholder="felhasználónév"
-             type="text">
+        placeholder="felhasználónév" type="text">
+
+      <small *ngFor=" let errorMessage of registerNewUserForm.get('userName').errors | keyvalue" class="text-danger">
+        {{errorMessage?.value}}
+      </small>
+
     </div>
+
     <div class="form-group">
       <input class="form-control" formControlName="password" id="password" placeholder="jelszó" type="password">
+      <small *ngFor=" let errorMessage of registerNewUserForm.get('password').errors | keyvalue" class="text-danger">
+        {{errorMessage?.value}}
+      </small>
     </div>
     <div class="form-group">
-      <input class="form-control" formControlName="password" id="passwordConfirm" placeholder="jelszó megerősítése"
-             type="password">
+      <input class="form-control" formControlName="passwordConfirm" id="passwordConfirm"
+        placeholder="jelszó megerősítése" type="password">
+      <small class="text-danger">{{registerNewUserForm.errors?.passwordMismatch}}</small>
     </div>
+
     <div class="form-group form-check">
-      <input class="form-check-input" id="privacyPolicy" type="checkbox">
+      <input class="form-check-input" id="privacyPolicy" formControlName='privacyPolicy' type="checkbox">
       <label class="form-check-label" for="privacyPolicy">Az adatkezelési szabályzatot tudomásul veszem és elfogadom
       </label>
+      <small *ngIf="registerNewUserForm.get('privacyPolicy').errors?.required" class="text-danger">
+        Az adatkezelési szabályzatot el kell fogadni!
+      </small>
     </div>
+
     <div class="form-group form-check">
-      <input class="form-check-input" id="termsCondition" type="checkbox">
-      <label class="form-check-label" for="termsCondition">Az ÁSZF-et megismertem és elfogadom </label>
+      <input class="form-check-input" id="termsConditions" type="checkbox" formControlName='termsConditions'>
+      <label class="form-check-label" for="termsConditions">Az ÁSZF-et megismertem és elfogadom </label>
+      <small *ngIf=" registerNewUserForm.get('termsConditions').errors?.required" class="text-danger">
+        Az ÁSZF-et el kell fogadni!
+      </small>
     </div>
+
     <button (click)="saveUser()" class="btn btn-success" type="submit">Regisztráció</button>
   </form>
 </div>

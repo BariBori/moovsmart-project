@@ -4,7 +4,7 @@ public enum AdvertStatusType {
 
     FORAPPROVAL("Jóváhagyásra vár"),
     ACTIVE("Aktív"),
-    ARCHIVE("archív"),
+    ARCHIVE("Archív"),
     BANNED("Tiltott");
 
     private String displayName;

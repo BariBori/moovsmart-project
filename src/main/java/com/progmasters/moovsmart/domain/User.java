@@ -29,6 +29,10 @@ public class User {
     @NotBlank
     private String passwordHash;
 
+    @Column
+    @OneToMany(mappedBy = "user")
+    private List<PropertyAdvert> propertyAdvert;
+
     @OneToOne(mappedBy = "user")
     private PersonalDetails personalDetails;
 

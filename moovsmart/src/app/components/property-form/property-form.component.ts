@@ -12,6 +12,8 @@ import {HttpClient} from "@angular/common/http";
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
 import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyFormDataModel} from "../../models/propertyFormData.model";
+import {EnumValue} from "@angular/compiler-cli/src/ngtsc/partial_evaluator";
+import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 
 
 @Component({
@@ -284,12 +286,12 @@ export class PropertyFormComponent implements OnInit {
 
   getPropertyDetails = (id: string) =>{
     this.propertyService.fetchAdvertDetails(id).subscribe(
-      (response: PropertyFormDataModel) =>{
+      (response: PropertyAdvertDetailsModel) =>{
         console.log(response);
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            advertStatus: response.advertStatus,
+            advertStatus: response.advertStatus.name,
 
             area: response.area,
             numberOfRooms: response.numberOfRooms,
@@ -297,9 +299,10 @@ export class PropertyFormComponent implements OnInit {
 
             title: response.title,
 
-            propertyType: response.propertyType,
-            propertyConditionType: response.propertyConditionType,
-            parkingType: response.parkingType,
+
+            propertyType: response.propertyType.name,
+            propertyConditionType: response.propertyConditionType.name,
+            parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,
@@ -320,8 +323,6 @@ export class PropertyFormComponent implements OnInit {
       },
     );
   };
-
-
 
   //-----------GOOGLE MAPS------------
   clearAddressDetails() {

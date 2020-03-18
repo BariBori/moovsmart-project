@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthenticationService} from 'src/app/services/authentication.service';
-import {Credentials} from 'src/app/models/Credentials';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Credentials } from 'src/app/models/Credentials';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-login',
@@ -35,8 +36,11 @@ export class UserLoginComponent implements OnInit {
           this.authService.credentials = credentials;
           this.router.navigate(['user-home']);
         },
-        failure => console.warn(failure),
-        console.log
+        error => {
+          if (error.status === 401) {
+            this.loginForm.get('password').setErrors({ invalid: 'A megadott felhasználónév - jelszó páros érvénytelen!' });
+          }
+        }
       );
   }
 }

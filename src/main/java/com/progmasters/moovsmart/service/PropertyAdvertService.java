@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.service;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +19,21 @@ import java.util.stream.Collectors;
 public class PropertyAdvertService {
 
     private AdvertRepository advertRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public PropertyAdvertService(AdvertRepository advertRepository) {
+    public PropertyAdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
         this.advertRepository = advertRepository;
+        this.userRepository = userRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, userEmail);
-        return this.advertRepository.save(propertyAdvert);
+    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
+        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+        if(user.isPresent()) {
+            User chosenUser = user.get();
+            PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);
+            this.advertRepository.save(propertyAdvert);
+        }
     }
 
     public PropertyAdvertInitFormData createPropertyAdvertFormInitData() {
