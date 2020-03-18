@@ -57,12 +57,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        UserDetailsImpl userDetails = (UserDetailsImpl)
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getPrincipal();
+    public ResponseEntity<UserDto> userById(@PathVariable Long id) {
+        UserDetailsImpl userDetails = getCurrentUser();
 
         return id.equals(userDetails.getId())
                 ? ResponseEntity.ok(UserDto.fromUserDetails(userDetails))
@@ -72,12 +68,15 @@ public class UserController {
 
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDetailsImpl> userDetails() {
-        return ResponseEntity.ok(
-                (UserDetailsImpl)
-                        SecurityContextHolder
-                                .getContext()
-                                .getAuthentication()
-                                .getPrincipal());
+    public ResponseEntity<Long> currentUserId() {
+        return ResponseEntity.ok(getCurrentUser().getId());
+    }
+
+    private UserDetailsImpl getCurrentUser() {
+        return (UserDetailsImpl)
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getPrincipal();
     }
 }
