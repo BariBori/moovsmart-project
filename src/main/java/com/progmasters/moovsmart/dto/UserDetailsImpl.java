@@ -27,6 +27,7 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl forUser(User user) {
         UserDetailsImpl result = new UserDetailsImpl();
         result.userName = user.getUserName();
+        result.email=user.getEmail();
         result.password = user.getPasswordHash();
         result.enabled = user.isActivated();
         user.getUserRoles().forEach(role ->

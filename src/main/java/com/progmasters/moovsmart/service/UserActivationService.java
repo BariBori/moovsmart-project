@@ -40,6 +40,7 @@ public class UserActivationService {
 
     public void sendActivationEmail(RegistrationToken token) {
         SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom("moovsmartaltenter@gmail.com");
         mail.setTo(token.getUser().getEmail());
         mail.setSubject("Aktivalja emailcimet");
         mail.setText("http://localhost:8080/api/users/activate/" + token.getUuid().toString());

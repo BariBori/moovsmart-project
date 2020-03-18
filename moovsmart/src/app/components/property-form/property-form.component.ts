@@ -321,8 +321,6 @@ export class PropertyFormComponent implements OnInit {
     );
   };
 
-
-
   //-----------GOOGLE MAPS------------
   clearAddressDetails() {
     this.street='';
