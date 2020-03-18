@@ -23,7 +23,7 @@ public class PropertyAdvert {
 
     @ElementCollection
     @CollectionTable(name = "images")
-    private List<String> listOfImages = new ArrayList<String>();
+    private List<String> listOfImages = new ArrayList<>();
 
     @Column
     private Integer advertId;
