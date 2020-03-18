@@ -5,7 +5,17 @@
 <div class="container-small">
   <div class="row owner_banner">
     <div class="col-6">
-      {{propertyAdvertDetails?.advertStatus}}
+      {{
+
+        propertyAdvertDetails?.advertStatus == 'FORAPPROVAL' ? 'Jóváhagyásra vár' :
+
+            (propertyAdvertDetails?.advertStatus == 'ACTIVE' ? 'Aktív' :
+
+                (propertyAdvertDetails?.advertStatus == 'ARCHIVE' ? 'Archív' :
+
+                    (propertyAdvertDetails?.advertStatus == 'BANNED' ? 'Tiltott': propertyAdvertDetails?.advertStatus)))
+      }}
+
     </div>
     <div class="col-6">
       <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
@@ -74,11 +84,11 @@
   </div>
   <div class="row details">
     <div class="col-4 label-small">Lift</div>
-    <div class="col-8">{{propertyAdvertDetails?.elevator}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van': 'nincs'}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Erkély</div>
-    <div class="col-8">{{propertyAdvertDetails?.balcony}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van': 'nincs'}}</div>
   </div>
 
   <div class="description">
@@ -93,7 +103,7 @@
   </agm-map>
   -->
 
-  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="setLocation()">
+  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
   </agm-map>
 

@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
 import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyFormDataModel} from "../../models/propertyFormData.model";
+import {EnumValue} from "@angular/compiler-cli/src/ngtsc/partial_evaluator";
 
 
 @Component({
@@ -296,6 +297,7 @@ export class PropertyFormComponent implements OnInit {
             price: response.price,
 
             title: response.title,
+
 
             propertyType: response.propertyType,
             propertyConditionType: response.propertyConditionType,

@@ -26,7 +26,8 @@ export class PropertyDetailsComponent implements OnInit {
               private propertyAdvertService: PropertyService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private router: Router
+              private router: Router,
+              private map: google.maps.Map,
               ) {
 
      }
@@ -39,6 +40,8 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
+          this.setLocation();
+
         }
       },
     );
@@ -53,10 +56,10 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   //--------Google map------//
-  /*mapReady($event: google.maps.Map) {
+  mapReady($event: google.maps.Map) {
     this.latitude = this.propertyAdvertDetails?.latitude;
     this.longitude = this.propertyAdvertDetails?.longitude;
-  }*/
+  }
 
   setLocation() {
     this.latitude = this.propertyAdvertDetails?.latitude;
