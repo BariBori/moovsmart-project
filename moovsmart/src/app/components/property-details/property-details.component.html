@@ -78,13 +78,15 @@
     <div class="col-4 label-small">Parkolás</div>
     <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
   </div>
-  <div class="row details">
-    <div class="col-4 label-small">Lift</div>
-    <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van': 'nincs'}}</div>
-  </div>
+
   <div class="row details">
     <div class="col-4 label-small">Erkély</div>
     <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van': 'nincs'}}</div>
+  </div>
+
+  <div class="row details">
+    <div class="col-4 label-small">Lift</div>
+    <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van': 'nincs'}}</div>
   </div>
 
   <div class="description">
