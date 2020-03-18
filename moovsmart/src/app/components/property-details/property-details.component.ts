@@ -4,6 +4,7 @@ import {PropertyService} from "../../services/property.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {faStar} from '@fortawesome/free-regular-svg-icons';
 import {MapsAPILoader} from "@agm/core";
+import {PropertyListItemModel} from "../../models/propertyListItem.model";
 
 
 @Component({
@@ -15,6 +16,7 @@ export class PropertyDetailsComponent implements OnInit {
 
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
+  propertyListItemModels: Array<PropertyListItemModel>;
 
   faStar= faStar;
 
@@ -44,6 +46,15 @@ export class PropertyDetailsComponent implements OnInit {
           this.isAlreadyInit = true;
         }
       },
+    );
+  }
+
+  archivePropertyAdvert(id: number) {
+    this.propertyAdvertService.archivePropertyAdvert(id).subscribe(
+      (response: PropertyListItemModel[]) => {
+        this.propertyListItemModels = response;
+      },
+      error => console.warn(error),
     );
   }
 

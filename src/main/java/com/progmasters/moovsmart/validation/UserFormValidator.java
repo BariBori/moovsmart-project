@@ -25,7 +25,7 @@ public class UserFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        var userForm = (UserForm) target;
+        UserForm userForm = (UserForm) target;
         Predicate<String> validEmail = email -> {
             boolean valid;
             try {
@@ -48,11 +48,11 @@ public class UserFormValidator implements Validator {
         if (service.isUserNameTaken(userName)) {
             errors.rejectValue("userName", "moovsmart.user.username.alreadyTaken");
         } else if (userName.length() < 3) {
-            errors.rejectValue("userName", "moovsmart.user.username.invalid");
+            errors.rejectValue("userName", "moovsmart.user.username.tooShort");
         }
 
         if (userForm.getPassword().length() < 4) {
-            errors.rejectValue("password", "moovsmart.user.password.invalid");
+            errors.rejectValue("password", "moovsmart.user.password.tooShort");
         }
 
     }
