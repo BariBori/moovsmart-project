@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { UserFormDataModel } from '../../models/userFormData.model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,13 @@ export class UserregisterFormComponent implements OnInit {
 
   registerNewUserForm: FormGroup;
 
+  private checkPasswords: ValidatorFn = (group: FormGroup) =>
+    group.get('password').value
+      === group.get('passwordConfirm').value
+      ? null
+      : { passwordMismatch: 'A megadott jelszavak nem egyeznek!' }
+
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -22,14 +29,16 @@ export class UserregisterFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.registerNewUserForm = this.formBuilder.group({
       email: [''],
       password: [''],
+      passwordConfirm: ['', this],
       userName: [''],
       personalDetails: [null],
       privacyPolicy: [null, Validators.requiredTrue],
       termsConditions: [null, Validators.requiredTrue]
-    });
+    }, { validator: this.checkPasswords });
   }
 
   saveUser() {

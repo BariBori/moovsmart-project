@@ -34,8 +34,9 @@
       </small>
     </div>
     <div class="form-group">
-      <input class="form-control" formControlName="password" id="passwordConfirm" placeholder="jelszó megerősítése"
-        type="password">
+      <input class="form-control" formControlName="passwordConfirm" id="passwordConfirm"
+        placeholder="jelszó megerősítése" type="password">
+      <small class="text-danger">{{registerNewUserForm.errors?.passwordMismatch}}</small>
     </div>
 
     <div class="form-group form-check">
