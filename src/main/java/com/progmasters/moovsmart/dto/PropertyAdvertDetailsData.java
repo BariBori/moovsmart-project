@@ -14,11 +14,11 @@ public class PropertyAdvertDetailsData {
 
     private Integer advertId;
 
-    private String propertyType;
+    private PropertyTypeOption propertyType;
 
-    private String propertyConditionType;
+    private PropertyConditionOption propertyConditionType;
 
-    private String parkingType;
+    private ParkingTypeOption parkingType;
 
     private String title;
 
@@ -46,18 +46,26 @@ public class PropertyAdvertDetailsData {
 
     private String description;
 
-    private AdvertStatusType advertStatus;
+    private AdvertStatusTypeOption advertStatus;
 
     private Long priceForSquareMeter;
+
+    private String userName;
+
+    public PropertyAdvertDetailsData(){}
 
     public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
+        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
         this.advertId = propertyAdvert.getAdvertId();
-        this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
-        this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
-        this.parkingType = propertyAdvert.getParkingType().getDisplayName();
+
+        this.propertyType = new PropertyTypeOption(propertyAdvert.getPropertyType());
+        this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
+        this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
+
+        this.userName = propertyAdvert.getUser().getUserName();
         this.title = propertyAdvert.getTitle();
         this.placeId = propertyAdvert.getPlaceId();
         this.latitude = propertyAdvert.getLatitude();
@@ -71,8 +79,15 @@ public class PropertyAdvertDetailsData {
         this.elevator = propertyAdvert.isElevator();
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
-        this.advertStatus = propertyAdvert.getAdvertStatus();
         this.priceForSquareMeter = Math.round(price *1000000 / area);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Double getPrice() {
@@ -100,28 +115,28 @@ public class PropertyAdvertDetailsData {
     }
 
 
-    public String getPropertyType() {
+    public PropertyTypeOption getPropertyType() {
         return propertyType;
     }
 
 
-     public void setPropertyType(String propertyType) {
+     public void setPropertyType(PropertyTypeOption propertyType) {
         this.propertyType = propertyType;
     }
 
-    public String getPropertyConditionType() {
+    public PropertyConditionOption getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(String propertyConditionType) {
+    public void setPropertyConditionType(PropertyConditionOption propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public String getParkingType() {
+    public ParkingTypeOption getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(String parkingType) {
+    public void setParkingType(ParkingTypeOption parkingType) {
         this.parkingType = parkingType;
     }
 
@@ -213,11 +228,11 @@ public class PropertyAdvertDetailsData {
         this.description = description;
     }
 
-    public AdvertStatusType getAdvertStatus() {
+    public AdvertStatusTypeOption getAdvertStatus() {
         return advertStatus;
     }
 
-    public void setAdvertStatus(AdvertStatusType advertStatus) {
+    public void setAdvertStatus(AdvertStatusTypeOption advertStatus) {
         this.advertStatus = advertStatus;
     }
 

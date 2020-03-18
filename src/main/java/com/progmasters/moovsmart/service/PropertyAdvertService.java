@@ -1,8 +1,10 @@
 package com.progmasters.moovsmart.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +20,21 @@ import java.util.stream.Collectors;
 public class PropertyAdvertService {
 
     private AdvertRepository advertRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public PropertyAdvertService(AdvertRepository advertRepository) {
+    public PropertyAdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
         this.advertRepository = advertRepository;
+        this.userRepository = userRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData, String userEmail) {
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, userEmail);
-        return this.advertRepository.save(propertyAdvert);
+    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
+        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+        if(user.isPresent()) {
+            User chosenUser = user.get();
+            PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);
+            this.advertRepository.save(propertyAdvert);
+        }
     }
 
     public PropertyAdvertInitFormData createPropertyAdvertFormInitData() {
@@ -53,10 +61,59 @@ public class PropertyAdvertService {
         return result;
     }
 
-    public PropertyAdvertDetailsData getBlogPostDetails(Long id) {
+    public PropertyAdvertDetailsData getPropertyAdvertDetails(Long id) {
         PropertyAdvert propertyAdvert = advertRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("Advert with id: " + id + " not found!")));
         return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
 
+    public PropertyAdvert updateProperty(PropertyAdvertDetailsData propertyAdvertDetailsData, Long id) {
+        Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);
+        if(propertyAdvertOptional.isPresent()){
+            PropertyAdvert propertyAdvert = propertyAdvertOptional.get();
+            updateValues(propertyAdvertDetailsData, propertyAdvert);
+            advertRepository.save(propertyAdvert);
+            return propertyAdvert;
+        } else {
+            return null;
+        }
+    }
+
+    private void updateValues(PropertyAdvertDetailsData propertyAdvertDetailsData, PropertyAdvert propertyAdvert){
+
+        propertyAdvert.setUserName(propertyAdvertDetailsData.getUserName());
+
+        propertyAdvert.setAdvertStatus(AdvertStatusType.valueOf(propertyAdvertDetailsData.getAdvertStatus().getName()));
+
+        propertyAdvert.setAdvertId(propertyAdvertDetailsData.getAdvertId());
+
+        propertyAdvert.setTitle(propertyAdvertDetailsData.getTitle());
+
+        propertyAdvert.setPrice(propertyAdvertDetailsData.getPrice());
+        propertyAdvert.setArea(propertyAdvertDetailsData.getArea());
+        propertyAdvert.setNumberOfRooms(propertyAdvertDetailsData.getNumberOfRooms());
+
+        propertyAdvert.setPropertyType(PropertyType.valueOf(propertyAdvertDetailsData.getPropertyType().getName()));
+        propertyAdvert.setPropertyConditionType(PropertyConditionType.valueOf(propertyAdvertDetailsData.getPropertyConditionType().getName()));
+        propertyAdvert.setParkingType(ParkingType.valueOf(propertyAdvertDetailsData.getParkingType().getName()));
+
+
+
+        propertyAdvert.setPlaceId(propertyAdvertDetailsData.getPlaceId());
+        propertyAdvert.setLatitude(propertyAdvertDetailsData.getLatitude());
+        propertyAdvert.setLongitude(propertyAdvertDetailsData.getLongitude());
+        propertyAdvert.setAddress(propertyAdvertDetailsData.getAddress());
+        propertyAdvert.setCity(propertyAdvertDetailsData.getCity());
+        propertyAdvert.setDistrict(propertyAdvertDetailsData.getDistrict());
+        propertyAdvert.setStreet(propertyAdvertDetailsData.getStreet());
+
+
+        propertyAdvert.setElevator(propertyAdvertDetailsData.isElevator());
+        propertyAdvert.setBalcony(propertyAdvertDetailsData.isBalcony());
+
+        propertyAdvert.setDescription(propertyAdvertDetailsData.getDescription());
+
+        propertyAdvert.setListOfImages(propertyAdvertDetailsData.getListOfImages());
+
+    }
 }

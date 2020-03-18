@@ -57,7 +57,6 @@ public class UserController {
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<UserDetailsImpl> userDetails() {
-
         return ResponseEntity.ok(
                 (UserDetailsImpl)
                         SecurityContextHolder

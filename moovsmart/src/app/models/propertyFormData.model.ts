@@ -1,4 +1,5 @@
 export interface PropertyFormDataModel {
+  id?: number;
 
   price: number;
   listOfImages: Array<string>;

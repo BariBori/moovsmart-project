@@ -1,12 +1,17 @@
+import {PropertyTypeOptionItemModel} from "./propertyTypeOptionItem.model";
+import {PropertyConditionTypeOptionItemModel} from "./propertyConditionTypeOptionItem.model";
+import {ParkingTypeOptionItemModel} from "./parkingTypeOptionItem.model";
+import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
+import {UserFormDataModel} from "./userFormData.model";
 
 export interface PropertyAdvertDetailsModel {
   id: number,
   price: number,
   listOfImages: Array<string>,
   advertId: number,
-  propertyType: string;
-  propertyConditionType: string;
-  parkingType: string;
+  propertyType: PropertyTypeOptionItemModel;
+  propertyConditionType: PropertyConditionTypeOptionItemModel;
+  parkingType: ParkingTypeOptionItemModel;
   title: string;
   priceForSquareMeter: number;
   placeId: string;
@@ -26,5 +31,7 @@ export interface PropertyAdvertDetailsModel {
   balcony: boolean;
 
   description: string;
-  advertStatus: string;
+  advertStatus: AdvertStatusTypeOptionItemModel;
+
+  userName: string;
 }
