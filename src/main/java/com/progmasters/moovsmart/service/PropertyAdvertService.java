@@ -19,16 +19,21 @@ import java.util.stream.Collectors;
 public class PropertyAdvertService {
 
     private AdvertRepository advertRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public PropertyAdvertService(AdvertRepository advertRepository) {
+    public PropertyAdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
         this.advertRepository = advertRepository;
+        this.userRepository = userRepository;
     }
 
-    public PropertyAdvert saveAdvert(PropertyAdvertFormData propertyAdvertFormData) {
-
-        PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData);
-        return this.advertRepository.save(propertyAdvert);
+    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
+        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+        if(user.isPresent()) {
+            User chosenUser = user.get();
+            PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);
+            this.advertRepository.save(propertyAdvert);
+        }
     }
 
     public PropertyAdvertInitFormData createPropertyAdvertFormInitData() {

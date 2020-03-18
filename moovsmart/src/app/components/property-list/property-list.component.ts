@@ -3,6 +3,8 @@ import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
 import {Sort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-property-list',
@@ -14,6 +16,11 @@ export class PropertyListComponent implements OnInit {
   propertyListItemModels: Array<PropertyListItemModel>;
 
   sortedData: PropertyListItemModel[];
+
+  displayedColumns: string[] = ['Cím', 'Szobák száma', 'Méret', 'Ár', 'Ár/négyzetméter', 'Hirdetésazonosító', 'Művelet'];
+  dataSource = new MatTableDataSource<PropertyListItemModel>();
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
   constructor(private propertyService: PropertyService,
@@ -47,19 +54,11 @@ export class PropertyListComponent implements OnInit {
   ngOnInit() {
     this.propertyService.getPropertyList().subscribe(
       propertyListItems => this.propertyListItemModels = propertyListItems);
+    this.dataSource.paginator = this.paginator;
   }
 
   details(id: number) {
     this.router.navigate(['property-details', id]);
-  }
-
-  archivePropertyAdvert(id: number) {
-    this.propertyService.archivePropertyAdvert(id).subscribe(
-      (response: PropertyListItemModel[]) => {
-        this.propertyListItemModels = response;
-      },
-      error => console.warn(error),
-    );
   }
 
   goToDetails(id: number) {

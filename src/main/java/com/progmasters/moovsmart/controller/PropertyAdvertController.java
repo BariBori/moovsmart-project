@@ -1,9 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.dto.PropertyAdvertDetailsData;
-import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
-import com.progmasters.moovsmart.dto.PropertyAdvertInitFormData;
-import com.progmasters.moovsmart.dto.PropertyAdvertListItem;
+import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
@@ -12,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +38,14 @@ public class PropertyAdvertController {
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData, Principal principal) {
-        propertyAdvertService.saveAdvert(propertyAdvertFormData);
+    public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData) {
         logger.info("The advert is created");
+        UserDetailsImpl userDetails =
+                (UserDetailsImpl) SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getPrincipal();
+        propertyAdvertService.saveAdvert(propertyAdvertFormData, userDetails);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
