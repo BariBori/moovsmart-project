@@ -23,12 +23,13 @@ export class PropertyDetailsComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public zoom: number = 15;
+  isAlreadyInit : boolean = false;
 
   constructor(private route: ActivatedRoute,
               private propertyAdvertService: PropertyService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private router: Router
+              private router: Router,
               ) {
 
      }
@@ -41,6 +42,8 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
+          this.setLocation();
+          this.isAlreadyInit = true;
         }
       },
     );

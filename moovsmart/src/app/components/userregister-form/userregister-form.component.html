@@ -5,14 +5,9 @@
 
     <div class="form-group">
       <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="email" placeholder="e-mail"
-        type="email">
-      <small *ngIf="registerNewUserForm.get('email').errors" class="text-danger">
-        <span>
-          {{registerNewUserForm.get('email').errors.invalid}}
-        </span>
-        <span>
-          {{registerNewUserForm.get('email').errors.alreadyTaken}}
-        </span>
+             type="email">
+      <small *ngFor=" let errorMessage of registerNewUserForm.get('email').errors | keyvalue" class="text-danger">
+        {{errorMessage?.value}}
       </small>
     </div>
 

@@ -1,8 +1,8 @@
 import {Component, ElementRef, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import { PropertyService } from '../../services/property.service';
+import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { validationHandler } from '../../utils/validationHandler';
+import {validationHandler} from '../../utils/validationHandler';
 import {PropertyTypeOptionItemModel} from "../../models/propertyTypeOptionItem.model";
 import {PropertyConditionTypeOptionItemModel} from "../../models/propertyConditionTypeOptionItem.model";
 import {ParkingTypeOptionItemModel} from "../../models/parkingTypeOptionItem.model";
@@ -11,7 +11,7 @@ import {MapsAPILoader} from "@agm/core";
 import {HttpClient} from "@angular/common/http";
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
 import {Cloudinary} from "@cloudinary/angular-5.x";
-import {PropertyFormDataModel} from "../../models/propertyFormData.model";
+import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 
 
 @Component({
@@ -32,21 +32,21 @@ export class PropertyFormComponent implements OnInit {
 
   //------Google Maps------------
   private geoCoder;
-    zoom: number;
-    address: string;
-    city: string;
-    district: string;
-    street: string;
-    postalCode: string;
-    placeId: string;
-    latitude: number;
-    longitude: number;
-    addressComponent: any;
+  zoom: number;
+  address: string;
+  city: string;
+  district: string;
+  street: string;
+  postalCode: string;
+  placeId: string;
+  latitude: number;
+  longitude: number;
+  addressComponent: any;
 
-    @ViewChild('search')
-    public searchElementRef: ElementRef;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
 
-    //---------------------------------
+  //---------------------------------
 
   private id: number;
 
@@ -54,31 +54,31 @@ export class PropertyFormComponent implements OnInit {
   propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
   parkingType: Array<ParkingTypeOptionItemModel>;
 
-    propertyForm = this.formBuilder.group({
-      advertStatus: ['FORAPPROVAL'],
+  propertyForm = this.formBuilder.group({
+    advertStatus: ['FORAPPROVAL'],
 
-      address: [''],
-      city: [''],
-      street: [''],
-      district: [''],
-      postalCode: [''],
+    address: [''],
+    city: [''],
+    street: [''],
+    district: [''],
+    postalCode: [''],
 
-      title: ['',Validators.required],
-      price: [0 ,Validators.required],
+    title: [''],
+    price: [null],
 
-      area: [0,Validators.required],
-      numberOfRooms: [0,Validators.required],
+    area: [null],
+    numberOfRooms: [null],
 
-      propertyType: ['',Validators.required],
-      propertyConditionType: ['',Validators.required],
-      parkingType: ['',Validators.required],
+    propertyType: ['', Validators.required],
+    propertyConditionType: ['', Validators.required],
+    parkingType: ['', Validators.required],
 
-      elevator: [false],
-      balcony: [false],
+    elevator: [false],
+    balcony: [false],
 
-      description: ['',Validators.required],
+    description: [''],
 
-      listOfImages: [null],
+    listOfImages: [null],
   });
 
 
@@ -93,8 +93,10 @@ export class PropertyFormComponent implements OnInit {
     private zone: NgZone,
     //----Cloudinary-----
     private cloudinary: Cloudinary,
-  ) {this.responses = [];
-    this.imgTitle = ''; }
+  ) {
+    this.responses = [];
+    this.imgTitle = '';
+  }
 
   ngOnInit() {
     this.propertyService.fetchFormInitData().subscribe(
@@ -116,12 +118,12 @@ export class PropertyFormComponent implements OnInit {
       });
 
 
-     //----------CLOUDINARY----------------------
+    //----------CLOUDINARY----------------------
     // Create the file uploader, wire it to upload to your account
     const config = this.cloudinary.config();
     const cloud_name = "dqmt1lieq";
     const uploaderOptions: FileUploaderOptions = {
-      url: "https://api.cloudinary.com/v1_1/"+  this.cloudinary.config().cloud_name+"/image/upload",
+      url: "https://api.cloudinary.com/v1_1/" + this.cloudinary.config().cloud_name + "/image/upload",
 
       // Upload files automatically upon addition to upload queue
       autoUpload: true,
@@ -146,7 +148,7 @@ export class PropertyFormComponent implements OnInit {
       form.append('upload_preset', this.cloudinary.config().upload_preset);
 
       let tags = 'mypropertyalbum';
-      if(this.imgTitle){
+      if (this.imgTitle) {
         form.append('context', `photo=${this.imgTitle}`);
         tags = `myphotoalbum,${this.imgTitle}`;
       }
@@ -194,7 +196,7 @@ export class PropertyFormComponent implements OnInit {
 
         //fill listOfImages array
         this.listOfImages.push(fileItem.data.url);
-        this.listOfImages= this.listOfImages.filter(function (el) {
+        this.listOfImages = this.listOfImages.filter(function (el) {
           return el != null;
         });
         console.log(this.listOfImages);
@@ -253,13 +255,13 @@ export class PropertyFormComponent implements OnInit {
           console.log(this.addressComponent);
 
 
-          for(let i = 0; i < this.addressComponent.length; i++){
+          for (let i = 0; i < this.addressComponent.length; i++) {
             switch (this.addressComponent[i].types[0]) {
               case "route": {
                 this.street = place.address_components[i].long_name;
                 break;
               }
-              case "sublocality_level_1":{
+              case "sublocality_level_1": {
                 this.district = place.address_components[i].long_name;
                 break;
               }
@@ -282,14 +284,14 @@ export class PropertyFormComponent implements OnInit {
   } //NGONINIT END
 
 
-  getPropertyDetails = (id: string) =>{
+  getPropertyDetails = (id: string) => {
     this.propertyService.fetchAdvertDetails(id).subscribe(
-      (response: PropertyFormDataModel) =>{
+      (response: PropertyAdvertDetailsModel) => {
         console.log(response);
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            advertStatus: response.advertStatus,
+            advertStatus: response.advertStatus.name,
 
             area: response.area,
             numberOfRooms: response.numberOfRooms,
@@ -297,9 +299,10 @@ export class PropertyFormComponent implements OnInit {
 
             title: response.title,
 
-            propertyType: response.propertyType,
-            propertyConditionType: response.propertyConditionType,
-            parkingType: response.parkingType,
+
+            propertyType: response.propertyType.name,
+            propertyConditionType: response.propertyConditionType.name,
+            parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,
@@ -323,11 +326,11 @@ export class PropertyFormComponent implements OnInit {
 
   //-----------GOOGLE MAPS------------
   clearAddressDetails() {
-    this.street='';
-    this.postalCode='';
-    this.address='';
-    this.city='';
-    this.district='';
+    this.street = '';
+    this.postalCode = '';
+    this.address = '';
+    this.city = '';
+    this.district = '';
   }
 
   //---------GOOGLE MAPS END-----------
