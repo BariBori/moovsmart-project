@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progmasters.moovsmart.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,23 +10,23 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
-    @JsonIgnore
+    private Long id;
+
     private String email;
 
-    @JsonIgnore
     private String password;
 
     private String userName;
 
-    @JsonIgnore
     private Boolean enabled;
 
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
     public static UserDetailsImpl forUser(User user) {
         UserDetailsImpl result = new UserDetailsImpl();
+        result.id = user.getId();
         result.userName = user.getUserName();
-        result.email=user.getEmail();
+        result.email = user.getEmail();
         result.password = user.getPasswordHash();
         result.enabled = user.isActivated();
         user.getUserRoles().forEach(role ->
@@ -47,6 +46,14 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
