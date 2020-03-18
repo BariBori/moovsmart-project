@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.UserDetailsImpl;
+import com.progmasters.moovsmart.dto.UserDto;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.service.UserActivationService;
 import com.progmasters.moovsmart.service.UserService;
@@ -53,6 +54,21 @@ public class UserController {
         User user = userActivationService.activateUserByTokenId(tokenId);
         return ResponseEntity.ok("User " + user.getEmail() + " activated");
     }
+
+    @GetMapping("/{id}")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDetailsImpl userDetails = (UserDetailsImpl)
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getPrincipal();
+
+        return id.equals(userDetails.getId())
+                ? ResponseEntity.ok(UserDto.fromUserDetails(userDetails))
+                : ResponseEntity.status(401).build();
+    }
+
 
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
