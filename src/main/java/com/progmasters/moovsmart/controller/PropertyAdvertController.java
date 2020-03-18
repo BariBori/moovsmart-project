@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +38,7 @@ public class PropertyAdvertController {
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> createPropertyAdvert(@RequestBody PropertyAdvertFormData propertyAdvertFormData) {
+    public ResponseEntity<Void> createPropertyAdvert(@RequestBody @Valid PropertyAdvertFormData propertyAdvertFormData) {
         logger.info("The advert is created");
         UserDetailsImpl userDetails =
                 (UserDetailsImpl) SecurityContextHolder
