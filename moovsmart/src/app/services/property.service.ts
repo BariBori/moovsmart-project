@@ -37,4 +37,9 @@ export class PropertyService {
     return this.httpClient.get<PropertyAdvertDetailsModel>(`${BASE_URL}/${id}`);
   }
 
+  updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any>{
+    data.id = propertyId
+    return this.httpClient.put(BASE_URL +'/' + propertyId, data);
+  }
+
 }
