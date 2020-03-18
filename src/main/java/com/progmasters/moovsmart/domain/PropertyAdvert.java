@@ -98,8 +98,11 @@ public class PropertyAdvert {
     @ManyToOne
     private User user;
 
+    private String userName;
+
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
         this.id = propertyAdvertFormData.getId();
+        this.userName = user.getUserName();
         this.user = user;
         this.price = propertyAdvertFormData.getPrice();
         this.listOfImages = propertyAdvertFormData.getListOfImages();

@@ -65,7 +65,7 @@ export class PropertyListComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
-  editProperty(id: number) {
-    this.router.navigate(['property-form',id]);
-  }
+  // editProperty(id: number) {
+  //   this.router.navigate(['property-form',id]);
+  // }
 }

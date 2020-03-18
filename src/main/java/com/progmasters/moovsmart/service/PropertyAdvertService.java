@@ -60,7 +60,7 @@ public class PropertyAdvertService {
         return result;
     }
 
-    public PropertyAdvertDetailsData getBlogPostDetails(Long id) {
+    public PropertyAdvertDetailsData getPropertyAdvertDetails(Long id) {
         PropertyAdvert propertyAdvert = advertRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("Advert with id: " + id + " not found!")));
         return new PropertyAdvertDetailsData(propertyAdvert);
     }

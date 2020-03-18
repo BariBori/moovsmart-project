@@ -1,7 +1,9 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
+import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,7 @@ public class PropertyAdvertController {
 
     private PropertyAdvertService propertyAdvertService;
     private PropertyAdvertValidator propertyAdvertValidator;
+    private UserService userService;
 
     @Autowired
     public PropertyAdvertController(PropertyAdvertService propertyAdvertService, PropertyAdvertValidator propertyAdvertValidator) {
@@ -73,7 +75,7 @@ public class PropertyAdvertController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
-        return new ResponseEntity<>(propertyAdvertService.getBlogPostDetails(id), HttpStatus.OK);
+        return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);
     }
 
 }
