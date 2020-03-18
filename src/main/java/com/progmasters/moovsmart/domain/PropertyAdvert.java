@@ -105,7 +105,7 @@ public class PropertyAdvert {
         this.userName = user.getUserName();
         this.user = user;
         this.price = propertyAdvertFormData.getPrice();
-        this.advertStatus = propertyAdvertFormData.getAdvertStatus();
+        this.advertStatus = AdvertStatusType.FORAPPROVAL;
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.placeId = propertyAdvertFormData.getPlaceId();
         this.latitude = propertyAdvertFormData.getLatitude();

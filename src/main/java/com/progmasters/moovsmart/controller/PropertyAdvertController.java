@@ -80,7 +80,7 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id")
+    @PutMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyAdvertDetailsData propertyAdvertDetailsData, @PathVariable Long id){
         PropertyAdvert updatedProperty = propertyAdvertService.updateProperty(propertyAdvertDetailsData, id);
         ResponseEntity<PropertyAdvertDetailsData> result;

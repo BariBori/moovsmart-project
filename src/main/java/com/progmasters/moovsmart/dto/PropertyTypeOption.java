@@ -7,6 +7,8 @@ public class PropertyTypeOption {
     private String name;
     private String displayName;
 
+
+
     public PropertyTypeOption(PropertyType propertyType) {
         this.name = propertyType.toString();
         this.displayName = propertyType.getDisplayName();
