@@ -16,9 +16,10 @@ import java.util.Map;
 
 public final class FormValidationErrorResponse {
 
-    private final Map<Object, Map<String, String>> formControlErrors = new HashMap<>();
+    private final Map<String, Map<String, String>> formControlErrors = new HashMap<>();
 
-    public Map<Object, Map<String, String>> getFormControlErrors() {
+    public Map<String, Map<String, String>> getFormControlErrors() {
         return formControlErrors;
     }
+
 }
