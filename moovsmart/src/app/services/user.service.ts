@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/error/User';
 import { AuthenticationService } from './authentication.service';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,8 @@ export class UserService {
   getId(): number { return this.userId; }
 
   fetchUserById(id: number): Observable<User> {
-    return this.http.get<User>(this.BASE_URL + `/${id}`);
+    return this.http.get<User>(this.BASE_URL + `/${id}`)
+      .pipe(tap(() => console.log(`Succesfully aquired details for User with id '${id}'`)));
   }
 
   registerUser(data: UserFormDataModel): Observable<void> {
