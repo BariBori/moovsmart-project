@@ -26,6 +26,4 @@ export interface PropertyFormDataModel {
 
   description: string;
 
-  advertStatus: string;
-
 }

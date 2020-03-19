@@ -38,7 +38,8 @@ export class PropertyService {
   }
 
   updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any>{
-    data.id = propertyId
+    data.id = propertyId;
+    console.log("PropertyService");
     return this.httpClient.put(BASE_URL +'/' + propertyId, data);
   }
 

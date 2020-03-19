@@ -52,13 +52,11 @@ export class PropertyFormComponent implements OnInit {
   private id: number;
   private userName : string;
 
-  propertyType: Array<PropertyTypeOptionItemModel>;
-  propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
-  parkingType: Array<ParkingTypeOptionItemModel>;
+  propertyType: PropertyTypeOptionItemModel[];
+  propertyConditionType: PropertyConditionTypeOptionItemModel[];
+  parkingType: ParkingTypeOptionItemModel[];
 
   propertyForm = this.formBuilder.group({
-    advertStatus: ['FORAPPROVAL'],
-
     userName: [''],
 
     address: [''],
@@ -417,6 +415,7 @@ export class PropertyFormComponent implements OnInit {
       () => this.router.navigate(['property-list']),
       //error => validationHandler(error, this.propertyForm),
     );
+    console.log("PropertyForm");
   }
 
 

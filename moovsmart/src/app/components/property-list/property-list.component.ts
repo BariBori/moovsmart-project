@@ -17,7 +17,6 @@ export class PropertyListComponent implements OnInit {
 
   sortedData: PropertyListItemModel[];
 
-  displayedColumns: string[] = ['Cím', 'Szobák száma', 'Méret', 'Ár', 'Ár/négyzetméter', 'Hirdetésazonosító', 'Művelet'];
   dataSource = new MatTableDataSource<PropertyListItemModel>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

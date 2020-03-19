@@ -9,9 +9,12 @@ export interface PropertyAdvertDetailsModel {
   price: number,
   listOfImages: Array<string>,
   advertId: number,
-  propertyType: PropertyTypeOptionItemModel;
-  propertyConditionType: PropertyConditionTypeOptionItemModel;
-  parkingType: ParkingTypeOptionItemModel;
+  // propertyType: PropertyTypeOptionItemModel;
+  // propertyConditionType: PropertyConditionTypeOptionItemModel;
+  // parkingType: ParkingTypeOptionItemModel;
+  propertyType: string;
+  propertyConditionType: string;
+  parkingType: string;
   title: string;
   priceForSquareMeter: number;
   placeId: string;
@@ -31,7 +34,8 @@ export interface PropertyAdvertDetailsModel {
   balcony: boolean;
 
   description: string;
-  advertStatus: AdvertStatusTypeOptionItemModel;
+  // advertStatus: AdvertStatusTypeOptionItemModel;
+  advertStatus: string;
 
   userName: string;
 }

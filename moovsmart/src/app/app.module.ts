@@ -30,6 +30,7 @@ import { faCity, faFileContract,  faHandshake } from '@fortawesome/free-solid-sv
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
       libraries: ['places']
     }),
     NgbModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule
   ],
   providers: [
     {

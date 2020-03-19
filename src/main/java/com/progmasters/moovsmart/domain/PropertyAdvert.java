@@ -105,7 +105,6 @@ public class PropertyAdvert {
         this.userName = user.getUserName();
         this.user = user;
         this.price = propertyAdvertFormData.getPrice();
-        this.advertStatus = propertyAdvertFormData.getAdvertStatus();
         this.listOfImages = propertyAdvertFormData.getListOfImages();
         this.placeId = propertyAdvertFormData.getPlaceId();
         this.latitude = propertyAdvertFormData.getLatitude();
@@ -113,9 +112,12 @@ public class PropertyAdvert {
         this.createdAt = LocalDate.now();
         this.timeOfActivation = LocalDate.now();
         this.advertId = new Random().nextInt(1000000);
-        this.propertyType = propertyAdvertFormData.getPropertyType();
-        this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
-        this.parkingType = propertyAdvertFormData.getParkingType();
+
+        this.advertStatus = AdvertStatusType.FORAPPROVAL;
+        this.propertyType = PropertyType.valueOf(propertyAdvertFormData.getPropertyType());
+        this.propertyConditionType = PropertyConditionType.valueOf(propertyAdvertFormData.getPropertyConditionType());
+        this.parkingType = ParkingType.valueOf(propertyAdvertFormData.getParkingType());
+
         this.title = propertyAdvertFormData.getTitle();
         this.city = propertyAdvertFormData.getCity();
         this.address = propertyAdvertFormData.getAddress();

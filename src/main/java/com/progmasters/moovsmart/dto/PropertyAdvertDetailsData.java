@@ -20,6 +20,8 @@ public class PropertyAdvertDetailsData {
 
     private ParkingTypeOption parkingType;
 
+    private AdvertStatusTypeOption advertStatus;
+
     private String title;
 
     private String placeId;
@@ -46,7 +48,7 @@ public class PropertyAdvertDetailsData {
 
     private String description;
 
-    private AdvertStatusTypeOption advertStatus;
+
 
     private Long priceForSquareMeter;
 
@@ -56,9 +58,9 @@ public class PropertyAdvertDetailsData {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
-        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
         this.advertId = propertyAdvert.getAdvertId();
 
+        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
         this.propertyType = new PropertyTypeOption(propertyAdvert.getPropertyType());
         this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
         this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
@@ -78,6 +80,9 @@ public class PropertyAdvertDetailsData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.priceForSquareMeter = Math.round(price *1000000 / area);
+    }
+
+    public PropertyAdvertDetailsData() {
     }
 
     public String getUserName() {
@@ -113,7 +118,8 @@ public class PropertyAdvertDetailsData {
     }
 
 
-    public PropertyTypeOption getPropertyType() {
+
+        public PropertyTypeOption getPropertyType() {
         return propertyType;
     }
 
@@ -136,6 +142,14 @@ public class PropertyAdvertDetailsData {
 
     public void setParkingType(ParkingTypeOption parkingType) {
         this.parkingType = parkingType;
+    }
+
+    public AdvertStatusTypeOption getAdvertStatus() {
+        return advertStatus;
+    }
+
+    public void setAdvertStatus(AdvertStatusTypeOption advertStatus) {
+        this.advertStatus = advertStatus;
     }
 
     public String getTitle() {
@@ -224,14 +238,6 @@ public class PropertyAdvertDetailsData {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public AdvertStatusTypeOption getAdvertStatus() {
-        return advertStatus;
-    }
-
-    public void setAdvertStatus(AdvertStatusTypeOption advertStatus) {
-        this.advertStatus = advertStatus;
     }
 
     public Double getLatitude() {
