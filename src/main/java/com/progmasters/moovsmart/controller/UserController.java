@@ -44,9 +44,9 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/authenticate")
-    public ResponseEntity<Void> authenticateUser() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/authenticate")
+    public ResponseEntity<Long> authenticateUser() {
+        return ResponseEntity.ok(getCurrentUser().getId());
     }
 
     @GetMapping("/activate/{tokenId}")
