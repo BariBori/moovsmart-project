@@ -57,6 +57,8 @@ export class PropertyFormComponent implements OnInit {
   parkingType: ParkingTypeOptionItemModel[];
 
   propertyForm = this.formBuilder.group({
+    advertStatus: ['FORAPPROVAL'],
+
     userName: [''],
 
     address: [''],

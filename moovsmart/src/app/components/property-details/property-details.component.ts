@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {faStar} from '@fortawesome/free-regular-svg-icons';
 import {MapsAPILoader} from "@agm/core";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 
 @Component({
@@ -19,6 +20,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyListItemModels: Array<PropertyListItemModel>;
 
   faStar= faStar;
+  faEnvelope = faEnvelope;
 
   public latitude: number;
   public longitude: number;

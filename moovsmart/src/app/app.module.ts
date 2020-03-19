@@ -31,6 +31,8 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+
 
 @NgModule({
   declarations: [
@@ -53,8 +55,6 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSortModule,
-    MatTableModule,
     BrowserAnimationsModule,
     NgxPopper,
     FontAwesomeModule,
@@ -66,7 +66,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     }),
     NgbModule,
     MatPaginatorModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [
     {

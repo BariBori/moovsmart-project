@@ -54,6 +54,8 @@ public class PropertyAdvertDetailsData {
 
     private String userName;
 
+    public PropertyAdvertDetailsData(){}
+
     public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();

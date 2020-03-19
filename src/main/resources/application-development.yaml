@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: root
+    password: test1234
+
+cors-policies: http://34.254.251.78, http://moovsmart-demo.progmasters.hu

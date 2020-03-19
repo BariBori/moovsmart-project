@@ -42,6 +42,7 @@ public class PropertyAdvertService {
                 Arrays.stream(PropertyType.values()).map(PropertyTypeOption::new).collect(Collectors.toList()),
                 Arrays.stream(PropertyConditionType.values()).map(PropertyConditionOption::new).collect(Collectors.toList()),
                 Arrays.stream(ParkingType.values()).map(ParkingTypeOption::new).collect(Collectors.toList())
+                //Arrays.stream(AdvertStatusType.values()).map(AdvertStatusTypeOption::new).collect(Collectors.toList())
                 );
     }
 
