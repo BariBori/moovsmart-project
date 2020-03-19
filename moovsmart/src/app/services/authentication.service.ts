@@ -4,6 +4,7 @@ import { Credentials } from '../models/Credentials';
 import { Observable } from 'rxjs';
 import { tap, map, flatMap } from 'rxjs/operators';
 import { flatten } from '@angular/compiler';
+import { User } from '../models/error/User';
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +13,21 @@ export class AuthenticationService {
 
   private BASE_URL = 'http://localhost:8080/api/users';
 
-  private userId: number | null;
-  public credentials: Credentials;
 
-  @Output() loggedIn: EventEmitter<number>;
-  @Output() loggedOut: EventEmitter<void>;
+  @Output() loggedIn: EventEmitter<User>;
+  @Output() loggedOut: EventEmitter<null>;
 
   constructor(private http: HttpClient) {
-    this.loggedIn = new EventEmitter<number>();
-    this.loggedOut = new EventEmitter<void>();
+    this.loggedIn = new EventEmitter<User>();
+    this.loggedOut = new EventEmitter<null>();
   }
 
-  private fetchUserId: Observable<number> = this.http.get<number>(this.BASE_URL + '/me')
-    .pipe(
-      tap(gotId => {
-        console.log(`Aquired userId ${gotId}`);
-      })
-    );
 
   logOut: Observable<void> = this.http.get<void>(this.BASE_URL + '/logout')
     .pipe(
       tap(success => {
-        this.loggedOut.emit();
-        console.log(`User with id '${this.userId}' succesfully logged out`);
-        this.userId = null;
+        this.loggedOut.emit(null);
+        console.log('User succesfully logged out');
       })
     );
 
@@ -43,17 +35,13 @@ export class AuthenticationService {
     this.BASE_URL + '/authenticate', '',
     { headers: this.getAuthenticationHeaders(credentials) })
     .pipe(
-      tap((gotId: number) => {
-        this.userId = gotId;
-        this.loggedIn.emit(this.userId);
-        console.log(`User with id '${this.userId}' succesfully logged in`);
+      tap((user: User) => {
+        this.loggedIn.emit(user);
+        console.log(`User '${user.userName}' succesfully logged in`);
       }),
     )
 
   getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
     authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
   })
-
-  public getUserId = (): number => this.userId;
-
 }

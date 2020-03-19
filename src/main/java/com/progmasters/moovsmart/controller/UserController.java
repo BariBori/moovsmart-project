@@ -44,32 +44,21 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<Long> authenticateUser() {
-        return ResponseEntity.ok(getCurrentUser().getId());
-    }
-
     @GetMapping("/activate/{tokenId}")
     public ResponseEntity<String> activateUser(@PathVariable UUID tokenId) {
         User user = userActivationService.activateUserByTokenId(tokenId);
         return ResponseEntity.ok("User " + user.getEmail() + " activated");
     }
 
-    @GetMapping("/{id}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDto> userById(@PathVariable Long id) {
-        UserDetailsImpl userDetails = getCurrentUser();
-
-        return id.equals(userDetails.getId())
-                ? ResponseEntity.ok(UserDto.fromUserDetails(userDetails))
-                : ResponseEntity.status(401).build();
+    @PostMapping("/authenticate")
+    public ResponseEntity<UserDto> authenticateUser() {
+        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
     }
-
 
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Long> currentUserId() {
-        return ResponseEntity.ok(getCurrentUser().getId());
+    public ResponseEntity<UserDto> currentUserId() {
+        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
     }
 
     private UserDetailsImpl getCurrentUser() {

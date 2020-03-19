@@ -9,11 +9,10 @@ import { User } from 'src/app/models/error/User';
 })
 export class UserHomeComponent implements OnInit {
 
-  id: number;
   constructor(private service: UserService) { }
+
   user: User;
   ngOnInit(): void {
-    this.id = this.service.getId();
     this.service.getCurrentUser.subscribe(
       gotUser => this.user = gotUser,
       console.error
