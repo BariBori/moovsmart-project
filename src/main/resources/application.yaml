@@ -37,3 +37,5 @@ logging:
     org.hibernate: error
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+cors-policies: http://localhost:4200, http://127.0.0.1:4200

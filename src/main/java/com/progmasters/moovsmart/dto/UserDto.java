@@ -1,17 +1,27 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.User;
-
 public class UserDto {
     private Long id;
     private String email;
-    private PersonalDetailsDto personalDetails;
+    private String userName;
 
-    public static UserDto fromUser(User user) {
+    public static UserDto fromUserDetails(UserDetailsImpl userDetails) {
         UserDto result = new UserDto();
-        result.id = user.getId();
-        result.email = user.getEmail();
-        result.personalDetails = PersonalDetailsDto.fromPersonalDetails(user.getPersonalDetails());
+        result.id = userDetails.getId();
+        result.email = userDetails.getEmail();
+        result.userName = userDetails.getUserName();
         return result;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

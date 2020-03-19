@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
@@ -41,6 +42,7 @@ public class PropertyAdvertService {
                 Arrays.stream(PropertyType.values()).map(PropertyTypeOption::new).collect(Collectors.toList()),
                 Arrays.stream(PropertyConditionType.values()).map(PropertyConditionOption::new).collect(Collectors.toList()),
                 Arrays.stream(ParkingType.values()).map(ParkingTypeOption::new).collect(Collectors.toList())
+                //Arrays.stream(AdvertStatusType.values()).map(AdvertStatusTypeOption::new).collect(Collectors.toList())
                 );
     }
 
@@ -60,10 +62,59 @@ public class PropertyAdvertService {
         return result;
     }
 
-    public PropertyAdvertDetailsData getBlogPostDetails(Long id) {
+    public PropertyAdvertDetailsData getPropertyAdvertDetails(Long id) {
         PropertyAdvert propertyAdvert = advertRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("Advert with id: " + id + " not found!")));
         return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
 
+    public PropertyAdvert updateProperty(PropertyAdvertDetailsData propertyAdvertDetailsData, Long id) {
+        Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);
+        if(propertyAdvertOptional.isPresent()){
+            PropertyAdvert propertyAdvert = propertyAdvertOptional.get();
+            updateValues(propertyAdvertDetailsData, propertyAdvert);
+            advertRepository.save(propertyAdvert);
+            return propertyAdvert;
+        } else {
+            return null;
+        }
+    }
+
+    private void updateValues(PropertyAdvertDetailsData propertyAdvertDetailsData, PropertyAdvert propertyAdvert){
+
+        propertyAdvert.setUserName(propertyAdvertDetailsData.getUserName());
+
+        propertyAdvert.setAdvertStatus(AdvertStatusType.valueOf(propertyAdvertDetailsData.getAdvertStatus().getName()));
+
+        propertyAdvert.setAdvertId(propertyAdvertDetailsData.getAdvertId());
+
+        propertyAdvert.setTitle(propertyAdvertDetailsData.getTitle());
+
+        propertyAdvert.setPrice(propertyAdvertDetailsData.getPrice());
+        propertyAdvert.setArea(propertyAdvertDetailsData.getArea());
+        propertyAdvert.setNumberOfRooms(propertyAdvertDetailsData.getNumberOfRooms());
+
+        propertyAdvert.setPropertyType(PropertyType.valueOf(propertyAdvertDetailsData.getPropertyType().getName()));
+        propertyAdvert.setPropertyConditionType(PropertyConditionType.valueOf(propertyAdvertDetailsData.getPropertyConditionType().getName()));
+        propertyAdvert.setParkingType(ParkingType.valueOf(propertyAdvertDetailsData.getParkingType().getName()));
+
+
+
+        propertyAdvert.setPlaceId(propertyAdvertDetailsData.getPlaceId());
+        propertyAdvert.setLatitude(propertyAdvertDetailsData.getLatitude());
+        propertyAdvert.setLongitude(propertyAdvertDetailsData.getLongitude());
+        propertyAdvert.setAddress(propertyAdvertDetailsData.getAddress());
+        propertyAdvert.setCity(propertyAdvertDetailsData.getCity());
+        propertyAdvert.setDistrict(propertyAdvertDetailsData.getDistrict());
+        propertyAdvert.setStreet(propertyAdvertDetailsData.getStreet());
+
+
+        propertyAdvert.setElevator(propertyAdvertDetailsData.isElevator());
+        propertyAdvert.setBalcony(propertyAdvertDetailsData.isBalcony());
+
+        propertyAdvert.setDescription(propertyAdvertDetailsData.getDescription());
+
+        propertyAdvert.setListOfImages(propertyAdvertDetailsData.getListOfImages());
+
+    }
 }

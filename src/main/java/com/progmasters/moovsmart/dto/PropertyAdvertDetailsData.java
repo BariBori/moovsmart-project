@@ -50,6 +50,10 @@ public class PropertyAdvertDetailsData {
 
     private Long priceForSquareMeter;
 
+    private String userName;
+
+    public PropertyAdvertDetailsData(){}
+
     public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
@@ -61,7 +65,7 @@ public class PropertyAdvertDetailsData {
         this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
         this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
 
-
+        this.userName = propertyAdvert.getUser().getUserName();
         this.title = propertyAdvert.getTitle();
         this.placeId = propertyAdvert.getPlaceId();
         this.latitude = propertyAdvert.getLatitude();
@@ -76,6 +80,14 @@ public class PropertyAdvertDetailsData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.priceForSquareMeter = Math.round(price *1000000 / area);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Double getPrice() {

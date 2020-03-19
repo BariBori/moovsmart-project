@@ -2,6 +2,7 @@ import {PropertyTypeOptionItemModel} from "./propertyTypeOptionItem.model";
 import {PropertyConditionTypeOptionItemModel} from "./propertyConditionTypeOptionItem.model";
 import {ParkingTypeOptionItemModel} from "./parkingTypeOptionItem.model";
 import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
+import {UserFormDataModel} from "./userFormData.model";
 
 export interface PropertyAdvertDetailsModel {
   id: number,
@@ -31,4 +32,6 @@ export interface PropertyAdvertDetailsModel {
 
   description: string;
   advertStatus: AdvertStatusTypeOptionItemModel;
+
+  userName: string;
 }

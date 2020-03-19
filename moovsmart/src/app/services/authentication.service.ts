@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Credentials } from '../models/Credentials';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { tap, map, flatMap } from 'rxjs/operators';
+import { flatten } from '@angular/compiler';
+import { User } from '../models/error/User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +13,35 @@ export class AuthenticationService {
 
   private BASE_URL = 'http://localhost:8080/api/users';
 
-  public credentials: Credentials;
 
-  constructor(private http: HttpClient) { }
+  @Output() loggedIn: EventEmitter<User>;
+  @Output() loggedOut: EventEmitter<null>;
 
-  authenticate = (credentials: Credentials): Observable<void> => this.http.get<void>(
-    this.BASE_URL + '/authenticate',
-    { headers: this.getAuthenticationHeaders(credentials) }
-  )
+  constructor(private http: HttpClient) {
+    this.loggedIn = new EventEmitter<User>();
+    this.loggedOut = new EventEmitter<null>();
+  }
 
 
+  logOut: Observable<void> = this.http.get<void>(this.BASE_URL + '/logout')
+    .pipe(
+      tap(success => {
+        this.loggedOut.emit(null);
+        console.log('User succesfully logged out');
+      })
+    );
 
-  isLoggedIn = (): boolean => this.credentials ? true : false;
+  authenticate = (credentials: Credentials) => this.http.post(
+    this.BASE_URL + '/authenticate', '',
+    { headers: this.getAuthenticationHeaders(credentials) })
+    .pipe(
+      tap((user: User) => {
+        this.loggedIn.emit(user);
+        console.log(`User '${user.userName}' succesfully logged in`);
+      }),
+    )
 
-  logOut = (): void => this.credentials = null;
-
-  public getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
+  getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
     authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
   })
 }

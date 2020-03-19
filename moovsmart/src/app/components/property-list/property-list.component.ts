@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
-import {Sort} from "@angular/material/sort";
+import {MatSort, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 
@@ -13,22 +13,53 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class PropertyListComponent implements OnInit {
 
-  propertyListItemModels: Array<PropertyListItemModel>;
+  //propertyListItemModels: Array<PropertyListItemModel> = [];
+  //sortedData: PropertyListItemModel[];
 
-  sortedData: PropertyListItemModel[];
+  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
+  dataSource: MatTableDataSource<PropertyListItemModel>;
 
-  displayedColumns: string[] = ['Cím', 'Szobák száma', 'Méret', 'Ár', 'Ár/négyzetméter', 'Hirdetésazonosító', 'Művelet'];
-  dataSource = new MatTableDataSource<PropertyListItemModel>();
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+ @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
 
   constructor(private propertyService: PropertyService,
               private router: Router) {
-    this.sortedData = this.propertyListItemModels;
   }
 
-  sortData(sort: Sort) {
+  /*ngAfterViewInit(){
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }*/
+
+  applyFilter(filterValue:string){
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+
+    if(this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  ngOnInit() {
+    this.propertyService.getPropertyList().subscribe(
+      propertyListItems => {
+        this.dataSource = new MatTableDataSource(propertyListItems);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource);
+      });
+
+  }
+
+
+  goToDetails(id: number) {
+    this.router.navigate(['property-details', id]);
+  }
+
+  /*sortData(sort: Sort) {
     const data = this.propertyListItemModels;
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
@@ -38,10 +69,12 @@ export class PropertyListComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'title': return this.compare(a.title, b.title, isAsc);
+        case 'address': return this.compare(a.address, b.address, isAsc);
         case 'numberOfRooms': return this.compare(a.numberOfRooms, b.numberOfRooms, isAsc);
         case 'area': return this.compare(a.area, b.area, isAsc);
         case 'price': return this.compare(a.price, b.price, isAsc);
+        case 'price/area': return this.compare(a.priceForSquareMeter, b.priceForSquareMeter, isAsc);
+        case 'advertId': return this.compare(a.advertId, b.advertId, isAsc);
         default: return 0;
       }
     });
@@ -49,23 +82,9 @@ export class PropertyListComponent implements OnInit {
 
    compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
+  }*/
 
-  ngOnInit() {
-    this.propertyService.getPropertyList().subscribe(
-      propertyListItems => this.propertyListItemModels = propertyListItems);
-    this.dataSource.paginator = this.paginator;
-  }
 
-  details(id: number) {
-    this.router.navigate(['property-details', id]);
-  }
 
-  goToDetails(id: number) {
-    this.router.navigate(['property-details', id]);
-  }
 
-  editProperty(id: number) {
-    this.router.navigate(['property-form',id]);
-  }
 }

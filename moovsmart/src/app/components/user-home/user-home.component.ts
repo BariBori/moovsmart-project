@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/error/User';
 
 @Component({
   selector: 'app-user-home',
@@ -10,11 +11,12 @@ export class UserHomeComponent implements OnInit {
 
   constructor(private service: UserService) { }
 
+  user: User;
   ngOnInit(): void {
-    this.service.getCredentials().subscribe(
-      console.log,
+    this.service.getCurrentUser.subscribe(
+      gotUser => this.user = gotUser,
       console.error
-    )
+    );
   }
 
 }
