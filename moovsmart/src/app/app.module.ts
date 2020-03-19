@@ -32,7 +32,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-
+import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,9 @@ import {MatInputModule} from "@angular/material/input";
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    }
+    },
+    AuthenticationService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

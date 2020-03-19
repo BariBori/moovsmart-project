@@ -43,9 +43,9 @@ export class UserregisterFormComponent implements OnInit {
 
   saveUser() {
     const formData: UserFormDataModel = this.registerNewUserForm.value;
-    this.userService.createUser(formData).subscribe(
+    this.userService.registerUser(formData).subscribe(
       (response) => {
-        this.router.navigate(['']);
+        this.router.navigate(['user-login']);
         console.log('New user is created');
       },
       errorResponse => {

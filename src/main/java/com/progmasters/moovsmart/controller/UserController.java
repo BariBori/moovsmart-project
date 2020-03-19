@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.UserDetailsImpl;
+import com.progmasters.moovsmart.dto.UserDto;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.service.UserActivationService;
 import com.progmasters.moovsmart.service.UserService;
@@ -43,26 +44,29 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/authenticate")
-    public ResponseEntity<Void> authenticateUser() {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/activate/{tokenId}")
     public ResponseEntity<String> activateUser(@PathVariable UUID tokenId) {
         User user = userActivationService.activateUserByTokenId(tokenId);
         return ResponseEntity.ok("User " + user.getEmail() + " activated");
     }
 
+    @PostMapping("/authenticate")
+    public ResponseEntity<UserDto> authenticateUser() {
+        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
+    }
+
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDetailsImpl> userDetails() {
-        return ResponseEntity.ok(
-                (UserDetailsImpl)
-                        SecurityContextHolder
-                                .getContext()
-                                .getAuthentication()
-                                .getPrincipal());
+    public ResponseEntity<UserDto> currentUserId() {
+        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
+    }
+
+    private UserDetailsImpl getCurrentUser() {
+        return (UserDetailsImpl)
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getPrincipal();
     }
 
 }
