@@ -25,7 +25,8 @@ export class PropertyDetailsComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public zoom: number = 15;
-  isAlreadyInit : boolean = false;
+  public map: google.maps.Marker;
+
 
   constructor(private route: ActivatedRoute,
               private propertyAdvertService: PropertyService,
@@ -44,8 +45,7 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
-          this.setLocation();
-          this.isAlreadyInit = true;
+
         }
       },
     );
@@ -69,14 +69,22 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   //--------Google map------//
-  /*mapReady($event: google.maps.Map) {
-    this.latitude = this.propertyAdvertDetails?.latitude;
-    this.longitude = this.propertyAdvertDetails?.longitude;
-  }*/
 
-  setLocation() {
-    this.latitude = this.propertyAdvertDetails?.latitude;
-    this.longitude = this.propertyAdvertDetails?.longitude;
+
+  setLocation(map) {
+    this.propertyAdvertService.fetchAdvertDetails(this.id).subscribe(
+      (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
+      error => console.warn(error),
+      () => {
+        this.latitude = this.propertyAdvertDetails?.latitude;
+        this.longitude = this.propertyAdvertDetails?.longitude;
+        this.map = new google.maps.Marker({
+          position: { lat: this.latitude, lng: this.longitude },
+          map: map});
+
+      }
+    );
+
   }
 
 

@@ -16,7 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
-import { UserHomeComponent } from './components/user-home/user-home.component';
+import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import {AgmCoreModule} from "@agm/core";
 import {FileUploadModule} from "ng2-file-upload";
 import {CloudinaryModule} from "@cloudinary/angular-5.x";
@@ -48,7 +48,7 @@ import { UserService } from './services/user.service';
     UserregisterFormComponent,
     UserLoginComponent,
     SearchComponent,
-    UserHomeComponent
+    //UserHomeComponent
   ],
   imports: [
     BrowserModule,
