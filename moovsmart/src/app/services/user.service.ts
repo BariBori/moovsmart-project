@@ -18,14 +18,19 @@ export class UserService {
     private http: HttpClient,
     public authService: AuthenticationService) {
     this.userId = this.authService.getUserId();
-    this.authService.loggedIn.subscribe((idFromLoginEvent: number) => this.userId = idFromLoginEvent);
+
+    this.authService.loggedIn.subscribe((idFromLoginEvent: number) =>
+      this.userId = idFromLoginEvent);
+
     this.authService.loggedOut.subscribe(logout => this.userId = null);
+
     this.getCurrentUser = this.userId
       ? this.fetchUserById(this.userId)
       : this.authService.loggedIn
         .pipe(
           flatMap(
-            (idFromLoginEvent: number) => this.fetchUserById(idFromLoginEvent)
+            (idFromLoginEvent: number) =>
+              this.fetchUserById(idFromLoginEvent)
           )
         );
   }
