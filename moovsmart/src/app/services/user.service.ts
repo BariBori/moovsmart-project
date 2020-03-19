@@ -21,6 +21,7 @@ export class UserService {
 
 
     this.userUpdater = new ReplaySubject<User>();
+    this.userUpdater.error(null);
     authService.loggedOut.subscribe(() => this.userUpdater.error(null));
     authService.loggedIn.subscribe((user: User) => this.userUpdater.next(user));
     this.getCurrentUser = this.userUpdater.pipe(
