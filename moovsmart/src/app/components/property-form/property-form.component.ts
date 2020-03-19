@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
 import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
+import {PropertyFormDataModel} from "../../models/propertyFormData.model";
 
 
 @Component({
@@ -49,13 +50,16 @@ export class PropertyFormComponent implements OnInit {
   //---------------------------------
 
   private id: number;
+  private userName : string;
 
   propertyType: Array<PropertyTypeOptionItemModel>;
   propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
   parkingType: Array<ParkingTypeOptionItemModel>;
 
   propertyForm = this.formBuilder.group({
-    advertStatus: ['FORAPPROVAL'],
+    //advertStatus: [''],
+
+    userName: [''],
 
     address: [''],
     city: [''],
@@ -293,6 +297,8 @@ export class PropertyFormComponent implements OnInit {
             advertId: response.advertId,
             advertStatus: response.advertStatus.name,
 
+            userName : response.userName,
+
             area: response.area,
             numberOfRooms: response.numberOfRooms,
             price: response.price,
@@ -385,6 +391,7 @@ export class PropertyFormComponent implements OnInit {
 
 
   submit = () => {
+
     let propertyFormDataModel = this.propertyForm.value;
     propertyFormDataModel.address = this.address;
     propertyFormDataModel.city = this.city;
@@ -395,12 +402,22 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.latitude = this.latitude;
     propertyFormDataModel.longitude = this.longitude;
     propertyFormDataModel.listOfImages = this.listOfImages;
+    propertyFormDataModel.userName = this.userName;
+
+    this.id ? this.updateProperty(propertyFormDataModel) :
 
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['property-list']),
       error => validationHandler(error, this.propertyForm)
     )
   };
+
+  private updateProperty(data: PropertyFormDataModel){
+    this.propertyService.updateProperty(data, this.id).subscribe(
+      () => this.router.navigate(['property-list']),
+      //error => validationHandler(error, this.propertyForm),
+    );
+  }
 
 
 }

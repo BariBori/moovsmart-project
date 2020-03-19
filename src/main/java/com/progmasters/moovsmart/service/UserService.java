@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.service;
 import com.progmasters.moovsmart.domain.RegistrationToken;
 import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.domain.UserRole;
+import com.progmasters.moovsmart.dto.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 
 
 @Service
@@ -55,5 +58,9 @@ public class UserService {
         ));
         userActivationService.sendActivationEmail(token);
         return token.getUser();
+    }
+
+    public User getUsers(Long id) {
+        return userRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("User with id: " + id + " not found!")));
     }
 }

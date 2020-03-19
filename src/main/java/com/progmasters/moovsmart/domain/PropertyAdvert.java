@@ -98,12 +98,15 @@ public class PropertyAdvert {
     @ManyToOne
     private User user;
 
+    private String userName;
+
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
         this.id = propertyAdvertFormData.getId();
+        this.userName = user.getUserName();
         this.user = user;
         this.price = propertyAdvertFormData.getPrice();
+        this.advertStatus = AdvertStatusType.FORAPPROVAL;
         this.listOfImages = propertyAdvertFormData.getListOfImages();
-        this.advertStatus = propertyAdvertFormData.getAdvertStatus();
         this.placeId = propertyAdvertFormData.getPlaceId();
         this.latitude = propertyAdvertFormData.getLatitude();
         this.longitude = propertyAdvertFormData.getLongitude();
@@ -128,27 +131,6 @@ public class PropertyAdvert {
     public PropertyAdvert() {
     }
 
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public AdvertStatusType getAdvertStatus() {
-        return advertStatus;
-    }
-
-    public void setAdvertStatus(AdvertStatusType advertStatus) {
-        this.advertStatus = advertStatus;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDate getTimeOfActivation() {
-        return timeOfActivation;
-    }
-
-
     public long getId() {
         return id;
     }
@@ -169,11 +151,169 @@ public class PropertyAdvert {
         return listOfImages;
     }
 
+    public void setListOfImages(List<String> listOfImages) {
+        this.listOfImages = listOfImages;
+    }
 
     public Integer getAdvertId() {
         return advertId;
     }
 
+    public void setAdvertId(Integer advertId) {
+        this.advertId = advertId;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public PropertyConditionType getPropertyConditionType() {
+        return propertyConditionType;
+    }
+
+    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+        this.propertyConditionType = propertyConditionType;
+    }
+
+    public ParkingType getParkingType() {
+        return parkingType;
+    }
+
+    public void setParkingType(ParkingType parkingType) {
+        this.parkingType = parkingType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Integer getArea() {
+        return area;
+    }
+
+    public void setArea(Integer area) {
+        this.area = area;
+    }
+
+    public Integer getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public void setNumberOfRooms(Integer numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+
+    public boolean isElevator() {
+        return elevator;
+    }
+
+    public void setElevator(boolean elevator) {
+        this.elevator = elevator;
+    }
+
+    public boolean isBalcony() {
+        return balcony;
+    }
+
+    public void setBalcony(boolean balcony) {
+        this.balcony = balcony;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public AdvertStatusType getAdvertStatus() {
+        return advertStatus;
+    }
+
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getTimeOfActivation() {
+        return timeOfActivation;
+    }
+
+    public void setTimeOfActivation(LocalDate timeOfActivation) {
+        this.timeOfActivation = timeOfActivation;
+    }
 
     public User getUser() {
         return user;
@@ -183,77 +323,11 @@ public class PropertyAdvert {
         this.user = user;
     }
 
-    public PropertyType getPropertyType() {
-        return propertyType;
+    public String getUserName() {
+        return userName;
     }
 
-
-    public PropertyConditionType getPropertyConditionType() {
-        return propertyConditionType;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
-
-    public ParkingType getParkingType() {
-        return parkingType;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public String getAddress() {
-        return address;
-    }
-
-
-    public String getDistrict() {
-        return district;
-    }
-
-
-    public String getStreet() {
-        return street;
-    }
-
-    public Integer getArea() {
-        return area;
-    }
-
-
-    public Integer getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-
-    public boolean isElevator() {
-        return elevator;
-    }
-
-
-    public boolean isBalcony() {
-        return balcony;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-
-    public String getCity() {
-        return city;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-
 }

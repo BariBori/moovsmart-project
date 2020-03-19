@@ -1,7 +1,10 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.PropertyAdvert;
+import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
+import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,7 @@ public class PropertyAdvertController {
 
     private PropertyAdvertService propertyAdvertService;
     private PropertyAdvertValidator propertyAdvertValidator;
+    private UserService userService;
 
     @Autowired
     public PropertyAdvertController(PropertyAdvertService propertyAdvertService, PropertyAdvertValidator propertyAdvertValidator) {
@@ -73,7 +77,19 @@ public class PropertyAdvertController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
-        return new ResponseEntity<>(propertyAdvertService.getBlogPostDetails(id), HttpStatus.OK);
+        return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyAdvertDetailsData propertyAdvertDetailsData, @PathVariable Long id){
+        PropertyAdvert updatedProperty = propertyAdvertService.updateProperty(propertyAdvertDetailsData, id);
+        ResponseEntity<PropertyAdvertDetailsData> result;
+        if(updatedProperty == null){
+            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+        }
+        return result;
     }
 
 }

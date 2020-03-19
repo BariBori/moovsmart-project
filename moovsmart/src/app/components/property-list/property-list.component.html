@@ -1,17 +1,17 @@
 <div class="container">
 <table id="list-table" class="table table-striped" matSort (matSortChange)="sortData($event)"
        >
-  <thead class="thead-dark">
-  <tr>
-    <th>Kép</th>
-    <th mat-sort-header="title">Cím</th>
-    <th mat-sort-header="numberOfRooms">Szobák száma</th>
-    <th mat-sort-header="area">Méret<th>
-    <th mat-sort-header="price">Ár</th>
-    <th mat-sort-header="price/area">Ár/négyzetméter</th>
-    <th>Hirdetésazonosító</th>
-    <th>Művelet</th>
-  </tr>
+  <thead class="thead-light">
+    <tr>
+      <th>Kép</th>
+      <th mat-sort-header="title">Cím</th>
+      <th mat-sort-header="numberOfRooms">Szobák száma</th>
+      <th mat-sort-header="area">Méret<th>
+      <th mat-sort-header="price">Ár</th>
+      <th mat-sort-header="price/area">Ár/négyzetméter</th>
+      <th>Hirdetésazonosító</th>
+      <th>Művelet</th>
+    </tr>
   </thead>
   <tbody>
   <tr *ngFor="let property of propertyListItemModels">
@@ -19,7 +19,7 @@
     <td>{{ property.title}}</td>
     <td>{{ property.numberOfRooms}}</td>
     <td>{{ property.area}}</td>
-    <td>{{property.price}}</td>
+    <td >{{property.price}}</td>
     <td>{{property.priceForSquareMeter}} Ft/m2</td>
     <td>{{ property.advertId }}</td>
     <td>

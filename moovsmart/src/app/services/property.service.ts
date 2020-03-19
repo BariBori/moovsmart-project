@@ -5,8 +5,9 @@ import {PropertyListItemModel} from "../models/propertyListItem.model";
 import {PropertyFormDataModel} from "../models/propertyFormData.model";
 import {FormInitDataModel} from "../models/formInitDataModel";
 import {PropertyAdvertDetailsModel} from "../models/propertyAdvertDetails.model";
+import {environment} from "../../environments/environment";
 
-const BASE_URL = "http://localhost:8080/api/properties";
+const BASE_URL = environment.BASE_URL + "/api/properties";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,11 @@ export class PropertyService {
 
   fetchAdvertDetails(id: string): Observable<PropertyAdvertDetailsModel> {
     return this.httpClient.get<PropertyAdvertDetailsModel>(`${BASE_URL}/${id}`);
+  }
+
+  updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any>{
+    data.id = propertyId
+    return this.httpClient.put(BASE_URL +'/' + propertyId, data);
   }
 
 }
