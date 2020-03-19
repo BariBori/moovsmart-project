@@ -1,3 +1,7 @@
 .btn-outline-success{
 
 }
+
+.navbar{
+  z-index: 100;
+}

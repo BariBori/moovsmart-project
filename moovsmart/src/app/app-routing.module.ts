@@ -9,7 +9,7 @@ import {HomeComponent} from './components/home/home.component';
 import {UserHomeComponent} from './components/user-home/user-home.component';
 
 const routes: Routes = [
-  {path: '', component: PropertyListComponent},
+  {path: '', component: HomeComponent},
   {path: 'property-list', component: PropertyListComponent},
   {path: 'property-form', component: PropertyFormComponent},
   {path: 'property-form/:id', component: PropertyFormComponent},

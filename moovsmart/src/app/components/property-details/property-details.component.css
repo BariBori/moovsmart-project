@@ -34,6 +34,10 @@
   color: #5cb85c;
 }
 
+.btn-envelope{
+  color: #5cb85c;
+}
+
 .title{
   font-weight: bold;
   font-size: x-large;
@@ -43,8 +47,15 @@
 .adverId{
   color: darkgrey;
   font-weight: bold;
-  padding: 50px 0px 30px 10px;
+  padding: 30px 0px 30px 10px;
   text-align: right;
+}
+
+.username{
+  color: darkgrey;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px 0px 10px 0px;
 }
 
 .details{

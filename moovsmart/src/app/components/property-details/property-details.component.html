@@ -34,6 +34,7 @@
   </div>
 
   <hr>
+
   <div class="row">
     <div class="col-3 border-right">
       <p>Alapterület</p>
@@ -52,18 +53,20 @@
   <hr>
 
   <div class="row">
+    <div class="col-8"></div>
+    <div class="col-4 username">Hirdetés feladója: {{propertyAdvertDetails?.userName}}
+      <button class="btn btn-envelope float-right"><fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök</button></div>
+  </div>
+
+  <div class="row">
     <div class="col-8 title">{{propertyAdvertDetails?.title}}</div>
     <div class="col-4 adverId">Azonosító: {{propertyAdvertDetails?.advertId}}</div>
   </div>
 
+
   <div class="row details">
     <div class="col-4 label-small">Négyzetméter ár</div>
     <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter}} Ft/m2</div>
-  </div>
-
-  <div class="row details">
-    <div class="col-4 label-small">UserName</div>
-    <div class="col-8" style="color: red">{{propertyAdvertDetails?.userName}}</div>
   </div>
 
   <div class="row details">
