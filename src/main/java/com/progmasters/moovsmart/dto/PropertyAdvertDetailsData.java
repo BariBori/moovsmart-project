@@ -67,7 +67,10 @@ public class PropertyAdvertDetailsData {
         this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
         this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
 
-        this.userName = propertyAdvert.getUser().getUserName();
+        if(propertyAdvert.getUser() != null){
+
+            this.userName = propertyAdvert.getUser().getUserName();
+       }
         this.title = propertyAdvert.getTitle();
         this.placeId = propertyAdvert.getPlaceId();
         this.latitude = propertyAdvert.getLatitude();
