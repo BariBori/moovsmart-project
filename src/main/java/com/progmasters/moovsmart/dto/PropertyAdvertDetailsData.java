@@ -84,8 +84,6 @@ public class PropertyAdvertDetailsData {
         this.priceForSquareMeter = Math.round(price *1000000 / area);
     }
 
-    public PropertyAdvertDetailsData() {
-    }
 
     public String getUserName() {
         return userName;

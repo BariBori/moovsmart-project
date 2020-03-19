@@ -295,7 +295,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            advertStatus: response.advertStatus.name,
+            // advertStatus: response.advertStatus.name,
 
             userName : response.userName,
 
@@ -306,9 +306,9 @@ export class PropertyFormComponent implements OnInit {
             title: response.title,
 
 
-            propertyType: response.propertyType.name,
-            propertyConditionType: response.propertyConditionType.name,
-            parkingType: response.parkingType.name,
+            // propertyType: response.propertyType.name,
+            // propertyConditionType: response.propertyConditionType.name,
+            // parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,

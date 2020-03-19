@@ -14,9 +14,6 @@ public class AdvertStatusTypeOption {
         this.displayName = advertStatusType.getDisplayName();
     }
 
-    public AdvertStatusTypeOption() {
-    }
-
     public AdvertStatusTypeOption(String displayName) {
         this.displayName = displayName;
     }
