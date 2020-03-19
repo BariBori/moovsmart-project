@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { UserFormDataModel } from '../models/userFormData.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/error/User';
 import { AuthenticationService } from './authentication.service';
-import { flatMap, tap } from 'rxjs/operators';
+import { tap, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +12,21 @@ import { flatMap, tap } from 'rxjs/operators';
 export class UserService {
   BASE_URL = 'http://localhost:8080/api/users';
 
-  public getCurrentUser: Observable<User | null>;
-  private userUpdater: BehaviorSubject<User | null>;
+  public getCurrentUser: Observable<User>;
+  private userUpdater: ReplaySubject<User>;
 
   constructor(
     private http: HttpClient,
     public authService: AuthenticationService) {
 
 
-    this.userUpdater = new BehaviorSubject<User | null>(null);
-    authService.loggedOut.subscribe(() => this.userUpdater.next(null));
-    authService.loggedIn.subscribe(user => this.userUpdater.next(user));
-    this.getCurrentUser = this.userUpdater
-      .pipe(tap(maybeUser => console.log(`Succesfully fetched details of User '${maybeUser?.userName}'`)));
+    this.userUpdater = new ReplaySubject<User>();
+    authService.loggedOut.subscribe(() => this.userUpdater.error(null));
+    authService.loggedIn.subscribe((user: User) => this.userUpdater.next(user));
+    this.getCurrentUser = this.userUpdater.pipe(
+      tap(maybeUser => console.log(`Succesfully fetched details of User '${maybeUser?.userName}'`)),
+      first(),
+    );
   }
 
   registerUser(data: UserFormDataModel): Observable<void> {
