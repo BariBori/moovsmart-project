@@ -52,12 +52,12 @@ export class PropertyFormComponent implements OnInit {
   private id: number;
   private userName : string;
 
-  propertyType: Array<PropertyTypeOptionItemModel>;
-  propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
-  parkingType: Array<ParkingTypeOptionItemModel>;
+  propertyType: PropertyTypeOptionItemModel[];
+  propertyConditionType: PropertyConditionTypeOptionItemModel[];
+  parkingType: ParkingTypeOptionItemModel[];
 
   propertyForm = this.formBuilder.group({
-    //advertStatus: [''],
+    advertStatus: ['FORAPPROVAL'],
 
     userName: [''],
 
@@ -295,7 +295,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            advertStatus: response.advertStatus.name,
+            // advertStatus: response.advertStatus.name,
 
             userName : response.userName,
 
@@ -306,9 +306,9 @@ export class PropertyFormComponent implements OnInit {
             title: response.title,
 
 
-            propertyType: response.propertyType.name,
-            propertyConditionType: response.propertyConditionType.name,
-            parkingType: response.parkingType.name,
+            // propertyType: response.propertyType.name,
+            // propertyConditionType: response.propertyConditionType.name,
+            // parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,
@@ -417,6 +417,7 @@ export class PropertyFormComponent implements OnInit {
       () => this.router.navigate(['property-list']),
       //error => validationHandler(error, this.propertyForm),
     );
+    console.log("PropertyForm");
   }
 
 

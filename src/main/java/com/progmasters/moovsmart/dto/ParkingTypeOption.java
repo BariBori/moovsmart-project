@@ -15,6 +15,10 @@ public class ParkingTypeOption {
     public ParkingTypeOption() {
     }
 
+    public ParkingTypeOption(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getName() {
         return name;
     }
