@@ -20,12 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpringWebConfig implements WebMvcConfigurer {
 
     @Value("${cors-policies}")
-    private String[] corsPolicies = {
-            "http://localhost:4200",
-            "http://34.254.251.78",
-            "http://moovmart-demo.progmasters.hu",
-            "http://[::1]:4200"
-    };
+    private String[] corsPolicies;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

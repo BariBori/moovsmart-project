@@ -22,12 +22,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${cors-policies}")
-    private String[] corsPolicies = {
-            "http://localhost:4200",
-            "http://34.254.251.78",
-            "http://moovmart-demo.progmasters.hu",
-            "http://[::1]:4200"
-    };
+    private String[] corsPolicies;
 
     private UserDetailsServiceImpl userDetailsService;
 
@@ -57,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(corsPolicies));
         configuration.setAllowedMethods(
-                Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                Arrays.asList("GET", "POST", "PUT", "DELETE")
         );
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(
