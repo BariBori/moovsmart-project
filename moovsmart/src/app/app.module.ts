@@ -34,6 +34,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import { MessagingComponent } from './components/messaging/messaging.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { UserService } from './services/user.service';
     UserregisterFormComponent,
     UserLoginComponent,
     SearchComponent,
+    MessagingComponent,
     //UserHomeComponent
   ],
   imports: [
