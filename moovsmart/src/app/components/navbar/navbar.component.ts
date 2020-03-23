@@ -25,11 +25,11 @@ export class NavbarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.getCurrentUser
-      .pipe(tap(console.log)).subscribe(
-        user => this.router.navigate(['property-form']),
-        noUser => this.router.navigate(['user-login']),
-      );
+    this.router.navigate(
+      this.userService.isLoggedIn()
+        ? ['property-form']
+        : ['user-login']
+    );
   }
 
 
