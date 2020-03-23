@@ -2,17 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Credentials } from '../models/Credentials';
 import { Observable } from 'rxjs';
-import { tap, map, flatMap } from 'rxjs/operators';
-import { flatten } from '@angular/compiler';
+import { tap } from 'rxjs/operators';
 import { User } from '../models/error/User';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private BASE_URL = 'http://localhost:8080/api/users';
-
+  private BASE_URL = environment.BASE_URL;
 
   @Output() loggedIn: EventEmitter<User>;
   @Output() loggedOut: EventEmitter<null>;
@@ -25,14 +24,14 @@ export class AuthenticationService {
 
   logOut: Observable<void> = this.http.get<void>(this.BASE_URL + '/logout')
     .pipe(
-      tap(success => {
+      tap(() => {
         this.loggedOut.emit(null);
         console.log('User succesfully logged out');
       })
     );
 
   authenticate = (credentials: Credentials) => this.http.post(
-    this.BASE_URL + '/authenticate', '',
+    this.BASE_URL + '/api/users/authenticate', '',
     { headers: this.getAuthenticationHeaders(credentials) })
     .pipe(
       tap((user: User) => {

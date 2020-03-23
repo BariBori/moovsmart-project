@@ -43,7 +43,7 @@ public class UserActivationService {
         mail.setFrom("moovsmartaltenter@gmail.com");
         mail.setTo(token.getUser().getEmail());
         mail.setSubject("Aktivalja emailcimet");
-        mail.setText("http://localhost:8080/api/users/activate/" + token.getUuid().toString());
+        mail.setText("http://moovmart-demo.progmasters.hu/api/users/activate/" + token.getUuid().toString());
         mailSender.send(mail);
     }
 }

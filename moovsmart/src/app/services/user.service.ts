@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/error/User';
 import { AuthenticationService } from './authentication.service';
 import { tap, first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  BASE_URL = 'http://localhost:8080/api/users';
 
   public getCurrentUser: Observable<User>;
   private userUpdater: ReplaySubject<User>;
@@ -31,6 +31,6 @@ export class UserService {
   }
 
   registerUser(data: UserFormDataModel): Observable<void> {
-    return this.http.post<void>(this.BASE_URL + '/register', data);
+    return this.http.post<void>(environment.BASE_URL + '/api/users/register', data);
   }
 }
