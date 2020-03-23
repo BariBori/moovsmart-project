@@ -11,3 +11,20 @@
 .property-form-label{
   font-weight: bold;
 }
+
+.img-thumbnail{
+  width: 80px;
+  height: 80px;
+  crop: auto;
+}
+
+.checkBox-box {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin:0;
+  vertical-align: center;
+  position: relative;
+  top: 3px;
+  *overflow: hidden;
+}

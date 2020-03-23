@@ -10,24 +10,19 @@
              type="text" type="text">
     </div>
 
-    <div class="checkAddress">
-      <div>Cím ellenőrző</div>
-      <div>Teljes cím: {{address}} </div>
-      <div>Város: {{city}}</div>
-      <div>Kerület: {{district}}</div>
-      <div>Utca: {{street}}</div>
-      <div>Irányítószám: {{postalCode}}</div>
-      <div>placeId: {{placeId}}</div>
-
+    <!--
+    <div class="confirmed-address">
+      <div>Kiválasztott cím: {{address}}</div>
     </div>
+    -->
 
     <div class="form-group">
       <label class="property-form-label" for="title">Ingatlan rövid megnevezése*</label>
-      <input class="form-control" formControlName="title" id="title" name="title"
+      <input class="form-control  col-lg-4 col-md-6 col-sm-6" formControlName="title" id="title" name="title"
              placeholder="Ingatlan rövid megnevezése"/>
-      <small *ngFor=" let errorMessage of propertyForm.get('title').errors | keyvalue" class="text-danger">
+      <p><small *ngFor=" let errorMessage of propertyForm.get('title').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
-      </small>
+      </small></p>
     </div>
 
     <div class="form-group">
@@ -39,9 +34,9 @@
           <span class="input-group-text" id="price-addon">millió Ft</span>
         </div>
       </div>
-      <small *ngFor=" let errorMessage of propertyForm.get('price').errors | keyvalue" class="text-danger">
+      <p><small *ngFor=" let errorMessage of propertyForm.get('price').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
-      </small>
+      </small></p>
     </div>
 
     <div class="form-group">
@@ -53,9 +48,9 @@
           <span class="input-group-text" id="area-addon">m2</span>
         </div>
       </div>
-      <small *ngFor=" let errorMessage of propertyForm.get('area').errors | keyvalue" class="text-danger">
+      <p><small *ngFor=" let errorMessage of propertyForm.get('area').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
-      </small>
+      </small></p>
     </div>
 
 
@@ -63,9 +58,9 @@
       <label class="property-form-label" for="numberOfRooms">Szobák száma*</label>
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="numberOfRooms" id="numberOfRooms"
              placeholder="Szobák száma - csak szám" type="number"/>
-      <small *ngFor=" let errorMessage of propertyForm.get('numberOfRooms').errors | keyvalue" class="text-danger">
+      <p><small *ngFor=" let errorMessage of propertyForm.get('numberOfRooms').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
-      </small>
+      </small></p>
     </div>
 
 
@@ -79,9 +74,9 @@
         </option>
 
       </select>
-      <small *ngIf="propertyForm.get('propertyType').errors" class="text-danger">
+      <p><small *ngIf="propertyForm.get('propertyType').errors" class="text-danger">
         Kérjük, válaszd ki az ingatlan típusát!
-      </small>
+      </small></p>
     </div>
 
     <div class="form-group">
@@ -94,9 +89,9 @@
           {{propCond.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('propertyConditionType').errors" class="text-danger">
+      <p><small *ngIf="propertyForm.get('propertyConditionType').errors" class="text-danger">
         Kérjük, válaszd ki az ingatlan állapotát!
-      </small>
+      </small></p>
     </div>
 
 
@@ -109,51 +104,68 @@
           {{parking.displayName}}
         </option>
       </select>
-      <small *ngIf="propertyForm.get('parkingType').errors" class="text-danger">
+      <p><small *ngIf="propertyForm.get('parkingType').errors" class="text-danger">
         Kérjük, válaszd ki a parkolási lehetőséget!
-      </small>
+      </small></p>
     </div>
 
     <div class="form-group">
       <label class="property-form-label" class="checkbox-wrapper" for="elevator"> Lift
-        <input formControlName="elevator" id="elevator" name="elevator" type="checkbox" value="true"/> van
+        <input class="checkBox-box" formControlName="elevator" id="elevator" name="elevator" type="checkbox" value="true"/>
       </label>
     </div>
 
     <div class="form-group">
       <label class="property-form-label" class="checkbox-wrapper" for="balcony"> Erkély
-        <input formControlName="balcony" id="balcony" name="balcony" type="checkbox" value="true"/> van
+        <input class="checkBox-box" formControlName="balcony" id="balcony" name="balcony" type="checkbox" value="true"/>
       </label>
     </div>
 
 
     <div class="form-group">
-      <label class="property-form-label" for="description">Leírás</label>
+      <label class="property-form-label" for="description">Leírás*</label>
       <textarea aria-multiline="true" class="form-control" formControlName="description" id="description"
                 placeholder="Ingatlan leírása" rows="3"></textarea>
-      <small *ngFor=" let errorMessage of propertyForm.get('description').errors | keyvalue" class="text-danger">
+      <p><small *ngFor=" let errorMessage of propertyForm.get('description').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
-      </small>
+      </small></p>
     </div>
 
 
     <div>
       <label class="property-form-label">Képek feltöltése</label>
       <form action="" method="post" enctype="multipart/form-data">
-        <input [uploader]="uploader" ng2FileSelect type="file"/>
+        <input [uploader]="uploader" ng2FileSelect accept = ".jpg" type="file"/>
       </form>
 
     </div>
 
-    <div class="card-columns">
+    <!--<div class="card-columns">
       <div class="card card-outline-success" *ngFor="let image of responses; let i = index">
         <img class="card-img-top img-fluid" src="{{image.data.url}}" alt="Card image cap">
         <div class="card-block">
         </div>
       </div>
+    </div>-->
+
+    <div class="container">
+      <div class="row" *ngFor="let image of responses; let i = index">
+        <div class="col-sm">
+          <img class="img-thumbnail" src="{{image.data.url}}" alt="image">
+        </div>
+        <div class="col-sm">
+          <p>{{image.data.format}}</p>
+        </div>
+        <div class="col-sm">
+          <p>{{image.file.size}}</p>
+        </div>
+      </div>
     </div>
 
 
+    <br/>
+    <br/>
+    <br/>
     <br/>
     <button class="btn btn-success my-buttons">Hirdetés mentése</button>
   </form>
