@@ -3,11 +3,11 @@
 
 
 <div class="container-small">
-  <div class="row owner_banner">
+  <div class="row owner_banner" >
     <div class="col-6">
-      {{propertyAdvertDetails?.advertStatus.displayName}}
+      {{propertyAdvertDetails}}
 
-    </div>
+    </div >
     <div class="col-6">
       <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
       <button class="btn btn-danger float-right" (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Törlés</button>
@@ -71,15 +71,15 @@
 
   <div class="row details">
     <div class="col-4 label-small">Típus</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyType}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Állapot</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType}}</div>
   </div>
   <div class="row details">
     <div class="col-4 label-small">Parkolás</div>
-    <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
+    <div class="col-8">{{propertyAdvertDetails?.parkingType}}</div>
   </div>
 
   <div class="row details">
@@ -98,11 +98,6 @@
 
   <div class="label">Térkép</div>
 
-  <!--
-  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-  </agm-map>
-  -->
 
   <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapReady)="setLocation($event)">
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>

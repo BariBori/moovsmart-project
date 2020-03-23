@@ -16,7 +16,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
-import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import {AgmCoreModule} from "@agm/core";
 import {FileUploadModule} from "ng2-file-upload";
 import {CloudinaryModule} from "@cloudinary/angular-5.x";
@@ -34,6 +33,13 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import {MatButtonModule} from "@angular/material/button";
+import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {CdkTableModule} from "@angular/cdk/table";
+
 
 @NgModule({
   declarations: [
@@ -48,7 +54,20 @@ import { UserService } from './services/user.service';
     UserregisterFormComponent,
     UserLoginComponent,
     SearchComponent,
-    //UserHomeComponent
+
+  ],
+  exports: [
+    CdkTableModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule,
+    MatTooltipModule,
   ],
   imports: [
     BrowserModule,
@@ -66,11 +85,19 @@ import { UserService } from './services/user.service';
       libraries: ['places']
     }),
     NgbModule,
-    MatPaginatorModule,
+
+    CdkTableModule,
     MatFormFieldModule,
+    MatButtonModule,
     MatInputModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatRippleModule,
+    MatSelectModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
+
   ],
   providers: [
     {
@@ -88,3 +115,5 @@ export class AppModule {
     library.add(faStar, faHandshake, faFileContract, faCity);
   }
 }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
