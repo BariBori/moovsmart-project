@@ -13,19 +13,20 @@ export class AuthenticationService {
 
   private BASE_URL = environment.BASE_URL;
 
-  @Output() loggedIn: EventEmitter<User>;
-  @Output() loggedOut: EventEmitter<null>;
+  loggedIn: EventEmitter<User>;
+  loggedOut: EventEmitter<void>;
 
   constructor(private http: HttpClient) {
     this.loggedIn = new EventEmitter<User>();
-    this.loggedOut = new EventEmitter<null>();
+    this.loggedOut = new EventEmitter<void>();
   }
 
 
-  logOut: Observable<void> = this.http.get<void>(this.BASE_URL + '/logout')
+  logOut: Observable<void> = this.http.get<void>(this.BASE_URL + '/api/users/logout')
     .pipe(
       tap(() => {
-        this.loggedOut.emit(null);
+        localStorage.setItem('authnenticated', 'false');
+        this.loggedOut.emit();
         console.log('User succesfully logged out');
       })
     );
@@ -35,6 +36,7 @@ export class AuthenticationService {
     { headers: this.getAuthenticationHeaders(credentials) })
     .pipe(
       tap((user: User) => {
+        localStorage.setItem('authnenticated', 'true');
         this.loggedIn.emit(user);
         console.log(`User '${user.userName}' succesfully logged in`);
       }),
