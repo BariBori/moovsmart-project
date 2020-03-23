@@ -1,5 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,29 +16,28 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SearchComponent } from './components/search/search.component';
-import {AgmCoreModule} from "@agm/core";
-import {FileUploadModule} from "ng2-file-upload";
-import {CloudinaryModule} from "@cloudinary/angular-5.x";
+import { AgmCoreModule } from "@agm/core";
+import { FileUploadModule } from "ng2-file-upload";
+import { CloudinaryModule } from "@cloudinary/angular-5.x";
 import * as  Cloudinary from 'cloudinary-core';
 import { NgxPopper } from 'angular-popper';
-import {MatSort, MatSortModule} from "@angular/material/sort";
-import {MatTableModule} from "@angular/material/table";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MatSort, MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCity, faFileContract,  faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faCity, faFileContract, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import { AuthenticationService } from './services/authentication.service';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { UserService } from './services/user.service';
-import {MatButtonModule} from "@angular/material/button";
-import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-import {CdkTableModule} from "@angular/cdk/table";
+import { MatButtonModule } from "@angular/material/button";
+import { MatNativeDateModule, MatRippleModule } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { CdkTableModule } from "@angular/cdk/table";
 
 
 @NgModule({
@@ -79,7 +78,7 @@ import {CdkTableModule} from "@angular/cdk/table";
     NgxPopper,
     FontAwesomeModule,
     FileUploadModule,
-    CloudinaryModule.forRoot(Cloudinary, {cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu'}),
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dqmt1lieq', upload_preset: 's1jujbuu' }),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBieURECuG2MJeyW0-wDI6itDhOTKFGS0w',
       libraries: ['places']

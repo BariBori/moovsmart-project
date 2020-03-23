@@ -32,7 +32,7 @@ export class UserService {
       { headers: this.getAuthenticationHeaders(credentials) })
       .pipe(
         tap((user: User) => {
-          localStorage.setItem('authenticated', 'true');
+          sessionStorage.setItem('authenticated', 'true');
           this.getCurrentUser.next(user);
           console.log(`User '${user.userName}' succesfully logged in`);
         }),
@@ -45,7 +45,7 @@ export class UserService {
     this.logOut = this.http.get<void>(this.BASE_URL + '/api/users/logout')
       .pipe(
         tap(() => {
-          localStorage.setItem('authenticated', '');
+          sessionStorage.setItem('authenticated', '');
           this.getCurrentUser.error(null);
           console.log('User succesfully logged out');
         })
@@ -56,16 +56,16 @@ export class UserService {
     this.registerUser = (data: UserFormDataModel): Observable<void> =>
       this.http.post<void>(environment.BASE_URL + '/api/users/register', data);
 
-    console.log(this.isLoggedIn())
     if (this.isLoggedIn()) {
-      this.http.get<User>(this.BASE_URL + 'api/users/me')
+      this.http.get<User>(this.BASE_URL + '/api/users/me')
         .pipe(
           tap(
             user => console.log(`Succesfully fetched details of User '${user.userName}'`),
             err => console.error(err)
           )
         )
-        .subscribe(user => this.getCurrentUser.next(user));
+        .subscribe(user => this.getCurrentUser.next(user),
+          err => sessionStorage.setItem('authenticated', ''));
     }
 
   }
