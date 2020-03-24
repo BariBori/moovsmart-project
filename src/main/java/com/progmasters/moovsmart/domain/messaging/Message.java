@@ -30,6 +30,10 @@ public class Message {
         this.text = text;
     }
 
+    public Topic getTopic() {
+        return topic;
+    }
+
     public String getText() {
         return text;
     }

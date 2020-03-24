@@ -47,10 +47,6 @@ public class UserDetailsImpl implements UserDetails {
         return password;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public Long getId() {
         return id;
     }

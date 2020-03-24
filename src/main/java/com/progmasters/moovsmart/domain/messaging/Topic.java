@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Table(
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"advert_id", "enquirer_id"})
+)
 @Entity
 public class Topic {
     @Id

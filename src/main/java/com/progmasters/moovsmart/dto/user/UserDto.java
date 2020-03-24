@@ -11,7 +11,7 @@ public class UserDto {
         UserDto result = new UserDto();
         result.id = userDetails.getId();
         result.email = userDetails.getEmail();
-        result.userName = userDetails.getUserName();
+        result.userName = userDetails.getUsername();
         return result;
     }
 
