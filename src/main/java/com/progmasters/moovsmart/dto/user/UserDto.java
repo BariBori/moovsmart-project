@@ -1,4 +1,6 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.user;
+
+import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 
 public class UserDto {
     private Long id;

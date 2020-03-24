@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 

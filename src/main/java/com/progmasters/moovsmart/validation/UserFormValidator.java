@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.validation;
 
-import com.progmasters.moovsmart.dto.UserForm;
+import com.progmasters.moovsmart.dto.user.UserForm;
 import com.progmasters.moovsmart.service.user.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

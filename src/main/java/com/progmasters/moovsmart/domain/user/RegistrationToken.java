@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.domain;
+package com.progmasters.moovsmart.domain.user;
 
 import org.hibernate.annotations.Type;
 

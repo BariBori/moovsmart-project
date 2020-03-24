@@ -1,4 +1,6 @@
-package com.progmasters.moovsmart.domain;
+package com.progmasters.moovsmart.domain.user;
+
+import com.progmasters.moovsmart.domain.PropertyAdvert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

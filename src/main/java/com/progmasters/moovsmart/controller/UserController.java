@@ -1,8 +1,8 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.domain.User;
-import com.progmasters.moovsmart.dto.UserDto;
-import com.progmasters.moovsmart.dto.UserForm;
+import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.dto.user.UserDto;
+import com.progmasters.moovsmart.dto.user.UserForm;
 import com.progmasters.moovsmart.service.user.UserActivationService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.validation.UserFormValidator;

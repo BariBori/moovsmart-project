@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.messaging.MessageFormData;
 import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.service.messaging.MessagingService;

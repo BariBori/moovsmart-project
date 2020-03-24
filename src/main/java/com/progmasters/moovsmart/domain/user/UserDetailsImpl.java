@@ -1,6 +1,5 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.domain.user;
 
-import com.progmasters.moovsmart.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

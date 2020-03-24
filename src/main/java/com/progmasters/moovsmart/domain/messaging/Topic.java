@@ -1,7 +1,7 @@
 package com.progmasters.moovsmart.domain.messaging;
 
 import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.User;
+import com.progmasters.moovsmart.domain.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
