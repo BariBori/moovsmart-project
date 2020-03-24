@@ -1,23 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserService } from './user.service';
-import { TopicFormData } from '../models/messaging/TopicFormData';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessagingService {
 
-  public openTopic: (topic: TopicFormData) => Observable<void>;
+  public subscribeToTopic: (advertId: number) => Observable<number>;
 
   constructor(
     private http: HttpClient,
-    private service: UserService
   ) {
-    this.openTopic = (topic: TopicFormData) => this.http.post<void>(environment.BASE_URL + '/api/topics', topic)
+    this.subscribeToTopic = (id: number) => this.http.post<number>(environment.BASE_URL + '/api/topics/subscribe', {advertId: id})
       .pipe(tap(console.log, console.log));
   }
 }
