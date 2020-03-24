@@ -20,6 +20,17 @@ public class Message {
 
     private String text;
 
+    public Message() {
+    }
+
+    public Message(User sender, Topic topic, String text) {
+        this.sender = sender;
+        this.topic = topic;
+        this.sentAt = Instant.now();
+        this.text = text;
+    }
+
+
     public String getText() {
         return text;
     }
