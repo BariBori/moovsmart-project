@@ -62,7 +62,7 @@ public class PropertyAdvertDetailsData {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
 
-        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
+        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus().getDisplayName());
         this.propertyType = new PropertyTypeOption(propertyAdvert.getPropertyType());
         this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
         this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());

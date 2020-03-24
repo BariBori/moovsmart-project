@@ -28,6 +28,7 @@ export class PropertyFormComponent implements OnInit {
   private hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
+  allowedMimeType:Array<string> = [];
   //---------------------------------------
 
 
@@ -124,11 +125,16 @@ export class PropertyFormComponent implements OnInit {
 
     //----------CLOUDINARY----------------------
     // Create the file uploader, wire it to upload to your account
+
+    //filter for specific file types
+    this.allowedMimeType = ['image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/tiff'];
+
     const config = this.cloudinary.config();
     const cloud_name = "dqmt1lieq";
     const uploaderOptions: FileUploaderOptions = {
       url: "https://api.cloudinary.com/v1_1/" + this.cloudinary.config().cloud_name + "/image/upload",
 
+      allowedMimeType: this.allowedMimeType,
       // Upload files automatically upon addition to upload queue
       autoUpload: true,
       // Use xhrTransport in favor of iframeTransport
@@ -143,6 +149,12 @@ export class PropertyFormComponent implements OnInit {
         }
       ]
     };
+
+    //this.allowedMimeType = ['image/png', 'image/gif', 'video/mp4', 'image/jpeg'];
+    // this.uploader = new FileUploader({
+    //     url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+    //     allowedMimeType: this.allowedMimeType
+    // });
 
     this.uploader = new FileUploader(uploaderOptions);
 

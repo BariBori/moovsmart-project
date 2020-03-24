@@ -12,9 +12,9 @@
       <input class="form-control" formControlName="password" id="password" type="password" placeholder="jelszó">
     </div>
 
-    <small *ngFor=" let errorMessage of loginForm.get('password').errors | keyvalue" class="text-danger">
+    <p><small *ngFor=" let errorMessage of loginForm.get('password').errors | keyvalue" class="text-danger">
       {{errorMessage?.value}}
-    </small>
+    </small></p>
     <button type="submit" class="btn btn-success" (click)="onSubmit()">Bejelentkezés</button>
 
     <div class="info-reg">Még nem regisztráltál? <a routerLink="/userregister-form">Itt</a> megteheted.</div>

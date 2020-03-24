@@ -13,6 +13,7 @@ export class UserHomeComponent implements OnInit {
 
   user: User;
   ngOnInit(): void {
+    console.log(this.service.isLoggedIn());
     this.service.getCurrentUser.subscribe(
       gotUser => this.user = gotUser,
       console.error

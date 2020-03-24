@@ -5,10 +5,10 @@
 
     <div class="form-group">
       <input aria-describedby="emailHelp" class="form-control" formControlName="email" id="email" placeholder="e-mail"
-             type="email">
-      <small *ngFor=" let errorMessage of registerNewUserForm.get('email').errors | keyvalue" class="text-danger">
-        {{errorMessage?.value}}
-      </small>
+        type="email">
+      <p><small *ngFor=" let errorMessage of registerNewUserForm.get('email').errors | keyvalue" class="text-danger">
+          {{errorMessage?.value}}
+        </small></p>
     </div>
 
     <div class="form-group">
@@ -16,42 +16,58 @@
       <input aria-describedby="emailHelp" class="form-control" formControlName="userName" id="userName"
         placeholder="felhasználónév" type="text">
 
-      <small *ngFor=" let errorMessage of registerNewUserForm.get('userName').errors | keyvalue" class="text-danger">
-        {{errorMessage?.value}}
-      </small>
+      <p><small *ngFor=" let errorMessage of registerNewUserForm.get('userName').errors | keyvalue" class="text-danger">
+          {{errorMessage?.value}}
+        </small></p>
 
     </div>
 
     <div class="form-group">
       <input class="form-control" formControlName="password" id="password" placeholder="jelszó" type="password">
-      <small *ngFor=" let errorMessage of registerNewUserForm.get('password').errors | keyvalue" class="text-danger">
-        {{errorMessage?.value}}
-      </small>
+      <p><small *ngFor=" let errorMessage of registerNewUserForm.get('password').errors | keyvalue" class="text-danger">
+          {{errorMessage?.value}}
+        </small></p>
     </div>
     <div class="form-group">
       <input class="form-control" formControlName="passwordConfirm" id="passwordConfirm"
         placeholder="jelszó megerősítése" type="password">
-      <small class="text-danger">{{registerNewUserForm.errors?.passwordMismatch}}</small>
+      <p><small class="text-danger">{{registerNewUserForm.errors?.passwordMismatch}}</small></p>
     </div>
 
     <div class="form-group form-check">
-      <input class="form-check-input" id="privacyPolicy" formControlName='privacyPolicy' type="checkbox">
-      <label class="form-check-label" for="privacyPolicy">Az adatkezelési szabályzatot tudomásul veszem és elfogadom
+      <input class="form-check-input checkBox-box" id="privacyPolicy" formControlName='privacyPolicy' type="checkbox">
+      <label class="form-check-label " for="privacyPolicy">Az adatkezelési szabályzatot tudomásul veszem és elfogadom.*
       </label>
-      <small *ngIf="registerNewUserForm.get('privacyPolicy').errors?.required" class="text-danger">
-        Az adatkezelési szabályzatot el kell fogadni!
-      </small>
+      <p><small *ngIf="registerNewUserForm.get('privacyPolicy').errors?.required" class="text-danger">
+          Az adatkezelési szabályzatot el kell fogadni!
+        </small></p>
     </div>
 
     <div class="form-group form-check">
-      <input class="form-check-input" id="termsConditions" type="checkbox" formControlName='termsConditions'>
-      <label class="form-check-label" for="termsConditions">Az ÁSZF-et megismertem és elfogadom </label>
-      <small *ngIf=" registerNewUserForm.get('termsConditions').errors?.required" class="text-danger">
-        Az ÁSZF-et el kell fogadni!
-      </small>
+      <input class="form-check-input checkBox-box" id="termsConditions" type="checkbox"
+        formControlName='termsConditions'>
+      <label class="form-check-label" for="termsConditions">Az ÁSZF-et megismertem és elfogadom.* </label>
+      <p><small *ngIf=" registerNewUserForm.get('termsConditions').errors?.required" class="text-danger">
+          Az ÁSZF-et el kell fogadni!
+        </small></p>
     </div>
 
-    <button (click)="saveUser()" class="btn btn-success" type="submit">Regisztráció</button>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Regisztráció megerősítése</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>A megadott e-mail címedre küldtünk egy megerősítő linket, melyre kattintva véglegesíteni tudod a
+          regisztrációdat.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">OK</button>
+      </div>
+    </ng-template>
+
+    <button (click)="saveUser()" class="btn btn-success" type="submit"
+      [disabled]='registerNewUserForm.invalid'>Regisztráció</button>
   </form>
 </div>
 

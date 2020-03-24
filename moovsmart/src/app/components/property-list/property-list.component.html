@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="header">
+  <div class="filter-header">
     <p>Szűrés</p>
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="">
@@ -19,32 +19,32 @@
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef > Cím </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Cím </mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="goToDetails(row.id)" class="click">{{row.address}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="numberOfRooms">
-        <mat-header-cell *matHeaderCellDef > Szobák száma </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Szobák száma </mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.numberOfRooms}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef >Ár</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Ár</mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.price}} millió Ft</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="area">
-        <mat-header-cell *matHeaderCellDef >Méret</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Méret</mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.area}} m2</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price/area">
-        <mat-header-cell *matHeaderCellDef >Nm ár</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.priceForSquareMeter}} Ft/m2</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="advertId">
-        <mat-header-cell *matHeaderCellDef >Hirdetés azonosító</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Hirdetés azonosító</mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.advertId}}</mat-cell>
       </ng-container>
 
