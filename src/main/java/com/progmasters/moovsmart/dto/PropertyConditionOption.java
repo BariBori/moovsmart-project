@@ -15,6 +15,10 @@ public class PropertyConditionOption {
     public PropertyConditionOption() {
     }
 
+    public PropertyConditionOption(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getName() {
         return name;
     }

@@ -28,6 +28,7 @@ export class PropertyFormComponent implements OnInit {
   private hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
+  allowedMimeType:Array<string> = [];
   //---------------------------------------
 
 
@@ -52,12 +53,12 @@ export class PropertyFormComponent implements OnInit {
   private id: number;
   private userName : string;
 
-  propertyType: Array<PropertyTypeOptionItemModel>;
-  propertyConditionType: Array<PropertyConditionTypeOptionItemModel>;
-  parkingType: Array<ParkingTypeOptionItemModel>;
+  propertyType: PropertyTypeOptionItemModel[];
+  propertyConditionType: PropertyConditionTypeOptionItemModel[];
+  parkingType: ParkingTypeOptionItemModel[];
 
   propertyForm = this.formBuilder.group({
-    //advertStatus: [''],
+    advertStatus: ['FORAPPROVAL'],
 
     userName: [''],
 
@@ -124,11 +125,16 @@ export class PropertyFormComponent implements OnInit {
 
     //----------CLOUDINARY----------------------
     // Create the file uploader, wire it to upload to your account
+
+    //filter for specific file types
+    this.allowedMimeType = ['image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/tiff'];
+
     const config = this.cloudinary.config();
     const cloud_name = "dqmt1lieq";
     const uploaderOptions: FileUploaderOptions = {
       url: "https://api.cloudinary.com/v1_1/" + this.cloudinary.config().cloud_name + "/image/upload",
 
+      allowedMimeType: this.allowedMimeType,
       // Upload files automatically upon addition to upload queue
       autoUpload: true,
       // Use xhrTransport in favor of iframeTransport
@@ -143,6 +149,12 @@ export class PropertyFormComponent implements OnInit {
         }
       ]
     };
+
+    //this.allowedMimeType = ['image/png', 'image/gif', 'video/mp4', 'image/jpeg'];
+    // this.uploader = new FileUploader({
+    //     url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+    //     allowedMimeType: this.allowedMimeType
+    // });
 
     this.uploader = new FileUploader(uploaderOptions);
 
@@ -295,7 +307,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            advertStatus: response.advertStatus.name,
+            // advertStatus: response.advertStatus.name,
 
             userName : response.userName,
 
@@ -306,9 +318,9 @@ export class PropertyFormComponent implements OnInit {
             title: response.title,
 
 
-            propertyType: response.propertyType.name,
-            propertyConditionType: response.propertyConditionType.name,
-            parkingType: response.parkingType.name,
+            // propertyType: response.propertyType.name,
+            // propertyConditionType: response.propertyConditionType.name,
+            // parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,
@@ -417,6 +429,7 @@ export class PropertyFormComponent implements OnInit {
       () => this.router.navigate(['property-list']),
       //error => validationHandler(error, this.propertyForm),
     );
+    console.log("PropertyForm");
   }
 
 

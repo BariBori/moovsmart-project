@@ -17,6 +17,10 @@ public class PropertyTypeOption {
     public PropertyTypeOption() {
     }
 
+    public PropertyTypeOption(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getName() {
 
         return name;

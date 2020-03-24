@@ -1,33 +1,80 @@
 import { Injectable } from '@angular/core';
 import { UserFormDataModel } from '../models/userFormData.model';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, ReplaySubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/error/User';
-import { AuthenticationService } from './authentication.service';
-import { flatMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { Credentials } from '../models/Credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  BASE_URL = 'http://localhost:8080/api/users';
-
-  public getCurrentUser: Observable<User | null>;
-  private userUpdater: BehaviorSubject<User | null>;
-
-  constructor(
-    private http: HttpClient,
-    public authService: AuthenticationService) {
 
 
-    this.userUpdater = new BehaviorSubject<User | null>(null);
-    authService.loggedOut.subscribe(() => this.userUpdater.next(null));
-    authService.loggedIn.subscribe(user => this.userUpdater.next(user));
-    this.getCurrentUser = this.userUpdater
-      .pipe(tap(maybeUser => console.log(`Succesfully fetched details of User '${maybeUser?.userName}'`)));
+  public authenticate: (credentials: Credentials) => Observable<User>;
+  // ReplaySubject is an Observable
+  public getCurrentUser: ReplaySubject<User>;
+  public logOut: Observable<void>;
+
+  private BASE_URL = environment.BASE_URL;
+  private getAuthenticationHeaders: (credentials: Credentials) => HttpHeaders;
+  public isLoggedIn: () => boolean;
+  registerUser: (data: UserFormDataModel) => Observable<void>;
+
+  constructor(private http: HttpClient) {
+
+    this.getCurrentUser = new ReplaySubject<User>(1);
+
+    this.authenticate = (credentials: Credentials) => this.http.post(
+      this.BASE_URL + '/api/users/authenticate', '',
+      { headers: this.getAuthenticationHeaders(credentials) })
+      .pipe(
+        tap((user: User) => {
+          sessionStorage.setItem('authenticated', 'true');
+          this.getCurrentUser.next(user);
+          console.log(`User '${user.userName}' succesfully logged in`);
+        }),
+      );
+
+    this.getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
+      authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
+    });
+
+    this.logOut = this.http.get<void>(this.BASE_URL + '/api/users/logout')
+      .pipe(
+        tap(() => {
+          sessionStorage.setItem('authenticated', '');
+          this.getCurrentUser.error(null);
+          console.log('User succesfully logged out');
+        })
+      );
+
+    this.isLoggedIn = () => Boolean(sessionStorage.getItem('authenticated'));
+
+    this.registerUser = (data: UserFormDataModel): Observable<void> =>
+      this.http.post<void>(environment.BASE_URL + '/api/users/register', data);
+
+    if (this.isLoggedIn()) {
+      this.http.get<User>(this.BASE_URL + '/api/users/me')
+        .pipe(
+          tap(
+            user => console.log(`Succesfully fetched details of User '${user.userName}'`),
+            err => console.error(err)
+          )
+        )
+        .subscribe(user => this.getCurrentUser.next(user),
+          err => sessionStorage.setItem('authenticated', ''));
+    }
+
   }
 
-  registerUser(data: UserFormDataModel): Observable<void> {
-    return this.http.post<void>(this.BASE_URL + '/register', data);
-  }
+
+
+
+
+
+
+
 }

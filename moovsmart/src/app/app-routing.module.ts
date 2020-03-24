@@ -6,7 +6,8 @@ import {PropertyDetailsComponent} from './components/property-details/property-d
 import {UserregisterFormComponent} from './components/userregister-form/userregister-form.component';
 import {UserLoginComponent} from './components/user-login/user-login.component';
 import {HomeComponent} from './components/home/home.component';
-import {UserHomeComponent} from './components/user-home/user-home.component';
+import {UserHomeComponent} from './components/user/user-home/user-home.component';
+import {SelectivePreloadingStrategyService} from "./selective-preloading-strategy.service";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -17,11 +18,24 @@ const routes: Routes = [
   {path: 'userregister-form', component: UserregisterFormComponent},
   {path: 'user-login', component: UserLoginComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'user-home', component: UserHomeComponent}
+  {
+    path: 'user-home',
+    loadChildren: () => import('./components/user/user.module').then(m => m.UserModule),
+  }
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+    {
+      enableTracing: false,
+      preloadingStrategy: SelectivePreloadingStrategyService,
+    }
+
+
+  )
+
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

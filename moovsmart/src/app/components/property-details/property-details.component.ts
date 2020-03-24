@@ -6,6 +6,8 @@ import {faStar} from '@fortawesome/free-regular-svg-icons';
 import {MapsAPILoader} from "@agm/core";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {UserService} from "../../services/user.service";
+import {tap} from "rxjs/operators";
 
 
 @Component({
@@ -18,6 +20,7 @@ export class PropertyDetailsComponent implements OnInit {
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
   propertyListItemModels: Array<PropertyListItemModel>;
+  isUserSeller: boolean = false;
 
   faStar= faStar;
   faEnvelope = faEnvelope;
@@ -25,13 +28,16 @@ export class PropertyDetailsComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public zoom: number = 15;
-  isAlreadyInit : boolean = false;
+  public map: google.maps.Marker;
+  public userName: string;
+
 
   constructor(private route: ActivatedRoute,
               private propertyAdvertService: PropertyService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
               private router: Router,
+              private userService: UserService
               ) {
 
      }
@@ -44,11 +50,28 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
-          this.setLocation();
-          this.isAlreadyInit = true;
+
         }
       },
     );
+    this.isUserLoggedIn();
+
+  }
+
+  isUserLoggedIn(){
+      this.userService.getCurrentUser.pipe(tap(console.log)).subscribe(
+        user => {
+          console.log(user.userName);
+          console.log(this.propertyAdvertDetails?.userName);
+          if(this.propertyAdvertDetails?.userName === user.userName){
+            this.isUserSeller=true;
+          } else{
+            this.isUserSeller=false;
+          }
+        },
+         error => console.log(error)
+      );
+      console.log(this.isUserSeller);
   }
 
   archivePropertyAdvert(id: number) {
@@ -64,19 +87,29 @@ export class PropertyDetailsComponent implements OnInit {
   loadPropertyAdvertDetails() {
     this.propertyAdvertService.fetchAdvertDetails(this.id).subscribe(
       (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
+
       error => console.warn(error),
     );
+
   }
 
   //--------Google map------//
-  /*mapReady($event: google.maps.Map) {
-    this.latitude = this.propertyAdvertDetails?.latitude;
-    this.longitude = this.propertyAdvertDetails?.longitude;
-  }*/
 
-  setLocation() {
-    this.latitude = this.propertyAdvertDetails?.latitude;
-    this.longitude = this.propertyAdvertDetails?.longitude;
+
+  setLocation(map) {
+    this.propertyAdvertService.fetchAdvertDetails(this.id).subscribe(
+      (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
+      error => console.warn(error),
+      () => {
+        this.latitude = this.propertyAdvertDetails?.latitude;
+        this.longitude = this.propertyAdvertDetails?.longitude;
+        this.map = new google.maps.Marker({
+          position: { lat: this.latitude, lng: this.longitude },
+          map: map});
+
+      }
+    );
+
   }
 
 

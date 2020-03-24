@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { UserFormDataModel } from '../../models/userFormData.model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { validationHandler } from 'src/app/utils/validationHandler';
 import { FormValidationError } from 'src/app/models/error/FormValidationError';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-userregister-form',
   templateUrl: './userregister-form.component.html',
-  styleUrls: ['./userregister-form.component.css']
+  styleUrls: ['./userregister-form.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserregisterFormComponent implements OnInit {
 
   registerNewUserForm: FormGroup;
+
 
   private checkPasswords: ValidatorFn = (group: FormGroup) =>
     group.get('password').value
@@ -25,7 +28,8 @@ export class UserregisterFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +49,7 @@ export class UserregisterFormComponent implements OnInit {
     const formData: UserFormDataModel = this.registerNewUserForm.value;
     this.userService.registerUser(formData).subscribe(
       (response) => {
+
         this.router.navigate(['user-login']);
         console.log('New user is created');
       },
@@ -53,5 +58,11 @@ export class UserregisterFormComponent implements OnInit {
       }
     );
   }
+
+  openDialog(content) {
+    this.modalService.open(content, { centered: true });
+  }
+
+
 
 }

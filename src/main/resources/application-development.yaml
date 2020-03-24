@@ -3,4 +3,4 @@ spring:
     username: root
     password: test1234
 
-cors-policies: http://34.254.251.78, http://moovsmart-demo.progmasters.hu
+cors-policies: http://34.254.251.78, http://moovmart-demo.progmasters.hu

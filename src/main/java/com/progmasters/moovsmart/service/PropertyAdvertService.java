@@ -80,11 +80,10 @@ public class PropertyAdvertService {
         }
     }
 
+
     private void updateValues(PropertyAdvertDetailsData propertyAdvertDetailsData, PropertyAdvert propertyAdvert){
 
         propertyAdvert.setUserName(propertyAdvertDetailsData.getUserName());
-
-        propertyAdvert.setAdvertStatus(AdvertStatusType.valueOf(propertyAdvertDetailsData.getAdvertStatus().getName()));
 
         propertyAdvert.setAdvertId(propertyAdvertDetailsData.getAdvertId());
 
@@ -94,11 +93,10 @@ public class PropertyAdvertService {
         propertyAdvert.setArea(propertyAdvertDetailsData.getArea());
         propertyAdvert.setNumberOfRooms(propertyAdvertDetailsData.getNumberOfRooms());
 
-        propertyAdvert.setPropertyType(PropertyType.valueOf(propertyAdvertDetailsData.getPropertyType().getName()));
-        propertyAdvert.setPropertyConditionType(PropertyConditionType.valueOf(propertyAdvertDetailsData.getPropertyConditionType().getName()));
-        propertyAdvert.setParkingType(ParkingType.valueOf(propertyAdvertDetailsData.getParkingType().getName()));
-
-
+        propertyAdvert.setAdvertStatus(AdvertStatusType.valueOf(propertyAdvertDetailsData.getAdvertStatus().getDisplayName()));
+        propertyAdvert.setPropertyType(PropertyType.valueOf(propertyAdvertDetailsData.getPropertyType().getDisplayName()));
+        propertyAdvert.setPropertyConditionType(PropertyConditionType.valueOf(propertyAdvertDetailsData.getPropertyConditionType().getDisplayName()));
+        propertyAdvert.setParkingType(ParkingType.valueOf(propertyAdvertDetailsData.getParkingType().getDisplayName()));
 
         propertyAdvert.setPlaceId(propertyAdvertDetailsData.getPlaceId());
         propertyAdvert.setLatitude(propertyAdvertDetailsData.getLatitude());
