@@ -4,6 +4,7 @@ import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,6 +22,17 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic")
     private List<Message> messages;
+
+    public Topic() {
+    }
+
+    public Topic(PropertyAdvert advert, User enquirer) {
+        this.advert = advert;
+        this.advertiser = advert.getUser();
+        this.enquirer = enquirer;
+        this.messages = new ArrayList<>();
+
+    }
 
     public Long getId() {
         return id;
