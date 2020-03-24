@@ -1,13 +1,14 @@
-import {Component, Input, NgZone, OnInit, ViewChild} from '@angular/core';
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
-import {PropertyService} from "../../services/property.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {faStar} from '@fortawesome/free-regular-svg-icons';
-import {MapsAPILoader} from "@agm/core";
-import {PropertyListItemModel} from "../../models/propertyListItem.model";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
-import {UserService} from "../../services/user.service";
-import {tap} from "rxjs/operators";
+import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { PropertyAdvertDetailsModel } from "../../models/propertyAdvertDetails.model";
+import { PropertyService } from "../../services/property.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { MapsAPILoader } from "@agm/core";
+import { PropertyListItemModel } from "../../models/propertyListItem.model";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { UserService } from "../../services/user.service";
+import { tap } from "rxjs/operators";
+import { MessagingService } from 'src/app/services/messaging.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyListItemModels: Array<PropertyListItemModel>;
   isUserSeller: boolean = false;
 
-  faStar= faStar;
+  faStar = faStar;
   faEnvelope = faEnvelope;
 
   public latitude: number;
@@ -33,14 +34,15 @@ export class PropertyDetailsComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-              private propertyAdvertService: PropertyService,
-              private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone,
-              private router: Router,
-              private userService: UserService
-              ) {
+    private propertyAdvertService: PropertyService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private router: Router,
+    private userService: UserService,
+    private messagingService: MessagingService
+  ) {
 
-     }
+  }
 
   ngOnInit(): void {
 
@@ -58,20 +60,20 @@ export class PropertyDetailsComponent implements OnInit {
 
   }
 
-  isUserLoggedIn(){
-      this.userService.getCurrentUser.pipe(tap(console.log)).subscribe(
-        user => {
-          console.log(user.userName);
-          console.log(this.propertyAdvertDetails?.userName);
-          if(this.propertyAdvertDetails?.userName === user.userName){
-            this.isUserSeller=true;
-          } else{
-            this.isUserSeller=false;
-          }
-        },
-         error => console.log(error)
-      );
-      console.log(this.isUserSeller);
+  isUserLoggedIn() {
+    this.userService.getCurrentUser.pipe(tap(console.log)).subscribe(
+      user => {
+        console.log(user.userName);
+        console.log(this.propertyAdvertDetails?.userName);
+        if (this.propertyAdvertDetails?.userName === user.userName) {
+          this.isUserSeller = true;
+        } else {
+          this.isUserSeller = false;
+        }
+      },
+      error => console.log(error)
+    );
+    console.log(this.isUserSeller);
   }
 
   archivePropertyAdvert(id: number) {
@@ -92,6 +94,11 @@ export class PropertyDetailsComponent implements OnInit {
     );
 
   }
+  sendMessage() {
+    this.messagingService.subscribeToTopic(Number(this.id))
+      .subscribe(success => this.router.navigate(['/messaging']),
+        console.error);
+  }
 
   //--------Google map------//
 
@@ -105,7 +112,8 @@ export class PropertyDetailsComponent implements OnInit {
         this.longitude = this.propertyAdvertDetails?.longitude;
         this.map = new google.maps.Marker({
           position: { lat: this.latitude, lng: this.longitude },
-          map: map});
+          map: map
+        });
 
       }
     );
@@ -114,6 +122,6 @@ export class PropertyDetailsComponent implements OnInit {
 
 
   editProperty(id: number) {
-    this.router.navigate(['/property-form',id]);
+    this.router.navigate(['/property-form', id]);
   }
 }
