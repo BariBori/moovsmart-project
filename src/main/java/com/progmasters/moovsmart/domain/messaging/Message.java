@@ -14,6 +14,7 @@ public class Message {
     private User sender;
 
     @ManyToOne
+    @JoinColumn
     private Topic topic;
 
     private Instant sentAt;
@@ -23,13 +24,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(User sender, Topic topic, String text) {
+    public Message(User sender, String text) {
         this.sender = sender;
-        this.topic = topic;
         this.sentAt = Instant.now();
         this.text = text;
     }
-
 
     public String getText() {
         return text;
@@ -41,10 +40,6 @@ public class Message {
 
     public User getSender() {
         return sender;
-    }
-
-    public Topic getTopic() {
-        return topic;
     }
 
     public Instant getSentAt() {

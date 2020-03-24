@@ -34,6 +34,11 @@ public class Topic {
 
     }
 
+    public Topic addMessage(Message message) {
+        this.messages.add(message);
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
