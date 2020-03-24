@@ -1,7 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.User;
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.UserDto;
 import com.progmasters.moovsmart.dto.UserForm;
 import com.progmasters.moovsmart.service.UserActivationService;
@@ -9,10 +8,10 @@ import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.UserFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +25,14 @@ public class UserController {
     private UserService userService;
     private UserActivationService userActivationService;
     private UserFormValidator formValidator;
+    private UserDetailsFromSecurityContext userDetails;
 
-    public UserController(UserService userService, UserActivationService userActivationService, UserFormValidator formValidator) {
+    @Autowired
+    public UserController(UserService userService, UserActivationService userActivationService, UserFormValidator formValidator, UserDetailsFromSecurityContext userDetails) {
         this.userService = userService;
         this.userActivationService = userActivationService;
         this.formValidator = formValidator;
+        this.userDetails = userDetails;
     }
 
     @InitBinder("userForm")
@@ -52,21 +54,13 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<UserDto> authenticateUser() {
-        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
+        return ResponseEntity.ok(UserDto.fromUserDetails(userDetails.get()));
     }
 
     @GetMapping("/me")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<UserDto> currentUserId() {
-        return ResponseEntity.ok(UserDto.fromUserDetails(getCurrentUser()));
-    }
-
-    private UserDetailsImpl getCurrentUser() {
-        return (UserDetailsImpl)
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getPrincipal();
+        return ResponseEntity.ok(UserDto.fromUserDetails(userDetails.get()));
     }
 
 }

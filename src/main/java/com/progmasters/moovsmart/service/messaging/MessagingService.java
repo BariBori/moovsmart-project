@@ -55,4 +55,19 @@ public class MessagingService {
                 )
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    public Topic save(TopicFormData topic) {
+        return advertRepository.findOneById(topic.getAdvertId())
+                .flatMap(advert -> userRepository.findByUserName(topic.getEnquirer())
+                        .map(enquirer ->
+                                topicRepostitory.save(new Topic(advert, enquirer))
+                        )
+                )
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Topic getTopicById(Long id) {
+        return topicRepostitory.findOneById(id)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }
