@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.service;
+package com.progmasters.moovsmart.service.user;
 
 import com.progmasters.moovsmart.dto.UserDetailsImpl;
 import com.progmasters.moovsmart.repository.UserRepository;

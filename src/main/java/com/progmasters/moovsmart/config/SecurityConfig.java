@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.config;
 
-import com.progmasters.moovsmart.service.UserDetailsServiceImpl;
+import com.progmasters.moovsmart.service.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

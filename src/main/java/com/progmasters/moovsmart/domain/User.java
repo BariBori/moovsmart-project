@@ -33,9 +33,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PropertyAdvert> propertyAdvert;
 
-    @OneToOne(mappedBy = "user")
-    private PersonalDetails personalDetails;
-
     @NotNull
     @ElementCollection(targetClass = UserRole.class)
     @Enumerated(EnumType.STRING)
@@ -44,11 +41,10 @@ public class User {
     @NotNull
     private Boolean activated;
 
-    public User(String email, String userName, String passwordHash, PersonalDetails personalDetails, UserRole... userRoles) {
+    public User(String email, String userName, String passwordHash, UserRole... userRoles) {
         this.email = email;
         this.userName = userName;
         this.passwordHash = passwordHash;
-        this.personalDetails = personalDetails;
         this.activated = false;
         this.userRoles = new ArrayList<>();
         this.userRoles.addAll(Arrays.asList(userRoles));
@@ -56,10 +52,6 @@ public class User {
 
     public User() {
 
-    }
-
-    public PersonalDetails getPersonalDetails() {
-        return personalDetails;
     }
 
     public Long getId() {

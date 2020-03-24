@@ -1,10 +1,8 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
-import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
