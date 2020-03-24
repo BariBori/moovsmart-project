@@ -18,6 +18,12 @@ public class Message {
 
     private Instant sentAt;
 
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
     public Long getId() {
         return id;
     }
