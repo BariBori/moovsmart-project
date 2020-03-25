@@ -33,10 +33,10 @@ export class PropertyListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }*/
 
-  applyFilter(filterValue:string){
-    filterValue = filterValue.trim();
-    //filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+  applyFilter(filterEvent: any){
+    filterEvent = filterEvent.target.value.trim();
+    filterEvent = filterEvent.toLowerCase();
+    this.dataSource.filter = filterEvent;
 
     if(this.dataSource.paginator){
       this.dataSource.paginator.firstPage();
