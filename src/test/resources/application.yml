@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;
+    username: root
+    password: test1234
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
