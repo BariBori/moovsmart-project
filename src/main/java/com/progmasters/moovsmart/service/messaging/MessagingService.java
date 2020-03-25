@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -67,9 +67,11 @@ public class MessagingService {
                 );
     }
 
-    public List<TopicDto> getTopicsByUser(UserDetailsImpl user) {
+    public Map<Long, TopicDto> getTopicsByUser(UserDetailsImpl user) {
         return topicRepostitory.streamByAdvertiserOrEnquirer(user.getId())
-                .map(TopicDto::fromTopic)
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(
+                        Topic::getId,
+                        TopicDto::fromTopic
+                ));
     }
 }

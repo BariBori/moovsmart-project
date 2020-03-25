@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/topics")
@@ -47,7 +47,8 @@ public class TopicController {
 
     @GetMapping("/my-topics")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<List<TopicDto>> fetchTopicsByUser(){
+    public ResponseEntity<Map<Long, TopicDto>>
+    fetchTopicsByUser() {
         return ResponseEntity.ok(
                 service.getTopicsByUser(
                         userDetails.get()
@@ -63,7 +64,7 @@ public class TopicController {
 
         return ResponseEntity.ok(
                 service.getTopic(advertId, userName)
-                        .orElseGet(()->service.openTopic(advertId, userName))
+                        .orElseGet(() -> service.openTopic(advertId, userName))
                         .getId()
         );
     }
