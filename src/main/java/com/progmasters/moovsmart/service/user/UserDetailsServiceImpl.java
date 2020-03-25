@@ -1,6 +1,6 @@
-package com.progmasters.moovsmart.service;
+package com.progmasters.moovsmart.service.user;
 
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

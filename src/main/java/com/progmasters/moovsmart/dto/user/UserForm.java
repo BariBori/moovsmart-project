@@ -1,4 +1,6 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.user;
+
+import com.progmasters.moovsmart.dto.PersonalDetailsForm;
 
 public class UserForm {
     private String email;

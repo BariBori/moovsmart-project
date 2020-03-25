@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
@@ -16,6 +18,8 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     List<PropertyAdvert> findByOrderByNumberOfRoomsDesc();
 
     List<PropertyAdvert> findByOrderByPriceDesc();
+
+    Optional<PropertyAdvert> findOneById(Long id);
 
 
     @Query("SELECT DISTINCT p.city FROM PropertyAdvert p ORDER BY p.city")

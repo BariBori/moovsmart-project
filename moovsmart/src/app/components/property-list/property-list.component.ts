@@ -27,10 +27,11 @@ export class PropertyListComponent implements OnInit {
   }
 
 
-  applyFilter(filterEvent:any){
+  applyFilter(filterEvent: any){
     filterEvent = filterEvent.target.value.trim();
     filterEvent = filterEvent.toLowerCase();
     this.dataSource.filter = filterEvent;
+
 
     if(this.dataSource.paginator){
       this.dataSource.paginator.firstPage();

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Credentials } from 'src/app/models/Credentials';
-import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-login',
@@ -17,7 +16,7 @@ export class UserLoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private router: Router
   ) { }
 
@@ -30,7 +29,7 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit(): void {
     const credentials = this.loginForm.value as Credentials;
-    this.authService.authenticate(credentials)
+    this.userService.authenticate(credentials)
       .subscribe(
         success => {
           this.router.navigate(['user-home']);

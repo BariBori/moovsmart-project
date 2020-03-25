@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
-import {Observable, pipe} from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {AuthenticationService} from "../../services/authentication.service";
-import {User} from "../../models/error/User";
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +16,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthenticationService,
     private router: Router
   ) {
 
@@ -29,11 +25,11 @@ export class NavbarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.getCurrentUser
-      .pipe(tap(console.log)).subscribe(
-        user => this.router.navigate(['property-form']),
-        noUser => this.router.navigate(['user-login']),
-      );
+    this.router.navigate(
+      this.userService.isLoggedIn()
+        ? ['property-form']
+        : ['user-login']
+    );
   }
 
 
