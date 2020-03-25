@@ -27,7 +27,7 @@
 
 
                         <div class="chat_list" *ngFor='let topic of topics | keyvalue'
-                            (click)='setActiveTopic(topic.key)'>
+                            (click)='setActiveTopic(topic.key, topic.value)'>
                             <div class="chat_people">
                                 <div class="chat_ib">
                                     <h5>{{topic.value.advertTitle}} <span class="chat_date">Dec 25</span></h5>
@@ -43,11 +43,13 @@
 
                     <div class="msg_history">
 
-                        <div class="incoming_msg">
+                        <div class="incoming_msg" *ngFor='let message of activeTopic.topic?.messages' [ngClass]="{
+                         'incoming_msg': currentUserName !== message.sender,
+                         'outgoing_msg': currentUserName === message.sender
+                        }">
                             <div class="received_msg">
                                 <div class="received_withd_msg">
-                                    <p>Test which is a new approach to have all
-                                        solutions</p>
+                                    <p>{{message.text}} </p>
                                     <span class="time_date"> 11:01 AM | June 9</span>
                                 </div>
                             </div>
