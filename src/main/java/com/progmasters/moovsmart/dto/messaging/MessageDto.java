@@ -3,11 +3,12 @@ package com.progmasters.moovsmart.dto.messaging;
 import com.progmasters.moovsmart.domain.messaging.Message;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class MessageDto {
     private String sender;
     private String text;
-    private Instant sentAt;
+    private LocalDateTime sentAt;
 
     public static MessageDto fromMessage(Message message) {
         MessageDto result = new MessageDto();
@@ -17,7 +18,7 @@ public class MessageDto {
         return result;
     }
 
-    public Instant getSentAt() {
+    public LocalDateTime getSentAt() {
         return sentAt;
     }
 

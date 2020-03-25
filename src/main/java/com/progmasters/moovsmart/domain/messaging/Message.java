@@ -3,7 +3,7 @@ package com.progmasters.moovsmart.domain.messaging;
 import com.progmasters.moovsmart.domain.user.User;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 public class Message {
@@ -17,7 +17,7 @@ public class Message {
     @JoinColumn
     private Topic topic;
 
-    private Instant sentAt;
+    private LocalDateTime sentAt;
 
     private String text;
 
@@ -27,7 +27,7 @@ public class Message {
     public Message(Topic topic, User sender, String text) {
         this.sender = sender;
         this.topic = topic;
-        this.sentAt = Instant.now();
+        this.sentAt = LocalDateTime.now();
         this.text = text;
     }
 
@@ -47,7 +47,7 @@ public class Message {
         return sender;
     }
 
-    public Instant getSentAt() {
+    public LocalDateTime getSentAt() {
         return sentAt;
     }
 }
