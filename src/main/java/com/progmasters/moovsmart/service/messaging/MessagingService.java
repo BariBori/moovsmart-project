@@ -58,14 +58,12 @@ public class MessagingService {
 
     public Optional<Topic> getTopic(Long advertId, String userName) {
         return advertRepository.findOneById(advertId)
-                .flatMap(advert ->
-                        userRepository.findByUserName(userName)
-                                .flatMap(enquirer ->
-                                        topicRepostitory.findOneByAdvertAndEnquirer(
-                                                advert,
-                                                enquirer
-                                        )
+                .flatMap(advert -> userRepository.findByUserName(userName)
+                        .flatMap(enquirer -> topicRepostitory.findOneByAdvertAndEnquirer(
+                                advert,
+                                enquirer
                                 )
+                        )
                 );
     }
 }

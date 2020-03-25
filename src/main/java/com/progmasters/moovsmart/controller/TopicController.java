@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("api/topics")
 public class TopicController {
@@ -47,14 +45,13 @@ public class TopicController {
 
     @PostMapping("/subscribe")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Long> subscribeToTopic(@RequestBody Map.Entry<String, Long> advertId) {
+    public ResponseEntity<Long> subscribeToTopic(@RequestBody Long advertId) {
 
-        final Long adId = advertId.getValue();
         final String userName = userDetails.get().getUsername();
 
         return ResponseEntity.ok(
-                service.getTopic(adId, userName)
-                        .orElse(service.openTopic(adId, userName))
+                service.getTopic(advertId, userName)
+                        .orElseGet(()->service.openTopic(advertId, userName))
                         .getId()
         );
     }
