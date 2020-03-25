@@ -95,9 +95,10 @@ export class PropertyDetailsComponent implements OnInit {
 
   }
   sendMessage() {
-    this.messagingService.subscribeToTopic(Number(this.id))
-      .subscribe(success => this.router.navigate(['/messaging']),
-        console.error);
+    this.userService.isLoggedIn()
+      ? this.messagingService.subscribeToTopic(Number(this.id))
+        .subscribe(success => this.router.navigate(['/messaging']))
+      : this.router.navigate(['user-login']);
   }
 
   //--------Google map------//
