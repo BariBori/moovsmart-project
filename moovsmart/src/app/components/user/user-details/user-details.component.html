@@ -1,7 +1,14 @@
-<p>Itt lesznek szépen a felhasználó adatai</p>
 
-<p>
-  {{this.user?.userName}}
-  {{this.user?.email}}
-  {{this.user?.id}}
-</p>
+
+
+<div class="container">
+  <h4>Adataim</h4>
+  <div class="row">
+    <div class="col">Felhasználónév</div>
+    <div class="col">{{this.user?.userName}}</div>
+    <div class="w-100"></div>
+    <div class="col">E-mail cím</div>
+    <div class="col">{{this.user?.email}}</div>
+
+  </div>
+</div>

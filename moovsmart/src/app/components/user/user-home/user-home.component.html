@@ -1,13 +1,39 @@
 
 
-
 <div class="container">
-  <h3>Felhasználói oldal</h3>
-<nav>
 
-  <a routerLink="./user-details" routerLinkActive="active">Adataim</a>
-  <a routerLink="./user-property" routerLinkActive="active">Eladó ingatlanjaim</a>
-</nav>
 
-<router-outlet></router-outlet>
+
+  <div class="wrapper">
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Profil</h3>
+      </div>
+
+      <ul class="list-unstyled components">
+        <li><a routerLink="./user-details" routerLinkActive="active">Adataim</a></li>
+        <li><a routerLink="./user-property" routerLinkActive="active">Eladó ingatlanjaim</a></li>
+        <li><a routerLink="./user-details" routerLinkActive="active">Kedvenc ingatlanjaim</a></li>
+        <li><a routerLink="./user-details" routerLinkActive="active">Licitált ingatlanjaim</a></li>
+      </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+
+  <div class="content-header"></div>
+
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+
+
+
+
+
 </div>
+

@@ -66,9 +66,8 @@
       </div>
     </ng-template>
 
-    <button (click)="saveUser()" class="btn btn-success" type="submit"
+    <button (click)="saveUser(content)" class="btn btn-success" type="submit"
       [disabled]='registerNewUserForm.invalid'>Regisztráció</button>
   </form>
 </div>
 
-<app-footer></app-footer>

@@ -21,11 +21,13 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li class="nav-item"><a class="nav-link" routerLink="/user-home" ><span
+      <li *ngIf="isLoggedUser"  class="nav-item"><a class="nav-link" routerLink="/user-home" ><span
         class="glyphicon glyphicon-user"></span>Profil</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/userregister-form"><span
+      <li *ngIf="isLoggedUser"  class="nav-item nav-link click" (click)="onLogOut()">Kilépés</li>
+
+      <li *ngIf="!isLoggedUser" class="nav-item"><a class="nav-link" routerLink="/userregister-form"><span
             class="glyphicon glyphicon-user"></span>Regisztráció</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/user-login"><span
+      <li *ngIf="!isLoggedUser" class="nav-item"><a class="nav-link" routerLink="/user-login"><span
             class="glyphicon glyphicon-log-in"></span>Bejelentkezés</a></li>
       <button class="btn btn-outline-success my-2 my-sm-0" (click)="onSubmit()">Hirdetés feladása</button>
     </ul>

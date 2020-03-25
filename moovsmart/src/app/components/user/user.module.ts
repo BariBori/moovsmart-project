@@ -7,11 +7,13 @@ import { UserPropertyComponent } from './user-property/user-property.component';
 import {UserDetailsComponent} from "./user-details/user-details.component";
 
 import {UserRoutingModule} from "./user-routing.module";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MatSidenavModule
   ],
   declarations: [
     UserHomeComponent,

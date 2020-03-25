@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-import { SearchComponent } from './components/SearchForm/search/search.component';
+
 import {AgmCoreModule} from "@agm/core";
 import {FileUploadModule} from "ng2-file-upload";
 import {CloudinaryModule} from "@cloudinary/angular-5.x";
@@ -39,9 +39,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { CdkTableModule } from "@angular/cdk/table";
 
-import { FilterPipe } from './filter.pipe';
-import { SearchResultComponent } from './components/SearchForm/search-result/search-result.component';
-import { PropertyListSearchComponent } from './components/SearchForm/property-list-search/property-list-search.component';
+
 
 
 @NgModule({
@@ -56,9 +54,7 @@ import { PropertyListSearchComponent } from './components/SearchForm/property-li
     FooterComponent,
     UserregisterFormComponent,
     UserLoginComponent,
-    SearchComponent,
     MessagingComponent,
-    //UserHomeComponent
 
   ],
   exports: [
