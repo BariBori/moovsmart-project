@@ -2,10 +2,10 @@ package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
+import com.progmasters.moovsmart.service.user.UserActivationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.annotation.Rollback;
