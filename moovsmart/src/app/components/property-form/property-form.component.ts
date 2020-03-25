@@ -13,6 +13,7 @@ import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file
 import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {PropertyFormDataModel} from "../../models/propertyFormData.model";
+import {PropertyEditModel} from "../../models/propertyEdit.model";
 
 
 @Component({
@@ -85,6 +86,10 @@ export class PropertyFormComponent implements OnInit {
 
     listOfImages: [null],
   });
+
+  getDataFromFormForEdit() {
+
+  }
 
 
   constructor(
@@ -307,7 +312,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
-            // advertStatus: response.advertStatus.name,
+            advertStatus: response.advertStatus,
 
             userName : response.userName,
 
@@ -317,10 +322,9 @@ export class PropertyFormComponent implements OnInit {
 
             title: response.title,
 
-
-            // propertyType: response.propertyType.name,
-            // propertyConditionType: response.propertyConditionType.name,
-            // parkingType: response.parkingType.name,
+            propertyType: response.propertyType.name,
+            propertyConditionType: response.propertyConditionType.name,
+            parkingType: response.parkingType.name,
 
             address: response.address,
             latitude: response.latitude,
@@ -416,7 +420,7 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.listOfImages = this.listOfImages;
     propertyFormDataModel.userName = this.userName;
 
-    this.id ? this.updateProperty(propertyFormDataModel) :
+    //this.id ? this.updateProperty(propertyFormDataModel) :
 
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['property-list']),
@@ -424,7 +428,12 @@ export class PropertyFormComponent implements OnInit {
     )
   };
 
-  private updateProperty(data: PropertyFormDataModel){
+  onSubmit() {
+    const data = {...this.propertyForm.value};
+    this.updateProperty(data);
+  }
+
+  private updateProperty(data: PropertyEditModel){
     this.propertyService.updateProperty(data, this.id).subscribe(
       () => this.router.navigate(['property-list']),
       //error => validationHandler(error, this.propertyForm),
