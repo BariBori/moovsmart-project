@@ -1,10 +1,10 @@
 <div class="container">
 
 
-  <div class="container-small">
-    <div class="row owner_banner">
-      <div class="col-6">
-        {{propertyAdvertDetails}}
+<div class="container-small">
+  <div class="row owner_banner" >
+    <div class="col-6">
+      {{propertyAdvertDetails.advertStatus.displayName}}
 
       </div>
       <div class="col-6">
@@ -57,8 +57,12 @@
 
     <div class="row">
       <div class="col-8"></div>
-      <div class="col-4 username">Hirdetés feladója: {{propertyAdvertDetails?.userName}}
-        <button class="btn btn-envelope float-right" (click)='sendMessage()'>
+      <div class="col-4 username">Hirdetés feladója: {{
+        isUserSeller
+        ?'Én'
+        :propertyAdvertDetails?.userName
+      }}
+        <button *ngIf='!isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
           <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
         </button></div>
     </div>
@@ -74,18 +78,18 @@
       <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter}} Ft/m2</div>
     </div>
 
-    <div class="row details">
-      <div class="col-4 label-small">Típus</div>
-      <div class="col-8">{{propertyAdvertDetails?.propertyType}}</div>
-    </div>
-    <div class="row details">
-      <div class="col-4 label-small">Állapot</div>
-      <div class="col-8">{{propertyAdvertDetails?.propertyConditionType}}</div>
-    </div>
-    <div class="row details">
-      <div class="col-4 label-small">Parkolás</div>
-      <div class="col-8">{{propertyAdvertDetails?.parkingType}}</div>
-    </div>
+  <div class="row details">
+    <div class="col-4 label-small">Típus</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Állapot</div>
+    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
+  </div>
+  <div class="row details">
+    <div class="col-4 label-small">Parkolás</div>
+    <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
+  </div>
 
     <div class="row details">
       <div class="col-4 label-small">Erkély</div>
@@ -112,7 +116,5 @@
   </div>
 
 </div>
-<br>
-<br>
-<br>
+
 

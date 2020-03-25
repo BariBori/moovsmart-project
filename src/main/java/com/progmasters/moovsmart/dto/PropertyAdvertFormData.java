@@ -14,17 +14,17 @@ public class PropertyAdvertFormData {
 
     private Integer advertId;
 
-//    private PropertyType propertyType;
-//
-//    private PropertyConditionType propertyConditionType;
-//
-//    private ParkingType parkingType;
+    private PropertyType propertyType;
 
-//    private AdvertStatusType advertStatus;
+    private PropertyConditionType propertyConditionType;
 
-    private String propertyType;
-    private String propertyConditionType;
-    private String parkingType;
+    private ParkingType parkingType;
+
+    private AdvertStatusType advertStatus;
+
+//    private String propertyType;
+//    private String propertyConditionType;
+//    private String parkingType;
 //    private String advertStatus;
 
     private String title;
@@ -63,10 +63,17 @@ public class PropertyAdvertFormData {
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
-        this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
-        this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
-        this.parkingType = propertyAdvert.getParkingType().getDisplayName();
-       // this.advertStatus = propertyAdvert.getAdvertStatus().getDisplayName();
+
+//        this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
+//        this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
+//        this.parkingType = propertyAdvert.getParkingType().getDisplayName();
+//        this.advertStatus = propertyAdvert.getAdvertStatus().getDisplayName();
+
+        this.propertyType = propertyAdvert.getPropertyType();
+        this.propertyConditionType = propertyAdvert.getPropertyConditionType();
+        this.parkingType = propertyAdvert.getParkingType();
+        this.advertStatus = propertyAdvert.getAdvertStatus();
+
         this.title = propertyAdvert.getTitle();
         this.address = propertyAdvert.getAddress();
         this.latitude = propertyAdvert.getLatitude();
@@ -127,57 +134,60 @@ public class PropertyAdvertFormData {
         this.advertId = advertId;
     }
 
-    public String getPropertyType() {
+//    public String getPropertyType() {
+//        return propertyType;
+//    }
+//
+//    public void setPropertyType(String propertyType) {
+//        this.propertyType = propertyType;
+//    }
+//
+//    public String getPropertyConditionType() {
+//        return propertyConditionType;
+//    }
+//
+//    public void setPropertyConditionType(String propertyConditionType) {
+//        this.propertyConditionType = propertyConditionType;
+//    }
+//
+//    public String getParkingType() {
+//        return parkingType;
+//    }
+//
+//    public void setParkingType(String parkingType) {
+//        this.parkingType = parkingType;
+//    }
+
+
+
+        public PropertyType getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType(String propertyType) {
+    public void setPropertyType(PropertyType propertyType) {
         this.propertyType = propertyType;
     }
 
-    public String getPropertyConditionType() {
+    public PropertyConditionType getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(String propertyConditionType) {
+    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public String getParkingType() {
+    public ParkingType getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(String parkingType) {
+    public void setParkingType(ParkingType parkingType) {
         this.parkingType = parkingType;
     }
+
 
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
-
-    //    public PropertyType getPropertyType() {
-//        return propertyType;
-//    }
-//
-//    public void setPropertyType(PropertyType propertyType) {
-//        this.propertyType = propertyType;
-//    }
-//
-//    public PropertyConditionType getPropertyConditionType() {
-//        return propertyConditionType;
-//    }
-//
-//    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
-//        this.propertyConditionType = propertyConditionType;
-//    }
-//
-//    public ParkingType getParkingType() {
-//        return parkingType;
-//    }
-//
-//    public void setParkingType(ParkingType parkingType) {
-//        this.parkingType = parkingType;
-//    }
 
     public String getTitle() {
         return title;

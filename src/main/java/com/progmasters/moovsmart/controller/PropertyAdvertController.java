@@ -1,6 +1,10 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.PropertyAdvert;
+import com.progmasters.moovsmart.domain.PropertyConditionType;
+import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
@@ -10,10 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -51,15 +57,21 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+//    @PostMapping
+//    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
+//        return propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
+//    }
+
 
     @PutMapping("/{id}")
-    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyAdvertDetailsData propertyAdvertDetailsData, @PathVariable Long id){
-        PropertyAdvert updatedProperty = propertyAdvertService.updateProperty(propertyAdvertDetailsData, id);
+    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
+        Boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
         ResponseEntity<PropertyAdvertDetailsData> result;
-        if(updatedProperty == null){
+        if (!isUpdated) {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+           // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+            result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
     }
@@ -97,16 +109,5 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyAdvertDetailsData propertyAdvertDetailsData, @PathVariable Long id){
-//        PropertyAdvert updatedProperty = propertyAdvertService.updateProperty(propertyAdvertDetailsData, id);
-//        ResponseEntity<PropertyAdvertDetailsData> result;
-//        if(updatedProperty == null){
-//            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
-//            result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
-//        }
-//        return result;
-//    }
 
 }

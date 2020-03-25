@@ -114,10 +114,17 @@ public class PropertyAdvert {
         this.timeOfActivation = LocalDate.now();
         this.advertId = new Random().nextInt(1000000);
 
+//        this.advertStatus = AdvertStatusType.FORAPPROVAL;
+//        this.propertyType = PropertyType.valueOf(propertyAdvertFormData.getPropertyType());
+//        this.propertyConditionType = PropertyConditionType.valueOf(propertyAdvertFormData.getPropertyConditionType());
+//        this.parkingType = ParkingType.valueOf(propertyAdvertFormData.getParkingType());
+
         this.advertStatus = AdvertStatusType.FORAPPROVAL;
-        this.propertyType = PropertyType.valueOf(propertyAdvertFormData.getPropertyType());
-        this.propertyConditionType = PropertyConditionType.valueOf(propertyAdvertFormData.getPropertyConditionType());
-        this.parkingType = ParkingType.valueOf(propertyAdvertFormData.getParkingType());
+        this.propertyType = propertyAdvertFormData.getPropertyType();
+        this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
+        this.parkingType = propertyAdvertFormData.getParkingType();
+
+
 
         this.title = propertyAdvertFormData.getTitle();
         this.city = propertyAdvertFormData.getCity();
