@@ -31,15 +31,11 @@ public class MessagingService {
 
     public Topic saveMessage(Long topicId, String sender, String message) {
         return topicRepostitory.findOneById(topicId)
-                .flatMap(topic ->
-                        userRepository.findByUserName(sender)
-                                .map(user ->
-                                        topic.addMessage(
-                                                new Message(
-                                                        user, message
-                                                )
-                                        )
+                .flatMap(topic -> userRepository.findByUserName(sender)
+                        .map(user -> topic.addMessage(
+                                new Message(user, message)
                                 )
+                        )
                 )
                 .map(topicRepostitory::save)
                 .orElseThrow(EntityNotFoundException::new);
@@ -71,8 +67,8 @@ public class MessagingService {
                 );
     }
 
-    public List<TopicDto> getTopicsByUser(UserDetailsImpl user){
-        return topicRepostitory.streamAllByAdvertiser_IdOrEnquirer_Id(user.getId())
+    public List<TopicDto> getTopicsByUser(UserDetailsImpl user) {
+        return topicRepostitory.streamByAdvertiserOrEnquirer(user.getId())
                 .map(TopicDto::fromTopic)
                 .collect(Collectors.toList());
     }
