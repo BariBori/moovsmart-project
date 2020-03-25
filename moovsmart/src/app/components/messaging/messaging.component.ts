@@ -20,6 +20,7 @@ export class MessagingComponent implements OnInit {
   topics: TopicMap;
   messages: MessageModel[];
 
+
   activeTopic: {
     id: number;
     topic: TopicModel;
@@ -37,8 +38,13 @@ export class MessagingComponent implements OnInit {
     };
   }
   send() {
-    this.msgservice.sendMessage(this.message.value, this.activeTopic.id)
-      .subscribe(success => this.message.setValue(''),
+    const id = this.activeTopic.id;
+    const message = this.message.value;
+    this.msgservice.sendMessage(message, id)
+      .subscribe(response => {
+        this.topics[id].messages.push(response);
+        this.message.setValue('');
+      },
         err => console.error(err));
 
   }
@@ -52,6 +58,11 @@ export class MessagingComponent implements OnInit {
       response => this.currentUserName = response.userName
     );
   }
+
+  format(dateString: string): string {
+    return new Date(dateString).toLocaleString();
+  }
+
   setActiveTopic(topicId: number, topic: TopicModel): void {
     this.activeTopic.id = topicId;
     this.activeTopic.topic = topic;
