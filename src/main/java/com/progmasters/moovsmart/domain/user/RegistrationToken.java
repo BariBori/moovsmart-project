@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.domain;
+package com.progmasters.moovsmart.domain.user;
 
 import org.hibernate.annotations.Type;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "registration_token")
 public class RegistrationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

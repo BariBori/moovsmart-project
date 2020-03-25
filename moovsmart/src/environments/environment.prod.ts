@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_URL: 'http://moovmart-demo.progmasters.hu'
+  BASE_URL: 'http://moovsmart-demo.progmasters.hu'
 };

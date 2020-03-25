@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.config;
 
-import com.progmasters.moovsmart.service.UserDetailsServiceImpl;
+import com.progmasters.moovsmart.service.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +21,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Value("${cors-policies}")
     private String[] corsPolicies;
 

@@ -3,7 +3,7 @@
   <div class="filter-header">
     <p>Szűrés</p>
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="">
+      <textarea matInput (keyup)="applyFilter($event)" placeholder=""></textarea>
     </mat-form-field>
     <hr>
   </div>

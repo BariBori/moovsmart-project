@@ -1,7 +1,7 @@
-package com.progmasters.moovsmart.service;
+package com.progmasters.moovsmart.service.user;
 
-import com.progmasters.moovsmart.domain.RegistrationToken;
-import com.progmasters.moovsmart.domain.User;
+import com.progmasters.moovsmart.domain.user.RegistrationToken;
+import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 @Transactional
 public class UserActivationService {
+
     private RegistrationTokenRepository registrationTokenRepository;
     private UserRepository userRepository;
     private JavaMailSender mailSender;

@@ -1,0 +1,64 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <div class="container">
+        <h3 class=" text-center">Messaging</h3>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Üzenetváltások hirdetés szerint</h4>
+                        </div>
+                    </div>
+
+                    <div class="inbox_chat">
+
+                        <div class="chat_list" *ngFor='let topic of topics | keyvalue'
+                            (click)='setActiveTopic(topic.key, topic.value)'>
+                            <div class="chat_people">
+                                <div class="chat_ib">
+                                    <h5>{{topic.value.advertTitle}} <span>{{
+                                        topic.value.advertiser === currentUserName
+                                        ?topic.value.enquirer
+                                        :topic.value.advertiser
+                                }}</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mesgs">
+                    <div class="msg_history">
+
+                        <div *ngFor='let message of activeTopic.topic?.messages' [ngClass]="currentUserName === message.sender
+                        ? 'outgoing_msg'
+                        : 'received_msg'">
+                            <div [ngClass]="currentUserName === message.sender
+                            ? 'sent_msg'
+                            : 'received_withd_msg'">
+                                <p>{{message.text}} </p>
+                                <span class="time_date">{{format(message.sentAt)}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="type_msg">
+                        <div class="input_msg_write">
+                            <input type="text" class="write_msg" [formControl]='message' placeholder="Type a message" />
+                            <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'><i
+                                    class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

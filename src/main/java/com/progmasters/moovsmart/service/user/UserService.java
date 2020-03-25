@@ -1,10 +1,9 @@
-package com.progmasters.moovsmart.service;
+package com.progmasters.moovsmart.service.user;
 
-import com.progmasters.moovsmart.domain.RegistrationToken;
-import com.progmasters.moovsmart.domain.User;
-import com.progmasters.moovsmart.domain.UserRole;
-import com.progmasters.moovsmart.dto.UserDetailsImpl;
-import com.progmasters.moovsmart.dto.UserForm;
+import com.progmasters.moovsmart.domain.user.RegistrationToken;
+import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.domain.user.UserRole;
+import com.progmasters.moovsmart.dto.user.UserForm;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import javax.persistence.EntityNotFoundException;
 public class UserService {
     private UserRepository userRepository;
     private RegistrationTokenRepository registrationTokenRepository;
-    private PersonalDetailsService personalDetailsService;
     private UserActivationService userActivationService;
     private PasswordEncoder encoder;
 
@@ -28,12 +26,10 @@ public class UserService {
     public UserService(
             UserRepository userRepository,
             RegistrationTokenRepository registrationTokenRepository,
-            PersonalDetailsService personalDetailsService,
             UserActivationService userActivationService, PasswordEncoder encoder
     ) {
         this.userRepository = userRepository;
         this.registrationTokenRepository = registrationTokenRepository;
-        this.personalDetailsService = personalDetailsService;
         this.userActivationService = userActivationService;
         this.encoder = encoder;
     }
@@ -52,7 +48,6 @@ public class UserService {
                         userDto.getEmail(),
                         userDto.getUserName(),
                         encoder.encode(userDto.getPassword()),
-                        personalDetailsService.save(userDto.getPersonalDetails()),
                         UserRole.ROLE_USER
                 ))
         ));

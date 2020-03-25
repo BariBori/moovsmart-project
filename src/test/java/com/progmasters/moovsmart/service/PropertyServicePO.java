@@ -1,7 +1,6 @@
-package com.progmasters.moovsmart.integration;
+package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.dto.PropertyAdvertListItem;
-import com.progmasters.moovsmart.service.PropertyAdvertService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,10 +22,8 @@ public class PropertyServicePO {
     private PropertyAdvertService advertService;
 
     @Test
-    public void testEmptyPropertyList(){
-
+    public void testEmptyPropertyList() {
         List<PropertyAdvertListItem> propertyList = advertService.listPropertyAdverts();
-
         assertEquals(0, propertyList.size());
 
     }
