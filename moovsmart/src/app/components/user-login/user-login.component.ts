@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/app/models/Credentials';
-import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({

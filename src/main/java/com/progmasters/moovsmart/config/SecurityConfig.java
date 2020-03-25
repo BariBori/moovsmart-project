@@ -21,6 +21,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Value("${cors-policies}")
     private String[] corsPolicies;
 

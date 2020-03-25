@@ -18,11 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @AutoConfigureTestDatabase
 public class PropertyServicePO {
 
-
     @Autowired
     private PropertyAdvertService advertService;
-
-
 
     @Test
     public void testEmptyPropertyList() {

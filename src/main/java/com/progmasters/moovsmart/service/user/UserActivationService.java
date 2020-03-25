@@ -25,7 +25,6 @@ public class UserActivationService {
     public UserActivationService(RegistrationTokenRepository registrationTokenRepository,
                                  UserRepository userRepository,
                                  JavaMailSender mailSender) {
-
         this.registrationTokenRepository = registrationTokenRepository;
         this.userRepository = userRepository;
         this.mailSender = mailSender;

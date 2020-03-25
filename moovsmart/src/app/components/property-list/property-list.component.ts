@@ -35,7 +35,7 @@ export class PropertyListComponent implements OnInit {
 
   applyFilter(filterValue:string){
     filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
+    //filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
 
     if(this.dataSource.paginator){
