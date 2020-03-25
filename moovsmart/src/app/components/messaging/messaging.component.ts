@@ -52,6 +52,11 @@ export class MessagingComponent implements OnInit {
       response => this.currentUserName = response.userName
     );
   }
+
+  format(dateString: string): string {
+    return new Date(dateString).toLocaleString();
+  }
+
   setActiveTopic(topicId: number, topic: TopicModel): void {
     this.activeTopic.id = topicId;
     this.activeTopic.topic = topic;

@@ -30,9 +30,11 @@
                             (click)='setActiveTopic(topic.key, topic.value)'>
                             <div class="chat_people">
                                 <div class="chat_ib">
-                                    <h5>{{topic.value.advertTitle}} <span class="chat_date">Dec 25</span></h5>
-                                    <p>Test, which is a new approach to have all solutions
-                                        astrology under one roof.</p>
+                                    <h5>{{topic.value.advertTitle}} <span>{{
+                                        topic.value.advertiser === currentUserName
+                                        ?currentUserName
+                                        :topic.value.advertiser
+                                }}</span></h5>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +52,7 @@
                             <div class="received_msg">
                                 <div class="received_withd_msg">
                                     <p>{{message.text}} </p>
-                                    <span class="time_date"> 11:01 AM | June 9</span>
+                                    <span class="time_date">{{format(message.sentAt)}}</span>
                                 </div>
                             </div>
                         </div>
