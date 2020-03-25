@@ -1,9 +1,5 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.PropertyConditionType;
-import com.progmasters.moovsmart.domain.PropertyType;
-import com.progmasters.moovsmart.domain.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.PropertyAdvertDetailsData;
@@ -17,12 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.validation.Valid;
 import java.util.List;

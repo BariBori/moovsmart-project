@@ -5,15 +5,19 @@ import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
 import javafx.beans.property.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.hibernate.loader.Loader.SELECT;
+
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
-    List<PropertyAdvert> findByOrderByTimeOfActivationDesc();
+    @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL'")
+    List<PropertyAdvert> findPropertyAdvertsByAdvertStatus_FORAPPROVAL();
 
     List<PropertyAdvert> findPropertyAdvertsByCity(String city);
 
@@ -30,5 +34,6 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     //List<PropertyAdvert> findPropertyAdvertsByListOfImagesNotNull();
 
     Optional<PropertyAdvert> findOneById(Long id);
+
 
 }
