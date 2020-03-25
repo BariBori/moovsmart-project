@@ -1,0 +1,20 @@
+<table class="table table-responsive">
+  <tr>
+    <th>Város</th>
+    <th>Ingatlan típusa</th>
+    <th>Ingatlan állapota</th>
+    <th>Ár</th>
+    <th>Terület</th>
+    <th>szobák száma</th>
+  </tr>
+  <tbody>
+  <tr *ngFor="let property of filteredProperties | filter: searchByKeyword: 'city'">
+    <td>{{ property.city}}</td>
+    <td>{{ property.propertyType}}</td>
+    <td>{{ property.propertyConditionType}}</td>
+    <td>{{ property.price}}</td>
+    <td>{{ property.area}}</td>
+    <td>{{ property.numberOfRooms}}</td>
+  </tr>
+  </tbody>
+</table>

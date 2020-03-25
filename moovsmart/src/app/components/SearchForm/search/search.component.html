@@ -1,0 +1,111 @@
+<div class="container">
+  <h2>Keresés</h2>
+  <div class="searchbox">
+  <!--<form class="form-inline"(ngSubmit)="search(form.value)" [formGroup]="form">-->
+  <form class="form-inline" [formGroup]="form">
+
+
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+
+      <select class="form-control" formControlName="propertyType" id="propertyTypes"
+              name="propertyTypes" ng-model="data.singleSelect">
+
+        <option *ngFor="let propType of propertyType" value="{{propType.name}}">
+          {{propType.displayName}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+
+    <select class="form-control" formControlName="propertyConditionType"
+              id="propertyConditionTypes"
+              name="propertyConditionTypes" ng-model="data.singleSelect">
+
+        <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
+          {{propCond.displayName}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+    <select class="form-control" formControlName="cities"
+              id="city"
+              name="city" ng-model="data.singleSelect">
+
+        <option *ngFor="let city of cities " value="{{city}}">
+          {{city.city}}
+        </option>
+      </select>
+    </div>
+
+    <!--
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+
+      <input  class ="form-control"
+              formControlName="typeahead"
+              type="text"
+              placeholder="Type ahead !"
+
+              (input)="suggest()"
+              [value]="selectedCityName"
+              >
+
+
+      <div class="suggestions" *ngIf="suggestions?.length>0">
+        <p *ngFor="let s of suggestions; let i = index"
+           (click)="chooseCityFromSuggestList(s)"
+
+        >{{s}}</p>
+
+      </div>
+    </div>
+    -->
+
+
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2 min-max-wrapper">
+
+      <input type="text"
+             formControlName="priceFrom"
+             class="form-control price"
+             placeholder="min"
+      />
+      <input type="text"
+             formControlName="priceTo"
+             class="form-control price"
+             placeholder="max"
+      />
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+    <input type="text"
+             formControlName="areaFrom"
+             class="form-control price"
+             placeholder="min"
+      />
+      <input type="text"
+             formControlName="areaTo"
+             class="form-control price"
+             placeholder="max"
+      />
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+    <input type="text"
+             formControlName="numberOfRoomsFrom"
+             class="form-control price"
+             placeholder="min"
+      />
+      <input type="text"
+             formControlName="numberOfRoomsTo"
+             class="form-control price"
+             placeholder="max"
+      />
+    </div>
+
+
+    <div class="col-md-3 col-sm-3">
+      <button class="btn btn-primary"
+              (click)="search(form.value)">Search</button>
+    </div>
+  </form>
+  </div>
+</div>

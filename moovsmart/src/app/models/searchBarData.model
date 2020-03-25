@@ -1,0 +1,10 @@
+export class SearchBarData{
+  city: string;
+  propertyType: string;
+  propertyConditionType: string;
+  price: number;
+  numberOfRooms: number;
+  area: number;
+  listOfImages: Array<string>;
+
+}
