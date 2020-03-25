@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MessagingService } from 'src/app/services/messaging.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-messaging',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagingComponent implements OnInit {
 
-  constructor() { }
+  message: FormControl;
+
+  constructor(
+    private msgservice: MessagingService,
+    usrService: UserService
+  ) {
+    this.message = new FormControl('', Validators.required);
+  }
+  send() {
+  }
 
   ngOnInit(): void {
+    this.msgservice.fetcchAllTopics.subscribe(console.log, console.error)
   }
 
 }
