@@ -32,6 +32,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { UserService } from './services/user.service';
+import { MessagingComponent } from './components/messaging/messaging.component';
 import { MatButtonModule } from "@angular/material/button";
 import { MatNativeDateModule, MatRippleModule } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
@@ -53,6 +54,8 @@ import { CdkTableModule } from "@angular/cdk/table";
     UserregisterFormComponent,
     UserLoginComponent,
     SearchComponent,
+    MessagingComponent,
+    //UserHomeComponent
 
   ],
   exports: [

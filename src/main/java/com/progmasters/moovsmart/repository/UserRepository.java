@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.repository;
 
-import com.progmasters.moovsmart.domain.User;
+import com.progmasters.moovsmart.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.domain;
 
+import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
 
 import javax.persistence.*;

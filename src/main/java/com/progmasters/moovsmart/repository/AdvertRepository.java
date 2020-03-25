@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
@@ -13,5 +15,7 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     List<PropertyAdvert> findByOrderByNumberOfRoomsDesc();
 
     List<PropertyAdvert> findByOrderByPriceDesc();
+
+    Optional<PropertyAdvert> findOneById(Long id);
 
 }
