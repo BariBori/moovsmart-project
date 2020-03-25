@@ -2,6 +2,8 @@ package com.progmasters.moovsmart.service.messaging;
 
 import com.progmasters.moovsmart.domain.messaging.Message;
 import com.progmasters.moovsmart.domain.messaging.Topic;
+import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.repository.messaging.TopicRepostitory;
@@ -10,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -65,5 +69,11 @@ public class MessagingService {
                                 )
                         )
                 );
+    }
+
+    public List<TopicDto> getTopicsByUser(UserDetailsImpl user){
+        return topicRepostitory.streamAllByAdvertiser_IdOrEnquirer_Id(user.getId())
+                .map(TopicDto::fromTopic)
+                .collect(Collectors.toList());
     }
 }

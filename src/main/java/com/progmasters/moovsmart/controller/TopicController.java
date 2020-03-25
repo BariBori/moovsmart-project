@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/topics")
 public class TopicController {
@@ -39,6 +41,16 @@ public class TopicController {
         return ResponseEntity.ok(
                 TopicDto.fromTopic(
                         service.getTopic(topicId)
+                )
+        );
+    }
+
+    @GetMapping("/my-topics")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<TopicDto>> fetchTopicsByUser(){
+        return ResponseEntity.ok(
+                service.getTopicsByUser(
+                        userDetails.get()
                 )
         );
     }
