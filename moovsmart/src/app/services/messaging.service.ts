@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { TopicModel } from '../models/messaging/TopicModel';
+import { TopicMap } from '../models/messaging/TopicMap';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class MessagingService {
   public subscribeToTopic: (advertId: number) => Observable<number>;
   public sendMessage: (message: string, topicId: number) => Observable<void>;
   public fetchTopic: (topicId: number) => Observable<TopicModel>;
-  public fetcchAllTopics: Observable<{ [id: number]: TopicModel }>;
+  public fetchAllTopics: Observable<TopicMap>;
   constructor(
     private http: HttpClient,
   ) {
@@ -23,12 +24,12 @@ export class MessagingService {
         .pipe(tap(console.log, console.error));
 
     this.sendMessage = (message: string, topicId: number) =>
-      this.http.post<void>(this.BASE_URL + `/${topicId}`, message)
+      this.http.put<void>(this.BASE_URL + `/${topicId}`, message)
         .pipe(tap(console.log, console.error));
 
     this.fetchTopic = (topicId: number): Observable<TopicModel> =>
       this.http.get<TopicModel>(this.BASE_URL + `/${topicId}`);
 
-    this.fetcchAllTopics = this.http.get<{ [id: number]: TopicModel }>(this.BASE_URL + '/my-topics');
+    this.fetchAllTopics = this.http.get<TopicMap>(this.BASE_URL + '/my-topics');
   }
 }
