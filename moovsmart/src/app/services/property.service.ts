@@ -6,6 +6,7 @@ import {PropertyFormDataModel} from "../models/propertyFormData.model";
 import {FormInitDataModel} from "../models/formInitDataModel";
 import {PropertyAdvertDetailsModel} from "../models/propertyAdvertDetails.model";
 import {environment} from "../../environments/environment";
+import {PropertyCityModel} from "../models/propertyCity.model";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -13,6 +14,9 @@ const BASE_URL = environment.BASE_URL + "/api/properties";
   providedIn: 'root'
 })
 export class PropertyService {
+
+  setGroupFilter$ = new Subject<any>();
+  getGroupFilter = this.setGroupFilter$.asObservable();
 
   constructor(private httpClient: HttpClient) {
   }
@@ -24,6 +28,10 @@ export class PropertyService {
 
   getPropertyList(): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
+  }
+
+  getCityList(): Observable<Array<PropertyCityModel>>{
+    return this.httpClient.get<Array<PropertyCityModel>>(BASE_URL+"/cities")
   }
 
   fetchFormInitData(): Observable<FormInitDataModel>{

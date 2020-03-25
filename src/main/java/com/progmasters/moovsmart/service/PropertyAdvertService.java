@@ -51,6 +51,11 @@ public class PropertyAdvertService {
                 .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
     }
 
+    public List<PropertyCity> listCities(){
+        return advertRepository.findAllCities().stream()
+                .map(propertyAdvert -> new PropertyCity(propertyAdvert)).collect(Collectors.toList());
+    }
+
     public boolean archivePropertyAdvert(Long id) {
         boolean result = false;
         Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);

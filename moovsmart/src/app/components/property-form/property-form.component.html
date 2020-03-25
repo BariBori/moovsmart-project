@@ -10,11 +10,6 @@
              type="text" type="text">
     </div>
 
-    <!--
-    <div class="confirmed-address">
-      <div>Kiválasztott cím: {{address}}</div>
-    </div>
-    -->
 
     <div class="form-group">
       <label class="property-form-label" for="title">Ingatlan rövid megnevezése*</label>
@@ -140,27 +135,14 @@
 
     </div>
 
-    <!--<div class="card-columns">
+    <div class="card-columns">
       <div class="card card-outline-success" *ngFor="let image of responses; let i = index">
         <img class="card-img-top img-fluid" src="{{image.data.url}}" alt="Card image cap">
         <div class="card-block">
         </div>
       </div>
-    </div>-->
-
-    <div class="container">
-      <div class="row" *ngFor="let image of responses; let i = index">
-        <div class="col-sm">
-          <img class="img-thumbnail" src="{{image.data.url}}" alt="image">
-        </div>
-        <div class="col-sm">
-          <p>{{image.data.format}}</p>
-        </div>
-        <div class="col-sm">
-          <p>{{image.file.size}}</p>
-        </div>
-      </div>
     </div>
+
 
 
     <br/>
@@ -170,3 +152,7 @@
     <button class="btn btn-success my-buttons">Hirdetés mentése</button>
   </form>
 </div>
+<br>
+<br>
+<br>
+<app-footer></app-footer>

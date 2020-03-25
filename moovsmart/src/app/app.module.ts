@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-import { SearchComponent } from './components/search/search.component';
+import { SearchComponent } from './components/SearchForm/search/search.component';
 import {AgmCoreModule} from "@agm/core";
 import {FileUploadModule} from "ng2-file-upload";
 import {CloudinaryModule} from "@cloudinary/angular-5.x";
@@ -28,7 +28,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCity, faFileContract,  faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { AuthenticationService } from './services/authentication.service';
@@ -39,6 +39,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {CdkTableModule} from "@angular/cdk/table";
+import { FilterPipe } from './filter.pipe';
+import { SearchResultComponent } from './components/SearchForm/search-result/search-result.component';
+import { PropertyListSearchComponent } from './components/SearchForm/property-list-search/property-list-search.component';
 
 
 @NgModule({
@@ -53,21 +56,9 @@ import {CdkTableModule} from "@angular/cdk/table";
     FooterComponent,
     UserregisterFormComponent,
     UserLoginComponent,
-    SearchComponent,
 
   ],
   exports: [
-    CdkTableModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule,
-    MatTooltipModule,
   ],
   imports: [
     BrowserModule,
@@ -116,4 +107,3 @@ export class AppModule {
   }
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule);

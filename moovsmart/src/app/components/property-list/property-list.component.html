@@ -1,12 +1,25 @@
 <div class="container">
 
-  <div class="filter-header">
-    <p>Szűrés</p>
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="">
+  <!--<form>
+  <mat-form-field class="example-full-width">
+    <mat-label>Szűrés</mat-label>
+    <textarea matInput
+              placeholder="pl.: Budapest"
+              (keyup)="applyFilter($event.target.value)"
+    ></textarea>
+  </mat-form-field>
+  </form>-->
+
+  <form>
+    <mat-form-field class="example-full-width">
+      <mat-label>Szűrés</mat-label>
+      <textarea matInput
+                placeholder="pl.: Budapest"
+                (keyup)="applyFilter($event)"
+      ></textarea>
     </mat-form-field>
-    <hr>
-  </div>
+  </form>
+
 
   <div class="table-container mat-elevation-z8">
 
@@ -63,3 +76,9 @@
 
 
 </div>
+<br>
+<br>
+<br>
+
+
+<app-footer></app-footer>

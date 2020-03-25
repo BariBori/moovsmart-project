@@ -76,6 +76,11 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.listPropertyAdverts(), HttpStatus.OK);
     }
 
+    @GetMapping("/cities")
+    public ResponseEntity<List<PropertyCity>> getCities(){
+        return new ResponseEntity<>(propertyAdvertService.listCities(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<List<PropertyAdvertListItem>> archivePropertyAdvert(@PathVariable Long id) {
         boolean isDeleteSuccessful = propertyAdvertService.archivePropertyAdvert(id);

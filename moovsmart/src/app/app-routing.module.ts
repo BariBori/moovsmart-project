@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'user-home',
     loadChildren: () => import('./components/user/user.module').then(m => m.UserModule),
+  },
+  {
+    path: 'property-list-search',
+    loadChildren: () => import('./components/SearchForm/property.module').then(m => m.PropertyModule),
   }
 
 ];
