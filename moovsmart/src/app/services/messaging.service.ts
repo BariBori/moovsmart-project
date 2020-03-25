@@ -14,7 +14,7 @@ export class MessagingService {
   public subscribeToTopic: (advertId: number) => Observable<number>;
   public sendMessage: (message: string, topicId: number) => Observable<void>;
   public fetchTopic: (topicId: number) => Observable<TopicModel>;
-  public fetcchAllTopics: Observable<TopicModel[]>;
+  public fetcchAllTopics: Observable<{ [id: number]: TopicModel }>;
   constructor(
     private http: HttpClient,
   ) {
@@ -29,6 +29,6 @@ export class MessagingService {
     this.fetchTopic = (topicId: number): Observable<TopicModel> =>
       this.http.get<TopicModel>(this.BASE_URL + `/${topicId}`);
 
-    this.fetcchAllTopics = this.http.get<TopicModel[]>(this.BASE_URL + '/my-topics');
+    this.fetcchAllTopics = this.http.get<{ [id: number]: TopicModel }>(this.BASE_URL + '/my-topics');
   }
 }
