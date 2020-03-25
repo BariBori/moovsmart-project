@@ -21,7 +21,7 @@ export class PropertyDetailsComponent implements OnInit {
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
   propertyListItemModels: Array<PropertyListItemModel>;
-  isUserSeller: boolean = false;
+  isUserSeller = false;
 
   faStar = faStar;
   faEnvelope = faEnvelope;
@@ -52,28 +52,10 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
-
         }
       },
     );
-    this.isUserLoggedIn();
 
-  }
-
-  isUserLoggedIn() {
-    this.userService.getCurrentUser.pipe(tap(console.log)).subscribe(
-      user => {
-        console.log(user.userName);
-        console.log(this.propertyAdvertDetails?.userName);
-        if (this.propertyAdvertDetails?.userName === user.userName) {
-          this.isUserSeller = true;
-        } else {
-          this.isUserSeller = false;
-        }
-      },
-      error => console.log(error)
-    );
-    console.log(this.isUserSeller);
   }
 
   archivePropertyAdvert(id: number) {
@@ -87,7 +69,13 @@ export class PropertyDetailsComponent implements OnInit {
 
 
   loadPropertyAdvertDetails() {
-    this.propertyAdvertService.fetchAdvertDetails(this.id).subscribe(
+    this.propertyAdvertService.fetchAdvertDetails(this.id).pipe(
+      tap(details => this.userService.getCurrentUser
+        .subscribe(user =>
+          this.isUserSeller = (user.userName === details.userName)
+        )
+      )
+    ).subscribe(
       (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
 
       error => console.warn(error),
