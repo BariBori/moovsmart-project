@@ -57,8 +57,12 @@
 
     <div class="row">
       <div class="col-8"></div>
-      <div class="col-4 username">Hirdetés feladója: {{propertyAdvertDetails?.userName}}
-        <button class="btn btn-envelope float-right" (click)='sendMessage()'>
+      <div class="col-4 username">Hirdetés feladója: {{
+        isUserSeller
+        ?'Én'
+        :propertyAdvertDetails?.userName
+      }}
+        <button *ngIf='!isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
           <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
         </button></div>
     </div>
