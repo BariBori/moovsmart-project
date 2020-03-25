@@ -2,14 +2,11 @@ package com.progmasters.moovsmart.dto;
 
 import com.progmasters.moovsmart.domain.*;
 
-import java.util.Random;
-
 public class PropertyEditForm {
+
     private long id;
 
     private Double price;
-
-    private Integer advertId;
 
     private String propertyType;
     private String propertyConditionType;
@@ -31,7 +28,6 @@ public class PropertyEditForm {
     public PropertyEditForm(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
-        this.advertId = propertyAdvert.getAdvertId();
         this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
         this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
         this.parkingType = propertyAdvert.getParkingType().getDisplayName();
@@ -49,14 +45,6 @@ public class PropertyEditForm {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getAdvertId() {
-        return advertId;
-    }
-
-    public void setAdvertId(Integer advertId) {
-        this.advertId = new Random().nextInt(1000000);;
     }
 
     public String getPropertyType() {

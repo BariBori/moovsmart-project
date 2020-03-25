@@ -64,12 +64,13 @@ public class PropertyAdvertController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
-        PropertyAdvert updatedProperty = propertyAdvertService.updateProperty(propertyEditForm, id);
+        Boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
         ResponseEntity<PropertyAdvertDetailsData> result;
-        if (updatedProperty == null) {
+        if (!isUpdated) {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+           // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+            result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
     }

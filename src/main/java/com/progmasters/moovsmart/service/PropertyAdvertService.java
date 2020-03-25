@@ -68,21 +68,19 @@ public class PropertyAdvertService {
     }
 
 
-    public PropertyAdvert updateProperty(PropertyEditForm propertyEditForm, Long id) {
+    public boolean updateProperty(PropertyEditForm propertyEditForm, Long id) {
         Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);
         if(propertyAdvertOptional.isPresent()){
             PropertyAdvert propertyAdvert = propertyAdvertOptional.get();
             updateValues(propertyEditForm, propertyAdvert);
-            return propertyAdvert;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 
 
     private void updateValues(PropertyEditForm propertyEditForm, PropertyAdvert propertyAdvert){
-
-        propertyAdvert.setAdvertId(propertyEditForm.getAdvertId());
         propertyAdvert.setPrice(propertyEditForm.getPrice());
         propertyAdvert.setArea(propertyEditForm.getArea());
         propertyAdvert.setNumberOfRooms(propertyEditForm.getNumberOfRooms());
@@ -92,7 +90,7 @@ public class PropertyAdvertService {
         propertyAdvert.setElevator(propertyEditForm.isElevator());
         propertyAdvert.setBalcony(propertyEditForm.isBalcony());
         propertyAdvert.setDescription(propertyEditForm.getDescription());
-
+        this.advertRepository.save(propertyAdvert);
     }
 
 //
