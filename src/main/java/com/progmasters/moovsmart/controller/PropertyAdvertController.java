@@ -1,5 +1,9 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.PropertyAdvert;
+import com.progmasters.moovsmart.domain.PropertyConditionType;
+import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.PropertyAdvertDetailsData;
