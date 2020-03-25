@@ -24,8 +24,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(User sender, String text) {
+    public Message(Topic topic, User sender, String text) {
         this.sender = sender;
+        this.topic = topic;
         this.sentAt = Instant.now();
         this.text = text;
     }

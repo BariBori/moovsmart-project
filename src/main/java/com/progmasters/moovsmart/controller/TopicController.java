@@ -45,16 +45,26 @@ public class TopicController {
         );
     }
 
+    @GetMapping("/my-topics")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<Map<Long, TopicDto>>
+    fetchTopicsByUser() {
+        return ResponseEntity.ok(
+                service.getTopicsByUser(
+                        userDetails.get()
+                )
+        );
+    }
+
     @PostMapping("/subscribe")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Long> subscribeToTopic(@RequestBody Map.Entry<String, Long> advertId) {
+    public ResponseEntity<Long> subscribeToTopic(@RequestBody Long advertId) {
 
-        final Long adId = advertId.getValue();
         final String userName = userDetails.get().getUsername();
 
         return ResponseEntity.ok(
-                service.getTopic(adId, userName)
-                        .orElse(service.openTopic(adId, userName))
+                service.getTopic(advertId, userName)
+                        .orElseGet(() -> service.openTopic(advertId, userName))
                         .getId()
         );
     }
