@@ -42,29 +42,19 @@
                 </div>
 
                 <div class="mesgs">
-
                     <div class="msg_history">
 
-                        <div class="incoming_msg" *ngFor='let message of activeTopic.topic?.messages' [ngClass]="{
-                         'incoming_msg': currentUserName !== message.sender,
-                         'outgoing_msg': currentUserName === message.sender
-                        }">
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>{{message.text}} </p>
-                                    <span class="time_date">{{format(message.sentAt)}}</span>
-                                </div>
+                        <div *ngFor='let message of activeTopic.topic?.messages' [ngClass]="currentUserName === message.sender
+                        ? 'outgoing_msg'
+                        : 'received_msg'">
+                            <div [ngClass]="currentUserName === message.sender
+                            ? 'sent_msg'
+                            : 'received_withd_msg'">
+                                <p>{{message.text}} </p>
+                                <span class="time_date">{{format(message.sentAt)}}</span>
                             </div>
-                        </div>
 
-                        <div class="outgoing_msg">
-                            <div class="sent_msg">
-                                <p>Test which is a new approach to have all
-                                    solutions</p>
-                                <span class="time_date"> 11:01 AM | June 9</span>
-                            </div>
                         </div>
-
                     </div>
 
                     <div class="type_msg">
