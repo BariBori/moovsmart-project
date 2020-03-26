@@ -25,7 +25,7 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCity, faFileContract, faHandshake } from '@fortawesome/free-solid-svg-icons';
+import {faCity, faFileContract, faHandshake, faPaperPlane} from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
@@ -101,7 +101,7 @@ import { CdkTableModule } from "@angular/cdk/table";
 })
 export class AppModule {
   constructor() {
-    library.add(faStar, faHandshake, faFileContract, faCity);
+    library.add(faStar, faHandshake, faFileContract, faCity, faPaperPlane);
   }
 }
 

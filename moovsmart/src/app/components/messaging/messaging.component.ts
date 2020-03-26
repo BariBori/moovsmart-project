@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
 import { tap } from 'rxjs/operators';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
+import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-messaging',
@@ -15,11 +16,12 @@ import { TopicModel } from 'src/app/models/messaging/TopicModel';
 })
 export class MessagingComponent implements OnInit {
 
+  faPaperPlane = faPaperPlane
+
   currentUserName: string;
   message: FormControl;
   topics: TopicMap;
   messages: MessageModel[];
-
 
   activeTopic: {
     id: number;
