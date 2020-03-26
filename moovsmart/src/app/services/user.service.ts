@@ -19,9 +19,12 @@ export class UserService {
   public logOut: Observable<void>;
 
   private BASE_URL = environment.BASE_URL;
-  private getAuthenticationHeaders: (credentials: Credentials) => HttpHeaders;
   public isLoggedIn: () => boolean;
   registerUser: (data: UserFormDataModel) => Observable<void>;
+  private getAuthenticationHeaders: (credentials: Credentials) => HttpHeaders = (credentials: Credentials) => new HttpHeaders({
+    authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
+  })
+
 
   constructor(private http: HttpClient) {
 
@@ -38,9 +41,6 @@ export class UserService {
         }),
       );
 
-    this.getAuthenticationHeaders = (credentials: Credentials) => new HttpHeaders({
-      authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
-    });
 
     this.logOut = this.http.get<void>(this.BASE_URL + '/api/users/logout')
       .pipe(

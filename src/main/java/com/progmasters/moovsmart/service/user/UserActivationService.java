@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class UserActivationService {
     private RegistrationTokenRepository registrationTokenRepository;
     private UserRepository userRepository;
     private JavaMailSender mailSender;
+    @Value("${mailing-address}")
+    private String BASE_URL;
 
     @Autowired
     public UserActivationService(RegistrationTokenRepository registrationTokenRepository,
@@ -44,7 +47,7 @@ public class UserActivationService {
         mail.setFrom("moovsmartaltenter@gmail.com");
         mail.setTo(token.getUser().getEmail());
         mail.setSubject("Aktivalja emailcimet");
-        mail.setText("http://moovmart-demo.progmasters.hu/api/users/activate/" + token.getUuid().toString());
+        mail.setText(BASE_URL + token.getUuid().toString());
         mailSender.send(mail);
     }
 }
