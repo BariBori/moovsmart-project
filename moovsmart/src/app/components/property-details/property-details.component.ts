@@ -62,6 +62,7 @@ export class PropertyDetailsComponent implements OnInit {
     this.propertyAdvertService.archivePropertyAdvert(id).subscribe(
       (response: PropertyListItemModel[]) => {
         this.propertyListItemModels = response;
+        this.router.navigate(["property-list"]);
       },
       error => console.warn(error),
     );

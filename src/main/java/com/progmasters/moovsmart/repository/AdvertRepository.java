@@ -10,10 +10,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hibernate.loader.Loader.SELECT;
+
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
-    List<PropertyAdvert> findByOrderByTimeOfActivationDesc();
+    @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL'")
+    List<PropertyAdvert> findPropertyAdvertsByAdvertStatus_FORAPPROVAL();
 
     List<PropertyAdvert> findPropertyAdvertsByCity(String city);
 

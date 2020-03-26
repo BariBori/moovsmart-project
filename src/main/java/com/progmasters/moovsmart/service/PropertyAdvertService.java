@@ -49,7 +49,7 @@ public class PropertyAdvertService {
     }
 
     public List<PropertyAdvertListItem> listPropertyAdverts() {
-        return advertRepository.findByOrderByTimeOfActivationDesc().stream()
+        return advertRepository.findPropertyAdvertsByAdvertStatus_FORAPPROVAL().stream()
                 .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
     }
 
