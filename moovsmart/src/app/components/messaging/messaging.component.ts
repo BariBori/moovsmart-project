@@ -8,6 +8,7 @@ import { User } from 'src/app/models/error/User';
 import { tap } from 'rxjs/operators';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
 import { Router } from '@angular/router';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-messaging',
@@ -16,11 +17,12 @@ import { Router } from '@angular/router';
 })
 export class MessagingComponent implements OnInit {
 
+  faPaperPlane = faPaperPlane
+
   currentUserName: string;
   message: FormControl;
   topics: TopicMap;
   messages: MessageModel[];
-
 
   activeTopic: {
     id: number;
