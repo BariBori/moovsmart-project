@@ -40,7 +40,7 @@
 
       <ng-container matColumnDef="price/area">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.priceForSquareMeter}} Ft/m2</mat-cell>
+        <mat-cell *matCellDef="let row">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="advertId">
