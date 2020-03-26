@@ -17,7 +17,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 })
 export class MessagingComponent implements OnInit {
 
-  faPaperPlane = faPaperPlane
+  faPaperPlane = faPaperPlane;
 
   currentUserName: string;
   message: FormControl;
