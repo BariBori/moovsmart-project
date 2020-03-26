@@ -45,14 +45,13 @@ export class UserregisterFormComponent implements OnInit {
     }, { validator: this.checkPasswords });
   }
 
-  saveUser() {
+  saveUser(content) {
     const formData: UserFormDataModel = this.registerNewUserForm.value;
     this.userService.registerUser(formData).subscribe(
       (response) => {
-
+        this.openDialog(content);
         this.router.navigate(['user-login']);
         console.log('New user is created');
-
       },
       errorResponse => {
         validationHandler(errorResponse as FormValidationError, this.registerNewUserForm);

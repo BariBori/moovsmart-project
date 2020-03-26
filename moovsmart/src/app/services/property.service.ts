@@ -6,6 +6,8 @@ import {PropertyFormDataModel} from "../models/propertyFormData.model";
 import {FormInitDataModel} from "../models/formInitDataModel";
 import {PropertyAdvertDetailsModel} from "../models/propertyAdvertDetails.model";
 import {environment} from "../../environments/environment";
+import {PropertyCityModel} from "../models/propertyCity.model";
+import {PropertyEditModel} from "../models/propertyEdit.model";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 

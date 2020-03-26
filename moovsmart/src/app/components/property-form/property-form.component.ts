@@ -433,6 +433,14 @@ export class PropertyFormComponent implements OnInit {
     this.updateProperty(data);
   }
 
+  isIdExist() {
+    return !!this.id;
+  }
+
+  isNotExist() {
+    return !this.id;
+  }
+
   private updateProperty(data: PropertyEditModel){
     this.propertyService.updateProperty(data, this.id).subscribe(
       () => this.router.navigate(['property-list']),
