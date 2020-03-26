@@ -7,7 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
 import { tap } from 'rxjs/operators';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
-import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-messaging',
@@ -16,7 +17,7 @@ import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
 })
 export class MessagingComponent implements OnInit {
 
-  faPaperPlane = faPaperPlane
+  faPaperPlane = faPaperPlane;
 
   currentUserName: string;
   message: FormControl;
@@ -31,7 +32,8 @@ export class MessagingComponent implements OnInit {
 
   constructor(
     private msgservice: MessagingService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.message = new FormControl('', Validators.required);
     this.activeTopic = {
@@ -52,6 +54,9 @@ export class MessagingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['/user-login']);
+    }
     this.msgservice.fetchAllTopics.subscribe(
       response => this.topics = response,
       err => console.error(err));

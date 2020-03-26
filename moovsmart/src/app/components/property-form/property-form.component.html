@@ -150,15 +150,16 @@
     <br/>
     <br/>
     <br/>
-    <button class="btn btn-success my-buttons">Hirdetés mentése</button>
+    <button class="btn btn-success my-buttons" *ngIf="isNotExist()">Hirdetés mentése</button>
     <br/>
     <br/>
   </form>
-    <button class="btn btn-success my-buttons" (click)="onSubmit()">Módosítások mentése</button>
+    <button class="btn btn-success my-buttons" *ngIf="isIdExist()" (click)="onSubmit()">Módosítások mentése</button>
     <br/>
     <br/>
     <br/>
     <br/>
+
 
 </div>
 <br>

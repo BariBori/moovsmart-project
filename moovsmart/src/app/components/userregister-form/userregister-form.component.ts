@@ -52,7 +52,6 @@ export class UserregisterFormComponent implements OnInit {
         this.openDialog(content);
         this.router.navigate(['user-login']);
         console.log('New user is created');
-
       },
       errorResponse => {
         validationHandler(errorResponse as FormValidationError, this.registerNewUserForm);

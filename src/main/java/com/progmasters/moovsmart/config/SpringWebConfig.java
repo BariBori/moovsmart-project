@@ -27,6 +27,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(corsPolicies)
                 .allowedMethods("GET", "POST", "DELETE", "PUT");
-
     }
+
+
 }
