@@ -2,7 +2,7 @@
 
 
 <div class="container-small">
-  <div class="row owner_banner" >
+  <div class="row owner_banner" *ngIf="isUserSeller">
     <div class="col-6" >
       {{propertyAdvertDetails.advertStatus.displayName}}
 
