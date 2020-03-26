@@ -8,12 +8,17 @@ import {UserDetailsComponent} from "./user-details/user-details.component";
 
 import {UserRoutingModule} from "./user-routing.module";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faStar, faUser} from "@fortawesome/free-regular-svg-icons";
+import {faCity, faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
   imports: [
     CommonModule,
     UserRoutingModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FontAwesomeModule,
   ],
   declarations: [
     UserHomeComponent,
@@ -23,4 +28,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
   }
 
 )
-export class UserModule{}
+export class UserModule{
+
+  constructor() {
+    library.add(faStar, faUser, faCity, faEnvelope);
+  }
+}

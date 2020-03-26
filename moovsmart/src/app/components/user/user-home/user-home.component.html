@@ -13,10 +13,12 @@
       </div>
 
       <ul class="list-unstyled components">
-        <li><a routerLink="./user-details" routerLinkActive="active">Adataim</a></li>
-        <li><a routerLink="./user-property" routerLinkActive="active">Eladó ingatlanjaim</a></li>
-        <li><a routerLink="./user-details" routerLinkActive="active">Kedvenc ingatlanjaim</a></li>
-        <li><a routerLink="./user-details" routerLinkActive="active">Licitált ingatlanjaim</a></li>
+        <li><a routerLink="./user-details" routerLinkActive="active"><fa-icon [icon]="faUser" class="icon"></fa-icon> Adataim</a></li>
+        <li><a routerLink="/messaging" routerLinkActive="active"><fa-icon [icon]="faEnvelope" class="icon"></fa-icon> Üzeneteim</a></li>
+
+        <li><a routerLink="./user-property" routerLinkActive="active"><fa-icon [icon]="faCity" class="icon"></fa-icon> Eladó ingatlanjaim</a></li>
+        <li><a routerLink="./user-details" routerLinkActive="inactive">Kedvenc ingatlanjaim</a></li>
+        <li><a routerLink="./user-details" routerLinkActive="inactive">Licitált ingatlanjaim</a></li>
       </ul>
     </nav>
 
