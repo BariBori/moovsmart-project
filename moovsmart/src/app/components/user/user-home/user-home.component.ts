@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
-import {faCity, faEnvelope, faUser} from '@fortawesome/free-solid-svg-icons';
+import { faCity, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,15 +16,18 @@ export class UserHomeComponent implements OnInit {
   faEnvelope = faEnvelope;
   faUser = faUser;
 
-  constructor(private service: UserService) { }
+  constructor(
+    private service: UserService,
+    private router: Router) { }
 
   user: User;
   ngOnInit(): void {
-    console.log(this.service.isLoggedIn());
-    this.service.getCurrentUser.subscribe(
-      gotUser => this.user = gotUser,
-      console.error
-    );
+    this.service.isLoggedIn()
+      ?
+      this.service.getCurrentUser.subscribe(
+        gotUser => this.user = gotUser,
+      )
+      : this.router.navigate(['user-login']);
   }
 
 }
