@@ -62,11 +62,11 @@ public class FilterPropertyAdvert {
         this.minArea = minArea;
     }
 
-    public Integer getMayArea() {
+    public Integer getMaxArea() {
         return mayArea;
     }
 
-    public void setMayArea(Integer mayArea) {
+    public void setMaxArea(Integer mayArea) {
         this.mayArea = mayArea;
     }
 

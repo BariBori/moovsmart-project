@@ -55,20 +55,20 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @PostMapping
-//    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
-//        return propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
-//    }
+    @PostMapping("/search")
+    public ResponseEntity<List<PropertyAdvertListItem>> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
+        List<PropertyAdvertListItem> filteredPropertyAdverts = propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
+        return new ResponseEntity<>(filteredPropertyAdverts, HttpStatus.OK);
+    }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
-        Boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
+        boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
         ResponseEntity<PropertyAdvertDetailsData> result;
         if (!isUpdated) {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-           // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
             result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
