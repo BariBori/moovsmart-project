@@ -26,8 +26,8 @@ public class PropertyAdvertService {
 
     @Autowired
     public PropertyAdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
-        this.advertRepository = advertRepository;
         this.userRepository = userRepository;
+        this.advertRepository = advertRepository;
     }
 
     public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
