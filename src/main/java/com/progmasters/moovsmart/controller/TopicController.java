@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.controller;
 import com.progmasters.moovsmart.dto.messaging.MessageDto;
 import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.service.messaging.MessagingService;
+import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

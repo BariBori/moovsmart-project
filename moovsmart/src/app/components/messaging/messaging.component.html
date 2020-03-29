@@ -18,7 +18,8 @@
                     <div class="inbox_chat">
 
                         <div class="chat_list" *ngFor='let topic of topics | keyvalue'
-                            (click)='setActiveTopic(topic.key, topic.value)'>
+                            (click)='setActiveTopic(topic.key, topic.value)'
+                            [ngClass]="{'active_chat':topic.key == activeTopic.id}">
                             <div class="chat_people">
                                 <div class="chat_ib">
                                     <h5>{{topic.value.advertTitle}} <span>{{
@@ -54,8 +55,9 @@
                             <!--<button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'><i
                                     class="fa fa-paper-plane-o" aria-hidden="true"></i></button>-->
 
-                          <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'>
-                            <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon></button>
+                            <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'>
+                                <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
+                            </button>
                         </div>
                     </div>
                 </div>

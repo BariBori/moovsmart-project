@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.controller;
+package com.progmasters.moovsmart.utils;
 
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import org.springframework.security.core.context.SecurityContextHolder;

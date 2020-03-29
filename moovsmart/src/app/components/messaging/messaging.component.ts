@@ -17,7 +17,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 })
 export class MessagingComponent implements OnInit {
 
-  faPaperPlane = faPaperPlane
+  faPaperPlane = faPaperPlane;
 
   currentUserName: string;
   message: FormControl;
@@ -58,7 +58,11 @@ export class MessagingComponent implements OnInit {
       this.router.navigate(['/user-login']);
     }
     this.msgservice.fetchAllTopics.subscribe(
-      response => this.topics = response,
+      response => {
+        this.activeTopic.id = Number(Object.keys(response)[0]);
+        this.activeTopic.topic = response[this.activeTopic.id];
+        this.topics = response;
+      },
       err => console.error(err));
 
     this.userService.getCurrentUser.subscribe(

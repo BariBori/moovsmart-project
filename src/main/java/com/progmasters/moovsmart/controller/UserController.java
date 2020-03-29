@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.dto.user.UserDto;
 import com.progmasters.moovsmart.dto.user.UserForm;
 import com.progmasters.moovsmart.service.user.UserActivationService;
 import com.progmasters.moovsmart.service.user.UserService;
+import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.UserFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
