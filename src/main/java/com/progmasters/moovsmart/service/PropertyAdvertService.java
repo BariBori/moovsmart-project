@@ -2,7 +2,7 @@ package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.domain.user.User;
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,13 +27,13 @@ public class PropertyAdvertService {
 
     @Autowired
     public PropertyAdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
-        this.advertRepository = advertRepository;
         this.userRepository = userRepository;
+        this.advertRepository = advertRepository;
     }
 
-    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
+    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
         Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);
             this.advertRepository.save(propertyAdvert);
@@ -46,18 +46,18 @@ public class PropertyAdvertService {
                 Arrays.stream(PropertyConditionType.values()).map(PropertyConditionOption::new).collect(Collectors.toList()),
                 Arrays.stream(ParkingType.values()).map(ParkingTypeOption::new).collect(Collectors.toList())
                 //Arrays.stream(AdvertStatusType.values()).map(AdvertStatusTypeOption::new).collect(Collectors.toList())
-                );
+        );
     }
 
     public List<PropertyAdvertListItem> listPropertyAdverts() {
         return advertRepository.findPropertyAdvertsByAdvertStatus_FORAPPROVAL().stream()
-                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
+                .map(PropertyAdvertListItem::new).collect(Collectors.toList());
     }
 
 
-    public List<PropertyCity> listCities(){
+    public List<PropertyCity> listCities() {
         return advertRepository.findAllCities().stream()
-                .map(propertyAdvert -> new PropertyCity(propertyAdvert)).collect(Collectors.toList());
+                .map(PropertyCity::new).collect(Collectors.toList());
     }
 
     public boolean archivePropertyAdvert(Long id) {
@@ -76,10 +76,29 @@ public class PropertyAdvertService {
         return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
+    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filterPropertyAdvert) {
+        String city = filterPropertyAdvert.getCity();
+        Double minPrice = filterPropertyAdvert.getMinPrice();
+        Double maxPrice = filterPropertyAdvert.getMaxPrice();
+        Integer minArea = filterPropertyAdvert.getMinArea();
+        Integer maxArea = filterPropertyAdvert.getMaxArea();
+        Integer minRooms = filterPropertyAdvert.getMinRooms();
+        Integer maxRooms = filterPropertyAdvert.getMaxRooms();
+        AdvertStatusType advertStatusType = filterPropertyAdvert.getAdvertStatusType();
+        PropertyType propertyType = filterPropertyAdvert.getPropertyType();
+        PropertyConditionType propertyConditionType = filterPropertyAdvert.getPropertyConditionType();
+        List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(city, minPrice, maxPrice, minArea, maxArea,
+                minRooms, maxRooms, propertyType, propertyConditionType, advertStatusType);
+        List<PropertyAdvertListItem> filteredList = new ArrayList<>();
+        for (PropertyAdvert filteredPropertyAdvert : filteredPropertyAdverts) {
+            filteredList.add(new PropertyAdvertListItem(filteredPropertyAdvert));
+        }
+        return filteredList;
+    }
 
     public boolean updateProperty(PropertyEditForm propertyEditForm, Long id) {
         Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);
-        if(propertyAdvertOptional.isPresent()){
+        if (propertyAdvertOptional.isPresent()) {
             PropertyAdvert propertyAdvert = propertyAdvertOptional.get();
             updateValues(propertyEditForm, propertyAdvert);
             return true;
@@ -88,8 +107,7 @@ public class PropertyAdvertService {
         }
     }
 
-
-    private void updateValues(PropertyEditForm propertyEditForm, PropertyAdvert propertyAdvert){
+    private void updateValues(PropertyEditForm propertyEditForm, PropertyAdvert propertyAdvert) {
         propertyAdvert.setPrice(propertyEditForm.getPrice());
         propertyAdvert.setArea(propertyEditForm.getArea());
         propertyAdvert.setNumberOfRooms(propertyEditForm.getNumberOfRooms());
@@ -105,61 +123,10 @@ public class PropertyAdvertService {
 
     //---------------SEARCH-----------------
 
-    public List<PropertyAdvertListItem> listAllProperty(Specification<PropertyAdvert> spec){
+    public List<PropertyAdvertListItem> listAllProperty(Specification<PropertyAdvert> spec) {
         return advertRepository.findAll().stream()
                 .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
     }
 
-
-
-
-
-//
-//    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filterPropertyAdvert) {
-//        return advertRepository.findPropertyAdvertsByCity(filterPropertyAdvert.getCity())
-//                .stream()
-//                .filter(getFilteredPrice(filterPropertyAdvert.getMinPrice(), filterPropertyAdvert.getMaxPrice()))
-//                .filter(getFilteredArea(filterPropertyAdvert.getMinArea(), filterPropertyAdvert.getMayArea()))
-//                .filter(getFilteredRoomNumber(filterPropertyAdvert.getMinRooms(), filterPropertyAdvert.getMaxRooms()))
-//                .filter(getFilteredPropertyType(filterPropertyAdvert.getPropertyType()))
-//                .filter(getFilteredPropertyConditionType(filterPropertyAdvert.getPropertyConditionType()))
-//                .map(PropertyAdvertListItem::new)
-//                .collect(Collectors.toList());
-//    }
-//
-//    public Predicate<PropertyAdvert> getFilteredPrice (Double minPrice, Double maxPrice) {
-//            return (Predicate<PropertyAdvert>) advertRepository.findPropertyAdvertsByPriceIsBetween(minPrice, maxPrice)
-//                    .stream()
-//                    .map(PropertyAdvert::getPrice)
-//                    .collect(Collectors.toList());
-//    }
-//
-//    public Predicate<PropertyAdvert> getFilteredArea (Integer minArea, Integer maxArea) {
-//        return (Predicate<PropertyAdvert>) advertRepository.findPropertyAdvertsByAreaIsBetween(minArea, maxArea)
-//                .stream()
-//                .map(PropertyAdvert::getArea)
-//                .collect(Collectors.toList());
-//    }
-//
-//    public Predicate<PropertyAdvert> getFilteredRoomNumber (Integer minRoom, Integer maxRoom) {
-//        return (Predicate<PropertyAdvert>) advertRepository.findPropertyAdvertsByAreaIsBetween(minRoom, maxRoom)
-//                .stream()
-//                .map(PropertyAdvert::getNumberOfRooms)
-//                .collect(Collectors.toList());
-//    }
-//
-//    public Predicate<PropertyAdvert> getFilteredPropertyType (PropertyType propertyType) {
-//        return (Predicate<PropertyAdvert>) advertRepository.findPropertyAdvertsByPropertyType(propertyType)
-//                .stream()
-//                .map(PropertyAdvert::getPropertyType)
-//                .collect(Collectors.toList());
-//    }
-//
-//    public Predicate<PropertyAdvert> getFilteredPropertyConditionType (PropertyConditionType propertyConditionType) {
-//        return (Predicate<PropertyAdvert>) advertRepository.findPropertyAdvertsByPropertyConditionType(propertyConditionType)
-//                .stream()
-//                .map(PropertyAdvert::getPropertyConditionType)
-//                .collect(Collectors.toList());
-//    }
 
 }

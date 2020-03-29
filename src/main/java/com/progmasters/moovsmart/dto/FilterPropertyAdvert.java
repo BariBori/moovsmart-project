@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.dto;
 
+import com.progmasters.moovsmart.domain.AdvertStatusType;
 import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
 
@@ -12,12 +13,13 @@ public class FilterPropertyAdvert {
     private Integer mayArea;
     private Integer minRooms;
     private Integer maxRooms;
+    private AdvertStatusType advertStatusType;
     private PropertyType propertyType;
     private PropertyConditionType propertyConditionType;
 
 
     public FilterPropertyAdvert(String city, Double minPrice, Double maxPrice, Integer minArea, Integer mayArea,
-                                Integer minRooms, Integer maxRooms, PropertyType propertyType,
+                                Integer minRooms, Integer maxRooms, AdvertStatusType advertStatusType, PropertyType propertyType,
                                 PropertyConditionType propertyConditionType) {
         this.city = city;
         this.minPrice = minPrice;
@@ -26,8 +28,21 @@ public class FilterPropertyAdvert {
         this.mayArea = mayArea;
         this.minRooms = minRooms;
         this.maxRooms = maxRooms;
+        this.advertStatusType = AdvertStatusType.FORAPPROVAL;
         this.propertyType = propertyType;
         this.propertyConditionType = propertyConditionType;
+    }
+
+    public Integer getMayArea() {
+        return mayArea;
+    }
+
+    public AdvertStatusType getAdvertStatusType() {
+        return advertStatusType;
+    }
+
+    public void setAdvertStatusType(AdvertStatusType advertStatusType) {
+        this.advertStatusType = advertStatusType;
     }
 
     public String getCity() {
@@ -62,11 +77,11 @@ public class FilterPropertyAdvert {
         this.minArea = minArea;
     }
 
-    public Integer getMayArea() {
+    public Integer getMaxArea() {
         return mayArea;
     }
 
-    public void setMayArea(Integer mayArea) {
+    public void setMaxArea(Integer mayArea) {
         this.mayArea = mayArea;
     }
 

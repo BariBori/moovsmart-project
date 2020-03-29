@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MessagingService } from 'src/app/services/messaging.service';
-import { TopicMap } from 'src/app/models/messaging/TopicMap';
 import { MessageModel } from 'src/app/models/messaging/MessageModel';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/error/User';
-import { tap } from 'rxjs/operators';
-import { TopicModel } from 'src/app/models/messaging/TopicModel';
 import { Router } from '@angular/router';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { ChatModel } from 'src/app/models/messaging/ChatModel';
+import { TopicModel } from 'src/app/models/messaging/TopicModel';
+import { tap, flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-messaging',
@@ -21,12 +20,12 @@ export class MessagingComponent implements OnInit {
 
   currentUserName: string;
   message: FormControl;
-  topics: TopicMap;
+  topics: TopicModel[];
   messages: MessageModel[];
 
   activeTopic: {
-    id: number;
-    topic: TopicModel;
+    advertId: number;
+    chat: ChatModel;
   };
 
 
@@ -37,16 +36,16 @@ export class MessagingComponent implements OnInit {
   ) {
     this.message = new FormControl('', Validators.required);
     this.activeTopic = {
-      id: null,
-      topic: null
+      advertId: null,
+      chat: null
     };
   }
   send() {
-    const id = this.activeTopic.id;
+    const id = this.activeTopic.advertId;
     const message = this.message.value;
-    this.msgservice.sendMessage(message, id)
+    this.msgservice.sendDirectMessage(message, id)
       .subscribe(response => {
-        this.topics[id].messages.push(response);
+        this.activeTopic.chat.messages.push(response);
         this.message.setValue('');
       },
         err => console.error(err));
@@ -57,9 +56,16 @@ export class MessagingComponent implements OnInit {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/user-login']);
     }
-    this.msgservice.fetchAllTopics.subscribe(
-      response => this.topics = response,
-      err => console.error(err));
+    this.msgservice.fetchMyTopics
+      .pipe(
+        tap(topics => this.activeTopic.advertId = topics[0].advertId),
+        tap(topics => this.topics = topics),
+        flatMap(id => this.msgservice.fetchConversation(id[0].advertId))
+      )
+      .subscribe(
+        chat => this.activeTopic.chat = chat,
+        err => console.error(err)
+      );
 
     this.userService.getCurrentUser.subscribe(
       response => this.currentUserName = response.userName
@@ -70,8 +76,13 @@ export class MessagingComponent implements OnInit {
     return new Date(dateString).toLocaleString();
   }
 
-  setActiveTopic(topicId: number, topic: TopicModel): void {
-    this.activeTopic.id = topicId;
-    this.activeTopic.topic = topic;
+  setActiveTopic(advertId: number, topic: TopicModel): void {
+    this.msgservice.fetchConversation(advertId).subscribe(
+      conversation => {
+        this.activeTopic.advertId = conversation.advertId;
+        this.activeTopic.chat = conversation;
+      },
+      console.error
+    );
   }
 }

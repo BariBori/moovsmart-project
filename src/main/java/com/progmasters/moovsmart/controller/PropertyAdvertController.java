@@ -9,6 +9,7 @@ import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
+import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +34,17 @@ public class PropertyAdvertController {
 
     private PropertyAdvertService propertyAdvertService;
     private PropertyAdvertValidator propertyAdvertValidator;
+    private UserDetailsFromSecurityContext userDetails;
 
     @Autowired
-    public PropertyAdvertController(PropertyAdvertService propertyAdvertService, PropertyAdvertValidator propertyAdvertValidator) {
+    public PropertyAdvertController(
+            PropertyAdvertService propertyAdvertService,
+            PropertyAdvertValidator propertyAdvertValidator,
+            UserDetailsFromSecurityContext userDetails
+    ) {
         this.propertyAdvertService = propertyAdvertService;
         this.propertyAdvertValidator = propertyAdvertValidator;
+        this.userDetails = userDetails;
     }
 
     @InitBinder("propertyAdvertFormData")
@@ -50,29 +56,25 @@ public class PropertyAdvertController {
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Void> createPropertyAdvert(@RequestBody @Valid PropertyAdvertFormData propertyAdvertFormData) {
         logger.info("The advert is created");
-        UserDetailsImpl userDetails =
-                (UserDetailsImpl) SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getPrincipal();
-        propertyAdvertService.saveAdvert(propertyAdvertFormData, userDetails);
+        propertyAdvertService.saveAdvert(propertyAdvertFormData, userDetails.get());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @PostMapping
-//    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
-//        return propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
-//    }
+    @PostMapping("/search")
+    public ResponseEntity<List<PropertyAdvertListItem>> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
+        List<PropertyAdvertListItem> filteredPropertyAdverts = propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
+        return new ResponseEntity<>(filteredPropertyAdverts, HttpStatus.OK);
+    }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
-        Boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
+        boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
         ResponseEntity<PropertyAdvertDetailsData> result;
         if (!isUpdated) {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-           // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
+            // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
             result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
@@ -90,7 +92,7 @@ public class PropertyAdvertController {
     }
 
     @GetMapping("/cities")
-    public ResponseEntity<List<PropertyCity>> getCities(){
+    public ResponseEntity<List<PropertyCity>> getCities() {
         return new ResponseEntity<>(propertyAdvertService.listCities(), HttpStatus.OK);
     }
 

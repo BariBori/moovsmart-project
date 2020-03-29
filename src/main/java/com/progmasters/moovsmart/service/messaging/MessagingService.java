@@ -1,79 +1,105 @@
 package com.progmasters.moovsmart.service.messaging;
 
+import com.progmasters.moovsmart.domain.PropertyAdvert;
+import com.progmasters.moovsmart.domain.messaging.Chat;
 import com.progmasters.moovsmart.domain.messaging.Message;
-import com.progmasters.moovsmart.domain.messaging.Topic;
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
+import com.progmasters.moovsmart.repository.messaging.ChatRepository;
+import com.progmasters.moovsmart.repository.messaging.ChatViewRepository;
 import com.progmasters.moovsmart.repository.messaging.MessageRepository;
-import com.progmasters.moovsmart.repository.messaging.TopicRepostitory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
 @Service
 public class MessagingService {
-    private TopicRepostitory topicRepostitory;
-    private MessageRepository messageRepository;
-    private UserRepository userRepository;
-    private AdvertRepository advertRepository;
+    private final UserRepository userRepository;
+    private final AdvertRepository advertRepository;
+    private final ChatRepository chatRepository;
+    private final ChatViewRepository viewRepository;
+    private final MessageRepository messageRepository;
 
-    public MessagingService(TopicRepostitory topicRepostitory, MessageRepository messageRepository, UserRepository userRepository, AdvertRepository advertRepository) {
-        this.topicRepostitory = topicRepostitory;
-        this.messageRepository = messageRepository;
+    public MessagingService(
+            MessageRepository messageRepository,
+            UserRepository userRepository,
+            AdvertRepository advertRepository,
+            ChatViewRepository chatViewRepository,
+            ChatRepository chatRepository
+    ) {
         this.userRepository = userRepository;
         this.advertRepository = advertRepository;
+        this.messageRepository = messageRepository;
+        this.chatRepository = chatRepository;
+        this.viewRepository = chatViewRepository;
     }
 
-    public Message saveMessage(Long topicId, String sender, String message) {
-        return topicRepostitory.findOneById(topicId)
-                .flatMap(topic -> userRepository.findByUserName(sender)
-                        .map(user -> messageRepository.save(
-                                new Message(topic, user, message)
+    public boolean isSubscribed(UserIdentifier user, Long advertId) {
+        return viewRepository.streamAllByUser(userRepository.get(user))
+                .anyMatch(view -> view.getConversation().getAdvert().getId() == advertId);
+    }
+
+    public Message saveDirectMessage(UserIdentifier sender, String message, Long advertId) {
+        return chatRepository.getByUserAndAdvert(userRepository.get(sender), advertId)
+                .map(topic -> messageRepository.save(
+                        new Message(
+                                userRepository.get(sender),
+                                topic,
+                                message)))
+                .orElseThrow(() ->
+                        new EntityNotFoundException("that topic doesn't exist"));
+    }
+
+    public List<TopicDto> getTopicsByUser(UserIdentifier user) {
+        return viewRepository.streamAllByUser(userRepository.get(user))
+                .map(TopicDto::fromView)
+                .collect(Collectors.toList());
+    }
+
+    public void enquire(UserIdentifier enquirer, Long advertId) {
+        if (renderUserViewForChat(enquirer, advertId).isEmpty()) {
+            initiateChat(enquirer, advertId);
+        }
+    }
+
+    public void deleteChatView(UserIdentifier user, Long advertId) {
+        viewRepository.findByUserAndConversation_Advert_Id(userRepository.get(user), advertId)
+                .ifPresent(view -> {
+                    viewRepository.delete(view);
+                    if (viewRepository.findAllByConversation(view.getConversation()).isEmpty()) {
+                        chatRepository.delete(view.getConversation());
+                    }
+                });
+    }
+
+    public Optional<Chat.View> renderUserViewForChat(UserIdentifier usr, Long advertId) {
+        User user = userRepository.get(usr);
+        return chatRepository.getByUserAndAdvert(user, advertId)
+                .map(chat ->
+                        viewRepository
+                                .findByUserAndConversation(user, chat)
+                                .orElseGet(() ->
+                                        viewRepository.save(new Chat.View(user, chat))
                                 )
-                        )
-                )
-                .orElseThrow(EntityNotFoundException::new);
-    }
-
-    public Topic openTopic(Long advertId, String userName) {
-        return advertRepository.findOneById(advertId)
-                .flatMap(advert -> userRepository.findByUserName(userName)
-                        .map(enquirer ->
-                                topicRepostitory.save(new Topic(advert, enquirer))
-                        )
-                )
-                .orElseThrow(EntityExistsException::new);
-    }
-
-    public Topic getTopic(Long topicId) {
-        return topicRepostitory.findOneById(topicId)
-                .orElseThrow(EntityNotFoundException::new);
-    }
-
-    public Optional<Topic> getTopic(Long advertId, String userName) {
-        return advertRepository.findOneById(advertId)
-                .flatMap(advert -> userRepository.findByUserName(userName)
-                        .flatMap(enquirer -> topicRepostitory.findOneByAdvertAndEnquirer(
-                                advert,
-                                enquirer
-                                )
-                        )
                 );
     }
 
-    public Map<Long, TopicDto> getTopicsByUser(UserDetailsImpl user) {
-        return topicRepostitory.streamByAdvertiserOrEnquirer(user.getId())
-                .collect(Collectors.toMap(
-                        Topic::getId,
-                        TopicDto::fromTopic
-                ));
+    private void initiateChat(UserIdentifier enquirer, Long advertId) {
+        PropertyAdvert advert = advertRepository.findOneById(advertId)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("that advert doesn't exist")
+                );
+        User user = userRepository.get(enquirer);
+        Chat directMessaging = chatRepository.save(new Chat(user, advert));
+        viewRepository.save(new Chat.View(user, directMessaging));
+        viewRepository.save(new Chat.View(advert.getUser(), directMessaging));
     }
 }

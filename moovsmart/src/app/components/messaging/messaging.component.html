@@ -17,14 +17,13 @@
 
                     <div class="inbox_chat">
 
-                        <div class="chat_list" *ngFor='let topic of topics | keyvalue'
-                            (click)='setActiveTopic(topic.key, topic.value)'>
+                        <div class="chat_list" *ngFor='let topic of topics'
+                            (click)='setActiveTopic(topic.advertId, topic.title)'
+                            [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
-                                    <h5>{{topic.value.advertTitle}} <span>{{
-                                        topic.value.advertiser === currentUserName
-                                        ?topic.value.enquirer
-                                        :topic.value.advertiser
+                                    <h5>{{topic.title}} <span>{{
+                                        topic.partner
                                 }}</span></h5>
                                 </div>
                             </div>
@@ -35,7 +34,7 @@
                 <div class="mesgs">
                     <div class="msg_history">
 
-                        <div *ngFor='let message of activeTopic.topic?.messages' [ngClass]="currentUserName === message.sender
+                        <div *ngFor='let message of activeTopic.chat?.messages' [ngClass]="currentUserName === message.sender
                         ? 'outgoing_msg'
                         : 'received_msg'">
                             <div [ngClass]="currentUserName === message.sender
@@ -50,14 +49,16 @@
 
                     <div class="type_msg">
                         <div class="input_msg_write">
-                            <input type="text" class="write_msg" [formControl]='message' placeholder="Type a message" />
-                            <!--<button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'><i
-                                    class="fa fa-paper-plane-o" aria-hidden="true"></i></button>-->
 
-                          <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'>
-                            <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon></button>
+                            <input type="text" class="write_msg" [formControl]='message' placeholder="Type a message" />
+
+                            <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'>
+                                <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
+                            </button>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
