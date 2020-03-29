@@ -1,14 +1,13 @@
 package com.progmasters.moovsmart.seleniumtest;
 
+import com.progmasters.moovsmart.selenium.OpenPropertyTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.junit.Assert.assertEquals;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LoginTest {
 
@@ -16,27 +15,26 @@ public class LoginTest {
 
     @BeforeEach
     public void startBrowser() {
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ClassLoader classLoader = LoginTest.class.getClassLoader();
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--window-size=1920,1200");
+        driver = new ChromeDriver(options);
     }
 
     @Test
     public void demo() {
-        driver.get("http://localhost:4200");
+        driver.get("http://localhost:4200/user-login");
 
-        driver.findElement(By.cssSelector("a[href='/user-login']")).click();
-        //TODO
-        String title = driver.findElement(By.id("loginForm")).getAttribute("innerHTML");
-        assertEquals(title, "Login form");
+        driver.findElement(By.id("email")).sendKeys("moovsmartaltenter@gmail.com");
+        driver.findElement(By.id("password")).sendKeys("test");
 
-        driver.findElement(By.cssSelector("input[name='email']")).sendKeys("moovsmartaltenter@gmail.com");
-        driver.findElement(By.cssSelector("input[name='password']")).sendKeys("test");
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         try {
@@ -45,22 +43,13 @@ public class LoginTest {
             e.printStackTrace();
         }
 
-        String listPageTitle = driver.findElement(By.cssSelector("body > app-root > div > app-user-home > h2")).getAttribute("innerHTML");
-        assertEquals(listPageTitle, "User home");
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
+
+    //TODO ASSERT KELL
 
     @AfterEach
     public void tearDown() {
         driver.quit();
     }
-
-
 
 }
