@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.service.user;
 
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,13 +19,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public UserDetailsImpl loadUserByUsername(String emailOrUserName) {
+    public UserIdentifier loadUserByUsername(String emailOrUserName) {
         //TODO rewrite to JPA
         return userRepository.findByEmail(emailOrUserName)
                 .or(() ->
                         userRepository.findByUserName(emailOrUserName)
                 )
-                .map(UserDetailsImpl::forUser)
+                .map(UserIdentifier::forUser)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 "No user found with te given email or username: "

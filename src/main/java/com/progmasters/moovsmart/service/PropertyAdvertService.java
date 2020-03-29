@@ -2,7 +2,7 @@ package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.domain.user.User;
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
@@ -30,7 +30,7 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
-    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserDetailsImpl userDetails) {
+    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
         Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
         if(user.isPresent()) {
             User chosenUser = user.get();

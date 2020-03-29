@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserIdentifier implements UserDetails {
     private Long id;
 
     private String email;
@@ -21,8 +21,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
-    public static UserDetailsImpl forUser(User user) {
-        UserDetailsImpl result = new UserDetailsImpl();
+    public static UserIdentifier forUser(User user) {
+        UserIdentifier result = new UserIdentifier();
         result.id = user.getId();
         result.userName = user.getUserName();
         result.email = user.getEmail();

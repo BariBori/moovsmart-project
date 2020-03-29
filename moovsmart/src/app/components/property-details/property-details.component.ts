@@ -62,7 +62,7 @@ export class PropertyDetailsComponent implements OnInit {
     this.propertyAdvertService.archivePropertyAdvert(id).subscribe(
       (response: PropertyListItemModel[]) => {
         this.propertyListItemModels = response;
-        this.router.navigate(["property-list"]);
+        this.router.navigate(['property-list']);
       },
       error => console.warn(error),
     );
@@ -85,7 +85,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
   sendMessage() {
     this.userService.isLoggedIn()
-      ? this.messagingService.subscribeToTopic(Number(this.id))
+      ? this.messagingService.beginDirectMessaging(Number(this.id))
         .subscribe(success => this.router.navigate(['/messaging']))
       : this.router.navigate(['user-login']);
   }
