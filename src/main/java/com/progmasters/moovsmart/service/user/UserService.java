@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.service.user;
 
 import com.progmasters.moovsmart.domain.user.RegistrationToken;
 import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.domain.user.UserRole;
 import com.progmasters.moovsmart.dto.user.UserForm;
 import com.progmasters.moovsmart.repository.RegistrationTokenRepository;
@@ -55,7 +56,8 @@ public class UserService {
         return token.getUser();
     }
 
-    public User getUsers(Long id) {
-        return userRepository.findById(id).orElseThrow((() -> new EntityNotFoundException("User with id: " + id + " not found!")));
+    public User userForDetails(UserIdentifier userDetails) {
+        return userRepository.findByEmail(userDetails.getEmail())
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
