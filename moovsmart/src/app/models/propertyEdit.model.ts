@@ -17,4 +17,6 @@ export interface PropertyEditModel {
   balcony: boolean;
 
   description: string;
+
+  listOfImages: Array<string>;
 }

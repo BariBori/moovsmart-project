@@ -1,4 +1,6 @@
 <div class="container">
+  <button class="btn btn-success float-right" routerLink="/property-list-search">Részletes keresés</button>
+
 
   <div class="filter-header">
     <p>Szűrés</p>
@@ -7,6 +9,7 @@
     </mat-form-field>
     <hr>
   </div>
+
 
   <div class="table-container mat-elevation-z8">
 
@@ -25,7 +28,7 @@
 
       <ng-container matColumnDef="numberOfRooms">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Szobák száma </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.numberOfRooms}}</mat-cell>
+        <mat-cell *matCellDef="let row" >{{row.numberOfRooms}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">

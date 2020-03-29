@@ -5,6 +5,4 @@ export class SearchBarData{
   price: number;
   numberOfRooms: number;
   area: number;
-  listOfImages: Array<string>;
-
 }

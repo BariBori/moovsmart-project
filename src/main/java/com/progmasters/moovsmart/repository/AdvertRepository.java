@@ -6,6 +6,7 @@ import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
 import com.progmasters.moovsmart.dto.FilterPropertyAdvert;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -34,4 +35,6 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
                                                      @Param("propertyConditionType") PropertyConditionType propertyConditionType,
                                                      @Param("advertStatusType") AdvertStatusType advertStatusType);
 
-    }
+    //---------SEARCH------------
+    List<PropertyAdvert> findAll();
+}

@@ -52,4 +52,8 @@ export class PropertyService {
     return this.httpClient.put(BASE_URL +'/' + propertyId, data);
   }
 
+  getSearchResult(search: string): Observable<Array<PropertyListItemModel>> {
+    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/propertySearch?search=" + search);
+  }
+
 }

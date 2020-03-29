@@ -27,6 +27,4 @@ public class AdvertPropertyServiceIT_1 {
         List<PropertyAdvertListItem> advertList = propertyAdvertService.listPropertyAdverts();
         assertEquals(0, advertList.size());
     }
-
-
 }
