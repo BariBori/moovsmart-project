@@ -15,7 +15,7 @@
 .img-thumbnail{
   width: 80px;
   height: 80px;
-  crop: auto;
+  crop: initial;
 }
 
 .checkBox-box {
@@ -27,4 +27,16 @@
   position: relative;
   top: 3px;
   *overflow: hidden;
+}
+
+.upload-button {
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 2px;
+  color: black;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }

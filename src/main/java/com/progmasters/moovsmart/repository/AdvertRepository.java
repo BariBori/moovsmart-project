@@ -4,6 +4,7 @@ import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 import static org.hibernate.loader.Loader.SELECT;
 
 @Repository
-public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
+public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long>, JpaSpecificationExecutor<PropertyAdvert> {
 
     @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL'")
     List<PropertyAdvert> findPropertyAdvertsByAdvertStatus_FORAPPROVAL();
@@ -39,4 +40,6 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     List<String> findAllCities();
 
 
+    //---------SEARCH------------
+    List<PropertyAdvert> findAll();
 }

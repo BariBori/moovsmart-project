@@ -1,20 +1,50 @@
-<table class="table table-responsive">
-  <tr>
-    <th>Város</th>
-    <th>Ingatlan típusa</th>
-    <th>Ingatlan állapota</th>
-    <th>Ár</th>
-    <th>Terület</th>
-    <th>szobák száma</th>
-  </tr>
-  <tbody>
-  <tr *ngFor="let property of filteredProperties | filter: searchByKeyword: 'city'">
-    <td>{{ property.city}}</td>
-    <td>{{ property.propertyType}}</td>
-    <td>{{ property.propertyConditionType}}</td>
-    <td>{{ property.price}}</td>
-    <td>{{ property.area}}</td>
-    <td>{{ property.numberOfRooms}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="table-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef > Kép </mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+        <img class="list-img" src="{{row.listOfImages[0]}}"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cím </mat-header-cell>
+      <mat-cell *matCellDef="let row"  class="click">{{row.address}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numberOfRooms">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Szobák száma </mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.numberOfRooms}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ár</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.price}} millió Ft</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="area">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Méret</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.area}} m2</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price/area">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="advertId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Hirdetés azonosító</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.advertId}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+
+  </mat-table>
+
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>

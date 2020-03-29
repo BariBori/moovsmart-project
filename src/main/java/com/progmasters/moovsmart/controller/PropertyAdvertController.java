@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.controller;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
@@ -12,6 +13,7 @@ import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -105,6 +109,21 @@ public class PropertyAdvertController {
     @GetMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
         return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);
+    }
+
+
+    //--------------SEARCH-----------------
+
+    @GetMapping("/propertySearch")
+    public ResponseEntity<List<PropertyAdvertListItem>> search(@PathVariable( value = "search") String search){
+        PropertySpecificationBuilder builder = new PropertySpecificationBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher matcher = pattern.matcher(search + ",");
+        while(matcher.find()){
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+        Specification<PropertyAdvert> spec = builder.build();
+        return new ResponseEntity<>(propertyAdvertService.listAllProperty(spec), HttpStatus.OK);
     }
 
 

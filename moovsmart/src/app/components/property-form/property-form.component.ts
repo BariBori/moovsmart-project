@@ -26,7 +26,7 @@ export class PropertyFormComponent implements OnInit {
   @Input()
   responses: Array<any>;
   listOfImages: Array<string> = [];
-  private hasBaseDropZoneOver: boolean = false;
+  hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
   allowedMimeType:Array<string> = [];
@@ -87,9 +87,6 @@ export class PropertyFormComponent implements OnInit {
     listOfImages: [null],
   });
 
-  getDataFromFormForEdit() {
-
-  }
 
 
   constructor(
@@ -155,11 +152,6 @@ export class PropertyFormComponent implements OnInit {
       ]
     };
 
-    //this.allowedMimeType = ['image/png', 'image/gif', 'video/mp4', 'image/jpeg'];
-    // this.uploader = new FileUploader({
-    //     url: 'https://evening-anchorage-3159.herokuapp.com/api/',
-    //     allowedMimeType: this.allowedMimeType
-    // });
 
     this.uploader = new FileUploader(uploaderOptions);
 
@@ -216,6 +208,7 @@ export class PropertyFormComponent implements OnInit {
         console.log(this.responses);
 
         //fill listOfImages array
+
         this.listOfImages.push(fileItem.data.url);
         this.listOfImages = this.listOfImages.filter(function (el) {
           return el != null;
@@ -359,9 +352,6 @@ export class PropertyFormComponent implements OnInit {
 
   //----------CLOUDINARY----------------
 
-  updateTitle(value: string) {
-    this.imgTitle = value;
-  }
 
   // Delete an uploaded image
   // Requires setting "Return delete token" to "Yes" in your upload preset configuration

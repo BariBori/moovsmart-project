@@ -7,6 +7,7 @@ import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +53,7 @@ public class PropertyAdvertService {
         return advertRepository.findPropertyAdvertsByAdvertStatus_FORAPPROVAL().stream()
                 .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
     }
+
 
     public List<PropertyCity> listCities(){
         return advertRepository.findAllCities().stream()
@@ -99,6 +101,18 @@ public class PropertyAdvertService {
         propertyAdvert.setDescription(propertyEditForm.getDescription());
         this.advertRepository.save(propertyAdvert);
     }
+
+
+    //---------------SEARCH-----------------
+
+    public List<PropertyAdvertListItem> listAllProperty(Specification<PropertyAdvert> spec){
+        return advertRepository.findAll().stream()
+                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
+    }
+
+
+
+
 
 //
 //    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filterPropertyAdvert) {
