@@ -15,7 +15,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn
-    private Topic topic;
+    private Conversation conversation;
 
     private LocalDateTime sentAt;
 
@@ -24,19 +24,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(Topic topic, User sender, String text) {
+    public Message(User sender, Conversation conversation, String message) {
         this.sender = sender;
-        this.topic = topic;
+        this.conversation = conversation;
+        this.text = message;
         this.sentAt = LocalDateTime.now();
-        this.text = text;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public String getText() {
-        return text;
     }
 
     public Long getId() {
@@ -47,7 +39,15 @@ public class Message {
         return sender;
     }
 
+    public Conversation getConversation() {
+        return conversation;
+    }
+
     public LocalDateTime getSentAt() {
         return sentAt;
+    }
+
+    public String getText() {
+        return text;
     }
 }
