@@ -1,16 +1,16 @@
 package com.progmasters.moovsmart.utils;
 
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
+import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Supplier;
 
 @Component
-public class UserDetailsFromSecurityContext implements Supplier<UserDetailsImpl> {
+public class UserDetailsFromSecurityContext implements Supplier<UserIdentifier> {
     @Override
-    public UserDetailsImpl get() {
-        return (UserDetailsImpl)
+    public UserIdentifier get() {
+        return (UserIdentifier)
                 SecurityContextHolder
                         .getContext()
                         .getAuthentication()
