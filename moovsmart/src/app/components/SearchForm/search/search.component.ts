@@ -1,10 +1,14 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {PropertyTypeOptionItemModel} from "../../../models/propertyTypeOptionItem.model";
 import {PropertyConditionTypeOptionItemModel} from "../../../models/propertyConditionTypeOptionItem.model";
 import {PropertyService} from "../../../services/property.service";
 import {FormInitDataModel} from "../../../models/formInitDataModel";
 import {StringBuilder} from "./string-builder";
+import {validate} from "codelyzer/walkerFactory/walkerFn";
+
+
+
 
 @Component({
   selector: 'app-search',
@@ -14,8 +18,6 @@ import {StringBuilder} from "./string-builder";
 export class SearchComponent implements OnInit {
 
   form: FormGroup;
-  @Output() autoSearch: EventEmitter<string> = new EventEmitter<string>();
-  @Output() groupFilters : EventEmitter<any> = new EventEmitter<any>();
   searchText: string = '';
   searchSpec = new StringBuilder();
 
@@ -39,14 +41,17 @@ export class SearchComponent implements OnInit {
     cities: [''],
     propertyType: [''],
     propertyConditionType: [''],
-    numberOfRoomsFrom: [null],
-    numberOfRoomsTo: [null],
-    priceFrom: [null],
-    priceTo:  [null],
-    areaFrom: [null],
-    areaTo:  [null],
+    numberOfRoomsFrom: [null, Validators.required],
+    numberOfRoomsTo: [null, Validators.required],
+    priceFrom: [null, Validators.required],
+    priceTo:  [null, Validators.required],
+    areaFrom: [null, Validators.required],
+    areaTo:  [null, Validators.required],
+  }
 
-  });
+  );
+
+
 
   ngOnInit(): void {
     this.propertyService?.getCityList().subscribe(
@@ -75,6 +80,8 @@ export class SearchComponent implements OnInit {
     return this.cityNameList;
     console.log(this.cityNameList);
   }
+
+
 
 
 

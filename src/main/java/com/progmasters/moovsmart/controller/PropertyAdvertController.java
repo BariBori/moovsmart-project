@@ -115,7 +115,8 @@ public class PropertyAdvertController {
     //--------------SEARCH-----------------
 
     @GetMapping("/propertySearch")
-    public ResponseEntity<List<PropertyAdvertListItem>> search(@PathVariable( value = "search") String search){
+    @ResponseBody
+    public ResponseEntity<List<PropertyAdvertListItem>> search(@RequestParam ( value = "search") String search){
         PropertySpecificationBuilder builder = new PropertySpecificationBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(search + ",");
@@ -125,6 +126,7 @@ public class PropertyAdvertController {
         Specification<PropertyAdvert> spec = builder.build();
         return new ResponseEntity<>(propertyAdvertService.listAllProperty(spec), HttpStatus.OK);
     }
+
 
 
 }

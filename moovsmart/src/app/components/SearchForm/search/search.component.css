@@ -1,8 +1,13 @@
 /* Style the form - display items horizontally */
-.form-inline {
+/*.form-inline {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+}*/
+
+.form-inline .form-group{
+  display:inline-block;
+  width: auto;
 }
 
 /* Add some margins for each label */
@@ -32,16 +37,7 @@
 }
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
-@media (max-width: 800px) {
-  .form-inline input {
-    margin: 10px 0;
-  }
 
-  .form-inline {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
 
 .searchbox {
   clear: both;
@@ -57,8 +53,8 @@
   line-height: 38px;
 }
 
-.price{
-  width: 50px;
+.min-max-field{
+  width: 60px;
 }
 
 .min-max-wrapper{

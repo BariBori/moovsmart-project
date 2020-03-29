@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
 })
 export class SearchResultComponent implements OnInit {
   //@Input() searchByKeyword: string ="city:Budapest";
-  searchByKeyword: string ="numberOfRooms=3";
+  searchByKeyword: string ="area:26";
 
   displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;

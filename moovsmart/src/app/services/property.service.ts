@@ -53,7 +53,7 @@ export class PropertyService {
   }
 
   getSearchResult(search: string): Observable<Array<PropertyListItemModel>> {
-    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/propertySearch/?search=" + search);
+    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/propertySearch?search=" + search);
   }
 
 }
