@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
+import com.progmasters.moovsmart.repository.FilterPropertyAdvert;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;

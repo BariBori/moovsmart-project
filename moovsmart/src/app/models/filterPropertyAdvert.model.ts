@@ -11,4 +11,5 @@ export interface FilterPropertyAdvertModel {
   advertStatusType: string;
   propertyType: string;
   propertyConditionType: string;
+
 }
