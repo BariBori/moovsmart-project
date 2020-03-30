@@ -7,6 +7,7 @@ import com.progmasters.moovsmart.service.messaging.MessagingService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -21,6 +22,7 @@ public class MessagingController {
     private MessagingService service;
     private UserDetailsFromSecurityContext userDetails;
 
+    @Autowired
     public MessagingController(
             MessagingService service,
             UserDetailsFromSecurityContext userDetails) {

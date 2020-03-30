@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { ChatModel } from 'src/app/models/messaging/ChatModel';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
-import { tap, flatMap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-messaging',
@@ -22,7 +22,7 @@ export class MessagingComponent implements OnInit {
   message: FormControl;
   topics: TopicModel[];
   messages: MessageModel[];
-
+  setActiveTopic: (topic: TopicModel) => void;
   activeTopic: {
     advertId: number;
     chat: ChatModel;
@@ -39,6 +39,13 @@ export class MessagingComponent implements OnInit {
       advertId: null,
       chat: null
     };
+    this.setActiveTopic = (topic: TopicModel) => void this.msgservice.fetchConversation(topic.advertId).subscribe(
+      conversation => {
+        this.activeTopic.advertId = topic.advertId;
+        this.activeTopic.chat = conversation;
+      },
+      console.error
+    );
   }
   send() {
     const id = this.activeTopic.advertId;
@@ -47,8 +54,7 @@ export class MessagingComponent implements OnInit {
       .subscribe(response => {
         this.activeTopic.chat.messages.push(response);
         this.message.setValue('');
-      },
-        err => console.error(err));
+      });
 
   }
 
@@ -58,14 +64,10 @@ export class MessagingComponent implements OnInit {
     }
     this.msgservice.fetchMyTopics
       .pipe(
-        tap(topics => this.activeTopic.advertId = topics[0].advertId),
         tap(topics => this.topics = topics),
-        flatMap(id => this.msgservice.fetchConversation(id[0].advertId))
+        map(topics => topics[0]),
       )
-      .subscribe(
-        chat => this.activeTopic.chat = chat,
-        err => console.error(err)
-      );
+      .subscribe(this.setActiveTopic);
 
     this.userService.getCurrentUser.subscribe(
       response => this.currentUserName = response.userName
@@ -76,13 +78,4 @@ export class MessagingComponent implements OnInit {
     return new Date(dateString).toLocaleString();
   }
 
-  setActiveTopic(advertId: number, topic: TopicModel): void {
-    this.msgservice.fetchConversation(advertId).subscribe(
-      conversation => {
-        this.activeTopic.advertId = conversation.advertId;
-        this.activeTopic.chat = conversation;
-      },
-      console.error
-    );
-  }
 }
