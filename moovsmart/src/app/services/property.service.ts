@@ -8,6 +8,7 @@ import {PropertyAdvertDetailsModel} from "../models/propertyAdvertDetails.model"
 import {environment} from "../../environments/environment";
 import {PropertyCityModel} from "../models/propertyCity.model";
 import {PropertyEditModel} from "../models/propertyEdit.model";
+import {FilterPropertyAdvertModel} from "../models/filterPropertyAdvert.model";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -51,6 +52,14 @@ export class PropertyService {
     data.id = propertyId;
     return this.httpClient.put(BASE_URL +'/' + propertyId, data);
   }
+
+  postFilteredPropertyAdverts(filterPropertyAdvertModel: FilterPropertyAdvertModel): Observable<any>{
+    return this.httpClient.post(BASE_URL+"/search", filterPropertyAdvertModel)
+  }
+
+
+
+  //----------SEARCH---------------
 
   getSearchResult(search: string): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/propertySearch?search=" + search);

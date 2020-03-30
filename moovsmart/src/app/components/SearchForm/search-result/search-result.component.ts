@@ -13,8 +13,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./search-result.component.css']
 })
 export class SearchResultComponent implements OnInit {
-  //@Input() searchByKeyword: string ="city:Budapest";
-  searchByKeyword: string ="area:26";
+
 
   displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
@@ -27,15 +26,22 @@ export class SearchResultComponent implements OnInit {
   constructor(
               //private ref: ChangeDetectorRef,
               private propertyService: PropertyService,
-              //private router: Router
+              private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.propertyService.getSearchResult(this.searchByKeyword).subscribe(
-      searchResult => this.dataSource = new MatTableDataSource(searchResult));
-    console.log(this.dataSource);
+    this.propertyService.getPropertyList().subscribe(
+      propertyListItems => {
+        this.dataSource = new MatTableDataSource(propertyListItems);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource);
+      });
   }
 
+  goToDetails(id: number) {
+    this.router.navigate(['property-details', id]);
+  }
 
 
 }

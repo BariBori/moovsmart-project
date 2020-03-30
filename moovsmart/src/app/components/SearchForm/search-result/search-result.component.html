@@ -10,7 +10,7 @@
 
     <ng-container matColumnDef="address">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Cím </mat-header-cell>
-      <mat-cell *matCellDef="let row"  class="click">{{row.address}}</mat-cell>
+      <mat-cell *matCellDef="let row"  class="click" (click)="goToDetails(row.id)" target="_blank">{{row.address}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="numberOfRooms">

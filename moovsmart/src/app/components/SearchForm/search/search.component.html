@@ -4,12 +4,12 @@
   <form [formGroup]="searchFrom">
 
     <div class="form-group">
-      <label>Város</label>
+      <label class="search-label">Város</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="cities"
               id="city"
               name="city" ng-model="data.singleSelect">
         <option value=null>--Mindegy--</option>
-        <option *ngFor="let city of cities " value="{{city}}">
+        <option *ngFor="let city of city " value="{{city}}">
           {{city.city}}
         </option>
       </select>
@@ -17,7 +17,7 @@
 
 
     <div class="form-group">
-      <label>Ingatlan típusa</label>
+      <label class="search-label">Ingatlan típusa</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="propertyType" id="propertyTypes"
               name="propertyTypes" ng-model="data.singleSelect">
         <option value=null>--Mindegy--</option>
@@ -29,7 +29,7 @@
 
 
     <div class="form-group">
-      <label>Ingatlan állapota</label>
+      <label class="search-label">Ingatlan állapota</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="propertyConditionType"
               id="propertyConditionTypes"
               name="propertyConditionTypes" ng-model="data.singleSelect">
@@ -44,62 +44,78 @@
 
 
     <div class="form-group form-inline">
-      <label class="property-form-label" for="priceFrom">Irányár</label>
-      <input type="text"
-             formControlName="priceFrom"
+      <label class="property-form-label" for="minPrice">Irányár</label>
+      <input type="number"
+             formControlName="minPrice"
              class="form-control min-max-field"
              placeholder="min"
-             id="priceFrom"
+             id="minPrice"
+             min="0"
       />
-      <label class="property-form-label" for="priceTo"> - </label>
-      <input type="text"
-             formControlName="priceTo"
+      <label class="property-form-label" for="maxPrice"> - </label>
+      <input type="number"
+             formControlName="maxPrice"
              class="form-control min-max-field"
              placeholder="max"
-             id="priceTo"
+             id="maxPrice"
+             min="0"
       /> <label>Millió Ft</label>
 
     </div>
+    <p><small *ngIf="searchFrom.errors?.priceRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum ár nem lehet nagyobb mint a maximum ár!
+    </small></p>
+
 
 
     <div class="form-group form-inline ">
-      <label class="property-form-label" for="areaFrom">Négyzetméter</label>
-      <input type="text"
-             formControlName="areaFrom"
+      <label class="property-form-label" for="minArea">Négyzetméter</label>
+      <input type="number"
+             formControlName="minArea"
              class="form-control min-max-field"
              placeholder="min"
-             id="areaFrom"
+             id="minArea"
+             min="0"
       />
-      <label class="property-form-label" for="areaTo"> - </label>
-      <input type="text"
-             formControlName="areaTo"
+      <label class="property-form-label" for="maxArea"> - </label>
+      <input type="number"
+             formControlName="maxArea"
              class="form-control min-max-field"
              placeholder="max"
-             id="areaTo"
+             id="maxArea"
+             min="0"
       /> <label>m2</label>
     </div>
+    <p><small *ngIf="searchFrom.errors?.areaRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum négyzetméter nem lehet nagyobb mint a maximum négyzetméter!
+    </small></p>
 
     <div class="form-group form-inline ">
-      <label class="property-form-label" for="numberOfRoomsFrom">Szobák száma</label>
-      <input type="text"
-             formControlName="numberOfRoomsFrom"
+      <label class="property-form-label" for="minRooms">Szobák száma</label>
+      <input type="number"
+             formControlName="minRooms"
              class="form-control min-max-field"
              placeholder="min"
-             id="numberOfRoomsFrom"
+             id="minRooms"
+             min="0"
       />
-      <label class="property-form-label" for="numberOfRoomsTo"> - </label>
-      <input type="text"
-             formControlName="numberOfRoomsTo"
+      <label class="property-form-label" for="maxRooms"> - </label>
+      <input type="number"
+             formControlName="maxRooms"
              class="form-control min-max-field"
              placeholder="max"
-             id="numberOfRoomsTo"
+             id="maxRooms"
+             min="0"
       />
     </div>
+    <p><small *ngIf="searchFrom.errors?.numberOfRoomsRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum szobaszám nem lehet nagyobb mint a maximum szobaszám!
+    </small></p>
 
 
 
     <div class="form-group">
-      <button class="btn btn-success" (click)="onSubmit()">Keresés</button>
+      <button class="btn btn-success" (click)="submit()">Keresés</button>
     </div>
   </form>
 

@@ -6,8 +6,6 @@ import com.progmasters.moovsmart.domain.PropertyType;
 import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.*;
-import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
-import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;

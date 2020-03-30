@@ -1,11 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validator, ValidatorFn, Validators} from "@angular/forms";
 import {PropertyTypeOptionItemModel} from "../../../models/propertyTypeOptionItem.model";
 import {PropertyConditionTypeOptionItemModel} from "../../../models/propertyConditionTypeOptionItem.model";
 import {PropertyService} from "../../../services/property.service";
 import {FormInitDataModel} from "../../../models/formInitDataModel";
 import {StringBuilder} from "./string-builder";
 import {validate} from "codelyzer/walkerFactory/walkerFn";
+import {areaValidator, priceValidator, roomValidator} from "./validator.directive";
 
 
 
@@ -24,41 +25,44 @@ export class SearchComponent implements OnInit {
 
   propertyType: PropertyTypeOptionItemModel[];
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
-  cities: any;
+  city: any;
   cityNameList: Array<string> = [];
-  numberOfRoomsFrom: number;
-  numberOfRoomsTo: number;
-  priceFrom: number;
-  priceTo: number;
-  areaFrom: number;
-  areaTo: number;
+  minRooms: number;
+  maxRooms: number;
+  minPrice: number;
+  maxPrice: number;
+  minArea: number;
+  maxArea: number;
 
 
   constructor(private formBuilder: FormBuilder,
               private propertyService: PropertyService) { }
 
   searchFrom = this.formBuilder.group({
-    cities: [''],
+    city: [''],
     propertyType: [''],
     propertyConditionType: [''],
-    numberOfRoomsFrom: [null, Validators.required],
-    numberOfRoomsTo: [null, Validators.required],
-    priceFrom: [null, Validators.required],
-    priceTo:  [null, Validators.required],
-    areaFrom: [null, Validators.required],
-    areaTo:  [null, Validators.required],
-  }
+    minRooms: [null, Validators.required],
+    maxRooms: [null, Validators.required],
+    minPrice: [null, Validators.required],
+    maxPrice:  [null, Validators.required],
+    minArea: [null, Validators.required],
+    maxArea:  [null, Validators.required],
+
+  }, {validators:Validators.compose([areaValidator, priceValidator, roomValidator])}
 
   );
+
+  searchForm = this.formBuilder.array([], Validators.compose([Validators.required, Validators.minLength(3)]));
 
 
 
   ngOnInit(): void {
     this.propertyService?.getCityList().subscribe(
       (cityData: any) =>{
-        this.cities = cityData;
+        this.city = cityData;
         console.log(cityData);
-        console.log(this.cities);
+        console.log(this.city);
         this.makeCityList();
         console.log(this.cityNameList);
 
@@ -74,65 +78,71 @@ export class SearchComponent implements OnInit {
   }
 
   makeCityList(){
-    for (let index of this.cities){
+    for (let index of this.city){
       this.cityNameList?.push(index.city);
     }
     return this.cityNameList;
     console.log(this.cityNameList);
   }
 
-
-
-
-
-
-
-
-buildSearchText() : string {
-
-if(this.cities != '' || this.cities != null){
-  this.searchSpec.append("city:" + this.cities);
-}
-
-if(this.propertyType.toString() != '' || this.propertyType != null){
-  this.searchSpec.append("propertyType:" + this.propertyType);
-}
-
-if(this.propertyConditionType.toString()!='' || this.propertyConditionType != null){
-  this.searchSpec.append("propertyConditionType:" + this.propertyConditionType);
-}
-
-if(this.numberOfRoomsFrom != null){
-  this.searchSpec.append("numberOfRooms>"+ (this.numberOfRoomsFrom-1));
-}
-
-  if(this.numberOfRoomsTo != null){
-    this.searchSpec.append("numberOfRooms<"+ (this.numberOfRoomsTo+1));
+  validateMaxPrice(maxPrice: number){
+    if(this.maxPrice === null){
+      this.maxPrice = 99999999.0;
+    }
   }
 
-  if(this.priceFrom !=null){
-    this.searchSpec.append("price>" + this.priceFrom);
+  validateMinPrice(minPrice: number){
+    if(this.minPrice === null){
+      this.minPrice = 0.0;
+    }
   }
 
-  if(this.priceTo != null){
-    this.searchSpec.append("price<" + this.priceTo);
+  validateMaxArea(maxArea: number){
+    if(this.maxPrice  === null){
+      this.maxPrice = 999999999;
+    }
   }
 
-  if(this.areaFrom != null){
-    this.searchSpec.append("area>" + this.areaFrom);
+  validateMinArea(minArea: number){
+    if(this.minArea === null){
+      this.minArea = 0;
+    }
   }
 
-  if(this.areaTo != null){
-    this.searchSpec.append("area<" + this.areaTo);
+  validateMaxRooms(maxRooms: number){
+    if(this.maxRooms === null){
+      this.maxRooms = 500;
+    }
   }
 
-  this.searchText = this.searchSpec.toString();
-return this.searchText;
-  console.log(this.searchText);
+  validateMinRooms(minRooms: number){
+    if(this.minRooms === null){
+      this.maxRooms = 0;
+    }
+  }
+
+submit = () => {
+    let filterPropertyAdvertModel = this.searchFrom.value;
+    /*filterPropertyAdvertModel.city = this.city;
+    filterPropertyAdvertModel.maxPrice = this.validateMaxPrice(this.maxPrice);
+    filterPropertyAdvertModel.minPrice = this.validateMinPrice(this.minPrice);
+    filterPropertyAdvertModel.maxArea = this.validateMaxPrice(this.maxArea);
+    filterPropertyAdvertModel.minArea = this.validateMinArea(this.minArea);
+    filterPropertyAdvertModel.maxRooms = this.validateMaxRooms(this.maxRooms);
+    filterPropertyAdvertModel.minRooms = this.validateMinRooms(this.minRooms);
+    filterPropertyAdvertModel.propertyType = this.propertyType;
+    filterPropertyAdvertModel.propertyConditionType = this.propertyConditionType;*/
+
+    console.log(filterPropertyAdvertModel);
+    /*this.propertyService.postFilteredPropertyAdverts(filterPropertyAdvertModel).subscribe(
+      () => console.log(filterPropertyAdvertModel)
+    )*/
+
 }
 
-onSubmit(){
-    this.propertyService.getSearchResult(this.searchText);
-}
+
+
+
+
 
 }
