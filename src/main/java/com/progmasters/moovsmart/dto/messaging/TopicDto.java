@@ -6,6 +6,7 @@ public class TopicDto {
     private Long advertId;
     private String title;
     private String partner;
+    private Boolean unread;
 
     public static TopicDto fromView(Chat.View view) {
         TopicDto result = new TopicDto();
@@ -25,5 +26,9 @@ public class TopicDto {
 
     public String getPartner() {
         return partner;
+    }
+
+    public Boolean getUnread() {
+        return unread;
     }
 }
