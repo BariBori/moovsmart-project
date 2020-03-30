@@ -85,53 +85,11 @@ export class SearchComponent implements OnInit {
     console.log(this.cityNameList);
   }
 
-  validateMaxPrice(maxPrice: number){
-    if(this.maxPrice === null){
-      this.maxPrice = 99999999.0;
-    }
-  }
 
-  validateMinPrice(minPrice: number){
-    if(this.minPrice === null){
-      this.minPrice = 0.0;
-    }
-  }
-
-  validateMaxArea(maxArea: number){
-    if(this.maxPrice  === null){
-      this.maxPrice = 999999999;
-    }
-  }
-
-  validateMinArea(minArea: number){
-    if(this.minArea === null){
-      this.minArea = 0;
-    }
-  }
-
-  validateMaxRooms(maxRooms: number){
-    if(this.maxRooms === null){
-      this.maxRooms = 500;
-    }
-  }
-
-  validateMinRooms(minRooms: number){
-    if(this.minRooms === null){
-      this.maxRooms = 0;
-    }
-  }
 
 submit = () => {
     let filterPropertyAdvertModel = this.searchFrom.value;
-    /*filterPropertyAdvertModel.city = this.city;
-    filterPropertyAdvertModel.maxPrice = this.validateMaxPrice(this.maxPrice);
-    filterPropertyAdvertModel.minPrice = this.validateMinPrice(this.minPrice);
-    filterPropertyAdvertModel.maxArea = this.validateMaxPrice(this.maxArea);
-    filterPropertyAdvertModel.minArea = this.validateMinArea(this.minArea);
-    filterPropertyAdvertModel.maxRooms = this.validateMaxRooms(this.maxRooms);
-    filterPropertyAdvertModel.minRooms = this.validateMinRooms(this.minRooms);
-    filterPropertyAdvertModel.propertyType = this.propertyType;
-    filterPropertyAdvertModel.propertyConditionType = this.propertyConditionType;*/
+
 
     console.log(filterPropertyAdvertModel);
     /*this.propertyService.postFilteredPropertyAdverts(filterPropertyAdvertModel).subscribe(
