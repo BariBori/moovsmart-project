@@ -32,8 +32,8 @@ public class JPASpecificationsTest {
         PropertySpecification spec =
                 new PropertySpecification(new SearchCriteria("city", ":","Budapest"));
 
-        List<PropertyAdvert> results = advertRepository.findAll(spec);
-        assertEquals(4, results.size());
+       // List<PropertyAdvert> results = advertRepository.findAll(spec);
+      //  assertEquals(4, results.size());
 
     }
 }*/

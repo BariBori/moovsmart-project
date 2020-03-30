@@ -18,6 +18,7 @@ public class OpenPropertyTest {
     @BeforeEach
     public void startBrowser() {
         ClassLoader classLoader = OpenPropertyTest.class.getClassLoader();
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", classLoader.getResource("com/chromedriver.exe").getFile());
 //        System.setProperty("webdriver.chrome.driver", classLoader.getResource("linux/chromedriver").getFile());
   //      System.setProperty("webdriver.chrome.driver", classLoader.getResource("mac/chromedriver").getFile());
@@ -39,6 +40,7 @@ public class OpenPropertyTest {
         }
 
         driver.findElements(By.cssSelector("body > app-root > div > app-property-list > div > div > mat-table > mat-row:nth-child(2)"));
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         try {
             Thread.sleep(2000);
