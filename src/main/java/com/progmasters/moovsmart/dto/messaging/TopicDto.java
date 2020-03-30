@@ -13,6 +13,7 @@ public class TopicDto {
         result.advertId = view.getConversation().getAdvert().getId();
         result.title = view.getTitle();
         result.partner = view.getPartner().getUserName();
+        result.unread=view.hasUnread();
         return result;
     }
 
