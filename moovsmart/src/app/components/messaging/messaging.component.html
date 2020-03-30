@@ -17,8 +17,7 @@
 
                     <div class="inbox_chat">
 
-                        <div class="chat_list" *ngFor='let topic of topics'
-                            (click)='setActiveTopic(topic.advertId, topic.title)'
+                        <div class="chat_list" *ngFor='let topic of topics' (click)='setActiveTopic(topic)'
                             [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
