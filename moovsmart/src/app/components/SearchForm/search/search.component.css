@@ -1,9 +1,5 @@
 /* Style the form - display items horizontally */
-/*.form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}*/
+
 
 .form-inline .form-group{
   display:inline-block;
@@ -13,6 +9,7 @@
 /* Add some margins for each label */
 .form-inline label {
   margin: 5px 10px 5px 0;
+  font-weight: bold;
 }
 
 /* Style the input fields */
@@ -24,39 +21,15 @@
   border: 1px solid #ddd;
 }
 
-/* Style the submit button */
-.form-inline button {
-  padding: 10px 20px;
-  background-color: dodgerblue;
-  border: 1px solid #ddd;
-  color: white;
+.search-label{
+  font-weight: bold;
 }
 
-.form-inline button:hover {
-  background-color: royalblue;
-}
-
-/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 
 
-.searchbox {
-  clear: both;
-  position: relative;
-  z-index: 249;
-  height: 58px;
-  padding: 8px 13px;
-  border-top: 2px solid #3c3c3c;
-  background-color: lightgray;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 38px;
-}
 
 .min-max-field{
-  width: 60px;
+  width: 70px;
+  font-size: 12px;
 }
 
-.min-max-wrapper{
-  background-color: white;
-}

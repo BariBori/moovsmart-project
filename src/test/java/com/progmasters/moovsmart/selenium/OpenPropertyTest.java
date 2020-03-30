@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +18,12 @@ public class OpenPropertyTest {
     @BeforeEach
     public void startBrowser() {
         ClassLoader classLoader = OpenPropertyTest.class.getClassLoader();
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", classLoader.getResource("com/chromedriver.exe").getFile());
+//        System.setProperty("webdriver.chrome.driver", classLoader.getResource("linux/chromedriver").getFile());
+  //      System.setProperty("webdriver.chrome.driver", classLoader.getResource("mac/chromedriver").getFile());
+//        System.setProperty("webdriver.chrome.driver", "mac/chromedriver");
+
         driver = new ChromeDriver();
     }
 

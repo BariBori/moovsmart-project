@@ -10,7 +10,7 @@ public class FilterPropertyAdvert {
     private Double minPrice;
     private Double maxPrice;
     private Integer minArea;
-    private Integer mayArea;
+    private Integer maxArea;
     private Integer minRooms;
     private Integer maxRooms;
     private AdvertStatusType advertStatusType;
@@ -18,14 +18,14 @@ public class FilterPropertyAdvert {
     private PropertyConditionType propertyConditionType;
 
 
-    public FilterPropertyAdvert(String city, Double minPrice, Double maxPrice, Integer minArea, Integer mayArea,
+    public FilterPropertyAdvert(String city, Double minPrice, Double maxPrice, Integer minArea, Integer maxArea,
                                 Integer minRooms, Integer maxRooms, AdvertStatusType advertStatusType, PropertyType propertyType,
                                 PropertyConditionType propertyConditionType) {
         this.city = city;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.minArea = minArea;
-        this.mayArea = mayArea;
+        this.maxArea = maxArea;
         this.minRooms = minRooms;
         this.maxRooms = maxRooms;
         this.advertStatusType = AdvertStatusType.FORAPPROVAL;
@@ -33,9 +33,7 @@ public class FilterPropertyAdvert {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public Integer getMayArea() {
-        return mayArea;
-    }
+
 
     public AdvertStatusType getAdvertStatusType() {
         return advertStatusType;
@@ -78,11 +76,11 @@ public class FilterPropertyAdvert {
     }
 
     public Integer getMaxArea() {
-        return mayArea;
+        return maxArea;
     }
 
-    public void setMaxArea(Integer mayArea) {
-        this.mayArea = mayArea;
+    public void setMaxArea(Integer maxArea) {
+        this.maxArea = maxArea;
     }
 
     public Integer getMinRooms() {
