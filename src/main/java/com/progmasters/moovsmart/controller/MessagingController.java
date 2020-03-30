@@ -41,7 +41,7 @@ public class MessagingController {
                         userDetails.get(),
                         message,
                         advertId)))
-                : new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/my-topics")
@@ -74,7 +74,7 @@ public class MessagingController {
         return service.renderUserViewForChat(userDetails.get(), advertId)
                 .map(view ->
                         ResponseEntity.ok(ChatDto.fromTopicView(view)))
-                .orElse(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 }
