@@ -48,14 +48,16 @@ public class MessagingService {
     }
 
     public Message saveDirectMessage(UserIdentifier sender, String message, Long advertId) {
-        return chatRepository.getByUserAndAdvert(userRepository.get(sender), advertId)
-                .map(topic -> messageRepository.save(
-                        new Message(
-                                userRepository.get(sender),
-                                topic,
-                                message)))
+        User user = userRepository.get(sender);
+        Chat chat = chatRepository.getByUserAndAdvert(user, advertId)
                 .orElseThrow(() ->
                         new EntityNotFoundException("that topic doesn't exist"));
+        Chat.View partnerView = viewRepository.findOneByPartnerAndConversation(user, chat)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("that topic doesn't exist"));
+
+        viewRepository.save(partnerView.unRead());
+        return messageRepository.save(new Message(user, chat, message));
     }
 
     public List<TopicDto> getTopicsByUser(UserIdentifier user) {
@@ -71,7 +73,7 @@ public class MessagingService {
     }
 
     public void deleteChatView(UserIdentifier user, Long advertId) {
-        viewRepository.findByUserAndConversation_Advert_Id(userRepository.get(user), advertId)
+        viewRepository.findOneByUserAndConversation_Advert_Id(userRepository.get(user), advertId)
                 .ifPresent(view -> {
                     viewRepository.delete(view);
                     if (viewRepository.findAllByConversation(view.getConversation()).isEmpty()) {
@@ -85,8 +87,10 @@ public class MessagingService {
         return chatRepository.getByUserAndAdvert(user, advertId)
                 .map(chat ->
                         viewRepository
-                                .findByUserAndConversation(user, chat)
-                                .orElseGet(() -> viewRepository.save(new Chat.View(user, chat)))
+                                .findOneByUserAndConversation(user, chat)
+                                .orElseGet(() ->
+                                        viewRepository.save(new Chat.View(user, chat))
+                                )
                 );
     }
 

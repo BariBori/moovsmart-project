@@ -13,7 +13,9 @@ public interface ChatViewRepository extends JpaRepository<Chat.View, Long> {
 
     List<Chat.View> findAllByConversation(Chat topic);
 
-    Optional<Chat.View> findByUserAndConversation(User user, Chat topic);
+    Optional<Chat.View> findOneByUserAndConversation(User user, Chat topic);
 
-    Optional<Chat.View> findByUserAndConversation_Advert_Id(User user, Long topicId);
+    Optional<Chat.View> findOneByPartnerAndConversation(User partner, Chat topic);
+
+    Optional<Chat.View> findOneByUserAndConversation_Advert_Id(User user, Long topicId);
 }

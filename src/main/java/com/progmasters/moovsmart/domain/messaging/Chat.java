@@ -32,7 +32,7 @@ public class Chat extends Conversation {
             this.partner = user.getId().equals(chat.enquirer.getId())
                     ? chat.advert.getUser()
                     : chat.enquirer;
-            this.unread = false;
+            this.unread = true;
         }
 
         @Override
@@ -52,6 +52,11 @@ public class Chat extends Conversation {
 
         public Boolean hasUnread() {
             return unread;
+        }
+
+        public View unRead() {
+            this.unread = true;
+            return this;
         }
     }
 
