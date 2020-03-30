@@ -76,19 +76,10 @@ public class PropertyAdvertService {
         return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
-    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filterPropertyAdvert) {
-        String city = filterPropertyAdvert.getCity();
-        Double minPrice = filterPropertyAdvert.getMinPrice();
-        Double maxPrice = filterPropertyAdvert.getMaxPrice();
-        Integer minArea = filterPropertyAdvert.getMinArea();
-        Integer maxArea = filterPropertyAdvert.getMaxArea();
-        Integer minRooms = filterPropertyAdvert.getMinRooms();
-        Integer maxRooms = filterPropertyAdvert.getMaxRooms();
-        AdvertStatusType advertStatusType = filterPropertyAdvert.getAdvertStatusType();
-        PropertyType propertyType = filterPropertyAdvert.getPropertyType();
-        PropertyConditionType propertyConditionType = filterPropertyAdvert.getPropertyConditionType();
-        List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(city, minPrice, maxPrice, minArea, maxArea,
-                minRooms, maxRooms, propertyType, propertyConditionType, advertStatusType);
+    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filter) {
+        List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(filter.getCity(), filter.getMinPrice(), filter.getMaxPrice(),
+                filter.getMinArea(), filter.getMaxArea(), filter.getMinRooms(), filter.getMaxRooms(), filter.getPropertyType(), filter.getPropertyConditionType(),
+                filter.getAdvertStatusType());
         List<PropertyAdvertListItem> filteredList = new ArrayList<>();
         for (PropertyAdvert filteredPropertyAdvert : filteredPropertyAdverts) {
             filteredList.add(new PropertyAdvertListItem(filteredPropertyAdvert));
