@@ -86,9 +86,7 @@ public class MessagingService {
                 .map(chat ->
                         viewRepository
                                 .findByUserAndConversation(user, chat)
-                                .orElseGet(() ->
-                                        viewRepository.save(new Chat.View(user, chat))
-                                )
+                                .orElseGet(() -> viewRepository.save(new Chat.View(user, chat)))
                 );
     }
 
