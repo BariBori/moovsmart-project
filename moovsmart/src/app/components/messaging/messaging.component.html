@@ -18,15 +18,21 @@
                     <div class="inbox_chat">
                         <div class="chat_list" *ngFor='let topic of topics'
                             [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
-                            <div class="chat_people">
+                            <div class="chat_people" (mouseenter)='mouseOverId=topic.advertId'
+                                (mouseleave)='mouseOverId=null' (click)='setActiveTopic(topic)'>
                                 <div class="chat_ib">
-                                    <h5 [matBadge]='topic.unread' matBadgeOverlap=false (click)='setActiveTopic(topic)'>
-                                        <button mat-mini-fab (click)='unsubscribe(topic)'>
+                                    <h5 [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
+                                        matBadgeColor='basic'>
+
+                                        <button *ngIf='mouseOverId===topic.advertId' mat-mini-fab color='basic'
+                                            (click)='unsubscribe(topic)'>
                                             <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                         </button>
-                                        {{topic.title}} {{
-                                        topic.partner
-                                }}</h5>
+                                        {{topic.title}}
+                                        <span>
+                                            {{ topic.partner }}
+                                        </span>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
