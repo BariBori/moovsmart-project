@@ -16,12 +16,12 @@
                     </div>
 
                     <div class="inbox_chat">
-                        <div class="chat_list" *ngFor='let topic of topics' (click)='setActiveTopic(topic)'
+                        <div class="chat_list" *ngFor='let topic of topics'
                             [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
-                                    <h5 [matBadge]='topic.unread' matBadgeOverlap=false>
-                                        <button mat-mini-fab>
+                                    <h5 [matBadge]='topic.unread' matBadgeOverlap=false (click)='setActiveTopic(topic)'>
+                                        <button mat-mini-fab (click)='unsubscribe(topic)'>
                                             <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                         </button>
                                         {{topic.title}} {{
