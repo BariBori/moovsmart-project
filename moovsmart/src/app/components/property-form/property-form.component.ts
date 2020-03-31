@@ -379,6 +379,10 @@ export class PropertyFormComponent implements OnInit {
       // Remove deleted item for responses
       this.responses.splice(index, 1);
     });
+
+    //remove deleted item from own server database table
+    this.listOfImages.splice(index, 1);
+    console.log(this.listOfImages);
   };
 
   fileOverBase(e: any): void {
@@ -396,10 +400,6 @@ export class PropertyFormComponent implements OnInit {
 
   }
 
-
-  deleteImgFromArray(array: any, i: number) {
-    delete array[i];
-  }
 
 
   //--------CLOUDINARY END-------------

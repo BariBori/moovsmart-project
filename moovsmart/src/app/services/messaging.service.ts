@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { MessageModel } from '../models/messaging/MessageModel';
 import { TopicModel } from '../models/messaging/TopicModel';
 import { ChatModel } from '../models/messaging/ChatModel';
@@ -15,6 +15,7 @@ export class MessagingService {
   public beginDirectMessaging: (advertId: number) => Observable<number>;
   public sendDirectMessage: (message: string, advertId: number) => Observable<MessageModel>;
   public fetchConversation: (advertId: number) => Observable<ChatModel>;
+  public unsubscribe: (advertId: number) => Observable<void>;
   public fetchMyTopics: Observable<TopicModel[]>;
 
   constructor(
@@ -28,9 +29,10 @@ export class MessagingService {
       this.http.put<MessageModel>(this.BASE_URL + `/topic/${advertId}`, message)
         .pipe(tap(console.log, console.error));
 
-    this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`)
-      .pipe(tap(console.log, console.error));
+    this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`);
 
     this.fetchMyTopics = this.http.get<TopicModel[]>(this.BASE_URL + '/my-topics');
+
+    this.unsubscribe = (advertId: number) => this.http.post<void>(this.BASE_URL + `/unsubscribe/${advertId}`, '');
   }
 }

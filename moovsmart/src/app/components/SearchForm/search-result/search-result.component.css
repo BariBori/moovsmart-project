@@ -1,3 +1,5 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 .list-img {
   width: 100px;
   height: 70px;
@@ -32,5 +34,5 @@
 
 .mat-table {
   overflow: auto;
-  max-height: 500px;
+  max-height: 1000px;
 }

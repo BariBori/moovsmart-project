@@ -91,6 +91,13 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.listPropertyAdverts(), HttpStatus.OK);
     }
 
+    //user's property list in profil
+    @GetMapping("/myProperties/{userName}")
+    public ResponseEntity<List<PropertyAdvertListItem>> getMyProperties(@PathVariable String userName){
+        return new ResponseEntity<>(propertyAdvertService.listMyProperties(userName), HttpStatus.OK);
+    }
+
+    //city list for complex search
     @GetMapping("/cities")
     public ResponseEntity<List<PropertyCity>> getCities() {
         return new ResponseEntity<>(propertyAdvertService.listCities(), HttpStatus.OK);

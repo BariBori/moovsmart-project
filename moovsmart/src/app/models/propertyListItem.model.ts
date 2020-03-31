@@ -1,3 +1,5 @@
+import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
+
 export interface PropertyListItemModel {
   id: number;
   listOfImages: Array<string>;
@@ -8,4 +10,5 @@ export interface PropertyListItemModel {
   price: number;
   priceForSquareMeter: number;
   address: string;
+  advertStatus: AdvertStatusTypeOptionItemModel;
 }

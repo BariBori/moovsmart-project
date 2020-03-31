@@ -32,6 +32,11 @@ export class PropertyService {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
   }
 
+  //user's property list in profil
+  getMyProperties(userName: String): Observable<Array<PropertyListItemModel>>{
+    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL+"/myProperties/" + userName);
+  }
+
   getCityList(): Observable<Array<PropertyCityModel>>{
     return this.httpClient.get<Array<PropertyCityModel>>(BASE_URL+"/cities")
   }

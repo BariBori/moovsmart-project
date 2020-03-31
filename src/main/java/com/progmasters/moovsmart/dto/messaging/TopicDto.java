@@ -6,12 +6,14 @@ public class TopicDto {
     private Long advertId;
     private String title;
     private String partner;
+    private Integer unread;
 
     public static TopicDto fromView(Chat.View view) {
         TopicDto result = new TopicDto();
         result.advertId = view.getConversation().getAdvert().getId();
         result.title = view.getTitle();
         result.partner = view.getPartner().getUserName();
+        result.unread=view.getUnread();
         return result;
     }
 
@@ -25,5 +27,9 @@ public class TopicDto {
 
     public String getPartner() {
         return partner;
+    }
+
+    public Integer getUnread() {
+        return unread;
     }
 }
