@@ -8,11 +8,13 @@ import {FilterPipe} from "../../filter.pipe";
 import {PropertyRoutingModule} from "./property-routing.module";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {SharingSearchService} from "../../services/sharing-search.service";
 
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, PropertyRoutingModule, MatTableModule, MatPaginatorModule],
   declarations: [SearchComponent, SearchResultComponent, PropertyListSearchComponent, FilterPipe],
+  providers: [SharingSearchService]
 
 })
 

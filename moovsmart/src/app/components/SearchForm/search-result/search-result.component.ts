@@ -39,11 +39,14 @@ export class SearchResultComponent implements OnInit {
           console.log(filteredProperties);
           this.propertyService.postFilteredPropertyAdverts(filteredProperties).subscribe(
             propertyListItems => {
+              //TODO itt már nem látja, hogy mi érkezik
+              console.log(propertyListItems);
               this.dataSource = new MatTableDataSource(propertyListItems);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
               console.log(this.dataSource);
-            });
+           }
+            );
         }
     );
   }

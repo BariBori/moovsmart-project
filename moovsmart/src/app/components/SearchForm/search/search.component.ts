@@ -90,8 +90,7 @@ export class SearchComponent implements OnInit {
 
 
 
-submit (){
-    let filterPropertyAdvertModel = this.searchFrom.value;
+submit (filterPropertyAdvertModel){
 
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
 

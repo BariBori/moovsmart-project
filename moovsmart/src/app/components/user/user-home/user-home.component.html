@@ -14,7 +14,7 @@
 
       <ul class="list-unstyled components">
         <li><a routerLink="./user-details" routerLinkActive="active"><fa-icon [icon]="faUser" class="icon"></fa-icon> Adataim</a></li>
-        <li><a routerLink="/messaging" routerLinkActive="active"><fa-icon [icon]="faEnvelope" class="icon"></fa-icon> Üzeneteim</a></li>
+        <li><a routerLink="/messaging" routerLinkActive="active"><fa-icon [icon]="faEnvelope" class="icon"></fa-icon> Üzeneteim <fa-icon *ngIf="" [icon]="faCircle" class="icon-message"></fa-icon></a></li>
 
         <li><a routerLink="./user-property" routerLinkActive="active"><fa-icon [icon]="faCity" class="icon"></fa-icon> Eladó ingatlanjaim</a></li>
         <li><a routerLink="./user-details" routerLinkActive="inactive">Kedvenc ingatlanjaim</a></li>

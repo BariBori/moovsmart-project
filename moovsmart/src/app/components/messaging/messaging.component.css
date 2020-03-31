@@ -93,7 +93,8 @@ img{ max-width:100%;}
 }
 
  .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
+  /*background: #05728f none repeat scroll 0 0;*/
+  background: #45b85f none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;
@@ -132,4 +133,10 @@ img{ max-width:100%;}
 .msg_history {
   height: 516px;
   overflow-y: auto;
+}
+
+.icon{
+  color: #28a745;
+  margin: 5px;
+
 }

@@ -4,7 +4,7 @@ import { MessagingService } from 'src/app/services/messaging.service';
 import { MessageModel } from 'src/app/models/messaging/MessageModel';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import {faCircle, faPaperPlane} from '@fortawesome/free-solid-svg-icons';
 import { ChatModel } from 'src/app/models/messaging/ChatModel';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
 import { tap, map } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { tap, map } from 'rxjs/operators';
 export class MessagingComponent implements OnInit {
 
   faPaperPlane = faPaperPlane;
+  faCircle = faCircle;
 
   currentUserName: string;
   message: FormControl;

@@ -9,7 +9,7 @@
               id="city"
               name="city" ng-model="data.singleSelect">
         <option value=null>--Mindegy--</option>
-        <option *ngFor="let city of city " value="{{city}}">
+        <option *ngFor="let city of city " value="{{city.city}}">
           {{city.city}}
         </option>
       </select>
@@ -115,7 +115,7 @@
 
 
     <div class="form-group">
-      <button class="btn btn-success" (click)="submit()">Keresés</button>
+      <button class="btn btn-success" (click)="submit(searchFrom.value)">Keresés</button>
     </div>
   </form>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
-import { faCity, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCity, faEnvelope, faUser, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 
@@ -15,6 +15,7 @@ export class UserHomeComponent implements OnInit {
   faCity = faCity;
   faEnvelope = faEnvelope;
   faUser = faUser;
+  faCircle = faCircle;
 
   constructor(
     private service: UserService,
