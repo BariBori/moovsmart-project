@@ -15,6 +15,7 @@ export class MessagingService {
   public beginDirectMessaging: (advertId: number) => Observable<number>;
   public sendDirectMessage: (message: string, advertId: number) => Observable<MessageModel>;
   public fetchConversation: (advertId: number) => Observable<ChatModel>;
+  public unsubscribe: (advertId: number) => Observable<void>;
   public fetchMyTopics: Observable<TopicModel[]>;
 
   constructor(
@@ -32,5 +33,6 @@ export class MessagingService {
 
     this.fetchMyTopics = this.http.get<TopicModel[]>(this.BASE_URL + '/my-topics');
 
+    this.unsubscribe = (advertId: number) => this.http.post<void>(this.BASE_URL + `/unsubscribe/${advertId}`, '');
   }
 }
