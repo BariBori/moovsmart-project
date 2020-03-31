@@ -42,9 +42,9 @@ export class SearchComponent implements OnInit {
               private sharingSearchService: SharingSearchService) { }
 
   searchFrom = this.formBuilder.group({
-    city: [''],
-    propertyType: [''],
-    propertyConditionType: [''],
+    city: [],
+    propertyType: [],
+    propertyConditionType: [],
     minRooms: [null, Validators.required],
     maxRooms: [null, Validators.required],
     minPrice: [null, Validators.required],
