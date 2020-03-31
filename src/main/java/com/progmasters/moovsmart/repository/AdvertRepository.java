@@ -26,12 +26,12 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
     @Query("SELECT p FROM PropertyAdvert p " +
             "WHERE p.city LIKE CONCAT('%',:city,'%') " +
-            "AND p.price >:minPrice " +
-            "AND p.price <:maxPrice " +
-            "AND p.area >:minArea " +
-            "AND p.area <:maxArea " +
-            "AND p.numberOfRooms >:minRooms " +
-            "AND p.numberOfRooms <:maxRooms " +
+            "AND p.price >=:minPrice " +
+            "AND p.price <=:maxPrice " +
+            "AND p.area >=:minArea " +
+            "AND p.area <=:maxArea " +
+            "AND p.numberOfRooms >=:minRooms " +
+            "AND p.numberOfRooms <=:maxRooms " +
             "AND p.propertyType LIKE CASE WHEN :propertyType IS NOT NULL THEN :propertyType ELSE '%' END " +
             "AND p.propertyConditionType LIKE CASE WHEN :propertyConditionType IS NOT NULL THEN :propertyConditionType ELSE '%' END " +
             "AND p.advertStatus = :advertStatusType ")
