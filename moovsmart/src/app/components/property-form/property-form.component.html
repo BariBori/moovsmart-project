@@ -2,7 +2,7 @@
   <h2 *ngIf="isNotExist()">Új ingatlan feltöltése</h2>
   <h2 *ngIf="isIdExist()">Ingatlan adatlap módosítása</h2>
   <hr/>
-  <form (ngSubmit)="submit()" [formGroup]="propertyForm">
+  <form [formGroup]="propertyForm">
     <div class="form-group">
       <label class="property-form-label">Cím megadása</label>
       <input #search (keydown.enter)="$event.preventDefault()" (keypress)="clearAddressDetails()"
@@ -175,7 +175,7 @@
     <br/>
     <br/>
     <br/>
-    <button class="btn btn-success my-buttons" *ngIf="isNotExist()">Hirdetés mentése</button>
+    <button class="btn btn-success my-buttons" *ngIf="isNotExist()" (click)="submit()">Hirdetés mentése</button>
     <br/>
     <br/>
     <button class="btn btn-success my-buttons" *ngIf="isIdExist()" (click)="onSubmit()">Módosítások mentése</button>

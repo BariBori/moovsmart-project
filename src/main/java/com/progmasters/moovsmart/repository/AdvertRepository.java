@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
@@ -45,6 +46,8 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
 
 
-    //---------SEARCH------------
-    List<PropertyAdvert> findAll();
+    //user's property list in profil
+    @Query("SELECT p FROM PropertyAdvert p WHERE p.userName = :userName")
+    Stream<PropertyAdvert> findMyProperties(String userName);
+
 }

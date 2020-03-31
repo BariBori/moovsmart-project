@@ -1,3 +1,5 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 .list-img {
   width: 100px;
   height: 70px;

@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.dto;
 
+import com.progmasters.moovsmart.domain.AdvertStatusType;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class PropertyAdvertListItem {
 
     private String address;
 
+    private AdvertStatusTypeOption advertStatus;
+
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.title = propertyAdvert.getTitle();
@@ -33,7 +36,8 @@ public class PropertyAdvertListItem {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.area = propertyAdvert.getArea();
         this.address = propertyAdvert.getAddress();
-        this.priceForSquareMeter = Math.round(price *1000000 / area);
+        this.priceForSquareMeter = Math.round(price * 1000000 / area);
+        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
     }
 
     public PropertyAdvertListItem() {
@@ -81,5 +85,9 @@ public class PropertyAdvertListItem {
 
     public Integer getAdvertId() {
         return advertId;
+    }
+
+    public AdvertStatusTypeOption getAdvertStatus() {
+        return advertStatus;
     }
 }

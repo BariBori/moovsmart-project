@@ -53,7 +53,13 @@ public class PropertyAdvertService {
                 .map(PropertyAdvertListItem::new).collect(Collectors.toList());
     }
 
+    //user's property list in profil
+    public List<PropertyAdvertListItem> listMyProperties(String userName){
+        return advertRepository.findMyProperties(userName)
+                .map(PropertyAdvertListItem::new).collect(Collectors.toList());
+    }
 
+    //city list for complex search
     public List<PropertyCity> listCities() {
         return advertRepository.findAllCities().stream()
                 .map(PropertyCity::new).collect(Collectors.toList());

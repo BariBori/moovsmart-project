@@ -17,14 +17,18 @@ import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {CdkTableModule} from "@angular/cdk/table";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgxPopper} from "angular-popper";
 
 
 @NgModule({
   imports: [
+    PropertyRoutingModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    PropertyRoutingModule,
+
+
     CdkTableModule,
     MatFormFieldModule,
     MatButtonModule,
