@@ -16,8 +16,6 @@ export class MessagingService {
   public sendDirectMessage: (message: string, advertId: number) => Observable<MessageModel>;
   public fetchConversation: (advertId: number) => Observable<ChatModel>;
   public fetchMyTopics: Observable<TopicModel[]>;
-  public getUnread: Observable<number>;
-  private sumUnread = (topics: TopicModel[]): number => topics.map(topic => topic.unread).reduce((total, unread) => total + unread, 0);
 
   constructor(
     private http: HttpClient,
@@ -33,6 +31,6 @@ export class MessagingService {
     this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`);
 
     this.fetchMyTopics = this.http.get<TopicModel[]>(this.BASE_URL + '/my-topics');
-    this.getUnread = this.fetchMyTopics.pipe(map(this.sumUnread));
+
   }
 }
