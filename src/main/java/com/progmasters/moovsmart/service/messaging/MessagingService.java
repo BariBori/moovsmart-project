@@ -67,7 +67,9 @@ public class MessagingService {
     }
 
     public void enquire(UserIdentifier enquirer, Long advertId) {
-        if (renderUserViewForChat(enquirer, advertId).isEmpty()) {
+        if (renderUserViewForChat(enquirer, advertId)
+                .or(() -> reopenChat(enquirer, advertId))
+                .isEmpty()) {
             initiateChat(enquirer, advertId);
         }
     }
@@ -77,21 +79,25 @@ public class MessagingService {
                 .ifPresent(view -> {
                     viewRepository.delete(view);
                     if (viewRepository.findAllByConversation(view.getConversation()).isEmpty()) {
+                        messageRepository.deleteAllByConversation(view.getConversation());
                         chatRepository.delete(view.getConversation());
                     }
                 });
     }
 
+    private Optional<Chat.View> reopenChat(UserIdentifier usr, Long advertId) {
+        User user = userRepository.get(usr);
+        return chatRepository.getByUserAndAdvert(user, advertId)
+                .map(chat -> viewRepository.save(new Chat.View(user, chat)));
+    }
+
     public Optional<Chat.View> renderUserViewForChat(UserIdentifier usr, Long advertId) {
         User user = userRepository.get(usr);
         return chatRepository.getByUserAndAdvert(user, advertId)
-                .map(chat ->
+                .flatMap(chat ->
                         viewRepository
                                 .findOneByUserAndConversation(user, chat)
                                 .map(view -> viewRepository.save(view.readAll()))
-                                .orElseGet(() ->
-                                        viewRepository.save(new Chat.View(user, chat))
-                                )
                 );
     }
 
