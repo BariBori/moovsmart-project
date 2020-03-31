@@ -4,13 +4,10 @@ package com.progmasters.moovsmart.domain.messaging;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.user.User;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Table(uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"advert", "enquirer"})})
+        {@UniqueConstraint(columnNames = {"advert_id", "enquirer_id"})})
 @Entity
 public class Chat extends Conversation {
     @OneToOne
