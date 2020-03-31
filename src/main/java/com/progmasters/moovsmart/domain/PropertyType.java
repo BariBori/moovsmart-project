@@ -10,7 +10,7 @@ public enum PropertyType {
     OFFICE("Iroda"),
     PREMISES("Üzlethelyiség");
 
-    private String displayName;
+    public final String displayName;
 
     PropertyType(String displayName) {
         this.displayName = displayName;
