@@ -20,7 +20,7 @@
                             [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
                             <div class="chat_people">
                                 <div class="chat_ib">
-                                    <h5 matBadge="4" matBadgeOverlap=false>
+                                    <h5 [matBadge]='topic.unread' matBadgeOverlap=false>
                                         <button mat-mini-fab>
                                             <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                         </button>
