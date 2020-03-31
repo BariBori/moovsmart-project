@@ -43,13 +43,25 @@ export class MessagingComponent implements OnInit {
       advertId: null,
       chat: null
     };
-    this.setActiveTopic = (topic: TopicModel) => void this.msgservice.fetchConversation(topic.advertId).subscribe(
-      conversation => {
-        this.activeTopic.advertId = topic.advertId;
-        this.activeTopic.chat = conversation;
-      },
-      console.error
-    );
+    this.setActiveTopic = (topic: TopicModel) => void this.msgservice.fetchConversation(topic.advertId)
+      .pipe(tap(
+        () => this.topics = this.topics
+          .map(t => t.advertId === topic.advertId
+            ? {
+              advertId: t.advertId,
+              title: t.title,
+              partner: t.partner,
+              unread: 0
+            }
+            : t))
+      )
+      .subscribe(
+        conversation => {
+          this.activeTopic.advertId = topic.advertId;
+          this.activeTopic.chat = conversation;
+        },
+        console.error
+      );
   }
   send() {
     const id = this.activeTopic.advertId;
