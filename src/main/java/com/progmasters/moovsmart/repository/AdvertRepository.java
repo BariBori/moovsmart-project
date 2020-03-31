@@ -25,8 +25,16 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     @Query("SELECT DISTINCT p.city FROM PropertyAdvert p ORDER BY p.city")
     List<String> findAllCities();
 
-    @Query("SELECT p FROM PropertyAdvert p WHERE p.city = :city AND p.price >:minPrice AND p.price <:maxPrice AND p.area >:minArea AND p.area <:maxArea AND " +
-            "p.numberOfRooms >:minRooms AND p.numberOfRooms <:maxRooms AND p.propertyType = :propertyType AND p.propertyConditionType = :propertyConditionType AND p.advertStatus = :advertStatusType")
+    @Query("SELECT p FROM PropertyAdvert p WHERE p.city LIKE CONCAT('%',:city,'%') " +
+            "AND p.price >:minPrice " +
+            "AND p.price <:maxPrice " +
+            "AND p.area >:minArea " +
+            "AND p.area <:maxArea " +
+            "AND p.numberOfRooms >:minRooms " +
+            "AND p.numberOfRooms <:maxRooms " +
+            "AND p.propertyType = :propertyType " +
+            "AND p.propertyConditionType = :propertyConditionType " +
+            "AND p.advertStatus = :advertStatusType")
     List<PropertyAdvert> findFilteredPropertyAdverts(@Param("city") String city, @Param("minPrice") Double minPrice,
                                                      @Param("maxPrice") Double maxPrice,
                                                      @Param("minArea") Integer minArea, @Param("maxArea") Integer maxArea,

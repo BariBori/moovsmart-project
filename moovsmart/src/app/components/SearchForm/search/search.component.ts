@@ -7,6 +7,8 @@ import {FormInitDataModel} from "../../../models/formInitDataModel";
 import {StringBuilder} from "./string-builder";
 import {validate} from "codelyzer/walkerFactory/walkerFn";
 import {areaValidator, priceValidator, roomValidator} from "./validator.directive";
+import {MatTableDataSource} from "@angular/material/table";
+import {SharingSearchService} from "../../../services/sharing-search.service";
 
 
 
@@ -36,7 +38,8 @@ export class SearchComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService) { }
+              private propertyService: PropertyService,
+              private sharingSearchService: SharingSearchService) { }
 
   searchFrom = this.formBuilder.group({
     city: [''],
@@ -87,14 +90,15 @@ export class SearchComponent implements OnInit {
 
 
 
-submit = () => {
+submit (){
     let filterPropertyAdvertModel = this.searchFrom.value;
 
+    this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
 
     console.log(filterPropertyAdvertModel);
-    /*this.propertyService.postFilteredPropertyAdverts(filterPropertyAdvertModel).subscribe(
-      () => console.log(filterPropertyAdvertModel)
-    )*/
+
+
+
 
 }
 
