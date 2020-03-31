@@ -1,7 +1,10 @@
-.list-img{
+.list-img {
   width: 100px;
-  height: auto;
+  height: 70px;
+  margin: 5px;
+  object-fit: cover;
 }
+
 
 .click{
   cursor: pointer;

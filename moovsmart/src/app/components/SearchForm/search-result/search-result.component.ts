@@ -5,6 +5,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Router} from "@angular/router";
+import {SharingSearchService} from "../../../services/sharing-search.service";
 
 
 @Component({
@@ -19,6 +20,7 @@ export class SearchResultComponent implements OnInit {
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
 
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -26,17 +28,24 @@ export class SearchResultComponent implements OnInit {
   constructor(
               //private ref: ChangeDetectorRef,
               private propertyService: PropertyService,
-              private router: Router
+              private router: Router,
+              private sharingSearchService: SharingSearchService
   ) { }
 
   ngOnInit(): void {
-    this.propertyService.getPropertyList().subscribe(
-      propertyListItems => {
-        this.dataSource = new MatTableDataSource(propertyListItems);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSource);
-      });
+    this.sharingSearchService.filteredProperties.subscribe(
+
+        filteredProperties =>{
+          console.log(filteredProperties);
+          this.propertyService.postFilteredPropertyAdverts(filteredProperties).subscribe(
+            propertyListItems => {
+              this.dataSource = new MatTableDataSource(propertyListItems);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              console.log(this.dataSource);
+            });
+        }
+    );
   }
 
   goToDetails(id: number) {

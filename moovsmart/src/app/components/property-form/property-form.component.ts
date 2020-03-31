@@ -149,6 +149,7 @@ export class PropertyFormComponent implements OnInit {
           name: 'X-Requested-With',
           value: 'XMLHttpRequest'
         }
+
       ]
     };
 
@@ -356,16 +357,24 @@ export class PropertyFormComponent implements OnInit {
   // Delete an uploaded image
   // Requires setting "Return delete token" to "Yes" in your upload preset configuration
   // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
-  deleteImage = function (data: any, index: number) {
+  deleteImage= function (data: any, index: number){
     const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
-    const headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
-    const options = { headers: headers };
+    const headers = new Headers({
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Credentials':'true',
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest' });
+
+
+    //const options = { headers: headers };
     const body = {
       token: data.delete_token
     };
     console.log(data);
     console.log(data.delete_token);
-    this.http.post(url, body, options).subscribe(response => {
+    this.httpClient.post(url, body, headers).subscribe(response => {
       console.log(`Deleted image - ${data.public_id} ${response.result}`);
       // Remove deleted item for responses
       this.responses.splice(index, 1);
