@@ -4,13 +4,10 @@ package com.progmasters.moovsmart.domain.messaging;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.user.User;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Table(uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"advert", "enquirer"})})
+        {@UniqueConstraint(columnNames = {"advert_id", "enquirer_id"})})
 @Entity
 public class Chat extends Conversation {
     @OneToOne
@@ -22,6 +19,7 @@ public class Chat extends Conversation {
     public static class View extends com.progmasters.moovsmart.domain.messaging.View<Chat> {
         @OneToOne
         private User partner;
+        private Integer unread;
 
         public View() {
         }
@@ -31,6 +29,7 @@ public class Chat extends Conversation {
             this.partner = user.getId().equals(chat.enquirer.getId())
                     ? chat.advert.getUser()
                     : chat.enquirer;
+            this.unread = 0;
         }
 
         @Override
@@ -46,6 +45,21 @@ public class Chat extends Conversation {
             return this.conversation
                     .getAdvert()
                     .getTitle();
+        }
+
+
+        public View addUnread() {
+            this.unread += 1;
+            return this;
+        }
+
+        public View readAll() {
+            this.unread = 0;
+            return this;
+        }
+
+        public Integer getUnread() {
+            return unread;
         }
     }
 
