@@ -88,6 +88,7 @@ public class MessagingService {
                 .map(chat ->
                         viewRepository
                                 .findOneByUserAndConversation(user, chat)
+                                .map(view -> viewRepository.save(view.readAll()))
                                 .orElseGet(() ->
                                         viewRepository.save(new Chat.View(user, chat))
                                 )
