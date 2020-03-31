@@ -1,6 +1,6 @@
 export interface TopicModel {
     advertId: number;
     title: string;
-    parnter: string;
+    partner: string;
     unread: boolean;
 }
