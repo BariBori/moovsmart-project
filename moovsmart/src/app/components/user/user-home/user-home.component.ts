@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
-import { faCity, faEnvelope, faUser, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCity, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MessagingService } from 'src/app/services/messaging.service';
 
 
 @Component({
@@ -16,10 +17,11 @@ export class UserHomeComponent implements OnInit {
   faCity = faCity;
   faEnvelope = faEnvelope;
   faUser = faUser;
-  faCircle = faCircle;
+  public unread = 0;
 
   constructor(
     private service: UserService,
+    private msgService: MessagingService,
     private router: Router) { }
 
   user: User;
@@ -30,6 +32,6 @@ export class UserHomeComponent implements OnInit {
         gotUser => this.user = gotUser,
       )
       : this.router.navigate(['user-login']);
+    this.msgService.getUnread.subscribe(result => this.unread = result);
   }
-
 }

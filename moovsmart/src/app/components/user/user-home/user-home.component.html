@@ -16,7 +16,7 @@
           </a></li>
         <li><a routerLink="/messaging" routerLinkActive="active">
             <fa-icon [icon]="faEnvelope" class="icon"></fa-icon>
-            <span matBadge="99" matBadgeOverlap='false'>Üzeneteim</span>
+            <span [matBadge]='unread' matBadgeOverlap='false'>Üzeneteim</span>
           </a></li>
 
         <li><a routerLink="./user-property" routerLinkActive="active">
