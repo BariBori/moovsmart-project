@@ -8,7 +8,6 @@
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="city"
               id="city"
               name="city" ng-model="data.singleSelect">
-        <option value=null>--Mindegy--</option>
         <option *ngFor="let city of city " value="{{city.city}}">
           {{city.city}}
         </option>
