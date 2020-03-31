@@ -106,6 +106,75 @@ class AddPropertyTest {
 
     }
 
+    @Test
+    void addNewAdvertEmpty() {
+
+        driver.get("http://localhost:4200/home");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String homeTitle = driver.findElement(By.cssSelector("body > app-root > div > app-home > div.container.marketing > div.row > div:nth-child(1) > h2")).getAttribute("innerHTML");
+        assertEquals(homeTitle, "Töltsd fel az ingatlant!");
+        driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > li:nth-child(2)")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.id("email")).sendKeys("moovsmartaltenter@gmail.com");
+        driver.findElement(By.id("password")).sendKeys("test");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String loginTitle = driver.findElement(By.cssSelector("body > app-root > div > app-user-login > div > h1")).getAttribute("innerHTML");
+        assertEquals(loginTitle, "Bejelentkezés");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > button")).click();
+
+        String addPropertyTitle = driver.findElement(By.cssSelector("body > app-root > div > app-property-form > div > h2")).getAttribute("innerHTML");
+        assertEquals(addPropertyTitle, "Új ingatlan feltöltése");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.cssSelector("body > app-root > div > app-property-form > div > form > button")).click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String addProperty = driver.findElement(By.cssSelector("body > app-root > div > app-property-form > div > h2")).getAttribute("innerHTML");
+        assertEquals(addProperty, "Új ingatlan feltöltése");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @AfterEach
     void tearDown() {
         driver.quit();
