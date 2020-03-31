@@ -149,6 +149,7 @@ class SearchTest {
         }
     }
 
+
     @AfterEach
     void tearDown() {
         driver.quit();
