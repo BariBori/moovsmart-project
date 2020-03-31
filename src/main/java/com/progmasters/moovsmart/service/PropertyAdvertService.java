@@ -45,7 +45,6 @@ public class PropertyAdvertService {
                 Arrays.stream(PropertyType.values()).map(PropertyTypeOption::new).collect(Collectors.toList()),
                 Arrays.stream(PropertyConditionType.values()).map(PropertyConditionOption::new).collect(Collectors.toList()),
                 Arrays.stream(ParkingType.values()).map(ParkingTypeOption::new).collect(Collectors.toList())
-                //Arrays.stream(AdvertStatusType.values()).map(AdvertStatusTypeOption::new).collect(Collectors.toList())
         );
     }
 
@@ -76,19 +75,46 @@ public class PropertyAdvertService {
         return new PropertyAdvertDetailsData(propertyAdvert);
     }
 
-    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filterPropertyAdvert) {
-        String city = filterPropertyAdvert.getCity();
-        Double minPrice = filterPropertyAdvert.getMinPrice();
-        Double maxPrice = filterPropertyAdvert.getMaxPrice();
-        Integer minArea = filterPropertyAdvert.getMinArea();
-        Integer maxArea = filterPropertyAdvert.getMaxArea();
-        Integer minRooms = filterPropertyAdvert.getMinRooms();
-        Integer maxRooms = filterPropertyAdvert.getMaxRooms();
-        AdvertStatusType advertStatusType = filterPropertyAdvert.getAdvertStatusType();
-        PropertyType propertyType = filterPropertyAdvert.getPropertyType();
-        PropertyConditionType propertyConditionType = filterPropertyAdvert.getPropertyConditionType();
-        List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(city, minPrice, maxPrice, minArea, maxArea,
-                minRooms, maxRooms, propertyType, propertyConditionType, advertStatusType);
+    public List<PropertyAdvertListItem> getFilteredPropertyAdverts(FilterPropertyAdvert filter) {
+        Double minPrice;
+        Double maxPrice;
+        Integer minRooms;
+        Integer maxRooms;
+        Integer minArea;
+        Integer maxArea;
+        if(filter.getMinPrice() == null) {
+            minPrice = 0.0;
+        } else {
+            minPrice = filter.getMinPrice();
+        }
+        if(filter.getMaxPrice() == null) {
+            maxPrice = Double.MAX_VALUE;
+        } else {
+            maxPrice = filter.getMaxPrice();
+        }
+        if(filter.getMinRooms() == null) {
+            minRooms = 0;
+        } else {
+            minRooms = filter.getMinRooms();
+        }
+        if(filter.getMaxRooms() == null) {
+            maxRooms = Integer.MAX_VALUE;
+        } else {
+            maxRooms = filter.getMaxRooms();
+        }
+        if(filter.getMaxArea() == null) {
+            maxArea = Integer.MAX_VALUE;
+        } else {
+            maxArea = filter.getMaxArea();
+        }
+        if(filter.getMinArea() == null) {
+            minArea = 0;
+        } else {
+            minArea = filter.getMinArea();
+        }
+        List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(filter.getCity(), minPrice,
+                maxPrice, minArea, maxArea, minRooms, maxRooms,
+                filter.getPropertyType(), filter.getPropertyConditionType(), filter.getAdvertStatusType());
         List<PropertyAdvertListItem> filteredList = new ArrayList<>();
         for (PropertyAdvert filteredPropertyAdvert : filteredPropertyAdverts) {
             filteredList.add(new PropertyAdvertListItem(filteredPropertyAdvert));

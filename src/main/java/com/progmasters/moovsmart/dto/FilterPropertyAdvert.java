@@ -33,16 +33,6 @@ public class FilterPropertyAdvert {
         this.propertyConditionType = propertyConditionType;
     }
 
-
-
-    public AdvertStatusType getAdvertStatusType() {
-        return advertStatusType;
-    }
-
-    public void setAdvertStatusType(AdvertStatusType advertStatusType) {
-        this.advertStatusType = advertStatusType;
-    }
-
     public String getCity() {
         return city;
     }
@@ -97,6 +87,14 @@ public class FilterPropertyAdvert {
 
     public void setMaxRooms(Integer maxRooms) {
         this.maxRooms = maxRooms;
+    }
+
+    public AdvertStatusType getAdvertStatusType() {
+        return advertStatusType;
+    }
+
+    public void setAdvertStatusType(AdvertStatusType advertStatusType) {
+        this.advertStatusType = advertStatusType;
     }
 
     public PropertyType getPropertyType() {
