@@ -102,15 +102,15 @@ public class PropertyAdvertService {
         } else {
             maxRooms = filter.getMaxRooms();
         }
-        if(filter.getMinArea() == null) {
-            minArea = 0;
-        } else {
-            minArea = filter.getMinArea();
-        }
         if(filter.getMaxArea() == null) {
             maxArea = Integer.MAX_VALUE;
         } else {
             maxArea = filter.getMaxArea();
+        }
+        if(filter.getMinArea() == null) {
+            minArea = 0;
+        } else {
+            minArea = filter.getMinArea();
         }
         List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(filter.getCity(), minPrice,
                 maxPrice, minArea, maxArea, minRooms, maxRooms,
