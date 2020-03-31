@@ -56,7 +56,7 @@ public class MessagingService {
                 .orElseThrow(() ->
                         new EntityNotFoundException("that topic doesn't exist"));
 
-        viewRepository.save(partnerView.unRead());
+        viewRepository.save(partnerView.addUnread());
         return messageRepository.save(new Message(user, chat, message));
     }
 

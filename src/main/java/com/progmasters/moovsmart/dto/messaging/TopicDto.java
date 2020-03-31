@@ -6,14 +6,14 @@ public class TopicDto {
     private Long advertId;
     private String title;
     private String partner;
-    private Boolean unread;
+    private Integer unread;
 
     public static TopicDto fromView(Chat.View view) {
         TopicDto result = new TopicDto();
         result.advertId = view.getConversation().getAdvert().getId();
         result.title = view.getTitle();
         result.partner = view.getPartner().getUserName();
-        result.unread=view.hasUnread();
+        result.unread=view.getUnread();
         return result;
     }
 
@@ -29,7 +29,7 @@ public class TopicDto {
         return partner;
     }
 
-    public Boolean getUnread() {
+    public Integer getUnread() {
         return unread;
     }
 }

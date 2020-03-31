@@ -22,7 +22,7 @@ public class Chat extends Conversation {
     public static class View extends com.progmasters.moovsmart.domain.messaging.View<Chat> {
         @OneToOne
         private User partner;
-        private Boolean unread;
+        private Integer unread;
 
         public View() {
         }
@@ -32,7 +32,7 @@ public class Chat extends Conversation {
             this.partner = user.getId().equals(chat.enquirer.getId())
                     ? chat.advert.getUser()
                     : chat.enquirer;
-            this.unread = true;
+            this.unread = 0;
         }
 
         @Override
@@ -50,13 +50,19 @@ public class Chat extends Conversation {
                     .getTitle();
         }
 
-        public Boolean hasUnread() {
-            return unread;
+
+        public View addUnread() {
+            this.unread += 1;
+            return this;
         }
 
-        public View unRead() {
-            this.unread = true;
+        public View readAll() {
+            this.unread = 0;
             return this;
+        }
+
+        public Integer getUnread() {
+            return unread;
         }
     }
 
