@@ -4,7 +4,7 @@
   <form [formGroup]="searchFrom">
 
     <div class="form-group">
-      <label class="search-label">Város*</label>
+      <label class="search-label">Város</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="city"
               id="city"
               name="city" ng-model="data.singleSelect">
@@ -16,10 +16,9 @@
 
 
     <div class="form-group">
-      <label class="search-label">Ingatlan típusa*</label>
+      <label class="search-label">Ingatlan típusa</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="propertyType" id="propertyTypes"
               name="propertyTypes" ng-model="data.singleSelect">
-        <option value=null>--Mindegy--</option>
         <option *ngFor="let propType of propertyType" value="{{propType.name}}">
           {{propType.displayName}}
         </option>
@@ -28,11 +27,10 @@
 
 
     <div class="form-group">
-      <label class="search-label">Ingatlan állapota*</label>
+      <label class="search-label">Ingatlan állapota</label>
       <select class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="propertyConditionType"
               id="propertyConditionTypes"
               name="propertyConditionTypes" ng-model="data.singleSelect">
-        <option value=null>--Mindegy--</option>
         <option *ngFor="let propCond of propertyConditionType" value="{{propCond.name}}">
           {{propCond.displayName}}
         </option>
