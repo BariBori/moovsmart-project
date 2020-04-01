@@ -22,6 +22,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyAdvertDetails: PropertyAdvertDetailsModel;
   propertyListItemModels: Array<PropertyListItemModel>;
   isUserSeller = false;
+  isVisitorLogged = false;
 
   faStar = faStar;
   faEnvelope = faEnvelope;
@@ -56,6 +57,7 @@ export class PropertyDetailsComponent implements OnInit {
       },
     );
 
+
   }
 
   archivePropertyAdvert(id: number) {
@@ -89,6 +91,8 @@ export class PropertyDetailsComponent implements OnInit {
         .subscribe(success => this.router.navigate(['/messaging']))
       : this.router.navigate(['user-login']);
   }
+
+
 
   //--------Google map------//
 
