@@ -4,13 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
- class LoginTest {
+ class MessageTest {
 
     private WebDriver driver;
 
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     }
 
     @Test
-     void login() {
+    public void message() {
         driver.get("http://localhost:4200");
 
         try {
@@ -62,10 +63,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             e.printStackTrace();
         }
 
+        //TODO
+        String profileTitle = driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > button")).getAttribute("innerHTML");
+        assertEquals(profileTitle, "Hirdetés feladása");
+        driver.findElement(By.cssSelector("#sidebar > ul > li:nth-child(2) > a")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String messageTitle = driver.findElement(By.cssSelector("body > div > h3")).getAttribute("innerHTML");
+        assertEquals(messageTitle, "Üzenetek");
+
+
+        driver.findElement(By.cssSelector("body > div > div > div > div.mesgs > div.type_msg > div > input")).sendKeys("Szia, érdeklődnék...");
+        driver.findElement(By.cssSelector("body > div > div > div > div.mesgs > div.type_msg > div > button > fa-icon")).click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    @AfterEach public void tearDown() {
-        driver.quit();
-    }
+     @AfterEach
+     public void tearDown() {
+         driver.quit();
+     }
 
 }
