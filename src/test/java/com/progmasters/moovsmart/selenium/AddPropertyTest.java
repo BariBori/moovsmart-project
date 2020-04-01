@@ -22,6 +22,7 @@ class AddPropertyTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1720,1200");
         driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
     }
 
     @Test
