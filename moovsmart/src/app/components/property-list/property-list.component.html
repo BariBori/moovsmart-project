@@ -5,7 +5,8 @@
   <div class="filter-header">
     <p>Szűrés</p>
     <mat-form-field>
-      <textarea matInput (keyup)="applyFilter($event)" placeholder=""></textarea>
+      <textarea matInput
+                (keyup)="applyFilter($event)" placeholder=""></textarea>
     </mat-form-field>
     <hr>
   </div>
@@ -41,7 +42,7 @@
         <mat-cell *matCellDef="let row">{{row.area}} m2</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="price/area">
+      <ng-container matColumnDef="priceForSquareMeter">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
         <mat-cell *matCellDef="let row">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
       </ng-container>

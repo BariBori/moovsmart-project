@@ -28,7 +28,7 @@
       <mat-cell *matCellDef="let row">{{row.area}} m2</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="price/area">
+    <ng-container matColumnDef="priceForSquareMeter">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
     </ng-container>

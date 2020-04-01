@@ -19,7 +19,7 @@ public class PropertyAdvertListItem {
 
     private Integer area;
 
-    private Long priceForSquareMeter;
+    private Integer priceForSquareMeter;
 
     private Double price;
 
@@ -36,7 +36,7 @@ public class PropertyAdvertListItem {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.area = propertyAdvert.getArea();
         this.address = propertyAdvert.getAddress();
-        this.priceForSquareMeter = Math.round(price * 1000000 / area);
+        this.priceForSquareMeter = (int) Math.round(price * 1000000 / area);
         this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
     }
 
@@ -55,7 +55,7 @@ public class PropertyAdvertListItem {
         return area;
     }
 
-    public Long getPriceForSquareMeter() {
+    public Integer getPriceForSquareMeter() {
         return priceForSquareMeter;
     }
 
