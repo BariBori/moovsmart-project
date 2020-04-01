@@ -37,7 +37,7 @@ export class UserLoginComponent implements OnInit {
     this.userService.authenticate(credentials)
       .subscribe(
         success => {
-          this.router.navigate(['user-home']);
+          this.router.navigate(['../user-home/user-property']);
         },
         error => {
           if (error.status === 401) {

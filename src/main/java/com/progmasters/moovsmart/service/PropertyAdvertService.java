@@ -158,13 +158,4 @@ public class PropertyAdvertService {
         this.advertRepository.save(propertyAdvert);
     }
 
-
-    //---------------SEARCH-----------------
-
-    public List<PropertyAdvertListItem> listAllProperty(Specification<PropertyAdvert> spec) {
-        return advertRepository.findAll().stream()
-                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
-    }
-
-
 }
