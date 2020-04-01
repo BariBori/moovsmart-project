@@ -103,11 +103,10 @@ public class MessagingService {
 
     private void initiateChat(UserIdentifier enquirer, Long advertId) {
         PropertyAdvert advert = advertRepository.findOneById(advertId)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("that advert doesn't exist")
-                );
+                .orElseThrow(() -> new EntityNotFoundException("that advert doesn't exist"));
         User user = userRepository.get(enquirer);
         Chat directMessaging = chatRepository.save(new Chat(user, advert));
+
         viewRepository.save(new Chat.View(user, directMessaging));
         viewRepository.save(new Chat.View(advert.getUser(), directMessaging));
     }

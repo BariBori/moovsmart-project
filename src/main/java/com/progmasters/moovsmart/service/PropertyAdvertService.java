@@ -88,6 +88,10 @@ public class PropertyAdvertService {
         Integer maxRooms;
         Integer minArea;
         Integer maxArea;
+
+        PropertyType propertyType;
+        PropertyConditionType propertyConditionType;
+
         if(filter.getMinPrice() == null) {
             minPrice = 0.0;
         } else {
@@ -118,6 +122,8 @@ public class PropertyAdvertService {
         } else {
             minArea = filter.getMinArea();
         }
+
+
         List<PropertyAdvert> filteredPropertyAdverts = advertRepository.findFilteredPropertyAdverts(filter.getCity(), minPrice,
                 maxPrice, minArea, maxArea, minRooms, maxRooms,
                 filter.getPropertyType(), filter.getPropertyConditionType(), filter.getAdvertStatusType());
