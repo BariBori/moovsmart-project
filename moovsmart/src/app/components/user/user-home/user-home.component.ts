@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MessagingService } from 'src/app/services/messaging.service';
 import { TopicModel } from 'src/app/models/messaging/TopicModel';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class UserHomeComponent implements OnInit {
   constructor(
     private service: UserService,
     private msgService: MessagingService,
+    private notificationService: NotificationService,
     private router: Router) {
     this.sumUnread = (topics) => this.unread = topics
       .map(topic => topic.unread)

@@ -25,7 +25,7 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {faCircle, faCity, faFileContract, faHandshake, faPaperPlane} from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCity, faFileContract, faHandshake, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
@@ -39,6 +39,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationService } from './services/notification.service';
 
 
 
@@ -97,7 +98,8 @@ import { MatBadgeModule } from '@angular/material/badge';
       useClass: HttpInterceptorService,
       multi: true
     },
-    UserService
+    UserService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

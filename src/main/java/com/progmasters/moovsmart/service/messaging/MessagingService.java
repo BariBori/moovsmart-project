@@ -11,6 +11,7 @@ import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.repository.messaging.ChatRepository;
 import com.progmasters.moovsmart.repository.messaging.ChatViewRepository;
 import com.progmasters.moovsmart.repository.messaging.MessageRepository;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,19 +28,21 @@ public class MessagingService {
     private final ChatRepository chatRepository;
     private final ChatViewRepository viewRepository;
     private final MessageRepository messageRepository;
+    private final SimpMessageSendingOperations msgOps;
 
     public MessagingService(
             MessageRepository messageRepository,
             UserRepository userRepository,
             AdvertRepository advertRepository,
             ChatViewRepository chatViewRepository,
-            ChatRepository chatRepository
-    ) {
+            ChatRepository chatRepository,
+            SimpMessageSendingOperations msgOps) {
         this.userRepository = userRepository;
         this.advertRepository = advertRepository;
         this.messageRepository = messageRepository;
         this.chatRepository = chatRepository;
         this.viewRepository = chatViewRepository;
+        this.msgOps = msgOps;
     }
 
     public boolean isSubscribed(UserIdentifier user, Long chatId) {
@@ -54,6 +57,13 @@ public class MessagingService {
                 userRepository.get(sender),
                 chatRepository.getOne(chatId),
                 message));
+
+        viewRepository.save(partnerView.addUnread());
+        msgOps.convertAndSendToUser(
+                partnerView.getUser().getUserName(),
+                "/queue/notify",
+                "unread");
+        return messageRepository.save(new Message(user, chat, message));
     }
 
     public List<TopicDto> getTopicsByUser(UserIdentifier user) {

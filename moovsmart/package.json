@@ -36,6 +36,7 @@
     "bootstrap": "^4.4.1",
     "cloudinary-core": "^2.8.1",
     "jquery": "^3.4.1",
+    "net": "^1.0.2",
     "ng-sort": "^0.1.18",
     "ng2-file-upload": "^1.4.0",
     "popper.js": "^1.16.1",
