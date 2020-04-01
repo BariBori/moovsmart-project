@@ -53,6 +53,7 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
+          this.getVisitorLogged();
         }
       },
     );
@@ -92,6 +93,14 @@ export class PropertyDetailsComponent implements OnInit {
       : this.router.navigate(['user-login']);
   }
 
+  getVisitorLogged(){
+    if(this.userService.isLoggedIn()){
+      this.isVisitorLogged = true;
+    } else {
+      this.isVisitorLogged = false;
+    }
+
+  }
 
 
   //--------Google map------//
