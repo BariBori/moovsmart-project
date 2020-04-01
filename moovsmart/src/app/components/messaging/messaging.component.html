@@ -18,15 +18,22 @@
                     <div class="inbox_chat">
                         <div class="chat_list" *ngFor='let topic of topics'
                             [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
-                            <div class="chat_people">
+                            <div class="chat_people" (mouseenter)='mouseOverId=topic.advertId'
+                                (mouseleave)='mouseOverId=null' (click)='setActiveTopic(topic)'>
                                 <div class="chat_ib">
-                                    <h5 [matBadge]='topic.unread' matBadgeOverlap=false (click)='setActiveTopic(topic)'>
-                                        <button mat-mini-fab (click)='unsubscribe(topic)'>
-                                            <fa-icon [icon]="faTrash" class="icon"></fa-icon>
-                                        </button>
-                                        {{topic.title}} {{
-                                        topic.partner
-                                }}</h5>
+                                    <button [style.visibility]="topic.advertId===mouseOverId
+                                    ? 'visible' 
+                                    : 'hidden'" matTooltip='Beszélgetés törlése' matTooltipPosition='below'
+                                        (click)='unsubscribe(topic)'>
+                                        <fa-icon [icon]="faTrash" class="icon"></fa-icon>
+                                    </button>
+                                    <h5>
+                                        {{topic.title}}
+                                        <span [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
+                                            matBadgeColor='basic'>
+                                            {{ topic.partner }}
+                                        </span>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -52,9 +59,12 @@
                     <div class="type_msg">
                         <div class="input_msg_write">
 
-                            <input type="text" class="write_msg" [formControl]='message' placeholder="Type a message" />
+                            <input type="text" class="write_msg" [formControl]='message' [placeholder]="activeTopic.advertId===null
+                            ? 'Válasszon ki egy beszélgetést!'
+                            : 'Ide írja be Üzenetét!'" />
 
-                            <button class="msg_send_btn" type="button" [disabled]='message.invalid' (click)='send()'>
+                            <button class="msg_send_btn" type="button"
+                                [disabled]='message.invalid ||activeTopic.advertId===null' (click)='send()'>
                                 <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
                             </button>
 

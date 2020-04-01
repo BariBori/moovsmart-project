@@ -27,6 +27,7 @@ export class MessagingComponent implements OnInit {
   message: FormControl;
   topics: TopicModel[];
   messages: MessageModel[];
+  mouseOverId: number = null;
   setActiveTopic: (topic: TopicModel) => void;
   unsubscribe: (topic: TopicModel) => void;
   activeTopic: {
