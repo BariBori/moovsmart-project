@@ -17,7 +17,7 @@
 
                     <div class="inbox_chat">
                         <div class="chat_list" *ngFor='let topic of topics'
-                            [ngClass]="{'active_chat':topic.advertId === activeTopic.advertId}">
+                            [ngClass]="{'active_chat':topic.advertId === activeTopic?.advertId}">
                             <div class="chat_people" (mouseenter)='mouseOverId=topic.advertId'
                                 (mouseleave)='mouseOverId=null' (click)='setActiveTopic(topic)'>
                                 <div class="chat_ib">
@@ -43,7 +43,7 @@
                 <div class="mesgs">
                     <div class="msg_history">
 
-                        <div *ngFor='let message of activeTopic.chat?.messages' [ngClass]="currentUserName === message.sender
+                        <div *ngFor='let message of activeTopic?.chat.messages' [ngClass]="currentUserName === message.sender
                         ? 'outgoing_msg'
                         : 'received_msg'">
                             <div [ngClass]="currentUserName === message.sender
@@ -59,12 +59,12 @@
                     <div class="type_msg">
                         <div class="input_msg_write">
 
-                            <input type="text" class="write_msg" [formControl]='message' [placeholder]="activeTopic.advertId===null
-                            ? 'Válasszon ki egy beszélgetést!'
-                            : 'Ide írja be Üzenetét!'" />
+                            <input type="text" class="write_msg" [formControl]='message' [placeholder]="activeTopic===null
+                            ? 'Válassz ki egy beszélgetést!'
+                            : 'Ide írd be az üzenetet!'" />
 
-                            <button class="msg_send_btn" type="button"
-                                [disabled]='message.invalid ||activeTopic.advertId===null' (click)='send()'>
+                            <button class="msg_send_btn" type="button" matTooltip='Küldés' matTooltipPosition='below'
+                                [disabled]='message.invalid ||activeTopic===null' (click)='send()'>
                                 <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
                             </button>
 

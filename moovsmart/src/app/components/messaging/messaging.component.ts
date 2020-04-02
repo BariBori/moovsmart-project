@@ -11,7 +11,6 @@ import { TopicModel } from 'src/app/models/messaging/TopicModel';
 import { tap, map } from 'rxjs/operators';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-messaging',
@@ -42,21 +41,18 @@ export class MessagingComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {
+    this.activeTopic = null;
     this.message = new FormControl('', Validators.required);
-    this.activeTopic = {
-      advertId: null,
-      chat: null
-    };
-
+    this.message.disable();
     this.refreshTopics = () => void this.msgservice.fetchMyTopics.subscribe(
       topics => this.topics = topics
     );
     this.unsubscribe = (topic: TopicModel) => this.msgservice.unsubscribe(topic.advertId)
       .subscribe(() => {
         this.refreshTopics();
-        if (this.activeTopic.advertId === topic.advertId) {
-          this.activeTopic.advertId = null;
-          this.activeTopic.chat = null;
+        if (this.activeTopic?.advertId === topic.advertId) {
+          this.activeTopic = null;
+          this.message.disable();
         }
       },
         console.error);
@@ -76,8 +72,11 @@ export class MessagingComponent implements OnInit {
       )
       .subscribe(
         conversation => {
-          this.activeTopic.advertId = topic.advertId;
-          this.activeTopic.chat = conversation;
+          this.activeTopic = {
+            advertId: topic.advertId,
+            chat: conversation,
+          };
+          this.message.enable();
         },
         console.error
       );
