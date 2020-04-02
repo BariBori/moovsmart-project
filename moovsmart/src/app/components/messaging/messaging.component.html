@@ -22,18 +22,18 @@
                                 (mouseleave)='mouseOverId=null' (click)='setActiveTopic(topic)'>
                                 <div class="chat_ib">
                                     <button [style.visibility]="topic.advertId===mouseOverId
-                                    ? 'visible' 
+                                    ? 'visible'
                                     : 'hidden'" matTooltip='Beszélgetés törlése' matTooltipPosition='below'
                                         (click)='unsubscribe(topic)'>
                                         <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                     </button>
-                                    <h5>
-                                        {{topic.title}}
-                                        <span [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
+                                    <div class="message-topic">
+                                       <span class="message-topic-title">{{topic.title}}</span>
+                                      <span [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
                                             matBadgeColor='basic'>
-                                            {{ topic.partner }}
+                                           <span class="message-topic-partner">{{ topic.partner }}</span>
                                         </span>
-                                    </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>

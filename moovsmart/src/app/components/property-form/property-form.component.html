@@ -164,7 +164,7 @@
           </div>
           <div class="card-title">{{image.file.name}}</div>
           <div *ngIf="uploader.options.isHTML5" nowrap>{{ image?.file?.size/1024/1024 | number:'.2' }} MB</div>
-          <button class="btn btn-danger" *ngIf="!!image.data.delete_token" (click)="deleteImage(image.data, i)">Kép törlése</button>
+          <!--<button class="btn btn-danger" *ngIf="!!image.data.delete_token" (click)="deleteImage(image.data, i)">Kép törlése</button>-->
         </div>
       </div>
     </div>
