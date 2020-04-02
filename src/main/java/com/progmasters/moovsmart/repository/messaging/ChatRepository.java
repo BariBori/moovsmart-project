@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface ChatRepository extends JpaRepository<Chat, Long> {
-    @Query("select dm " +
-            "from Chat dm " +
-            "where (dm.enquirer= :user " +
-            "or dm.advert.user= :user) " +
-            "and dm.advert.id = :advertId")
+    @Query("select chat " +
+            "from Chat chat " +
+            "where (chat.enquirer= :user " +
+            "or chat.advert.user= :user) " +
+            "and chat.advert.id = :advertId")
     Optional<Chat> getByUserAndAdvert(User user, Long advertId);
 }
