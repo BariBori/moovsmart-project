@@ -4,11 +4,14 @@ package com.progmasters.moovsmart.domain.messaging;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Table(uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"advert_id", "enquirer_id"})})
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"advert_id", "enquirer_id"})})
 public class Chat extends Conversation {
     @OneToOne
     private PropertyAdvert advert;
@@ -16,6 +19,8 @@ public class Chat extends Conversation {
     private User enquirer;
 
     @Entity
+    @Table(uniqueConstraints = {@UniqueConstraint(
+            columnNames = {"partner_id", "conversation_id"})})
     public static class View extends com.progmasters.moovsmart.domain.messaging.View<Chat> {
         @OneToOne
         private User partner;
@@ -25,7 +30,6 @@ public class Chat extends Conversation {
         }
 
         public View(User user, Chat chat) {
-            super(user, chat);
             this.partner = user.getId().equals(chat.enquirer.getId())
                     ? chat.advert.getUser()
                     : chat.enquirer;

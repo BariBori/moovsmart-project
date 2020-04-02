@@ -5,6 +5,8 @@ import com.progmasters.moovsmart.domain.user.User;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"user_id", "conversation_id"})})
 public abstract class View<T extends Conversation> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
