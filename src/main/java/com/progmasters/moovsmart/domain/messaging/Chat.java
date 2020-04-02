@@ -30,6 +30,7 @@ public class Chat extends Conversation {
         }
 
         public View(User user, Chat chat) {
+            super(user,chat);
             this.partner = user.getId().equals(chat.enquirer.getId())
                     ? chat.advert.getUser()
                     : chat.enquirer;
