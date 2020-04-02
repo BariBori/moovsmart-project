@@ -33,6 +33,7 @@ chat_ib h5{
 }
 .chat_ib button {
   float:left;
+  margin-top: 10px;
   background: #28a745;
   border: medium none;
   border-radius: 50%;
@@ -58,6 +59,7 @@ chat_ib h5{
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
   padding: 18px 18px 10px;
+  cursor: pointer;
 }
 
 .inbox_chat { height: 550px; overflow-y: scroll;}
@@ -137,4 +139,20 @@ chat_ib h5{
 
 .icon{
   padding: auto;
+}
+
+.message-topic{
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.message-topic-partner{
+  padding-top:5px;
+  float: right;
+}
+
+.message-topic-title{
+  float: left;
+  padding-top: 5px;
+  padding-left: 20px;
 }

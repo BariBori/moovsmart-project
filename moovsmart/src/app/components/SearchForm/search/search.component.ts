@@ -4,7 +4,7 @@ import {PropertyTypeOptionItemModel} from "../../../models/propertyTypeOptionIte
 import {PropertyConditionTypeOptionItemModel} from "../../../models/propertyConditionTypeOptionItem.model";
 import {PropertyService} from "../../../services/property.service";
 import {FormInitDataModel} from "../../../models/formInitDataModel";
-import {areaValidator, priceValidator, roomValidator} from "./validator.directive";
+import {areaValidator,  priceValidator, roomValidator} from "./validator.directive";
 import {SharingSearchService} from "../../../services/sharing-search.service";
 
 
@@ -85,11 +85,12 @@ export class SearchComponent implements OnInit {
 
 
   submit (filterPropertyAdvertModel){
-
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
-
     console.log(filterPropertyAdvertModel);
 
   }
+
+
+
 
 }
