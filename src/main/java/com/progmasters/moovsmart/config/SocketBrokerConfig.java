@@ -11,18 +11,16 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class SocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
-    @Value("${cors-policies}")
-    private String[] origins;
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setUserDestinationPrefix("/secured/user/");
-               config .enableSimpleBroker("/queue/");
+        config.setUserDestinationPrefix("/user")
+        .enableSimpleBroker("/queue");
+//               config .enableSimpleBroker("secured/user/queue");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/secured/notifications")
+        registry.addEndpoint("secured/notifications")
                 .setAllowedOrigins("*")
                 .withSockJS();
     }

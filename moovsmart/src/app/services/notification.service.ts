@@ -26,7 +26,7 @@ export class NotificationService {
         ?
         this.usrService.getCurrentUser.subscribe(usr =>
           this.stompClient.connect({}, connection => {
-            this.stompClient.subscribe('secured/user/queue/notify' + `-${usr.userName}`,
+            this.stompClient.subscribe('/user/queue/notify',
               (msg => this.onNotification.next(msg))
             );
           }))
