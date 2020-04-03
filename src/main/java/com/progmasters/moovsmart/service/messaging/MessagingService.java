@@ -77,7 +77,7 @@ public class MessagingService {
                 .ifPresent(view -> {
                     viewRepository.delete(view);
                     if (viewRepository.findAllByConversation_Id(chatId).isEmpty()) {
-                        messageRepository.deleteAllByConversation(chatId);
+                        messageRepository.deleteAllByConversation_Id(chatId);
                         chatRepository.deleteById(chatId);
                     }
                 });
