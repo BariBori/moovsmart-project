@@ -74,8 +74,7 @@ public class MessagingController {
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<ChatDto> chat(@PathVariable Long chatId) {
         return service.renderUserViewForChat(userDetails.get(), chatId)
-                .map(view ->
-                        ResponseEntity.ok(ChatDto.fromTopicView(view)))
+                .map(view -> ResponseEntity.ok(ChatDto.fromTopicView(view)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }

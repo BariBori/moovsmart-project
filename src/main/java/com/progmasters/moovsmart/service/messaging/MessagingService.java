@@ -94,7 +94,8 @@ public class MessagingService {
     }
 
     public Optional<Chat.View> renderUserViewForChat(UserIdentifier viewer, Long chatId) {
-        return viewRepository.findOneByUser_IdAndConversation_Id(viewer.getId(), chatId);
+        return viewRepository.findOneByUser_IdAndConversation_Id(viewer.getId(), chatId)
+                .map(view -> viewRepository.save(view.readAll()));
     }
 
     private void initiateChat(UserIdentifier enquirer, Long advertId) {
