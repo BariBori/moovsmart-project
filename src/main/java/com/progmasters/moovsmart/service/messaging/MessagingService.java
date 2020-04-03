@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,16 +57,16 @@ public class MessagingService {
         Chat.View partnerView = viewRepository.findOneByPartner_IdAndConversation_Id(sender.getId(), chatId)
                 .map(view -> viewRepository.save(view.addUnread()))
                 .orElseThrow(EntityNotFoundException::new);
-
-        msgOps.convertAndSendToUser(
-                partnerView.getUser().getUserName(),
-                "/queue/notify",
-                "unread");
-
-        return messageRepository.save(new Message(
+        Message result = messageRepository.save(new Message(
                 userRepository.get(sender),
                 partnerView.getConversation(),
                 message));
+        msgOps.convertAndSendToUser(
+                partnerView.getUser().getUserName(),
+                "/queue/notify",
+                Map.entry("unread", chatId)
+        );
+        return result;
     }
 
     public List<TopicDto> getTopicsByUser(UserIdentifier user) {
