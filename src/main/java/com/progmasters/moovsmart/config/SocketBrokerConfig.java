@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -13,8 +12,7 @@ public class SocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setUserDestinationPrefix("/user")
-        .enableSimpleBroker("/queue");
+        config.enableSimpleBroker("/queue/");
 //               config .enableSimpleBroker("secured/user/queue");
     }
 
