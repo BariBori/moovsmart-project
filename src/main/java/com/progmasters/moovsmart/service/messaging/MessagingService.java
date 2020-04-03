@@ -53,17 +53,17 @@ public class MessagingService {
     }
 
     public Message saveDirectMessage(UserIdentifier sender, String message, Long chatId) {
+        viewRepository.findOneByPartner_IdAndConversation_Id(sender.getId(),chatId)
+                .map(view -> viewRepository.save(view.addUnread()));
         return messageRepository.save(new Message(
                 userRepository.get(sender),
                 chatRepository.getOne(chatId),
                 message));
 
-        viewRepository.save(partnerView.addUnread());
-        msgOps.convertAndSendToUser(
-                partnerView.getUser().getUserName(),
-                "/queue/notify",
-                "unread");
-        return messageRepository.save(new Message(user, chat, message));
+//        msgOps.convertAndSendToUser(
+//                partnerView.getUser().getUserName(),
+//                "/queue/notify",
+//                "unread");
     }
 
     public List<TopicDto> getTopicsByUser(UserIdentifier user) {
