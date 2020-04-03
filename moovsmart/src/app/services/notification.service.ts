@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import { environment } from 'src/environments/environment';
-import { ReplaySubject } from 'rxjs';
-import { UserService } from './user.service';
-import { tap, map, flatMap } from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
+import {ReplaySubject} from 'rxjs';
+import {UserService} from './user.service';
+
 interface Notification {
   [key: string]: any;
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +27,7 @@ export class NotificationService {
         ?
         this.usrService.getCurrentUser.subscribe(usr =>
           this.stompClient.connect({}, connection => {
-            this.stompClient.subscribe('/user/queue/notify',
+            this.stompClient.subscribe('/secured/user/queue/notify',
               (msg => this.onNotification.next(msg))
             );
           }))

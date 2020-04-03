@@ -12,8 +12,8 @@ public class SocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue/");
-//               config .enableSimpleBroker("secured/user/queue");
+        config.setUserDestinationPrefix("/secured/user/")
+                .enableSimpleBroker("/queue/");
     }
 
     @Override
