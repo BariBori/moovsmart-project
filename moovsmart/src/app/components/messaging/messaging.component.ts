@@ -30,7 +30,7 @@ export class MessagingComponent implements OnInit {
   setActiveTopic: (topic: TopicModel) => void;
   unsubscribe: (topic: TopicModel) => void;
   activeTopic: {
-    advertId: number;
+    chatId: number;
     chat: ChatModel;
   };
   refreshTopics: () => void;
@@ -50,7 +50,7 @@ export class MessagingComponent implements OnInit {
     this.unsubscribe = (topic: TopicModel) => this.msgservice.unsubscribe(topic.chatId)
       .subscribe(() => {
         this.refreshTopics();
-        if (this.activeTopic?.advertId === topic.chatId) {
+        if (this.activeTopic?.chatId === topic.chatId) {
           this.activeTopic = null;
           this.message.disable();
         }
@@ -73,7 +73,7 @@ export class MessagingComponent implements OnInit {
       .subscribe(
         conversation => {
           this.activeTopic = {
-            advertId: topic.chatId,
+            chatId: topic.chatId,
             chat: conversation,
           };
           this.message.enable();
@@ -82,7 +82,7 @@ export class MessagingComponent implements OnInit {
       );
   }
   send() {
-    const id = this.activeTopic.advertId;
+    const id = this.activeTopic.chatId;
     const message = this.message.value;
     this.msgservice.sendDirectMessage(message, id)
       .subscribe(response => {
