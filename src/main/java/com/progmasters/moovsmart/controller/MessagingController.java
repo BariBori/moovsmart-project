@@ -31,18 +31,18 @@ public class MessagingController {
     }
 
 
-    @PutMapping("/topic/{advertId}")
+    @PutMapping("/topic/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<MessageDto> directMessage(
             @RequestBody String message,
-            @PathVariable Long advertId
+            @PathVariable Long chatId
     ) {
-        return service.isSubscribed(userDetails.get(), advertId)
+        return service.isSubscribed(userDetails.get(), chatId)
                 ? ResponseEntity.ok(MessageDto.fromMessage(
                 service.saveDirectMessage(
                         userDetails.get(),
                         message,
-                        advertId)))
+                        chatId)))
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -56,10 +56,10 @@ public class MessagingController {
                 ));
     }
 
-    @PostMapping("/unsubscribe/{advertId}")
+    @PostMapping("/unsubscribe/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> unsubscribeFromDirectMessaging(@PathVariable Long advertId) {
-        service.deleteChatView(userDetails.get(), advertId);
+    public ResponseEntity<Void> unsubscribeFromDirectMessaging(@PathVariable Long chatId) {
+        service.deleteChatView(userDetails.get(), chatId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -70,10 +70,10 @@ public class MessagingController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/topic/{advertId}")
+    @GetMapping("/topic/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<ChatDto> chat(@PathVariable Long advertId) {
-        return service.renderUserViewForChat(userDetails.get(), advertId)
+    public ResponseEntity<ChatDto> chat(@PathVariable Long chatId) {
+        return service.renderUserViewForChat(userDetails.get(), chatId)
                 .map(view ->
                         ResponseEntity.ok(ChatDto.fromTopicView(view)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

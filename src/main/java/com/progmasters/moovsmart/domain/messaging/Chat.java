@@ -79,8 +79,4 @@ public class Chat extends Conversation {
     public PropertyAdvert getAdvert() {
         return advert;
     }
-
-    public User getEnquirer() {
-        return enquirer;
-    }
 }

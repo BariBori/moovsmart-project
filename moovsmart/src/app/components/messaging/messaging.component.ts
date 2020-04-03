@@ -47,10 +47,10 @@ export class MessagingComponent implements OnInit {
     this.refreshTopics = () => void this.msgservice.fetchMyTopics.subscribe(
       topics => this.topics = topics
     );
-    this.unsubscribe = (topic: TopicModel) => this.msgservice.unsubscribe(topic.advertId)
+    this.unsubscribe = (topic: TopicModel) => this.msgservice.unsubscribe(topic.chatId)
       .subscribe(() => {
         this.refreshTopics();
-        if (this.activeTopic?.advertId === topic.advertId) {
+        if (this.activeTopic?.advertId === topic.chatId) {
           this.activeTopic = null;
           this.message.disable();
         }
@@ -58,12 +58,12 @@ export class MessagingComponent implements OnInit {
         console.error);
 
 
-    this.setActiveTopic = (topic: TopicModel) => void this.msgservice.fetchConversation(topic.advertId)
+    this.setActiveTopic = (topic: TopicModel) => void this.msgservice.fetchConversation(topic.chatId)
       .pipe(tap(
         () => this.topics = this.topics
-          .map(t => t.advertId === topic.advertId
+          .map(t => t.chatId === topic.chatId
             ? {
-              advertId: t.advertId,
+              chatId: t.chatId,
               title: t.title,
               partner: t.partner,
               unread: 0
@@ -73,7 +73,7 @@ export class MessagingComponent implements OnInit {
       .subscribe(
         conversation => {
           this.activeTopic = {
-            advertId: topic.advertId,
+            advertId: topic.chatId,
             chat: conversation,
           };
           this.message.enable();

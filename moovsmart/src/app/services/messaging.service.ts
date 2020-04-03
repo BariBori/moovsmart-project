@@ -25,8 +25,8 @@ export class MessagingService {
       this.http.post<number>(this.BASE_URL + `/direct/${advertId}`, '')
         .pipe(tap(console.log, console.error));
 
-    this.sendDirectMessage = (message: string, advertId: number) =>
-      this.http.put<MessageModel>(this.BASE_URL + `/topic/${advertId}`, message)
+    this.sendDirectMessage = (message: string, chatId: number) =>
+      this.http.put<MessageModel>(this.BASE_URL + `/topic/${chatId}`, message)
         .pipe(tap(console.log, console.error));
 
     this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`);

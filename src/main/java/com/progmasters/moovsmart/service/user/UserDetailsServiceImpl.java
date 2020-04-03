@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public UserIdentifier loadUserByUsername(String emailOrUserName) {
         //TODO rewrite to JPA
-        return userRepository.findByEmail(emailOrUserName)
+        return userRepository.findOneByEmail(emailOrUserName)
                 .or(() ->
-                        userRepository.findByUserName(emailOrUserName)
+                        userRepository.findOneByUserName(emailOrUserName)
                 )
                 .map(UserIdentifier::forUser)
                 .orElseThrow(() ->

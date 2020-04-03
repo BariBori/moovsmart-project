@@ -42,22 +42,18 @@ public class MessagingService {
         this.viewRepository = chatViewRepository;
     }
 
-    public boolean isSubscribed(UserIdentifier user, Long advertId) {
-        return viewRepository.streamAllByUser(userRepository.get(user))
-                .anyMatch(view -> view.getConversation().getAdvert().getId() == advertId);
+    public boolean isSubscribed(UserIdentifier user, Long chatId) {
+        return viewRepository.findOneByUser_IdAndConversation_Id(
+                user.getId(),
+                chatId)
+                .isPresent();
     }
 
-    public Message saveDirectMessage(UserIdentifier sender, String message, Long advertId) {
-        User user = userRepository.get(sender);
-        Chat chat = chatRepository.getByUserAndAdvert(user, advertId)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("that topic doesn't exist"));
-        Chat.View partnerView = viewRepository.findOneByPartnerAndConversation(user, chat)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("that topic doesn't exist"));
-
-        viewRepository.save(partnerView.addUnread());
-        return messageRepository.save(new Message(user, chat, message));
+    public Message saveDirectMessage(UserIdentifier sender, String message, Long chatId) {
+        return messageRepository.save(new Message(
+                userRepository.get(sender),
+                chatRepository.getOne(chatId),
+                message));
     }
 
     public List<TopicDto> getTopicsByUser(UserIdentifier user) {
@@ -67,47 +63,46 @@ public class MessagingService {
     }
 
     public void enquire(UserIdentifier enquirer, Long advertId) {
-        if (renderUserViewForChat(enquirer, advertId)
-                .or(() -> reopenChat(enquirer, advertId))
-                .isEmpty()) {
-            initiateChat(enquirer, advertId);
-        }
+        chatRepository.findOneByEnquirer_IdAndAdvert_Id(enquirer.getId(), advertId)
+                .ifPresentOrElse(
+                        chat -> renderUserViewForChat(enquirer, chat.getId())
+                                .or(() -> reopenChat(enquirer, advertId)),
+                        () -> initiateChat(enquirer, advertId)
+                );
+
     }
 
-    public void deleteChatView(UserIdentifier user, Long advertId) {
-        viewRepository.findOneByUserAndConversation_Advert_Id(userRepository.get(user), advertId)
+    public void deleteChatView(UserIdentifier user, Long chatId) {
+        viewRepository.findOneByUser_IdAndConversation_Id(user.getId(), chatId)
                 .ifPresent(view -> {
                     viewRepository.delete(view);
-                    if (viewRepository.findAllByConversation(view.getConversation()).isEmpty()) {
-                        messageRepository.deleteAllByConversation(view.getConversation());
-                        chatRepository.delete(view.getConversation());
+                    if (viewRepository.findAllByConversation_Id(chatId).isEmpty()) {
+                        messageRepository.deleteAllByConversation(chatId);
+                        chatRepository.deleteById(chatId);
                     }
                 });
     }
 
-    private Optional<Chat.View> reopenChat(UserIdentifier usr, Long advertId) {
-        User user = userRepository.get(usr);
-        return chatRepository.getByUserAndAdvert(user, advertId)
-                .map(chat -> viewRepository.save(new Chat.View(user, chat)));
+    private Optional<Chat.View> reopenChat(UserIdentifier enquirer, Long advertId) {
+        return chatRepository.findOneByEnquirer_IdAndAdvert_Id(enquirer.getId(), advertId)
+                .map(chat ->
+                        viewRepository.save(new Chat.View(
+                                userRepository.get(enquirer),
+                                chat
+                        ))
+                );
     }
 
-    public Optional<Chat.View> renderUserViewForChat(UserIdentifier usr, Long advertId) {
-        User user = userRepository.get(usr);
-        return chatRepository.getByUserAndAdvert(user, advertId)
-                .flatMap(chat ->
-                        viewRepository
-                                .findOneByUserAndConversation(user, chat)
-                                .map(view -> viewRepository.save(view.readAll()))
-                );
+    public Optional<Chat.View> renderUserViewForChat(UserIdentifier viewer, Long chatId) {
+        return viewRepository.findOneByUser_IdAndConversation_Id(viewer.getId(), chatId);
     }
 
     private void initiateChat(UserIdentifier enquirer, Long advertId) {
         PropertyAdvert advert = advertRepository.findOneById(advertId)
                 .orElseThrow(() -> new EntityNotFoundException("that advert doesn't exist"));
         User user = userRepository.get(enquirer);
-        Chat directMessaging = chatRepository.save(new Chat(user, advert));
-
-        viewRepository.save(new Chat.View(user, directMessaging));
-        viewRepository.save(new Chat.View(advert.getUser(), directMessaging));
+        Chat chat = chatRepository.save(new Chat(user, advert));
+        viewRepository.save(new Chat.View(user, chat));
+        viewRepository.save(new Chat.View(advert.getUser(), chat));
     }
 }

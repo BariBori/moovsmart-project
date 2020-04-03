@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    public void deleteAllByConversation(Conversation conversation);
+    public void deleteAllByConversation(Long conversationId);
+
 }

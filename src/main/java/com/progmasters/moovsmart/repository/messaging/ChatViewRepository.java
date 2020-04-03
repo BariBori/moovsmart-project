@@ -11,11 +11,9 @@ import java.util.stream.Stream;
 public interface ChatViewRepository extends JpaRepository<Chat.View, Long> {
     Stream<Chat.View> streamAllByUser(User user);
 
-    List<Chat.View> findAllByConversation(Chat topic);
+    List<Chat.View> findAllByConversation_Id(Long chatId);
 
-    Optional<Chat.View> findOneByUserAndConversation(User user, Chat topic);
+    Optional<Chat.View> findOneByUser_IdAndConversation_Id(Long userId, Long chatId);
 
-    Optional<Chat.View> findOneByPartnerAndConversation(User partner, Chat topic);
 
-    Optional<Chat.View> findOneByUserAndConversation_Advert_Id(User user, Long topicId);
 }
