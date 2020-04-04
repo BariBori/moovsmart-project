@@ -7,6 +7,9 @@ import { MessageModel } from '../models/messaging/MessageModel';
 import { TopicModel } from '../models/messaging/TopicModel';
 import { ChatModel } from '../models/messaging/ChatModel';
 
+export interface TopicMap {
+  [id: number]: TopicModel;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +19,7 @@ export class MessagingService {
   public sendDirectMessage: (message: string, advertId: number) => Observable<MessageModel>;
   public fetchConversation: (advertId: number) => Observable<ChatModel>;
   public unsubscribe: (advertId: number) => Observable<void>;
-  public fetchMyTopics: Observable<TopicModel[]>;
+  public fetchMyTopics: Observable<TopicMap>;
 
   constructor(
     private http: HttpClient,
@@ -31,7 +34,7 @@ export class MessagingService {
 
     this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`);
 
-    this.fetchMyTopics = this.http.get<TopicModel[]>(this.BASE_URL + '/my-topics');
+    this.fetchMyTopics = this.http.get<TopicMap>(this.BASE_URL + '/my-topics');
 
     this.unsubscribe = (advertId: number) => this.http.post<void>(this.BASE_URL + `/unsubscribe/${advertId}`, '');
   }

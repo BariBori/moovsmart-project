@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/messages")
@@ -48,7 +48,7 @@ public class MessagingController {
 
     @GetMapping("/my-topics")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<List<TopicDto>>
+    public ResponseEntity<Map<Long, TopicDto>>
     fetchTopicsByUser() {
         return ResponseEntity.ok(
                 service.getTopicsByUser(
