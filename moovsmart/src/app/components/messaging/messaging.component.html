@@ -16,23 +16,24 @@
                     </div>
 
                     <div class="inbox_chat">
-                        <div class="chat_list" *ngFor='let topic of topics'
-                            [ngClass]="{'active_chat':topic.chatId === activeTopic?.chatId}">
-                            <div class="chat_people" (mouseenter)='mouseOverId=topic.chatId'
+                        <div class="chat_list" *ngFor='let topic of topics | keyvalue'
+                            [ngClass]="{'active_chat':topic.key === activeTopic?.id}">
+                            <div class="chat_people" (mouseenter)='mouseOverId=topic.key'
                                 (mouseleave)='mouseOverId=null'>
                                 <div class="chat_ib">
-                                    <button [style.visibility]="topic.chatId===mouseOverId
+                                    <button [style.visibility]="topic.key===mouseOverId
                                     ? 'visible'
                                     : 'hidden'" matTooltip='Beszélgetés törlése' matTooltipPosition='below'
-                                        (click)='unsubscribe(topic)'>
+                                        (click)='unsubscribe(topic.key)'>
                                         <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                     </button>
-                                    <div class="message-topic" (click)='setActiveTopic(topic)'>
-                                        <span class="message-topic-title">{{topic.title}}</span>
+                                    <div class="message-topic" (click)='setActiveTopic(topic.value)'>
+                                        <span class="message-topic-title">{{topic.value.title}}</span>
                                         <span>
                                             <span class="message-topic-partner"
-                                                [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
-                                                matBadgeColor='basic'>{{ topic.partner }}</span>
+                                                [matBadge]="topic.value.unread === 0? '':topic.value.unread"
+                                                matBadgeOverlap=false
+                                                matBadgeColor='basic'>{{ topic.value.partner }}</span>
                                         </span>
                                     </div>
                                 </div>
@@ -44,7 +45,7 @@
                 <div class="mesgs">
                     <div class="msg_history">
 
-                        <div *ngFor='let message of activeTopic?.chat.messages' [ngClass]="currentUserName === message.sender
+                        <div *ngFor='let message of activeTopic?.messages' [ngClass]="currentUserName === message.sender
                         ? 'outgoing_msg'
                         : 'received_msg'">
                             <div [ngClass]="currentUserName === message.sender
