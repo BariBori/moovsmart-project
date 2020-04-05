@@ -59,18 +59,18 @@
                     </div>
 
                     <div class="type_msg">
-                        <div class="input_msg_write">
+                        <form class="input_msg_write" [formGroup]='form' (ngSubmit)='send()'>
 
-                            <input type="text" class="write_msg" [formControl]='message' [placeholder]="(activeTopic|async)===null
+                            <input type="text" class="write_msg" formControlName='message' [placeholder]="(activeTopic|async)===null
                             ? 'Válassz ki egy beszélgetést!'
                             : 'Ide írd be az üzenetet!'" />
 
                             <button class="msg_send_btn" type="button" matTooltip='Küldés' matTooltipPosition='below'
-                                [disabled]='message.invalid ||activeTopic===null' (click)='send()'>
+                                type="submit" [disabled]='form.invalid || (activeTopic|async)===null'>
                                 <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
                             </button>
 
-                        </div>
+                        </form>
                     </div>
 
                 </div>
