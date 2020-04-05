@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.service.messaging;
 
-import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.messaging.Chat;
 import com.progmasters.moovsmart.domain.messaging.Message;
 import com.progmasters.moovsmart.domain.user.User;
@@ -14,9 +13,9 @@ import com.progmasters.moovsmart.repository.messaging.MessageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -45,7 +44,7 @@ public class MessagingService {
     }
 
     public Optional<Chat.View> saveDirectMessage(UserIdentifier sender, String message, Long chatId) {
-        Optional<Chat.View> result =
+        Optional<Chat.View> maybeView =
                 viewRepository.findOneByPartner_IdAndConversation_Id(sender.getId(), chatId)
                         .map(view -> viewRepository.save(view.addUnread()))
                         .or(() -> viewRepository.findOneByUser_IdAndConversation_Id(sender.getId(), chatId))
@@ -57,12 +56,12 @@ public class MessagingService {
                         ))
                         .flatMap(msg -> viewRepository.findOneByUser_IdAndConversation_Id(sender.getId(), chatId));
 
-        result.ifPresent(view -> notificationService.notifyUser(
+        maybeView.ifPresent(view -> notificationService.notifyUser(
                 view.getPartner().getUserName(),
                 Map.entry("incoming", view.getConversation().getId())
         ));
 
-        return result;
+        return maybeView;
     }
 
 
@@ -71,25 +70,24 @@ public class MessagingService {
     }
 
     public Map<Long, TopicDto> enquire(UserIdentifier enquirer, Long advertId) {
-        return chatRepository.findOneByEnquirer_IdAndAdvert_Id(enquirer.getId(), advertId)
-                .flatMap(chat ->
-                        viewRepository.findOneByUser_IdAndConversation_Id(enquirer.getId(), chat.getId())
-                )
-                .or(() -> reopenChat(enquirer, advertId))
+        Optional<Chat.View> maybeView =
+                chatRepository.findOneByEnquirer_IdAndAdvert_Id(enquirer.getId(), advertId)
+                        .flatMap(chat ->
+                                viewRepository.findOneByUser_IdAndConversation_Id(enquirer.getId(), chat.getId()))
+                        .or(() -> reopenChat(enquirer, advertId));
+        return maybeView
                 .map(view -> getTopicsByUserIdentifier(enquirer))
                 .orElseGet(() -> initiateChat(enquirer, advertId));
     }
 
-    public void deleteChatView(UserIdentifier user, Long chatId) {
+    public Map<Long, TopicDto> deleteChatView(UserIdentifier user, Long chatId) {
         viewRepository.findOneByUser_IdAndConversation_Id(user.getId(), chatId)
-                .ifPresent(view -> {
-                    viewRepository.delete(view);
-                    if (viewRepository.findAllByConversation_Id(chatId).isEmpty()) {
-                        messageRepository.deleteAllByConversation_Id(chatId);
-                        chatRepository.deleteById(chatId);
-                    }
-                });
-        notificationService.notifyUser(user.getUsername(), Map.entry("unsubscribed", chatId));
+                .ifPresent(viewRepository::delete);
+        if (viewRepository.findAllByConversation_Id(chatId).isEmpty()) {
+            messageRepository.deleteAllByConversation_Id(chatId);
+            chatRepository.deleteById(chatId);
+        }
+        return getTopicsByUserIdentifier(user);
     }
 
     public Optional<Chat.View> renderUserViewForChat(UserIdentifier viewer, Long chatId) {
@@ -106,8 +104,7 @@ public class MessagingService {
                 .map(TopicDto::fromView)
                 .collect(Collectors.toMap(
                         TopicDto::getChatId,
-                        dto -> dto
-                ));
+                        Function.identity()));
     }
 
     private Optional<Chat.View> reopenChat(UserIdentifier enquirer, Long advertId) {
@@ -118,13 +115,20 @@ public class MessagingService {
     }
 
     private Map<Long, TopicDto> initiateChat(UserIdentifier enquirer, Long advertId) {
-        PropertyAdvert advert = advertRepository.findOneById(advertId)
-                .orElseThrow(() -> new EntityNotFoundException("that advert doesn't exist"));
         User user = userRepository.get(enquirer);
-        Chat chat = chatRepository.save(new Chat(user, advert));
-        viewRepository.save(new Chat.View(user, chat));
-        viewRepository.save(new Chat.View(advert.getUser(), chat));
-        notificationService.notifyUser(advert.getUser().getUserName(), Map.entry("new", chat.getId()));
+        advertRepository.findOneById(advertId)
+                .map(advert -> chatRepository.save(new Chat(
+                        user,
+                        advert)
+                ))
+                .map(chat -> viewRepository.save(new Chat.View(user, chat)))
+                .map(view -> viewRepository.save(new Chat.View(view.getPartner(), view.getConversation())))
+                .ifPresent(partnerView -> notificationService
+                        .notifyUser(
+                                partnerView.getUser().getUserName(),
+                                Map.entry("new", partnerView.getConversation().getId())
+                        )
+                );
         return getTopicsByUserIdentifier(enquirer);
     }
 }

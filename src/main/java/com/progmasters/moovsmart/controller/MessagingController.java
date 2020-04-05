@@ -36,12 +36,10 @@ public class MessagingController {
             @RequestBody String message,
             @PathVariable Long chatId
     ) {
-        return service
-                .saveDirectMessage(
-                        userDetails.get(),
-                        message,
-                        chatId
-                )
+        return service.saveDirectMessage(
+                userDetails.get(),
+                message,
+                chatId)
                 .map(ChatDto::fromTopicView)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -59,9 +57,8 @@ public class MessagingController {
 
     @PostMapping("/unsubscribe/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> unsubscribeFromDirectMessaging(@PathVariable Long chatId) {
-        service.deleteChatView(userDetails.get(), chatId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Map<Long, TopicDto>> unsubscribeFromDirectMessaging(@PathVariable Long chatId) {
+        return ResponseEntity.ok(service.deleteChatView(userDetails.get(), chatId));
     }
 
     @PostMapping("/direct/{advertId}")
