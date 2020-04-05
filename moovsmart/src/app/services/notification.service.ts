@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { tap } from 'rxjs/operators';
 
 interface NotificationModel {
-  unread: number;
+  [key: string]: any;
 }
 
 @Injectable({
