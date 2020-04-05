@@ -130,6 +130,9 @@ chat_ib h5{
   top: 11px;
   width: 33px;
 }
+.msg_send_btn:disabled{
+  cursor: default;
+}
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
   height: 516px;

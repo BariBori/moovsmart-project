@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MessagingService, TopicMap } from 'src/app/services/messaging.service';
 import { MessageModel } from 'src/app/models/messaging/MessageModel';
 import { UserService } from 'src/app/services/user.service';
@@ -7,12 +7,9 @@ import { Router } from '@angular/router';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ChatModel } from 'src/app/models/messaging/ChatModel';
-import { TopicModel } from 'src/app/models/messaging/TopicModel';
-import { tap, map, flatMap } from 'rxjs/operators';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { tap, map, flatMap, filter, pluck } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
-import { iif, of } from 'rxjs';
+import { Observable, ReplaySubject, merge, BehaviorSubject, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-messaging',
@@ -24,75 +21,74 @@ export class MessagingComponent implements OnInit {
   faPaperPlane = faPaperPlane;
   faTrash = faTrash;
 
-  currentUserName: string;
-  message = new FormControl('', Validators.required);
-  topics: TopicMap;
+  currentUserName: Observable<string>;
+  form = new FormGroup({
+    message: new FormControl('', Validators.required),
+  });
+  topics: Observable<TopicMap>;
   messages: MessageModel[];
   mouseOverId: number = null;
-  setActiveTopic: (topic: TopicModel) => void;
   unsubscribe: (chatId: number) => void;
-  activeTopic: ChatModel | null = null;
-  refreshTopics: () => void;
+  activeTopic = new BehaviorSubject<ChatModel>(null);
+  activeTopicId = new ReplaySubject<number>(1);
+
 
 
   constructor(
     private msgservice: MessagingService,
-    private notificationService: NotificationService,
     private userService: UserService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
-    this.message.disable();
-    this.refreshTopics = () => void this.msgservice.fetchMyTopics.subscribe(
-      topics => this.topics = topics
-    );
+    this.currentUserName = userService.getCurrentUser.pipe(map(user => user.userName));
+    this.topics = this.msgservice.myTopics;
     this.unsubscribe = (chatId: number) => this.msgservice.unsubscribe(chatId)
-      .subscribe(() => {
-        this.refreshTopics();
-        if (this.activeTopic?.id === chatId) {
-          this.activeTopic = null;
-          this.message.disable();
-        }
-      });
-
-
-    this.setActiveTopic = (topic: TopicModel) => void this.msgservice
-      .fetchConversation(topic.chatId).pipe(
-        tap(chat => this.topics[chat.id].unread = 0))
-      .subscribe(
-        chat => {
-          this.activeTopic = chat;
-          this.message.enable();
-        },
-        console.error
-      );
-  }
-
-  send() {
-    this.msgservice.sendDirectMessage(this.message.value, this.activeTopic.id)
-      .subscribe(response => {
-        this.activeTopic.messages.push(response);
-        this.message.setValue('');
-      });
+      .pipe(tap(() => {
+        this.activeTopic.next(null);
+      }))
+      .subscribe();
   }
 
   ngOnInit(): void {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/user-login']);
     }
-    this.refreshTopics();
-    this.userService.getCurrentUser.subscribe(
-      response => this.currentUserName = response.userName
+
+    this.activeTopic.subscribe(
+      topic => topic === null
+        ? this.form.get('message').disable()
+        : this.form.get('message').enable()
     );
 
-    this.notificationService.onNotification.pipe(
-      tap(() => this.refreshTopics()),
-      flatMap(notification =>
-        iif(() => notification.unread === this.activeTopic?.id,
-          this.msgservice.fetchConversation(notification.unread)
-            .pipe(tap(() => this.topics[this.activeTopic.id].unread = 0)),
-          of(this.activeTopic)
-        )))
-      .subscribe(chat => this.activeTopic = chat);
+    const unreadId: Observable<number> = this.notificationService.onNotification
+      .pipe(
+        filter(notification => notification.incoming),
+        pluck('incoming'),
+      );
+
+
+    merge(
+      this.activeTopicId,
+      combineLatest([
+        this.activeTopicId,
+        unreadId
+      ]).pipe(
+        filter(([active, unread]) => active === unread),
+        map(([active, unread]) => active)
+      )
+    )
+      .pipe(flatMap(id => this.msgservice.fetchConversation(id)))
+      .subscribe(chat => this.activeTopic.next(chat));
+
+  }
+
+  send() {
+    this.activeTopicId.pipe(
+      flatMap(id =>
+        this.msgservice.sendDirectMessage(this.form.get('message').value, id)),
+      tap(() => this.form.get('message').setValue('')),
+    )
+      .subscribe(chat => this.activeTopic.next(chat));
 
   }
 
