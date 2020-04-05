@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, merge } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { tap, map } from 'rxjs/operators';
-import { MessageModel } from '../models/messaging/MessageModel';
+import { tap, flatMap, filter } from 'rxjs/operators';
 import { TopicModel } from '../models/messaging/TopicModel';
 import { ChatModel } from '../models/messaging/ChatModel';
+import { NotificationService } from './notification.service';
+import { UserService } from './user.service';
 
 export interface TopicMap {
   [id: number]: TopicModel;
@@ -15,27 +16,67 @@ export interface TopicMap {
 })
 export class MessagingService {
   private BASE_URL: string = environment.BASE_URL + '/api/messages';
-  public beginDirectMessaging: (advertId: number) => Observable<number>;
-  public sendDirectMessage: (message: string, advertId: number) => Observable<MessageModel>;
-  public fetchConversation: (advertId: number) => Observable<ChatModel>;
-  public unsubscribe: (advertId: number) => Observable<void>;
-  public fetchMyTopics: Observable<TopicMap>;
+  public beginDirectMessaging: (advertId: number) => Observable<TopicMap>;
+  public sendDirectMessage: (message: string, advertId: number) => Observable<ChatModel>;
+  public fetchConversation: (chatId: number) => Observable<ChatModel>;
+  public unsubscribe: (advertId: number) => Observable<TopicMap>;
+  public myTopics = new ReplaySubject<TopicMap>(1);
+  private refreshTopics: () => Observable<TopicMap>;
+
 
   constructor(
     private http: HttpClient,
+    private notificationService: NotificationService,
+    private userService: UserService
   ) {
     this.beginDirectMessaging = (advertId: number) =>
-      this.http.post<number>(this.BASE_URL + `/direct/${advertId}`, '')
-        .pipe(tap(console.log, console.error));
+      this.http.post<TopicMap>(this.BASE_URL + `/direct/${advertId}`, '').pipe(
+        tap(
+          response => this.myTopics.next(response),
+          console.error,
+          () => console.log(`Initialized chat for advert id #${advertId}`)
+        ));
 
     this.sendDirectMessage = (message: string, chatId: number) =>
-      this.http.put<MessageModel>(this.BASE_URL + `/topic/${chatId}`, message)
-        .pipe(tap(console.log, console.error));
+      this.http.put<ChatModel>(this.BASE_URL + `/topic/${chatId}`, message).pipe(
+        tap(
+          chat => this.fetchConversation(chat.id),
+          console.error,
+          () => console.log(`DM sent to chat #${chatId}`)
+        ));
 
-    this.fetchConversation = (advertId: number) => this.http.get<ChatModel>(this.BASE_URL + `/topic/${advertId}`);
+    this.fetchConversation = (chatId: number) =>
+      this.http.get<ChatModel>(this.BASE_URL + `/topic/${chatId}`).pipe(
+        tap(
+          () => this.refreshTopics().subscribe(),
+          console.error,
+          () => console.log(`Converation #${chatId} updated`)
+        ));
 
-    this.fetchMyTopics = this.http.get<TopicMap>(this.BASE_URL + '/my-topics');
+    this.unsubscribe = (chatId: number) =>
+      this.http.post<TopicMap>(this.BASE_URL + `/unsubscribe/${chatId}`, '').pipe(
+        tap(
+          response => this.myTopics.next(response),
+          console.error,
+          () => console.log(`Unsubscribed from conversation #${chatId}`)
+        ));
 
-    this.unsubscribe = (advertId: number) => this.http.post<void>(this.BASE_URL + `/unsubscribe/${advertId}`, '');
+    this.refreshTopics = () => this.http.get<TopicMap>(this.BASE_URL + '/my-topics').pipe(
+      tap(
+        topics => this.myTopics.next(topics),
+        console.error,
+        () => console.log('myTopics succesfully updated')
+      )
+    );
+
+    merge(
+      this.userService.loggedIn.pipe(filter(loggedIn => loggedIn === true)),
+      this.notificationService.onNotification.pipe(
+        filter(notification =>
+          notification.incoming
+          || notification.new))
+    )
+      .pipe(flatMap(() => this.refreshTopics()))
+      .subscribe();
   }
 }
