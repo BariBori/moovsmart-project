@@ -1,7 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.dto.messaging.ChatDto;
-import com.progmasters.moovsmart.dto.messaging.MessageDto;
 import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.service.messaging.MessagingService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
@@ -33,17 +32,19 @@ public class MessagingController {
 
     @PutMapping("/topic/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<MessageDto> directMessage(
+    public ResponseEntity<ChatDto> directMessage(
             @RequestBody String message,
             @PathVariable Long chatId
     ) {
-        return service.isSubscribed(userDetails.get(), chatId)
-                ? ResponseEntity.ok(MessageDto.fromMessage(
-                service.saveDirectMessage(
+        return service
+                .saveDirectMessage(
                         userDetails.get(),
                         message,
-                        chatId)))
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                        chatId
+                )
+                .map(ChatDto::fromTopicView)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/my-topics")
@@ -51,7 +52,7 @@ public class MessagingController {
     public ResponseEntity<Map<Long, TopicDto>>
     fetchTopicsByUser() {
         return ResponseEntity.ok(
-                service.getTopicsByUser(
+                service.getTopicsByUserIdentifier(
                         userDetails.get()
                 ));
     }
@@ -65,9 +66,10 @@ public class MessagingController {
 
     @PostMapping("/direct/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> directMessage(@PathVariable Long advertId) {
-        service.enquire(userDetails.get(), advertId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Map<Long, TopicDto>> directMessage(@PathVariable Long advertId) {
+        return ResponseEntity.ok(
+                service.enquire(userDetails.get(), advertId)
+        );
     }
 
     @GetMapping("/topic/{chatId}")
