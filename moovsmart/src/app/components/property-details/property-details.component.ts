@@ -129,7 +129,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   isFavourite() {
-    return this.favourites.some(fav => fav.id === this.propertyAdvertDetails.id);
+    return this.favourites?.some(fav => fav?.id === this.propertyAdvertDetails?.id);
   }
 
   saveUnsaveFavourite() {
