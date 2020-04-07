@@ -7,6 +7,7 @@ import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
 import com.progmasters.moovsmart.dto.form.PropertyCity;
 import com.progmasters.moovsmart.dto.form.PropertyEditForm;
 import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
+import com.progmasters.moovsmart.dto.list.PageList;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
@@ -88,9 +89,9 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(filteredPropertyAdverts, HttpStatus.OK);
     }
 
-    @GetMapping("\"/\" + {pageSize} + \"/\" + {pageIndex}")
-    public ResponseEntity<List<PropertyAdvertListItem>> getPaginatorPropertyAdverts(@PathVariable Integer pageSize, @PathVariable Integer pageIndex) {
-        return new ResponseEntity<>(propertyAdvertService.findAllByPaginator(pageSize, pageIndex), HttpStatus.OK);
+    @PostMapping("/page")
+    public ResponseEntity<List<PropertyAdvertListItem>> getPaginatorPropertyAdverts(@RequestBody PageList pageList) {
+        return new ResponseEntity<>(propertyAdvertService.findAllByPaginator(pageList.getPageSize(), pageList.getPageIndex()), HttpStatus.OK);
     }
 
 

@@ -5,6 +5,7 @@ import {PropertyListItemModel} from "../../models/propertyListItem.model";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {PageModel} from "../../models/page.model";
 
 @Component({
   selector: 'app-property-list',
@@ -15,6 +16,7 @@ export class PropertyListComponent implements OnInit {
 
   displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
+  data: PageModel;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -23,7 +25,6 @@ export class PropertyListComponent implements OnInit {
   constructor(private propertyService: PropertyService,
               private router: Router) {
   }
-
 
   applyFilter(filterEvent: any) {
     filterEvent = filterEvent.target.value.trim();
@@ -52,7 +53,12 @@ export class PropertyListComponent implements OnInit {
   }
 
   changePage(pageIndex: number, pageSize: number) {
-    this.propertyService.getFilteredPropertyList(pageIndex, pageSize).subscribe(
+    console.log(pageSize);
+    console.log(pageIndex);
+    // this.data.pageIndex = this.dataSource.paginator.pageIndex;
+    // this.data.pageSize = this.dataSource.paginator.pageSize;
+    this.dataSource.paginator.pageSize
+    this.propertyService.getPropertiesByPage(this.data).subscribe(
       propertyListItems => {
         this.dataSource = new MatTableDataSource(propertyListItems);
         this.dataSource.paginator = this.paginator;

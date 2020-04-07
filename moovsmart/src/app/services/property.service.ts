@@ -11,6 +11,7 @@ import { PropertyEditModel } from "../models/propertyEdit.model";
 import { FilterPropertyAdvertModel } from "../models/filterPropertyAdvert.model";
 import { UserService } from './user.service';
 import { tap, filter, flatMap } from 'rxjs/operators';
+import {PageModel} from "../models/page.model";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -41,9 +42,8 @@ export class PropertyService {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
   }
 
-  getFilteredPropertyList(pageIndex: number, pageSize: number): Observable<Array<PropertyListItemModel>> {
-    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/" + pageSize + "/" + pageIndex);
-
+  getPropertiesByPage(data: PageModel): Observable<Array<PropertyListItemModel>> {
+    return this.httpClient.post<Array<PropertyListItemModel>>(BASE_URL + "/page", data);
   }
 
   //user's property list in profil
