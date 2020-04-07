@@ -27,6 +27,9 @@ public class PropertyAdvertListItem {
 
     private AdvertStatusTypeOption advertStatus;
 
+    private Double longitude;
+    private Double latitude;
+
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.title = propertyAdvert.getTitle();
@@ -38,6 +41,8 @@ public class PropertyAdvertListItem {
         this.address = propertyAdvert.getAddress();
         this.priceForSquareMeter = (int) Math.round(price * 1000000 / area);
         this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
+        this.latitude = propertyAdvert.getLatitude();
+        this.longitude = propertyAdvert.getLongitude();
     }
 
     public PropertyAdvertListItem() {
@@ -89,5 +94,13 @@ public class PropertyAdvertListItem {
 
     public AdvertStatusTypeOption getAdvertStatus() {
         return advertStatus;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
     }
 }

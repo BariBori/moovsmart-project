@@ -1,0 +1,21 @@
+<ng-container>
+    <agm-map *ngIf="showMap"
+             [latitude]="latitude"
+             [longitude]="longitude"
+             [scrollwheel]="null"
+             [zoom]="zoom"
+             gestureHandling="cooperative"
+    >
+      <agm-marker
+        (markerClick)="markerClick(property)"
+        *ngFor="let property of datasource; let i = index"
+        [latitude]="datasource.latitude" [longitude]="datasource.longitude"
+      >
+
+      </agm-marker>
+
+
+    </agm-map>
+
+
+</ng-container>

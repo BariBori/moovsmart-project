@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MessagingService } from 'src/app/services/messaging.service';
 import { MessageModel } from 'src/app/models/messaging/MessageModel';
@@ -35,6 +35,7 @@ export class MessagingComponent implements OnInit {
   };
   refreshTopics: () => void;
 
+  container: HTMLElement;
 
   constructor(
     private msgservice: MessagingService,
@@ -105,5 +106,6 @@ export class MessagingComponent implements OnInit {
   format(dateString: string): string {
     return new Date(dateString).toLocaleString();
   }
+
 
 }

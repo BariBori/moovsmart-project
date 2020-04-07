@@ -11,5 +11,8 @@ export interface FilterPropertyAdvertModel {
   advertStatusType: string;
   propertyType: string;
   propertyConditionType: string;
+  latitude: number;
+  longitude: number;
+  range: number;
 
 }

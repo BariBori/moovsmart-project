@@ -26,6 +26,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UserSavedPropertyComponent } from './user-saved-property/user-saved-property.component';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     UserHomeComponent,
     UserDetailsComponent,
     UserPropertyComponent,
+    UserSavedPropertyComponent,
   ]
 }
 

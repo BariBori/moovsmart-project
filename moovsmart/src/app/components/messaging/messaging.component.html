@@ -40,8 +40,8 @@
                     </div>
                 </div>
 
-                <div class="mesgs">
-                    <div class="msg_history">
+                <div class="mesgs"  >
+                    <div class="msg_history"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
 
                         <div *ngFor='let message of activeTopic?.chat.messages' [ngClass]="currentUserName === message.sender
                         ? 'outgoing_msg'
