@@ -49,7 +49,6 @@ describe('UserService', () => {
             controller.expectOne(ME_URL)
                 .flush({ id: 1, email: 'user', userName: 'user' });
         }
-        TestBed.resetTestingModule();
         controller.verify();
     });
 });
