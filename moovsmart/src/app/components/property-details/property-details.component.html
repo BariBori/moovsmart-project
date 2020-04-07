@@ -21,7 +21,7 @@
           {{propertyAdvertDetails?.street}}</p>
       </div>
       <div class="col-4" *ngIf="isVisitorLogged">
-        <button class="btn btn-like float-right" (click)="saveFavourite(propertyAdvertDetails?.id)"
+        <button class="btn btn-like float-right" (click)="isFavourite()?saveFavourite(propertyAdvertDetails?.id):removeFavourite(propertyAdvertDetails?.id)"
           *ngIf="!isFavourite()">
           <fa-icon [icon]="faStar"></fa-icon> Mentés
         </button>

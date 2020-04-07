@@ -24,6 +24,15 @@ export class PropertyService {
   savedAdverts = new ReplaySubject<PropertyListItemModel[]>(1);
 
   constructor(private httpClient: HttpClient, private userService: UserService) {
+    userService.loggedIn.subscribe(
+      loginEvent => {
+        if(loginEvent) {
+          this.savedAdverts.next(
+
+          )
+        }
+      }
+    )
   }
 
   createProperty(propertyFormDataModel: PropertyFormDataModel): Observable<any> {
@@ -75,5 +84,9 @@ export class PropertyService {
     );
   }
 
-
+  removeFavouriteAdvert(propertyAdvertID: number) {
+    return this.httpClient.delete<PropertyListItemModel[]>(BASE_URL + "/fav/" + propertyAdvertID).pipe(
+      tap(list => this.savedAdverts.next(list))
+    );
+  }
 }

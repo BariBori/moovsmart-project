@@ -143,6 +143,14 @@ public class PropertyAdvertController {
         return result;
     }
 
+    @DeleteMapping("/fav/{id}")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<PropertyAdvertListItem>> getFavouriteAdverts(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                userService.removeFavouriteAdvert(userDetails.get(), id)
+        );
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> getAdvertDetails(@PathVariable Long id) {
         return new ResponseEntity<>(propertyAdvertService.getPropertyAdvertDetails(id), HttpStatus.OK);

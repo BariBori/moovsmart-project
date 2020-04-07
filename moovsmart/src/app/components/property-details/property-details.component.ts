@@ -124,7 +124,6 @@ export class PropertyDetailsComponent implements OnInit {
 
   }
 
-
   editProperty(id: number) {
     this.router.navigate(['/property-form', id]);
   }
@@ -135,6 +134,13 @@ export class PropertyDetailsComponent implements OnInit {
     );
   }
   isFavourite() {
-    this.favourites.some(fav => fav.id === this.propertyAdvertDetails.id)
+    return this.favourites.some(fav => fav.id === this.propertyAdvertDetails.id);
+  }
+
+
+  removeFavourite(propertyAdvertID: number) {
+    this.propertyAdvertService.removeFavouriteAdvert(propertyAdvertID).subscribe(
+      console.log
+    );
   }
 }

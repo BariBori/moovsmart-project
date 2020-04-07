@@ -73,6 +73,14 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<PropertyAdvertListItem> removeFavouriteAdvert(UserIdentifier user, Long advertId) {
+        PropertyAdvert advert = advertRepository.getOne(advertId);
+        return userRepository
+                .save(userForDetails(user).removeSavedAdvert(advert)).getSavedAdverts().stream()
+                .map(PropertyAdvertListItem::new)
+                .collect(Collectors.toList());
+    }
+
 
     public User userForDetails(UserIdentifier userDetails) {
         return userRepository.getOne(userDetails.getId());

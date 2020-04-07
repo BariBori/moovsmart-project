@@ -53,4 +53,7 @@ export class UserSavedPropertyComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
+  deleteAdvert() {
+
+  }
 }

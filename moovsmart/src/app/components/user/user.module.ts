@@ -27,31 +27,33 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserSavedPropertyComponent } from './user-saved-property/user-saved-property.component';
+import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
-  imports: [
+    imports: [
 
-    UserRoutingModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+      UserRoutingModule,
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
 
 
-    CdkTableModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatSidenavModule,
-    FontAwesomeModule,
-    MatBadgeModule
-  ],
+      CdkTableModule,
+      MatFormFieldModule,
+      MatButtonModule,
+      MatInputModule,
+      MatNativeDateModule,
+      MatPaginatorModule,
+      MatRippleModule,
+      MatSelectModule,
+      MatSortModule,
+      MatTableModule,
+      MatTooltipModule,
+      MatSidenavModule,
+      FontAwesomeModule,
+      MatBadgeModule,
+      NgbButtonsModule
+    ],
   declarations: [
     UserHomeComponent,
     UserDetailsComponent,
