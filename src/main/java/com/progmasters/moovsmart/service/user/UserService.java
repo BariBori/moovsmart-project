@@ -36,11 +36,11 @@ public class UserService {
     }
 
     public boolean isEmailTaken(String emailAddress) {
-        return userRepository.findByEmail(emailAddress).isPresent();
+        return userRepository.findOneByEmail(emailAddress).isPresent();
     }
 
     public boolean isUserNameTaken(String userName) {
-        return userRepository.findByUserName(userName).isPresent();
+        return userRepository.findOneByUserName(userName).isPresent();
     }
 
     public User registerUser(UserForm userDto) {
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public User userForDetails(UserIdentifier userDetails) {
-        return userRepository.findByEmail(userDetails.getEmail())
+        return userRepository.findOneByEmail(userDetails.getEmail())
                 .orElseThrow(EntityNotFoundException::new);
     }
 }

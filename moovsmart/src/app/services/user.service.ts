@@ -7,6 +7,19 @@ import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Credentials } from '../models/Credentials';
 
+const session = {
+  authenticated: sessionStorage.getItem('authenticated')
+    ? true
+    : false,
+  authenticate() {
+    sessionStorage.setItem('authenticated', 'true');
+    this.authenticated = true;
+  },
+  inauthenticate() {
+    sessionStorage.removeItem('authenticated');
+    this.authenticated = false;
+  }
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -14,26 +27,13 @@ export class UserService {
 
 
   private BASE_URL = environment.BASE_URL;
-  private session = {
-    authenticated: sessionStorage.getItem('authenticated')
-      ? true
-      : false,
-    authenticate: () => {
-      sessionStorage.setItem('authenticated', 'true');
-      this.session.authenticated = true;
-    },
-    inauthenticate: () => {
-      sessionStorage.removeItem('authenticated');
-      this.session.authenticated = false;
-    }
-  };
   // ReplaySubject is an Observable
   public getCurrentUser = new ReplaySubject<User>(1);
-  public loggedIn = new BehaviorSubject<boolean>(this.session.authenticated);
+  public loggedIn = new BehaviorSubject<boolean>(session.authenticated);
   public logOut: Observable<any>;
   public authenticate: (credentials: Credentials) => Observable<User>;
   public registerUser: (data: UserFormDataModel) => Observable<void>;
-  public isLoggedIn = (): boolean => this.session.authenticated;
+  public isLoggedIn = (): boolean => session.authenticated;
   private getAuthenticationHeaders: (credentials: Credentials) => HttpHeaders = (credentials: Credentials) => new HttpHeaders({
     authorization: 'basic ' + btoa(credentials.email + ':' + credentials.password)
   })
@@ -46,7 +46,7 @@ export class UserService {
       { headers: this.getAuthenticationHeaders(credentials) })
       .pipe(
         tap((user: User) => {
-          this.session.authenticate();
+          session.authenticate();
           this.getCurrentUser.next(user);
           this.loggedIn.next(true);
           console.log(`User '${user.userName}' succesfully logged in`);
@@ -57,7 +57,7 @@ export class UserService {
     this.logOut = this.http.get(this.BASE_URL + '/api/users/logout')
       .pipe(
         tap(() => {
-          sessionStorage.setItem('authenticated', '');
+          session.inauthenticate();
           this.loggedIn.next(false);
           console.log('User succesfully logged out');
         })
@@ -67,7 +67,7 @@ export class UserService {
     this.registerUser = (data: UserFormDataModel): Observable<void> =>
       this.http.post<void>(environment.BASE_URL + '/api/users/register', data);
 
-    if (this.session.authenticated) {
+    if (session.authenticated) {
       this.http.get<User>(this.BASE_URL + '/api/users/me')
         .subscribe(
           user => {
@@ -76,7 +76,7 @@ export class UserService {
             console.log(`Succesfully fetched details of User '${user.userName}'`);
           },
           err => {
-            this.session.inauthenticate();
+            session.inauthenticate();
             this.loggedIn.next(false);
             console.error(err);
           }

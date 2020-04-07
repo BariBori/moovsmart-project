@@ -3,9 +3,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
 import { faCity, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MessagingService } from 'src/app/services/messaging.service';
-import { TopicModel } from 'src/app/models/messaging/TopicModel';
+import { MessagingService, TopicMap } from 'src/app/services/messaging.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -19,13 +18,13 @@ export class UserHomeComponent implements OnInit {
   faEnvelope = faEnvelope;
   faUser = faUser;
   public unread = 0;
-  private sumUnread: (topics: TopicModel[]) => void;
+  private sumUnread: (topics: TopicMap) => void;
 
   constructor(
     private service: UserService,
     private msgService: MessagingService,
     private router: Router) {
-    this.sumUnread = (topics) => this.unread = topics
+    this.sumUnread = (topics) => this.unread = Object.values(topics)
       .map(topic => topic.unread)
       .reduce((total, unread) => total + unread, 0);
   }
@@ -37,6 +36,6 @@ export class UserHomeComponent implements OnInit {
     } else {
       this.router.navigate(['user-login']);
     }
-    this.msgService.fetchMyTopics.subscribe(this.sumUnread);
+    this.msgService.myTopics.subscribe(this.sumUnread);
   }
 }

@@ -16,22 +16,24 @@
                     </div>
 
                     <div class="inbox_chat">
-                        <div class="chat_list" *ngFor='let topic of topics'
-                            [ngClass]="{'active_chat':topic.advertId === activeTopic?.advertId}">
-                            <div class="chat_people" (mouseenter)='mouseOverId=topic.advertId'
-                                (mouseleave)='mouseOverId=null' (click)='setActiveTopic(topic)'>
+                        <div class="chat_list" *ngFor='let topic of topics | async | keyvalue'
+                            [ngClass]="{'active_chat':+topic.key === (activeTopic | async)?.id}">
+                            <div class="chat_people" (mouseenter)='mouseOverId=+topic.key'
+                                (mouseleave)='mouseOverId=null'>
                                 <div class="chat_ib">
-                                    <button [style.visibility]="topic.advertId===mouseOverId
+                                    <button [style.visibility]="+topic.key===mouseOverId
                                     ? 'visible'
                                     : 'hidden'" matTooltip='Beszélgetés törlése' matTooltipPosition='below'
-                                        (click)='unsubscribe(topic)'>
+                                        (click)='unsubscribe(+topic.key)'>
                                         <fa-icon [icon]="faTrash" class="icon"></fa-icon>
                                     </button>
-                                    <div class="message-topic">
-                                       <span class="message-topic-title">{{topic.title}}</span>
-                                      <span [matBadge]="topic.unread === 0? '':topic.unread" matBadgeOverlap=false
-                                            matBadgeColor='basic'>
-                                           <span class="message-topic-partner">{{ topic.partner }}</span>
+                                    <div class="message-topic" (click)='activeTopicId.next(+topic.key)'>
+                                        <span class="message-topic-title">{{topic.value.title}}</span>
+                                        <span>
+                                            <span class="message-topic-partner"
+                                                [matBadge]="topic.value.unread === 0? '':topic.value.unread"
+                                                matBadgeOverlap=false
+                                                matBadgeColor='basic'>{{ topic.value.partner }}</span>
                                         </span>
                                     </div>
                                 </div>
@@ -40,13 +42,14 @@
                     </div>
                 </div>
 
-                <div class="mesgs"  >
-                    <div class="msg_history"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <div class="mesgs">
+                    <div class="msg_history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 
-                        <div *ngFor='let message of activeTopic?.chat.messages' [ngClass]="currentUserName === message.sender
+
+                        <div *ngFor='let message of (activeTopic|async)?.messages' [ngClass]="(currentUserName|async) === message.sender
                         ? 'outgoing_msg'
                         : 'received_msg'">
-                            <div [ngClass]="currentUserName === message.sender
+                            <div [ngClass]="(currentUserName|async) === message.sender
                             ? 'sent_msg'
                             : 'received_withd_msg'">
                                 <p>{{message.text}} </p>
@@ -57,18 +60,18 @@
                     </div>
 
                     <div class="type_msg">
-                        <div class="input_msg_write">
+                        <form class="input_msg_write" [formGroup]='form' (ngSubmit)='send()'>
 
-                            <input type="text" class="write_msg" [formControl]='message' [placeholder]="activeTopic===null
+                            <input type="text" class="write_msg" formControlName='message' [placeholder]="(activeTopic|async)===null
                             ? 'Válassz ki egy beszélgetést!'
                             : 'Ide írd be az üzenetet!'" />
 
                             <button class="msg_send_btn" type="button" matTooltip='Küldés' matTooltipPosition='below'
-                                [disabled]='message.invalid ||activeTopic===null' (click)='send()'>
+                                type="submit" [disabled]='form.invalid || (activeTopic|async)===null'>
                                 <fa-icon [icon]="faPaperPlane" class="icon"></fa-icon>
                             </button>
 
-                        </div>
+                        </form>
                     </div>
 
                 </div>

@@ -7,7 +7,6 @@ import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,7 @@ public class PropertyAdvertService {
     }
 
     public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
-        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+        Optional<User> user = userRepository.findOneByUserName(userDetails.getUsername());
         if (user.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);

@@ -7,14 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChatDto {
-    private Long advertId;
-    private String title;
+    private Long id;
     private List<MessageDto> messages;
 
     public static ChatDto fromTopicView(Chat.View view) {
         ChatDto result = new ChatDto();
-        result.advertId = view.getConversation().getAdvert().getId();
-        result.title = view.getTitle();
+        result.id = view.getConversation().getId();
         result.messages = view.getConversation()
                 .getMessages().stream()
                 .map(MessageDto::fromMessage)
@@ -22,12 +20,8 @@ public class ChatDto {
         return result;
     }
 
-    public Long getAdvertId() {
-        return advertId;
-    }
-
-    public String getTitle() {
-        return title;
+    public Long getId() {
+        return id;
     }
 
     public List<MessageDto> getMessages() {

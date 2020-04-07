@@ -29,5 +29,4 @@ public class SpringWebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "DELETE", "PUT");
     }
 
-
 }
