@@ -66,6 +66,14 @@ public class PropertyAdvertController {
         );
     }
 
+    @GetMapping("/fav")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<PropertyAdvertListItem>> getFavouriteAdverts() {
+        return ResponseEntity.ok(
+                userService.getFavouriteAdverts(userDetails.get())
+        );
+    }
+
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Void> createPropertyAdvert(@RequestBody @Valid PropertyAdvertFormData propertyAdvertFormData) {

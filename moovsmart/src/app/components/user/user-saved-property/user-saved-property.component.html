@@ -3,8 +3,7 @@
   <div class="filter-header">
     <p>Szűrés</p>
     <mat-form-field>
-      <textarea matInput
-                (keyup)="applyFilter($event)" placeholder=""></textarea>
+      <textarea matInput (keyup)="applyFilter($event)" placeholder=""></textarea>
     </mat-form-field>
 
   </div>
@@ -12,11 +11,11 @@
 
   <div class="table-container mat-elevation-z8 ">
 
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="data | async" matSort>
 
       <ng-container matColumnDef="image">
-        <mat-header-cell *matHeaderCellDef > Kép </mat-header-cell>
-        <mat-cell *matCellDef="let row" >
+        <mat-header-cell *matHeaderCellDef> Kép </mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <img class="list-img" src="{{row.listOfImages[0]}}"></mat-cell>
       </ng-container>
 
@@ -27,7 +26,7 @@
 
       <ng-container matColumnDef="numberOfRooms">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Szobák száma </mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.numberOfRooms}}</mat-cell>
+        <mat-cell *matCellDef="let row">{{row.numberOfRooms}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
@@ -68,5 +67,3 @@
 <br>
 <br>
 <br>
-
-

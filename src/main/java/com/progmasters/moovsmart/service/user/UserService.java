@@ -66,17 +66,21 @@ public class UserService {
     }
 
     public List<PropertyAdvertListItem> addFavouriteAdvert(UserIdentifier user, Long advertId) {
-        User usr = userRepository.get(user);
         PropertyAdvert advert = advertRepository.getOne(advertId);
         return userRepository
-                .save(usr.addSavedAdvert(advert)).getSavedAdverts().stream()
+                .save(userForDetails(user).addSavedAdvert(advert)).getSavedAdverts().stream()
                 .map(PropertyAdvertListItem::new)
                 .collect(Collectors.toList());
     }
 
 
     public User userForDetails(UserIdentifier userDetails) {
-        return userRepository.findOneByEmail(userDetails.getEmail())
-                .orElseThrow(EntityNotFoundException::new);
+        return userRepository.getOne(userDetails.getId());
+    }
+
+    public List<PropertyAdvertListItem> getFavouriteAdverts(UserIdentifier userIdentifier) {
+        return userForDetails(userIdentifier).getSavedAdverts().stream()
+                .map(PropertyAdvertListItem::new)
+                .collect(Collectors.toList());
     }
 }
