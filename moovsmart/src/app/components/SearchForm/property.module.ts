@@ -17,8 +17,8 @@ import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {CdkTableModule} from "@angular/cdk/table";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgxPopper} from "angular-popper";
+import { SearchResultMapComponent } from './search-result-map/search-result-map.component';
+import {AgmCoreModule} from "@agm/core";
 
 
 @NgModule({
@@ -39,13 +39,16 @@ import {NgxPopper} from "angular-popper";
     MatSelectModule,
     MatSortModule,
     MatTableModule,
-    MatTooltipModule,],
+    MatTooltipModule,
+    AgmCoreModule,
+  ],
 
   declarations: [
     SearchComponent,
     SearchResultComponent,
     PropertyListSearchComponent,
-    FilterPipe],
+    FilterPipe,
+    SearchResultMapComponent],
 
   providers: [SharingSearchService]
 

@@ -24,7 +24,7 @@ public class PropertyServicePO {
     @Test
     public void testEmptyPropertyList() {
         List<PropertyAdvertListItem> propertyList = advertService.listPropertyAdverts();
-        assertEquals(0, propertyList.size());
+        assertEquals(6, propertyList.size());
 
     }
 

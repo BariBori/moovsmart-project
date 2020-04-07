@@ -45,6 +45,7 @@
                 <div class="mesgs">
                     <div class="msg_history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 
+
                         <div *ngFor='let message of (activeTopic|async)?.messages' [ngClass]="(currentUserName|async) === message.sender
                         ? 'outgoing_msg'
                         : 'received_msg'">
