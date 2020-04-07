@@ -10,7 +10,7 @@ import { PropertyCityModel } from "../models/propertyCity.model";
 import { PropertyEditModel } from "../models/propertyEdit.model";
 import { FilterPropertyAdvertModel } from "../models/filterPropertyAdvert.model";
 import { UserService } from './user.service';
-import { tap } from 'rxjs/operators';
+import { tap, filter, flatMap } from 'rxjs/operators';
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -24,15 +24,13 @@ export class PropertyService {
   savedAdverts = new ReplaySubject<PropertyListItemModel[]>(1);
 
   constructor(private httpClient: HttpClient, private userService: UserService) {
-    userService.loggedIn.subscribe(
-      loginEvent => {
-        if(loginEvent) {
-          this.savedAdverts.next(
-
-          )
-        }
-      }
+    userService.loggedIn.pipe(
+      filter(loggedin => loggedin === true),
+      flatMap(login =>
+        this.httpClient.get<PropertyListItemModel[]>(BASE_URL + "/fav")),
+      tap(faves => this.savedAdverts.next(faves))
     )
+      .subscribe(console.log);
   }
 
   createProperty(propertyFormDataModel: PropertyFormDataModel): Observable<any> {

@@ -128,19 +128,20 @@ export class PropertyDetailsComponent implements OnInit {
     this.router.navigate(['/property-form', id]);
   }
 
-  saveFavourite(advertId: number) {
-    this.propertyAdvertService.saveFavouriteAdvert(advertId).subscribe(
-      console.log
-    );
-  }
   isFavourite() {
     return this.favourites.some(fav => fav.id === this.propertyAdvertDetails.id);
   }
 
-
-  removeFavourite(propertyAdvertID: number) {
-    this.propertyAdvertService.removeFavouriteAdvert(propertyAdvertID).subscribe(
-      console.log
-    );
+  saveUnsaveFavourite() {
+    const id = this.propertyAdvertDetails.id;
+    if (this.isFavourite()) {
+      this.propertyAdvertService.removeFavouriteAdvert(id).subscribe(
+        console.log
+      );
+    } else {
+      this.propertyAdvertService.saveFavouriteAdvert(id).subscribe(
+        console.log
+      );
+    }
   }
 }
