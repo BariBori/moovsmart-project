@@ -41,6 +41,10 @@ public class User {
     private List<UserRole> userRoles;
 
     @NotNull
+    @OneToMany
+    private List<PropertyAdvert> savedAdverts = new ArrayList<>();
+
+    @NotNull
     private Boolean activated;
 
     public User(String email, String userName, String passwordHash, UserRole... userRoles) {
@@ -68,6 +72,12 @@ public class User {
         this.userName = userName;
         return this;
     }
+
+    public List<PropertyAdvert> getSavedAdverts() {
+        return savedAdverts;
+    }
+
+
 
     public String getEmail() {
         return email;

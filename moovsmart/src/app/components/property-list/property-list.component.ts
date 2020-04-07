@@ -44,7 +44,6 @@ export class PropertyListComponent implements OnInit {
         this.dataSource.sort = this.sort;
         console.log(this.dataSource);
       });
-
   }
 
 
