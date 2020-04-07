@@ -127,4 +127,10 @@ export class PropertyDetailsComponent implements OnInit {
   editProperty(id: number) {
     this.router.navigate(['/property-form', id]);
   }
+
+  saveFavourite(advertId: number) {
+    this.propertyAdvertService.saveFavouriteAdvert(advertId).subscribe(
+      console.log
+    );
+  }
 }

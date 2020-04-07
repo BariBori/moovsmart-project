@@ -66,5 +66,9 @@ export class PropertyService {
     return this.httpClient.post(BASE_URL+"/search", filterPropertyAdvertModel)
   }
 
+  saveFavouriteAdvert(advertId: number): Observable<PropertyListItemModel[]> {
+    return this.httpClient.post<PropertyListItemModel[]>(BASE_URL + "/fav/" + advertId, "");
+  }
+
 
 }

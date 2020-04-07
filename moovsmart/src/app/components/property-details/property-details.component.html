@@ -22,7 +22,7 @@
       </div>
       <div class="col-4" *ngIf="isVisitorLogged">
         <button class="btn btn-like float-right">
-          <fa-icon [icon]="faStar"></fa-icon> Mentés
+          <fa-icon [icon]="faStar" (click)="saveFavourite(propertyAdvertDetails?.id)"></fa-icon> Mentés
         </button>
       </div>
     </div>
