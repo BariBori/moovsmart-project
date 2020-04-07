@@ -1,20 +1,21 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.form;
 
-import com.progmasters.moovsmart.domain.AdvertStatusType;
+import com.progmasters.moovsmart.domain.ParkingType;
 
-public class AdvertStatusTypeOption {
+public class ParkingTypeOption {
 
     private String name;
     private String displayName;
 
-    public AdvertStatusTypeOption(){}
-
-    public AdvertStatusTypeOption(AdvertStatusType advertStatusType) {
-        this.name = advertStatusType.toString();
-        this.displayName = advertStatusType.getDisplayName();
+    public ParkingTypeOption(ParkingType parkingType) {
+        this.name = parkingType.toString();
+        this.displayName = parkingType.getDisplayName();
     }
 
-    public AdvertStatusTypeOption(String displayName) {
+    public ParkingTypeOption() {
+    }
+
+    public ParkingTypeOption(String displayName) {
         this.displayName = displayName;
     }
 

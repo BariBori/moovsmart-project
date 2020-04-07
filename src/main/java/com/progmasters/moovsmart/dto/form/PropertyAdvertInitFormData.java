@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.form;
 
 import java.util.ArrayList;
 import java.util.List;

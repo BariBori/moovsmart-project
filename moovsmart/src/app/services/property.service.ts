@@ -23,13 +23,16 @@ export class PropertyService {
   constructor(private httpClient: HttpClient) {
   }
 
-
   createProperty(propertyFormDataModel: PropertyFormDataModel): Observable<any> {
     return this.httpClient.post(BASE_URL, propertyFormDataModel);
   }
 
   getPropertyList(): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
+  }
+
+  getFilteredPropertyList(pageIndex: number, pageSize: number): Observable<Array<PropertyListItemModel>> {
+    return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/" + pageSize + "/" + pageIndex);
   }
 
   //user's property list in profil

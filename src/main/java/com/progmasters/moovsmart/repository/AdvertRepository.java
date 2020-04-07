@@ -4,12 +4,12 @@ import com.progmasters.moovsmart.domain.AdvertStatusType;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
-import com.progmasters.moovsmart.dto.PropertyAdvertListItem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -49,5 +49,10 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     //user's property list in profil
     @Query("SELECT p FROM PropertyAdvert p WHERE p.userName = :userName")
     Stream<PropertyAdvert> findMyProperties(String userName);
+
+
+    @Query("SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL' ORDER BY p.advertId")
+    Page<PropertyAdvert> findAllByPaginator(Pageable pageable);
+
 
 }

@@ -8,6 +8,22 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: moovsmartaltenter
+    password: MOOVsmart1234
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:
@@ -16,3 +32,6 @@ logging:
     org.hibernate: error
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+cors-policies: https://34.254.251.78, https://moovsmart-demo.progmasters.hu, http://localhost:4200
+mailing-address: https://moovsmart-demo.progmasters.hu/api/users/activate/

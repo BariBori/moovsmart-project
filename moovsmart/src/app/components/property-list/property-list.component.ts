@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, InjectionToken, OnInit, ViewChild} from '@angular/core';
 import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-
 
 @Component({
   selector: 'app-property-list',
@@ -14,11 +13,10 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class PropertyListComponent implements OnInit {
 
-  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
+  displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
-
- @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
@@ -27,15 +25,15 @@ export class PropertyListComponent implements OnInit {
   }
 
 
-  applyFilter(filterEvent: any){
+  applyFilter(filterEvent: any) {
     filterEvent = filterEvent.target.value.trim();
     filterEvent = filterEvent.toLowerCase();
     this.dataSource.filter = filterEvent;
 
-
-    if(this.dataSource.paginator){
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+
   }
 
   ngOnInit() {
@@ -54,5 +52,14 @@ export class PropertyListComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
-
+  changePage(pageIndex: number, pageSize: number) {
+    this.propertyService.getFilteredPropertyList(pageIndex, pageSize).subscribe(
+      propertyListItems => {
+        this.dataSource = new MatTableDataSource(propertyListItems);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource);
+      }
+    )
+  }
 }

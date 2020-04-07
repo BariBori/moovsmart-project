@@ -1,13 +1,15 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.PropertyConditionType;
-import com.progmasters.moovsmart.domain.PropertyType;
 import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
-import com.progmasters.moovsmart.domain.user.User;
-import com.progmasters.moovsmart.dto.*;
 //import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
-import com.progmasters.moovsmart.dto.*;
+import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
+import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
+import com.progmasters.moovsmart.dto.form.PropertyCity;
+import com.progmasters.moovsmart.dto.form.PropertyEditForm;
+import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
+import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
+import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
@@ -66,6 +68,18 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(filteredPropertyAdverts, HttpStatus.OK);
     }
 
+  @GetMapping("\"/\" + {pageSize} + \"/\" + {pageIndex}")
+    public ResponseEntity<List<PropertyAdvertListItem>> getPaginatorPropertyAdverts(@PathVariable Integer pageSize, @PathVariable Integer pageIndex)
+   {
+        return new ResponseEntity<>(propertyAdvertService.findAllByPaginator(pageSize, pageIndex), HttpStatus.OK);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<PropertyAdvertListItem>> getPropertyAdverts() {
+        return new ResponseEntity<>(propertyAdvertService.listPropertyAdverts(), HttpStatus.OK);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
@@ -74,7 +88,6 @@ public class PropertyAdvertController {
         if (!isUpdated) {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            // result = new ResponseEntity<>(new PropertyAdvertDetailsData(updatedProperty), HttpStatus.OK);
             result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
@@ -86,10 +99,6 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.createPropertyAdvertFormInitData(), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<PropertyAdvertListItem>> getPropertyAdverts() {
-        return new ResponseEntity<>(propertyAdvertService.listPropertyAdverts(), HttpStatus.OK);
-    }
 
     //user's property list in profil
     @GetMapping("/myProperties/{userName}")
@@ -133,7 +142,7 @@ public class PropertyAdvertController {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
         Specification<PropertyAdvert> spec = builder.build();
-        return new ResponseEntity<>(propertyAdvertService.listAllProperty(spec), HttpStatus.OK);
+        return new ResponseEntity<>(propertyAdvertService.listAllProperty(), HttpStatus.OK);
     }
 
 

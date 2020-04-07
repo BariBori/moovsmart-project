@@ -3,10 +3,22 @@ package com.progmasters.moovsmart.service;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserIdentifier;
-import com.progmasters.moovsmart.dto.*;
+import com.progmasters.moovsmart.dto.form.ParkingTypeOption;
+import com.progmasters.moovsmart.dto.form.PropertyConditionOption;
+import com.progmasters.moovsmart.dto.form.PropertyTypeOption;
+import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
+import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
+import com.progmasters.moovsmart.dto.form.PropertyCity;
+import com.progmasters.moovsmart.dto.form.PropertyEditForm;
+import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
+import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
+import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +66,7 @@ public class PropertyAdvertService {
     }
 
     //user's property list in profil
-    public List<PropertyAdvertListItem> listMyProperties(String userName){
+    public List<PropertyAdvertListItem> listMyProperties(String userName) {
         return advertRepository.findMyProperties(userName)
                 .map(PropertyAdvertListItem::new).collect(Collectors.toList());
     }
@@ -89,35 +101,32 @@ public class PropertyAdvertService {
         Integer minArea;
         Integer maxArea;
 
-        PropertyType propertyType;
-        PropertyConditionType propertyConditionType;
-
-        if(filter.getMinPrice() == null) {
+        if (filter.getMinPrice() == null) {
             minPrice = 0.0;
         } else {
             minPrice = filter.getMinPrice();
         }
-        if(filter.getMaxPrice() == null) {
+        if (filter.getMaxPrice() == null) {
             maxPrice = Double.MAX_VALUE;
         } else {
             maxPrice = filter.getMaxPrice();
         }
-        if(filter.getMinRooms() == null) {
+        if (filter.getMinRooms() == null) {
             minRooms = 0;
         } else {
             minRooms = filter.getMinRooms();
         }
-        if(filter.getMaxRooms() == null) {
+        if (filter.getMaxRooms() == null) {
             maxRooms = Integer.MAX_VALUE;
         } else {
             maxRooms = filter.getMaxRooms();
         }
-        if(filter.getMaxArea() == null) {
+        if (filter.getMaxArea() == null) {
             maxArea = Integer.MAX_VALUE;
         } else {
             maxArea = filter.getMaxArea();
         }
-        if(filter.getMinArea() == null) {
+        if (filter.getMinArea() == null) {
             minArea = 0;
         } else {
             minArea = filter.getMinArea();
@@ -161,9 +170,28 @@ public class PropertyAdvertService {
 
     //---------------SEARCH-----------------
 
-    public List<PropertyAdvertListItem> listAllProperty(Specification<PropertyAdvert> spec) {
+    public List<PropertyAdvertListItem> listAllProperty() {
         return advertRepository.findAll().stream()
-                .map(propertyAdvert -> new PropertyAdvertListItem(propertyAdvert)).collect(Collectors.toList());
+                .map(PropertyAdvertListItem::new).collect(Collectors.toList());
+    }
+
+
+    public List<PropertyAdvertListItem> findAllByPaginator(Integer pageSize, Integer pageIndex) {
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<PropertyAdvert> queryResult = advertRepository.findAllByPaginator(pageable);
+        return getPropertyAdvertsByPage(queryResult);
+    }
+
+    List<PropertyAdvertListItem> getPropertyAdvertsByPage(Page<PropertyAdvert> queryResult) {
+        if (!queryResult.isEmpty()) {
+            List<PropertyAdvertListItem> list = new ArrayList<>();
+            for (PropertyAdvert advert : queryResult) {
+                list.add(new PropertyAdvertListItem(advert));
+            }
+            return list;
+        } else {
+            return null;
+        }
     }
 
 

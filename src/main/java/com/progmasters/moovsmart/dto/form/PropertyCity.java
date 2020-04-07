@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.form;
 
 public class PropertyCity {
     private String city;

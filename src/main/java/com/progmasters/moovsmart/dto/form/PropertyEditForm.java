@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.form;
 
 import com.progmasters.moovsmart.domain.*;
 

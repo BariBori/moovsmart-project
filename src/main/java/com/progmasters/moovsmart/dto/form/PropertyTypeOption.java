@@ -1,25 +1,28 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.form;
 
-import com.progmasters.moovsmart.domain.ParkingType;
+import com.progmasters.moovsmart.domain.PropertyType;
 
-public class ParkingTypeOption {
+public class PropertyTypeOption {
 
     private String name;
     private String displayName;
 
-    public ParkingTypeOption(ParkingType parkingType) {
-        this.name = parkingType.toString();
-        this.displayName = parkingType.getDisplayName();
+
+
+    public PropertyTypeOption(PropertyType propertyType) {
+        this.name = propertyType.toString();
+        this.displayName = propertyType.getDisplayName();
     }
 
-    public ParkingTypeOption() {
+    public PropertyTypeOption() {
     }
 
-    public ParkingTypeOption(String displayName) {
+    public PropertyTypeOption(String displayName) {
         this.displayName = displayName;
     }
 
     public String getName() {
+
         return name;
     }
 

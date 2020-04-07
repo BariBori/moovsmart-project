@@ -18,6 +18,7 @@ class AddPropertyTest {
 
     @BeforeEach
     void startBrowser() {
+        ClassLoader classLoader = AddPropertyTest.class.getClassLoader();
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1720,1200");

@@ -1,10 +1,14 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.list;
 
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.form.AdvertStatusTypeOption;
+import com.progmasters.moovsmart.dto.form.ParkingTypeOption;
+import com.progmasters.moovsmart.dto.form.PropertyConditionOption;
+import com.progmasters.moovsmart.dto.form.PropertyTypeOption;
 
 import java.util.List;
 
-public class PropertyAdvertFormData {
+public class PropertyAdvertDetailsData {
 
     private long id;
 
@@ -14,23 +18,23 @@ public class PropertyAdvertFormData {
 
     private Integer advertId;
 
-    private PropertyType propertyType;
+    private PropertyTypeOption propertyType;
 
-    private PropertyConditionType propertyConditionType;
+    private PropertyConditionOption propertyConditionType;
 
-    private ParkingType parkingType;
+    private ParkingTypeOption parkingType;
 
-    private AdvertStatusType advertStatus;
+    private AdvertStatusTypeOption advertStatus;
 
     private String title;
 
     private String placeId;
 
-    private Double longitude;
+    private String address;
 
     private Double latitude;
 
-    private String address;
+    private Double longitude;
 
     private String city;
 
@@ -49,24 +53,33 @@ public class PropertyAdvertFormData {
     private String description;
 
 
-    public PropertyAdvertFormData() {
-    }
 
-    public PropertyAdvertFormData(PropertyAdvert propertyAdvert) {
+    private Long priceForSquareMeter;
+
+    private String userName;
+
+    public PropertyAdvertDetailsData(){}
+
+    public PropertyAdvertDetailsData(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
         this.listOfImages = propertyAdvert.getListOfImages();
         this.advertId = propertyAdvert.getAdvertId();
 
-        this.propertyType = propertyAdvert.getPropertyType();
-        this.propertyConditionType = propertyAdvert.getPropertyConditionType();
-        this.parkingType = propertyAdvert.getParkingType();
-        this.advertStatus = propertyAdvert.getAdvertStatus();
+        this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
+        this.propertyType = new PropertyTypeOption(propertyAdvert.getPropertyType());
+        this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
+        this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
 
+        if(propertyAdvert.getUser() != null){
+
+            this.userName = propertyAdvert.getUser().getUserName();
+       }
         this.title = propertyAdvert.getTitle();
-        this.address = propertyAdvert.getAddress();
+        this.placeId = propertyAdvert.getPlaceId();
         this.latitude = propertyAdvert.getLatitude();
         this.longitude = propertyAdvert.getLongitude();
+        this.address = propertyAdvert.getAddress();
         this.city = propertyAdvert.getCity();
         this.district = propertyAdvert.getDistrict();
         this.street = propertyAdvert.getStreet();
@@ -75,11 +88,16 @@ public class PropertyAdvertFormData {
         this.elevator = propertyAdvert.isElevator();
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
-        this.placeId = propertyAdvert.getPlaceId();
+        this.priceForSquareMeter = Math.round(price *1000000 / area);
     }
 
-    public String getPlaceId() {
-        return placeId;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Double getPrice() {
@@ -106,33 +124,39 @@ public class PropertyAdvertFormData {
         this.advertId = advertId;
     }
 
-    public PropertyType getPropertyType() {
+
+
+        public PropertyTypeOption getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType(PropertyType propertyType) {
+
+     public void setPropertyType(PropertyTypeOption propertyType) {
         this.propertyType = propertyType;
     }
 
-    public PropertyConditionType getPropertyConditionType() {
+    public PropertyConditionOption getPropertyConditionType() {
         return propertyConditionType;
     }
 
-    public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
+    public void setPropertyConditionType(PropertyConditionOption propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
     }
 
-    public ParkingType getParkingType() {
+    public ParkingTypeOption getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(ParkingType parkingType) {
+    public void setParkingType(ParkingTypeOption parkingType) {
         this.parkingType = parkingType;
     }
 
+    public AdvertStatusTypeOption getAdvertStatus() {
+        return advertStatus;
+    }
 
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
+    public void setAdvertStatus(AdvertStatusTypeOption advertStatus) {
+        this.advertStatus = advertStatus;
     }
 
     public String getTitle() {
@@ -143,12 +167,28 @@ public class PropertyAdvertFormData {
         this.title = title;
     }
 
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDistrict() {
@@ -207,28 +247,28 @@ public class PropertyAdvertFormData {
         this.description = description;
     }
 
-    public String getCity() {
-        return city;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
         return longitude;
     }
 
-    public Double getLatitude() {
-        return latitude;
-    }
-
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public Long getPriceForSquareMeter() {
+        return priceForSquareMeter;
+    }
+
+    public void setPriceForSquareMeter(Long priceForSquareMeter) {
+        this.priceForSquareMeter = priceForSquareMeter;
     }
 
     public long getId() {

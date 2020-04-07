@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.dto;
+package com.progmasters.moovsmart.dto.list;
 
 import com.progmasters.moovsmart.domain.AdvertStatusType;
 import com.progmasters.moovsmart.domain.PropertyConditionType;

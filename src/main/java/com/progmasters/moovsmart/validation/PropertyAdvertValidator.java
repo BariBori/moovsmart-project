@@ -1,6 +1,6 @@
 package com.progmasters.moovsmart.validation;
 
-import com.progmasters.moovsmart.dto.PropertyAdvertFormData;
+import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
