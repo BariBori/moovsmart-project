@@ -1,16 +1,16 @@
 <div class="container">
 
 
-<div class="container-small">
-  <div class="row owner_banner" *ngIf="isUserSeller">
-    <div class="col-6" >
-      {{propertyAdvertDetails.advertStatus.displayName}}
+  <div class="container-small">
+    <div class="row owner_banner" *ngIf="isUserSeller">
+      <div class="col-6">
+        {{propertyAdvertDetails.advertStatus.displayName}}
 
       </div>
       <div class="col-6">
         <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
         <button class="btn btn-danger float-right"
-                (click)="archivePropertyAdvert(propertyAdvertDetails.id)" >Archiválás</button>
+          (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás</button>
       </div>
     </div>
 
@@ -21,8 +21,9 @@
           {{propertyAdvertDetails?.street}}</p>
       </div>
       <div class="col-4" *ngIf="isVisitorLogged">
-        <button class="btn btn-like float-right">
-          <fa-icon [icon]="faStar" (click)="saveFavourite(propertyAdvertDetails?.id)"></fa-icon> Mentés
+        <button class="btn btn-like float-right" (click)="saveFavourite(propertyAdvertDetails?.id)"
+          *ngIf="!isFavourite()">
+          <fa-icon [icon]="faStar"></fa-icon> Mentés
         </button>
       </div>
     </div>
@@ -78,18 +79,18 @@
       <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter}} Ft/m2</div>
     </div>
 
-  <div class="row details">
-    <div class="col-4 label-small">Típus</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
-  </div>
-  <div class="row details">
-    <div class="col-4 label-small">Állapot</div>
-    <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
-  </div>
-  <div class="row details">
-    <div class="col-4 label-small">Parkolás</div>
-    <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
-  </div>
+    <div class="row details">
+      <div class="col-4 label-small">Típus</div>
+      <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
+    </div>
+    <div class="row details">
+      <div class="col-4 label-small">Állapot</div>
+      <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
+    </div>
+    <div class="row details">
+      <div class="col-4 label-small">Parkolás</div>
+      <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
+    </div>
 
     <div class="row details">
       <div class="col-4 label-small">Erkély</div>
@@ -116,5 +117,3 @@
   </div>
 
 </div>
-
-

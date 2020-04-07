@@ -9,6 +9,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { UserService } from "../../services/user.service";
 import { tap } from "rxjs/operators";
 import { MessagingService } from 'src/app/services/messaging.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyListItemModels: Array<PropertyListItemModel>;
   isUserSeller = false;
   isVisitorLogged = false;
+  favourites: PropertyListItemModel[] = [];
 
   faStar = faStar;
   faEnvelope = faEnvelope;
@@ -42,11 +44,10 @@ export class PropertyDetailsComponent implements OnInit {
     private userService: UserService,
     private messagingService: MessagingService
   ) {
-
   }
 
   ngOnInit(): void {
-
+    this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
     this.route.paramMap.subscribe(
       paramMap => {
         const id = paramMap.get('id');
@@ -93,8 +94,8 @@ export class PropertyDetailsComponent implements OnInit {
       : this.router.navigate(['user-login']);
   }
 
-  getVisitorLogged(){
-    if(this.userService.isLoggedIn()){
+  getVisitorLogged() {
+    if (this.userService.isLoggedIn()) {
       this.isVisitorLogged = true;
     } else {
       this.isVisitorLogged = false;
@@ -132,5 +133,8 @@ export class PropertyDetailsComponent implements OnInit {
     this.propertyAdvertService.saveFavouriteAdvert(advertId).subscribe(
       console.log
     );
+  }
+  isFavourite() {
+    this.favourites.some(fav => fav.id === this.propertyAdvertDetails.id)
   }
 }
