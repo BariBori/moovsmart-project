@@ -24,9 +24,9 @@ export class PropertyService {
   }
 
   createProperty(propertyFormDataModel: PropertyFormDataModel): Observable<any> {
-    return this.httpClient.post(BASE_URL, propertyFormDataModel);
-  }
 
+  return this.httpClient.post(BASE_URL, propertyFormDataModel);
+  }
   getPropertyList(): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
   }
