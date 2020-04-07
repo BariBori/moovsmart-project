@@ -33,6 +33,7 @@ export class PropertyService {
 
   getFilteredPropertyList(pageIndex: number, pageSize: number): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL + "/" + pageSize + "/" + pageIndex);
+
   }
 
   //user's property list in profil
