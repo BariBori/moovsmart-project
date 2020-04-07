@@ -57,7 +57,6 @@ public class User {
     }
 
     public User() {
-
     }
 
     public Long getId() {
@@ -77,7 +76,15 @@ public class User {
         return savedAdverts;
     }
 
+    public User addSavedAdvert(PropertyAdvert advert) {
+        this.savedAdverts.add(advert);
+        return this;
+    }
 
+    public User removeSavedAdvert(PropertyAdvert advert) {
+        this.savedAdverts.removeIf(ad -> ad.getId() == advert.getId());
+        return this;
+    }
 
     public String getEmail() {
         return email;
