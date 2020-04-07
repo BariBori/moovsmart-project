@@ -22,6 +22,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyAdvertDetails: PropertyAdvertDetailsModel;
   propertyListItemModels: Array<PropertyListItemModel>;
   isUserSeller = false;
+  isVisitorLogged = false;
 
   faStar = faStar;
   faEnvelope = faEnvelope;
@@ -52,9 +53,11 @@ export class PropertyDetailsComponent implements OnInit {
         if (id) {
           this.id = id;
           this.loadPropertyAdvertDetails();
+          this.getVisitorLogged();
         }
       },
     );
+
 
   }
 
@@ -89,6 +92,16 @@ export class PropertyDetailsComponent implements OnInit {
         .subscribe(success => this.router.navigate(['/messaging']))
       : this.router.navigate(['user-login']);
   }
+
+  getVisitorLogged(){
+    if(this.userService.isLoggedIn()){
+      this.isVisitorLogged = true;
+    } else {
+      this.isVisitorLogged = false;
+    }
+
+  }
+
 
   //--------Google map------//
 

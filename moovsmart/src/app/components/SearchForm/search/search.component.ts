@@ -4,10 +4,7 @@ import {PropertyTypeOptionItemModel} from "../../../models/propertyTypeOptionIte
 import {PropertyConditionTypeOptionItemModel} from "../../../models/propertyConditionTypeOptionItem.model";
 import {PropertyService} from "../../../services/property.service";
 import {FormInitDataModel} from "../../../models/formInitDataModel";
-import {StringBuilder} from "./string-builder";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
-import {areaValidator, priceValidator, roomValidator} from "./validator.directive";
-import {MatTableDataSource} from "@angular/material/table";
+import {areaValidator,  priceValidator, roomValidator} from "./validator.directive";
 import {SharingSearchService} from "../../../services/sharing-search.service";
 
 
@@ -21,9 +18,6 @@ import {SharingSearchService} from "../../../services/sharing-search.service";
 export class SearchComponent implements OnInit {
 
   form: FormGroup;
-  searchText: string = '';
-  searchSpec = new StringBuilder();
-
 
   propertyType: PropertyTypeOptionItemModel[];
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
@@ -56,7 +50,7 @@ export class SearchComponent implements OnInit {
 
   );
 
-  searchForm = this.formBuilder.array([], Validators.compose([Validators.required, Validators.minLength(3)]));
+  /*searchForm = this.formBuilder.array([], Validators.compose([Validators.required, Validators.minLength(3)]));*/
 
 
 
@@ -91,11 +85,12 @@ export class SearchComponent implements OnInit {
 
 
   submit (filterPropertyAdvertModel){
-
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
-
     console.log(filterPropertyAdvertModel);
 
   }
+
+
+
 
 }

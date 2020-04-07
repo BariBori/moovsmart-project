@@ -10,7 +10,7 @@
       <div class="col-6">
         <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
         <button class="btn btn-danger float-right"
-          (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás</button>
+                (click)="archivePropertyAdvert(propertyAdvertDetails.id)" >Archiválás</button>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
         <p class="address">{{propertyAdvertDetails?.city}}, {{propertyAdvertDetails?.district}}
           {{propertyAdvertDetails?.street}}</p>
       </div>
-      <div class="col-4">
+      <div class="col-4" *ngIf="isVisitorLogged">
         <button class="btn btn-like float-right">
           <fa-icon [icon]="faStar"></fa-icon> Mentés
         </button>
@@ -62,7 +62,7 @@
         ?'Én'
         :propertyAdvertDetails?.userName
       }}
-        <button *ngIf='!isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
+        <button *ngIf='isVisitorLogged && !isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
           <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
         </button></div>
     </div>

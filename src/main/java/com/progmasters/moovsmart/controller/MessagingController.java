@@ -1,7 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.dto.messaging.ChatDto;
-import com.progmasters.moovsmart.dto.messaging.MessageDto;
 import com.progmasters.moovsmart.dto.messaging.TopicDto;
 import com.progmasters.moovsmart.service.messaging.MessagingService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
@@ -13,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/messages")
@@ -31,51 +30,50 @@ public class MessagingController {
     }
 
 
-    @PutMapping("/topic/{advertId}")
+    @PutMapping("/topic/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<MessageDto> directMessage(
+    public ResponseEntity<ChatDto> directMessage(
             @RequestBody String message,
-            @PathVariable Long advertId
+            @PathVariable Long chatId
     ) {
-        return service.isSubscribed(userDetails.get(), advertId)
-                ? ResponseEntity.ok(MessageDto.fromMessage(
-                service.saveDirectMessage(
-                        userDetails.get(),
-                        message,
-                        advertId)))
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return service.saveDirectMessage(
+                userDetails.get(),
+                message,
+                chatId)
+                .map(ChatDto::fromTopicView)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/my-topics")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<List<TopicDto>>
+    public ResponseEntity<Map<Long, TopicDto>>
     fetchTopicsByUser() {
         return ResponseEntity.ok(
-                service.getTopicsByUser(
+                service.getTopicsByUserIdentifier(
                         userDetails.get()
                 ));
     }
 
-    @PostMapping("/unsubscribe/{advertId}")
+    @PostMapping("/unsubscribe/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> unsubscribeFromDirectMessaging(@PathVariable Long advertId) {
-        service.deleteChatView(userDetails.get(), advertId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Map<Long, TopicDto>> unsubscribeFromDirectMessaging(@PathVariable Long chatId) {
+        return ResponseEntity.ok(service.deleteChatView(userDetails.get(), chatId));
     }
 
     @PostMapping("/direct/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Void> directMessage(@PathVariable Long advertId) {
-        service.enquire(userDetails.get(), advertId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Map<Long, TopicDto>> directMessage(@PathVariable Long advertId) {
+        return ResponseEntity.ok(
+                service.enquire(userDetails.get(), advertId)
+        );
     }
 
-    @GetMapping("/topic/{advertId}")
+    @GetMapping("/topic/{chatId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<ChatDto> chat(@PathVariable Long advertId) {
-        return service.renderUserViewForChat(userDetails.get(), advertId)
-                .map(view ->
-                        ResponseEntity.ok(ChatDto.fromTopicView(view)))
+    public ResponseEntity<ChatDto> chat(@PathVariable Long chatId) {
+        return service.renderUserViewForChat(userDetails.get(), chatId)
+                .map(view -> ResponseEntity.ok(ChatDto.fromTopicView(view)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }

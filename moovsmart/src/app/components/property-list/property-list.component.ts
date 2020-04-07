@@ -13,7 +13,7 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class PropertyListComponent implements OnInit {
 
-  displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
+  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

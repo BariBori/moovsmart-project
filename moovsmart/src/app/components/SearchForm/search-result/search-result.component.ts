@@ -16,7 +16,7 @@ import {SharingSearchService} from "../../../services/sharing-search.service";
 export class SearchResultComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'price/area', 'advertId'];
+  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
 

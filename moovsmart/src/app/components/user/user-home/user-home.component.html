@@ -16,13 +16,13 @@
           </a></li>
         <li><a routerLink="/messaging" routerLinkActive="active">
             <fa-icon [icon]="faEnvelope" class="icon"></fa-icon>
-            <span [matBadge]="unread===0?'':unread" matBadgeOverlap='false'>Üzeneteim</span>
+            <span [matBadge]="unread===0?'':unread" matBadgeOverlap='false'> Üzeneteim</span>
           </a></li>
 
         <li><a routerLink="./user-property" routerLinkActive="active">
             <fa-icon [icon]="faCity" class="icon"></fa-icon> Eladó ingatlanjaim
           </a></li>
-        <li><a routerLink="./user-details" routerLinkActive="inactive">Kedvenc ingatlanjaim</a></li>
+        <li><a routerLink="./user-saved-property" routerLinkActive="active">Mentett ingatlanjaim</a></li>
         <li><a routerLink="./user-details" routerLinkActive="inactive">Licitált ingatlanjaim</a></li>
       </ul>
     </nav>

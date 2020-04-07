@@ -1,5 +1,5 @@
 export interface TopicModel {
-    advertId: number;
+    chatId: number;
     title: string;
     partner: string;
     unread: number;

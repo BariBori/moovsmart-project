@@ -44,7 +44,7 @@ public class PropertyAdvertService {
     }
 
     public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
-        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+        Optional<User> user = userRepository.findOneByUserName(userDetails.getUsername());
         if (user.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);

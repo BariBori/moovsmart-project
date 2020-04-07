@@ -39,7 +39,7 @@
       <label class="form-check-label " for="privacyPolicy">Az adatkezelési szabályzatot tudomásul veszem és elfogadom.*
       </label>
       <p><small *ngIf="registerNewUserForm.get('privacyPolicy').errors?.required" class="text-danger">
-          Az adatkezelési szabályzatot el kell fogadni!
+          Kérjük, fogadd el az adatkezelési feltételeket!
         </small></p>
     </div>
 
@@ -48,7 +48,7 @@
         formControlName='termsConditions'>
       <label class="form-check-label" for="termsConditions">Az ÁSZF-et megismertem és elfogadom.* </label>
       <p><small *ngIf=" registerNewUserForm.get('termsConditions').errors?.required" class="text-danger">
-          Az ÁSZF-et el kell fogadni!
+          Kérjük, fogadd el az ÁSZF-et!
         </small></p>
     </div>
 
@@ -70,4 +70,3 @@
       [disabled]='registerNewUserForm.invalid'>Regisztráció</button>
   </form>
 </div>
-

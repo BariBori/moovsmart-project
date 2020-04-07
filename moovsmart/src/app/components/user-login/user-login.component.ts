@@ -21,8 +21,6 @@ export class UserLoginComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {
-
-
   }
 
   ngOnInit(): void {
@@ -37,11 +35,11 @@ export class UserLoginComponent implements OnInit {
     this.userService.authenticate(credentials)
       .subscribe(
         success => {
-          this.router.navigate(['user-home']);
+          this.router.navigate(['../user-home/user-property']);
         },
         error => {
           if (error.status === 401) {
-            this.loginForm.get('password').setErrors({ invalid: 'A megadott felhasználónév - jelszó páros érvénytelen!' });
+            this.loginForm.get('password').setErrors({ invalid: 'A megadott e-mail/felhasználónév - jelszó páros érvénytelen!' });
           }
         }
       );

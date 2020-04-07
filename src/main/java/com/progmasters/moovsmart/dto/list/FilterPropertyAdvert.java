@@ -18,9 +18,13 @@ public class FilterPropertyAdvert {
     private PropertyConditionType propertyConditionType;
 
 
+    private Double latitude;
+    private Double longitude;
+
+
     public FilterPropertyAdvert(String city, Double minPrice, Double maxPrice, Integer minArea, Integer maxArea,
                                 Integer minRooms, Integer maxRooms, PropertyType propertyType,
-                                PropertyConditionType propertyConditionType) {
+                                PropertyConditionType propertyConditionType, Double latitude, Double longitude) {
         this.city = city;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
@@ -28,6 +32,8 @@ public class FilterPropertyAdvert {
         this.maxArea = maxArea;
         this.minRooms = minRooms;
         this.maxRooms = maxRooms;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.advertStatusType = AdvertStatusType.FORAPPROVAL;
         this.propertyType = propertyType;
         this.propertyConditionType = propertyConditionType;
@@ -111,5 +117,21 @@ public class FilterPropertyAdvert {
 
     public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
