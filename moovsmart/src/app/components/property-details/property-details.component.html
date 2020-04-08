@@ -22,7 +22,10 @@
       </div>
       <div class="col-4" *ngIf="isVisitorLogged">
         <button class="btn btn-like float-right" (click)="saveUnsaveFavourite()">
-          <fa-icon [icon]="faStar" fa></fa-icon> {{this.isFavourite()?'Eltávolítás':'Mentés' }}
+          <ng-template [ngIf] ="this.isFavourite()" [ngIfElse]="emptyStar"><fa-icon [icon]="farStar" fa></fa-icon></ng-template>
+          <ng-template #emptyStar><fa-icon [icon]="fasStar" fa></fa-icon></ng-template>
+
+            {{this.isFavourite()?'Eltávolítás':'Mentés' }}
         </button>
       </div>
     </div>
