@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {PropertyListItemModel} from "../../../models/propertyListItem.model";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatSort, MatSortable} from "@angular/material/sort";
 import {PropertyService} from "../../../services/property.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
@@ -14,7 +14,7 @@ import {UserService} from "../../../services/user.service";
 })
 export class UserPropertyComponent implements OnInit {
 
-  displayedColumns: string[] = ['advertStatus', 'address', 'price', 'advertId'];
+  displayedColumns: string[] = ['advertStatus', 'address', 'price', 'advertId', 'createdAt', 'timeOfActivation'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
   userName: string;
@@ -36,6 +36,7 @@ export class UserPropertyComponent implements OnInit {
           propertyListItems => {
             this.dataSource = new MatTableDataSource(propertyListItems);
             this.dataSource.paginator = this.paginator;
+            this.sort.sort(({ id: 'createdAt', start: 'desc'}) as MatSortable);
             this.dataSource.sort = this.sort;
             console.log(this.dataSource);
           });

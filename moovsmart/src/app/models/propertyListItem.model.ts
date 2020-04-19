@@ -1,4 +1,5 @@
 import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
+import DateTimeFormat = Intl.DateTimeFormat;
 
 export interface PropertyListItemModel {
   id: number;
@@ -11,4 +12,6 @@ export interface PropertyListItemModel {
   priceForSquareMeter: number;
   address: string;
   advertStatus: AdvertStatusTypeOptionItemModel;
+  createdAt: DateTimeFormat;
+  timeOfActivation: DateTimeFormat;
 }

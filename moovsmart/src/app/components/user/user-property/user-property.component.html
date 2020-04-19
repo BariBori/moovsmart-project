@@ -28,6 +28,16 @@
         <mat-cell *matCellDef="let row">{{row.advertId}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Feltöltés</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.createdAt}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timeOfActivation">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Jóváhagyás</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.timeOfActivation}}</mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>

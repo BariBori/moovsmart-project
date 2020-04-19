@@ -2,7 +2,7 @@ import {Component, inject, InjectionToken, OnInit, ViewChild} from '@angular/cor
 import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {PropertyListItemModel} from "../../models/propertyListItem.model";
-import {MatSort, Sort} from "@angular/material/sort";
+import {MatSort, MatSortable, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {PageModel} from "../../models/page.model";
@@ -45,6 +45,8 @@ export class PropertyListComponent implements OnInit {
         this.dataSource.sort = this.sort;
         console.log(this.dataSource);
       });
+
+
   }
 
 
