@@ -1,4 +1,4 @@
-remote_address=34.254.251.78
-pem_file_full_path=2019NovGroup.pem
+remote_address=3.18.213.29
+pem_file_full_path=moovsmart.pem
 
-ssh -i $pem_file_full_path ubuntu@$remote_address
+ssh -i $pem_file_full_path ec2-user@$remote_address
