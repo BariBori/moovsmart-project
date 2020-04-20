@@ -18,9 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
      void startBrowser() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1920,1200");
+        options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @Test
@@ -28,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         driver.get("http://localhost:4200");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -38,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > li:nth-child(2)")).click();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -47,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         driver.findElement(By.id("password")).sendKeys("test");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -57,7 +56,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

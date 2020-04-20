@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,9 @@ class OpenPropertyTest {
     @BeforeEach
     void startBrowser() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
     }
 
     @Test
@@ -28,7 +31,7 @@ class OpenPropertyTest {
         WebDriverWait wait = new WebDriverWait(driver, 30);
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -36,7 +39,7 @@ class OpenPropertyTest {
         driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.table-container.mat-elevation-z8 > mat-table > mat-row:nth-child(2) > mat-cell.mat-cell.cdk-cell.click.cdk-column-address.mat-column-address.ng-star-inserted")).click();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -45,7 +48,7 @@ class OpenPropertyTest {
         assertEquals(title, "Szobaszám");
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

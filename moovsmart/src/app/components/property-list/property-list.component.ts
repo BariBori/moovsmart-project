@@ -52,13 +52,13 @@ export class PropertyListComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
+
   changePage(pageIndex: number, pageSize: number) {
     console.log(pageSize);
     console.log(pageIndex);
-    // this.data.pageIndex = this.dataSource.paginator.pageIndex;
-    // this.data.pageSize = this.dataSource.paginator.pageSize;
-    this.dataSource.paginator.pageSize
-    this.propertyService.getPropertiesByPage(this.data).subscribe(
+    let pageData = {"pageIndex": pageIndex, "pageSize" : pageSize};
+    this.dataSource.paginator.pageSize;
+    this.propertyService.getPropertiesByPage(pageData).subscribe(
       propertyListItems => {
         this.dataSource = new MatTableDataSource(propertyListItems);
         this.dataSource.paginator = this.paginator;

@@ -18,9 +18,8 @@ class SearchTest {
     void startBrowser() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1720,1200");
+        options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @Test
@@ -30,7 +29,7 @@ class SearchTest {
         driver.get("http://localhost:4200/property-list");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -41,19 +40,7 @@ class SearchTest {
         driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.filter-header > mat-form-field")).click();
 
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //TODO FILTER NOT WORKING
-
-//        driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.filter-header > mat-form-field")).clear();
-//        driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.filter-header > mat-form-field")).sendKeys("a");
-//        driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.filter-header > mat-form-field")).sendKeys(Keys.RETURN);
-
-        try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -66,7 +53,7 @@ class SearchTest {
         driver.get("http://localhost:4200/property-list");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -75,7 +62,7 @@ class SearchTest {
         assertEquals(searchButton, "Részletes keresés");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -86,7 +73,7 @@ class SearchTest {
         assertEquals(searchTitle, "Részletes keresés");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -103,7 +90,7 @@ class SearchTest {
         driver.findElement(By.cssSelector("body > app-root > div > app-property-list-search > div > app-search > div > form > div:nth-child(10) > button")).click();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -112,7 +99,7 @@ class SearchTest {
         js.executeScript("window.scrollBy(0,500)");
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -124,7 +111,7 @@ class SearchTest {
         driver.get("http://localhost:4200/property-list-search");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -133,7 +120,7 @@ class SearchTest {
         assertEquals(searchTitle, "Részletes keresés");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -144,7 +131,7 @@ class SearchTest {
         js.executeScript("window.scrollBy(0,500)");
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
