@@ -32,10 +32,8 @@ export class SearchResultComponent implements OnInit {
               private sharingSearchService: SharingSearchService
   ) { }
 
-
   ngOnInit(): void {
     this.sharingSearchService.filteredProperties.subscribe(
-
         filteredProperties =>{
           console.log(filteredProperties);
           this.propertyService.postFilteredPropertyAdverts(filteredProperties).subscribe(

@@ -111,7 +111,8 @@ public class PropertyAdvert {
         this.latitude = propertyAdvertFormData.getLatitude();
         this.longitude = propertyAdvertFormData.getLongitude();
         this.createdAt = LocalDate.now();
-        this.timeOfActivation = LocalDate.now();
+        //this.timeOfActivation = LocalDate.now();
+        this.timeOfActivation = null;
         this.advertId = new Random().nextInt(1000000);
 
         this.advertStatus = AdvertStatusType.FORAPPROVAL;

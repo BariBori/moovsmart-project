@@ -18,7 +18,7 @@ export class UserSavedPropertyComponent implements OnInit {
 
   displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
-  data: Observable<MatTableDataSource<PropertyListItemModel>>;
+  //data: Observable<MatTableDataSource<PropertyListItemModel>>;
 
   userName: string;
 
@@ -29,9 +29,10 @@ export class UserSavedPropertyComponent implements OnInit {
     private propertyService: PropertyService,
     private router: Router
   ) {
-    this.data = propertyService.savedAdverts.pipe(
-      map(ads => new MatTableDataSource(ads))
-    );
+    /*this.data = propertyService.savedAdverts.pipe(
+      map(ads => new MatTableDataSource(ads)
+      )
+    );*/
   }
 
   applyFilter(filterEvent: any) {
@@ -46,7 +47,14 @@ export class UserSavedPropertyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //TODO
+      this.propertyService.savedAdverts.subscribe(
+        ads =>{
+          this.dataSource = new MatTableDataSource(ads);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          console.log(this.dataSource);
+        });
+
   }
 
   goToDetails(id: number) {

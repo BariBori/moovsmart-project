@@ -1,0 +1,38 @@
+.list-img {
+  width: 100px;
+  height: 70px;
+  margin: 5px;
+  object-fit: cover;
+}
+
+
+.click{
+  cursor: pointer;
+}
+
+.click:hover{
+  font-weight: bold;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 900px;
+}
+
+.filter-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 1000px;
+}
+
+

@@ -1,8 +1,11 @@
 package com.progmasters.moovsmart.dto.list;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.dto.form.AdvertStatusTypeOption;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PropertyAdvertListItem {
@@ -30,6 +33,12 @@ public class PropertyAdvertListItem {
     private Double longitude;
     private Double latitude;
 
+
+    private LocalDate createdAt;
+
+
+    private LocalDate timeOfActivation;
+
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.title = propertyAdvert.getTitle();
@@ -43,6 +52,8 @@ public class PropertyAdvertListItem {
         this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
         this.latitude = propertyAdvert.getLatitude();
         this.longitude = propertyAdvert.getLongitude();
+        this.createdAt = propertyAdvert.getCreatedAt();
+        this.timeOfActivation  =propertyAdvert.getTimeOfActivation();
     }
 
     public PropertyAdvertListItem() {
@@ -102,5 +113,13 @@ public class PropertyAdvertListItem {
 
     public Double getLatitude() {
         return latitude;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDate getTimeOfActivation() {
+        return timeOfActivation;
     }
 }

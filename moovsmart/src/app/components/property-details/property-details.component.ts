@@ -2,10 +2,10 @@ import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { PropertyAdvertDetailsModel } from "../../models/propertyAdvertDetails.model";
 import { PropertyService } from "../../services/property.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
 import { MapsAPILoader } from "@agm/core";
 import { PropertyListItemModel } from "../../models/propertyListItem.model";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faStar as farStar } from "@fortawesome/free-solid-svg-icons";
 import { UserService } from "../../services/user.service";
 import { tap } from "rxjs/operators";
 import { MessagingService } from 'src/app/services/messaging.service';
@@ -26,7 +26,8 @@ export class PropertyDetailsComponent implements OnInit {
   isVisitorLogged = false;
   favourites: PropertyListItemModel[] = [];
 
-  faStar = faStar;
+  fasStar = fasStar;
+  farStar = farStar;
   faEnvelope = faEnvelope;
 
   public latitude: number;

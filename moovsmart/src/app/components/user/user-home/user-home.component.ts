@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/error/User';
-import { faCity, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCity, faEnvelope, faUser, faStar } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { MessagingService, TopicMap } from 'src/app/services/messaging.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -17,6 +17,7 @@ export class UserHomeComponent implements OnInit {
   faCity = faCity;
   faEnvelope = faEnvelope;
   faUser = faUser;
+  faStar = faStar;
   public unread = 0;
   private sumUnread: (topics: TopicMap) => void;
 
