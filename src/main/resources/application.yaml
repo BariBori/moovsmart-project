@@ -41,4 +41,4 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
 cors-policies: https://34.254.251.78, https://3.18.213.29, https://moovsmart-demo.progmasters.hu, http://localhost:4200
-mailing-address: https://moovsmart-demo.progmasters.hu/api/users/activate/
+mailing-address: http://3.18.213.29/
