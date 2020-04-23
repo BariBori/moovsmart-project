@@ -28,3 +28,11 @@ yarn-error.log*
 /target/
 moovsmart/debug.log
 /src/main/resources/application-local.yaml
+.classpath
+.vscode/settings.json
+.vscode/launch.json
+.settings/org.eclipse.m2e.core.prefs
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.jdt.apt.core.prefs
+.settings/org.eclipse.core.resources.prefs
+.project
