@@ -101,8 +101,9 @@ export class PropertyDetailsComponent implements OnInit {
     } else {
       this.isVisitorLogged = false;
     }
-
   }
+
+
 
 
   //--------Google map------//

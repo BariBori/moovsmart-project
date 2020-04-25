@@ -20,7 +20,7 @@
         <p class="address">{{propertyAdvertDetails?.city}}, {{propertyAdvertDetails?.district}}
           {{propertyAdvertDetails?.street}}</p>
       </div>
-      <div class="col-4" *ngIf="isVisitorLogged">
+      <div class="col-4" *ngIf="isVisitorLogged && !isUserSeller">
         <button class="btn btn-like float-right" (click)="saveUnsaveFavourite()">
           <ng-template [ngIf] ="this.isFavourite()" [ngIfElse]="emptyStar"><fa-icon [icon]="farStar" fa></fa-icon></ng-template>
           <ng-template #emptyStar><fa-icon [icon]="fasStar" fa></fa-icon></ng-template>
