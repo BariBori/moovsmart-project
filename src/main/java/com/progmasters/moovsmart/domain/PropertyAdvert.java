@@ -99,6 +99,9 @@ public class PropertyAdvert {
     @ManyToOne
     private User user;
 
+    @ManyToMany(mappedBy = "savedAdverts")
+    private List<User> likes = new ArrayList<>();
+
     private String userName;
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
@@ -130,6 +133,7 @@ public class PropertyAdvert {
         this.elevator = propertyAdvertFormData.isElevator();
         this.balcony = propertyAdvertFormData.isBalcony();
         this.description = propertyAdvertFormData.getDescription();
+
     }
 
     public PropertyAdvert() {
@@ -333,5 +337,13 @@ public class PropertyAdvert {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<User> likes) {
+        this.likes = likes;
     }
 }
