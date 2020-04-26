@@ -51,7 +51,7 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
     Stream<PropertyAdvert> findMyProperties(String userName);
 
 
-    @Query("SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL' ORDER BY p.advertId")
+    @Query("SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL' ORDER BY p.createdAt DESC")
     Page<PropertyAdvert> findAllByPaginator(Pageable pageable);
 
 
