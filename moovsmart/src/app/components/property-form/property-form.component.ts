@@ -25,7 +25,7 @@ export class PropertyFormComponent implements OnInit {
   //------Cloudinary file upload------------
   @Input()
   responses: Array<any>;
-  listOfImages: Array<string>;
+  listOfImages: Array<string> = [];
   propertyEditModel: PropertyEditModel;
   hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;

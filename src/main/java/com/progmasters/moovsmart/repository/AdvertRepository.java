@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
-    @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL'")
+    @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL' ORDER BY p.createdAt DESC")
     List<PropertyAdvert> findPropertyAdvertsByAdvertStatus_FORAPPROVAL();
 
     Optional<PropertyAdvert> findOneById(Long id);
@@ -47,7 +47,7 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
 
     //user's property list in profil
-    @Query("SELECT p FROM PropertyAdvert p WHERE p.userName = :userName")
+    @Query("SELECT p FROM PropertyAdvert p WHERE p.userName = :userName ORDER BY p.createdAt DESC")
     Stream<PropertyAdvert> findMyProperties(String userName);
 
 

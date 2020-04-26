@@ -40,6 +40,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationService } from './services/notification.service';
+import { PropertyListBsComponent } from './components/property-list-bs/property-list-bs.component';
 
 
 
@@ -57,6 +58,7 @@ import { NotificationService } from './services/notification.service';
     UserregisterFormComponent,
     UserLoginComponent,
     MessagingComponent,
+    PropertyListBsComponent,
 
   ],
   exports: [
