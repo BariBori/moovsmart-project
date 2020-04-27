@@ -18,7 +18,6 @@ pem_file_full_path=moovsmart.pem
 #BUILD PROJECT
 cd $frontend_folder_name
 ng build --prod
-nvm install stable
 npm install -g angular-cli
 cd ..
 mvn clean package -DskipTests=true
