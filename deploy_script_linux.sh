@@ -18,7 +18,7 @@ pem_file_full_path=moovsmart.pem
 #BUILD PROJECT
 cd $frontend_folder_name
 npm install
-npm run build:prod
+npm run build
 cd ..
 mvn clean package -DskipTests=true
 chmod 400 $pem_file_full_path
