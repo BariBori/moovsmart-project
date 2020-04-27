@@ -19,5 +19,4 @@ deploy:
   script:
     - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
     - 'apt-get install -y nodejs'
-    - 'npm install -g @angular/cli'
     - ./deploy_script_linux.sh
