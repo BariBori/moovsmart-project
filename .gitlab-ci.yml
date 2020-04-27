@@ -1,9 +1,6 @@
 stages:
   - build
 
-deploy:
-  stage: build
-  
   only:
     refs:
       - master
