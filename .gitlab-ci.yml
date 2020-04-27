@@ -1,12 +1,11 @@
 stages:
-  - deploy
+  - build
 
 deploy:
-  stage: deploy
+  stage: build
   
   only:
     refs:
       - master
       
-  script:
-    - ./deploy_script_linux.sh
+
