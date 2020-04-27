@@ -1,11 +1,8 @@
 image: maven:3.6.3-jdk-11
 
 before_script:
-   - apt-get update -y && apt-get upgrade -y 
    - apt-get install -y nodejs
    - apt-get install -y npm
-   - npm update npm -g
-   - npm cache clean
    - npm install -g angular-cli 
 
 stages:
