@@ -1,13 +1,14 @@
 image: maven:3.6.3-jdk-11
 
 stages:
-  - test
+  - build 
+#   - test
   - deploy
 
-test:
-  stage: test
-  script:
-    - 'mvn test'
+# test:
+#   stage: test
+#   script:
+#     - 'mvn test'
 
 deploy:
   stage: deploy
