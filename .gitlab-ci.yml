@@ -1,8 +1,9 @@
+image: node:10.5.0
+
 stages:
   - build
 
-  only:
-    refs:
-      - master
+before_script:
+  - npm install
       
 
