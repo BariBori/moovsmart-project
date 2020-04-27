@@ -26,6 +26,7 @@ export class PropertyFormComponent implements OnInit {
   @Input()
   responses: Array<any>;
   listOfImages: Array<string> = [];
+  propertyEditModel: PropertyEditModel;
   hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
@@ -214,6 +215,7 @@ export class PropertyFormComponent implements OnInit {
         this.listOfImages = this.listOfImages.filter(function (el) {
           return el != null;
         });
+        console.log("list of images");
         console.log(this.listOfImages);
       });
 
@@ -355,35 +357,11 @@ export class PropertyFormComponent implements OnInit {
 
 
   // Delete an uploaded image
-  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
-  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
-  deleteImage= function (data: any, index: number){
-    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
-    const headers = {
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Credentials':'true',
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest' };
-
-
-    const options = { headers: new Headers(headers) };
-    const body = {
-      token: data.delete_token
-    };
-    console.log(data);
-    console.log(data.delete_token);
-    this.httpClient.post(url, body, options).subscribe(response => {
-      console.log(`Deleted image - ${data.public_id} ${response.result}`);
-      // Remove deleted item for responses
-      this.responses.splice(index, 1);
-    });
-
+  deleteImage= function (index: number){
     //remove deleted item from own server database table
     this.listOfImages.splice(index, 1);
     console.log(this.listOfImages);
-  };
+  }
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
@@ -422,7 +400,7 @@ export class PropertyFormComponent implements OnInit {
     //this.id ? this.updateProperty(propertyFormDataModel) :
 
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
-      () => this.router.navigate(['property-list']),
+      () => this.router.navigate(['../user-home/user-property']),
       error => validationHandler(error, this.propertyForm)
     )
   };
@@ -442,7 +420,7 @@ export class PropertyFormComponent implements OnInit {
 
   private updateProperty(data: PropertyEditModel){
     this.propertyService.updateProperty(data, this.id).subscribe(
-      () => this.router.navigate(['property-list']),
+      () => this.router.navigate(['../user-home/user-property']),
       //error => validationHandler(error, this.propertyForm),
     );
     console.log("PropertyForm");

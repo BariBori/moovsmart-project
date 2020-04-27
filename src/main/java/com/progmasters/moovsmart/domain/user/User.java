@@ -40,9 +40,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private List<UserRole> userRoles;
 
-    @NotNull
-    @OneToMany
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_saved_adverts",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="advert_id"))
     private List<PropertyAdvert> savedAdverts = new ArrayList<>();
+
 
     @NotNull
     private Boolean activated;

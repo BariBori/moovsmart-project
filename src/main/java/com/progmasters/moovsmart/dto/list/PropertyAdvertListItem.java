@@ -122,4 +122,8 @@ public class PropertyAdvertListItem {
     public LocalDate getTimeOfActivation() {
         return timeOfActivation;
     }
+
+    public void setTimeOfActivation(LocalDate timeOfActivation) {
+        this.timeOfActivation = timeOfActivation;
+    }
 }

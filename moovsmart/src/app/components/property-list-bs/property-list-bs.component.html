@@ -1,0 +1,46 @@
+<div class="container">
+
+  {{collectionSize}} db ingatlan
+
+
+      <div *ngFor="let property of dataSource; index as i">
+        <div class="property-container click" (click)="goToDetails(property.id)">
+        <div class="row">
+          <div class="col col-12 col-sm-12 col-lg-4 img-container">
+            <img class="list-img" src="{{property.listOfImages[0]}}">
+            <div class="bottom-left">{{property.listOfImages.length}}
+              <fa-icon [icon]="faCameraRetro" class="icon"></fa-icon>
+            </div>
+          </div>
+          <div class="col col-12 col-sm-12 col-lg-8">
+            <div class="row row-price">
+              <div class="col prop-price">{{property.price}} M Ft</div>
+              <div class="col prop-price-sqr">{{property.priceForSquareMeter   | number: '2.'}} Ft/m2</div>
+            </div>
+            <div class="row row-address" >{{property.address}}</div>
+            <div class="row row-rooms">
+              <div class="col">{{property.area}} m2</div>
+              <div class="col">{{property.numberOfRooms}} szoba</div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+
+      </div>
+
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+    </ngb-pagination>
+
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div>
+
+
+</div>

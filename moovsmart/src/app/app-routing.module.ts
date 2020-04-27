@@ -9,10 +9,12 @@ import { HomeComponent } from './components/home/home.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { SelectivePreloadingStrategyService } from "./selective-preloading-strategy.service";
 import { MessagingComponent } from './components/messaging/messaging.component';
+import {PropertyListBsComponent} from "./components/property-list-bs/property-list-bs.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'property-list', component: PropertyListComponent },
+  { path: 'property-list-bs', component: PropertyListBsComponent},
   { path: 'property-form', component: PropertyFormComponent },
   { path: 'property-form/:id', component: PropertyFormComponent },
   { path: 'property-details/:id', component: PropertyDetailsComponent },
@@ -37,8 +39,6 @@ const routes: Routes = [
       enableTracing: false,
       preloadingStrategy: SelectivePreloadingStrategyService,
     }
-
-
   )
 
   ],
