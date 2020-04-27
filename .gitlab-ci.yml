@@ -1,9 +1,6 @@
 image: maven:3.6.3-jdk-11
 
 before_script:
-   - apt-get install -y nodejs
-   - apt-get install -y npm
-   - npm install -g angular-cli 
 
 stages:
   - build 
@@ -21,6 +18,7 @@ deploy:
     refs:
       - master
   script:
-    # - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
-    # - 'apt-get install -y nodejs'
+    - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
+    - 'apt-get install -y nodejs'
+    - 'npm install -g @angular/cli'
     - ./deploy_script_linux.sh
