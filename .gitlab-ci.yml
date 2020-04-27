@@ -1,0 +1,20 @@
+image: maven:3.6.3-jdk-11
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script:
+    - 'mvn test'
+
+deploy:
+  stage: deploy
+  only:
+    refs:
+      - master
+  script:
+    - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
+    - 'apt-get install -y nodejs'
+    - ./deploy_script_linux.sh
