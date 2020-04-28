@@ -40,14 +40,14 @@ Build Frontend:
 #   when: manual
 #   allow_failure: false
 
-Deploy to Production:
-  stage: deploy_production
-  script:
-    # - scp -i "$PROD_SERVER_SSH_PRIVATE_KEY" target/prevmed-0.0.1-SNAPSHOT.jar $PROD_SERVER_USER@$PROD_SERVER_IP:/home/ubuntu/prevmed-0.0.1-SNAPSHOT.jar.TEMP
-    # - scp -i "$PROD_SERVER_SSH_PRIVATE_KEY" -r frontend/build/ $PROD_SERVER_USER@$PROD_SERVER_IP:/home/ubuntu/prevmed.temp
-    # - ssh -i "$PROD_SERVER_SSH_PRIVATE_KEY" $PROD_SERVER_USER@$PROD_SERVER_IP 'sudo ./deploy.sh'
-    scp  -i $pem_file_full_path $frontend_source_location ec2-user@$remote_address:$frontend_remote_location
-    scp  -i $pem_file_full_path $backend_source_location ec2-user@$remote_address:$backend_remote_location/project-1.0-SNAPSHOT.jar.new
-    ssh -i $pem_file_full_path ec2-user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
-  only:
-    - deployment
+# Deploy to Production:
+#   stage: deploy_production
+#   script:
+#     # - scp -i "$PROD_SERVER_SSH_PRIVATE_KEY" target/prevmed-0.0.1-SNAPSHOT.jar $PROD_SERVER_USER@$PROD_SERVER_IP:/home/ubuntu/prevmed-0.0.1-SNAPSHOT.jar.TEMP
+#     # - scp -i "$PROD_SERVER_SSH_PRIVATE_KEY" -r frontend/build/ $PROD_SERVER_USER@$PROD_SERVER_IP:/home/ubuntu/prevmed.temp
+#     # - ssh -i "$PROD_SERVER_SSH_PRIVATE_KEY" $PROD_SERVER_USER@$PROD_SERVER_IP 'sudo ./deploy.sh'
+#     scp  -i $pem_file_full_path $frontend_source_location ec2-user@$remote_address:$frontend_remote_location
+#     scp  -i $pem_file_full_path $backend_source_location ec2-user@$remote_address:$backend_remote_location/project-1.0-SNAPSHOT.jar.new
+#     ssh -i $pem_file_full_path ec2-user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
+#   only:
+#     - deployment
