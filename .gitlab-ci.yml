@@ -16,14 +16,14 @@ Build Frontend:
   image: node:10
   cache:
     paths:
-      - /home/ec2-user/frontend/node_modules/
+      - moovsmart/node_modules/
   script:
-    - cd /home/ec2-user/frontend
+    - cd moovsmart/frontend
     - npm ci
     - ng build --prod --aot
   artifacts:
     paths:
-      - /home/ec2-user/frontend/build/
+      - moovsmart/build/
   only:
     - master
 
