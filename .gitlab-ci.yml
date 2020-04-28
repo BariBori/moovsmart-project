@@ -11,6 +11,22 @@ stages:
 #   script:
 #     - 'mvn test'
 
+Build Frontend:
+  stage: build
+  image: node:10
+  cache:
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - npm ci
+    - ng build --prod --aot
+  artifacts:
+    paths:
+      - frontend/build/
+  only:
+    - master
+
 deploy:
   stage: deploy
   only:
