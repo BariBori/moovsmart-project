@@ -16,15 +16,15 @@ set -v
 # pem_file_full_path=moovsmart.pem
 
 #BUILD PROJECT
-cd $frontend_folder_name
-ng build --prod --aot
-cd ..
-mvn clean package -DskipTests=true
-chmod 400 $pem_file_full_path
+# cd $frontend_folder_name
+# ng build --prod --aot
+# cd ..
+# mvn clean package -DskipTests=true
+# chmod 400 $pem_file_full_path
 
-#COPY LOCAL FILES TO SERVER
-scp  -i $pem_file_full_path $frontend_source_location ec2-user@$remote_address:$frontend_remote_location
-scp  -i $pem_file_full_path $backend_source_location ec2-user@$remote_address:$backend_remote_location/project-1.0-SNAPSHOT.jar.new
+# #COPY LOCAL FILES TO SERVER
+# scp  -i $pem_file_full_path $frontend_source_location ec2-user@$remote_address:$frontend_remote_location
+# scp  -i $pem_file_full_path $backend_source_location ec2-user@$remote_address:$backend_remote_location/project-1.0-SNAPSHOT.jar.new
 
 #UPDATE .JAR WITH NEW, AND RESTART
 ssh -i $pem_file_full_path ec2-user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
