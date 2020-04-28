@@ -26,7 +26,7 @@ Build Frontend:
   image: node:10
   cache:
     paths:
-      - "$frontend_folder_name"/node_modules/
+      - moovsmart/node_modules/
   script:
     - cd moovsmart
     - npm ci
