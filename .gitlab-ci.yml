@@ -16,14 +16,14 @@ Build Frontend:
   image: node:10
   cache:
     paths:
-      - frontend/node_modules/
+      - /home/ec2-user/frontend/node_modules/
   script:
-    - cd frontend
+    - cd /home/ec2-user/frontend
     - npm ci
     - ng build --prod --aot
   artifacts:
     paths:
-      - frontend/build/
+      - /home/ec2-user/frontend/build/
   only:
     - master
 
