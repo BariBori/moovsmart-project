@@ -17,7 +17,7 @@ Build Backend:
   stage: build
   artifacts:
     paths:
-      - backend_source_location
+      - /target/project-1.0-SNAPSHOT.jar
   only:
     - deployment
 
