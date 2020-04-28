@@ -5,20 +5,11 @@ stages:
   - deploy
 
 before_script:
-#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#   - eval $(ssh-agent -s)
-#   - echo "$pem_file_full_path" | tr -d '\r' | ssh-add - > /dev/null
-#   - ssh-add <(echo "$pem_file_full_path")
-#   - mkdir -p ~/.ssh
-#   - chmod 600 ~/.ssh
-#   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-
 
 Build Backend:
   stage: build
@@ -28,7 +19,7 @@ Build Backend:
     paths:
       - target/project-1.0-SNAPSHOT.jar.new
   only:
-    - deployment
+    - master
 
 Build Frontend:
   stage: build
