@@ -17,7 +17,7 @@ Build Backend:
   stage: build
   artifacts:
     paths:
-      - backend_source_location_
+      - "$backend_source_location_" 
   only:
     - deployment
 
