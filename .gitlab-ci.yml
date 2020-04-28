@@ -4,7 +4,7 @@ Build Backend:
     - mvn package -DskipTests=true -q
   artifacts:
     paths:
-      - target/prevmed-0.0.1-SNAPSHOT.jar
+      - $backend_remote_location/project-1.0-SNAPSHOT.jar.new
   only:
     - deployment
 
