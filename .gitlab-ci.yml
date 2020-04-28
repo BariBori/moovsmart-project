@@ -4,7 +4,7 @@ Build Backend:
 #     - mvn package -DskipTests=true -q
   artifacts:
     paths:
-      - $backend_remote_location/project-1.0-SNAPSHOT.jar.new
+      - /project-1.0-SNAPSHOT.jar.new
   only:
     - deployment
 
