@@ -4,14 +4,14 @@ stages:
   - build
 #   - deploy
 
-# before_script:
-#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#   - eval $(ssh-agent -s)
-#   - echo "$pem_file_full_path" | tr -d '\r' | ssh-add - > /dev/null
-#   - ssh-add <(echo "$pem_file_full_path")
-#   - mkdir -p ~/.ssh
-#   - chmod 600 ~/.ssh
-#   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$pem_file_full_path" | tr -d '\r' | ssh-add - > /dev/null
+  - ssh-add <(echo "$pem_file_full_path")
+  - mkdir -p ~/.ssh
+  - chmod 600 ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 Build Backend:
   stage: build
