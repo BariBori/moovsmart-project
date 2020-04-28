@@ -33,12 +33,12 @@ Build Frontend:
 #   only:
 #     - deployment
 
-Wait for approval:
-  stage: wait_for_approval
-  script:
-    - echo "Waiting for approval..."
-  when: manual
-  allow_failure: false
+# Wait for approval:
+#   stage: wait_for_approval
+#   script:
+#     - echo "Waiting for approval..."
+#   when: manual
+#   allow_failure: false
 
 Deploy to Production:
   stage: deploy_production
