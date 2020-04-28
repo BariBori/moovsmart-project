@@ -14,6 +14,7 @@ public abstract class View<T extends Conversation> {
     private Long id;
     @OneToOne
     private User user;
+    // TODO use JPA inheritance
     @OneToOne
     @Type(type = "com.progmasters.moovsmart.domain.messaging.Chat")
     protected T conversation;
