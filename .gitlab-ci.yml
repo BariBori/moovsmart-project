@@ -11,7 +11,7 @@ before_script:
   - ssh-add <(echo "$pem_file_full_path")
   - mkdir -p ~/.ssh
   - chmod 600 ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 Build Backend:
   stage: build
