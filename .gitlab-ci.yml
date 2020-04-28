@@ -42,7 +42,7 @@ Build Frontend:
     - npm run build --quiet
   artifacts:
     paths:
-      - moovsmart/build/
+      - ./moovsmart/dist/moovsmart/*
   only:
     - master
 
