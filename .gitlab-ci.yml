@@ -1,10 +1,29 @@
+image: maven:3.6.1-jdk-11-slim
+
+stages:
+  - build
+#   - deploy_test
+#   - wait_for_approval
+  - deploy_production
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+#   - echo "$TEST_SERVER_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - echo "$PROD_SERVER_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#   - ssh-add <(echo "$TEST_SERVER_SSH_PRIVATE_KEY")
+  - ssh-add <(echo "$PROD_SERVER_SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - chmod 600 ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
 Build Backend:
   stage: build
 #   script:
 #     - mvn package -DskipTests=true -q
   artifacts:
     paths:
-      - /project-1.0-SNAPSHOT.jar.new
+      - backend_remote_location/project-1.0-SNAPSHOT.jar.new
   only:
     - deployment
 
