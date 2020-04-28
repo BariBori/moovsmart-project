@@ -6,19 +6,18 @@ set -v
 #------------- UPDATE ALWAYS CORRESPONDINGLY!
 # pom.xml Artifact id must be 'project'
 #remote_address=moovsmart-demo.progmasters.hu
-remote_address=3.18.213.29
-frontend_folder_name=moovsmart
-frontend_source_location=./$frontend_folder_name/dist/$frontend_folder_name/*
+# remote_address=3.18.213.29
+# frontend_folder_name=moovsmart
+# frontend_source_location=./$frontend_folder_name/dist/$frontend_folder_name/*
 
-backend_source_location=./target/project-1.0-SNAPSHOT.jar
-frontend_remote_location=/home/ec2-user/frontend
-backend_remote_location=/home/ec2-user
-pem_file_full_path=moovsmart.pem
+# backend_source_location=./target/project-1.0-SNAPSHOT.jar
+# frontend_remote_location=/home/ec2-user/frontend
+# backend_remote_location=/home/ec2-user
+# pem_file_full_path=moovsmart.pem
 
 #BUILD PROJECT
 cd $frontend_folder_name
 ng build --prod --aot
-# npm install -g angular-cli
 cd ..
 mvn clean package -DskipTests=true
 chmod 400 $pem_file_full_path
