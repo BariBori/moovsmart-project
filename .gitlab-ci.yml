@@ -45,5 +45,5 @@ deploy:
     - scp -i $pem_file_full_path target/project-1.0-SNAPSHOT.jar.new ec2-user@$remote_address:$frontend_remote_location
     - scp -i $pem_file_full_path $backend_source_location $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
     - ssh -i $pem_file_full_path $server_user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
-      only:
-        - deployment
+    only:
+     - deployment
