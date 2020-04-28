@@ -17,7 +17,7 @@ Build Backend:
     - mvn package -DskipTests=true -q
   artifacts:
     paths:
-      - target/project-1.0-SNAPSHOT.jar.new
+      - target/project-1.0-SNAPSHOT.jar
   only:
     - master
 
@@ -40,7 +40,7 @@ Build Frontend:
 deploy:
   stage: deploy
   script:
-    - scp -i $SSH_PRIVATE_KEY target/project-1.0-SNAPSHOT.jar.new "$server_user"@"$remote_address":/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    - scp -i $SSH_PRIVATE_KEY target/project-1.0-SNAPSHOT.jar "$server_user"@"$remote_address":/home/ec2-user/project-1.0-SNAPSHOT.jar.new
     - scp -i $SSH_PRIVATE_KEY ./moovsmart/dist/moovsmart/* "$server_user"@"$remote_address":/home/ec2-user/moovsmart
     - ssh -i $SSH_PRIVATE_KEY "$server_user"@"$remote_address" 'sudo ./deploy_script_linux.sh'
   only:
