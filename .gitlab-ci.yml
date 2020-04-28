@@ -1,0 +1,38 @@
+image: maven:3.6.3-jdk-11
+
+
+stages:
+  - build 
+#   - test
+  - deploy
+
+# test:
+#   stage: test
+#   script:
+#     - 'mvn test'
+
+Build Frontend:
+  stage: build
+  image: node:10
+  cache:
+    paths:
+      - moovsmart/node_modules/
+  script:
+    - cd moovsmart
+    - npm ci
+    - ng build --prod --aot
+  artifacts:
+    paths:
+      - moovsmart/build/
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  only:
+    refs:
+      - master
+  script:
+    - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
+    - 'apt-get install -y nodejs'
+    - ./deploy_script_linux.sh

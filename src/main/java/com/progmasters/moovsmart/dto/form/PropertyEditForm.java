@@ -2,6 +2,8 @@ package com.progmasters.moovsmart.dto.form;
 
 import com.progmasters.moovsmart.domain.*;
 
+import java.util.List;
+
 public class PropertyEditForm {
 
     private long id;
@@ -22,6 +24,8 @@ public class PropertyEditForm {
 
     private String description;
 
+    private List<String> listOfImages;
+
     public PropertyEditForm() {
     }
 
@@ -36,6 +40,7 @@ public class PropertyEditForm {
         this.elevator = propertyAdvert.isElevator();
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
+        this.listOfImages = propertyAdvert.getListOfImages();
     }
 
 
@@ -119,4 +124,11 @@ public class PropertyEditForm {
         this.id = id;
     }
 
+    public List<String> getListOfImages() {
+        return listOfImages;
+    }
+
+    public void setListOfImages(List<String> listOfImages) {
+        this.listOfImages = listOfImages;
+    }
 }

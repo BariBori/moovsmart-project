@@ -26,6 +26,7 @@ export class PropertyFormComponent implements OnInit {
   @Input()
   responses: Array<any>;
   listOfImages: Array<string> = [];
+  propertyEditModel: PropertyEditModel;
   hasBaseDropZoneOver: boolean = false;
   uploader: FileUploader;
   private imgTitle: string;
@@ -399,7 +400,7 @@ export class PropertyFormComponent implements OnInit {
     //this.id ? this.updateProperty(propertyFormDataModel) :
 
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
-      () => this.router.navigate(['property-list']),
+      () => this.router.navigate(['../user-home/user-property']),
       error => validationHandler(error, this.propertyForm)
     )
   };
@@ -419,7 +420,7 @@ export class PropertyFormComponent implements OnInit {
 
   private updateProperty(data: PropertyEditModel){
     this.propertyService.updateProperty(data, this.id).subscribe(
-      () => this.router.navigate(['property-list']),
+      () => this.router.navigate(['../user-home/user-property']),
       //error => validationHandler(error, this.propertyForm),
     );
     console.log("PropertyForm");

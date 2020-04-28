@@ -59,7 +59,7 @@
 
     </mat-table>
 
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]" (click)="changePage(dataSource.paginator.pageIndex, dataSource.paginator.pageSize)"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" (change)="changePage(dataSource.paginator.pageIndex, dataSource.paginator.pageSize)"></mat-paginator>
 
   </div>
 
