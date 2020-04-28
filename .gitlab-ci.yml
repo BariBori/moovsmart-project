@@ -15,8 +15,8 @@ before_script:
 
 Build Backend:
   stage: build
-  script:
-    - mvn package -DskipTests=true -q
+#   script:
+#     - mvn package -DskipTests=true -q
   artifacts:
     paths:
       - target/project-1.0-SNAPSHOT.jar.new
