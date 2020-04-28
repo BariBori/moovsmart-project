@@ -18,7 +18,7 @@ Build Frontend:
     paths:
       - moovsmart/node_modules/
   script:
-    - cd moovsmart/frontend
+    - cd moovsmart
     - npm ci
     - ng build --prod --aot
   artifacts:
