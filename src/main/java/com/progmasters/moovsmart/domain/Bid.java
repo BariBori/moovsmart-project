@@ -18,6 +18,7 @@ public class Bid {
     @ManyToOne
     private User userId;
 
+
     @Column
     private LocalDateTime dateTimeOfBid;
 
