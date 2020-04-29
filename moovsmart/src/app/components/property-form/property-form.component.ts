@@ -86,6 +86,10 @@ export class PropertyFormComponent implements OnInit {
     description: [''],
 
     listOfImages: [null],
+
+    startOfAuction: [null],
+    endOfAuction: [null],
+    actualPrice: [null],
   });
 
 

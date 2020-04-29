@@ -54,7 +54,7 @@ public class User {
     private Boolean activated;
 
     @OneToMany(mappedBy = "userId")
-    private List<Bid> bid;
+    private List<Bid> bid = new ArrayList<>();
 
     public User(String email, String userName, String passwordHash, UserRole... userRoles) {
         this.email = email;
@@ -66,6 +66,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public List<Bid> getBid() {
+        return bid;
+    }
+
+    public void setBid(Bid bid) {
+        this.bid.add(bid);
     }
 
     public Long getId() {

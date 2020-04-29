@@ -1,3 +1,5 @@
+import DateTimeFormat = Intl.DateTimeFormat;
+
 export interface PropertyEditModel {
   id?: number;
 
@@ -19,4 +21,8 @@ export interface PropertyEditModel {
   description: string;
 
   listOfImages: Array<string>;
+
+  startOfAuction: DateTimeFormat;
+  endOfAuction: DateTimeFormat;
+  actualPrice: number;
 }
