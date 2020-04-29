@@ -2,6 +2,7 @@ image: maven:3.6.3-jdk-11
 
 stages:
   - build
+  - test
 #   - deploy
 
 before_script:
@@ -19,7 +20,7 @@ Build Backend:
     paths:
       - target/project-1.0-SNAPSHOT.jar
   only:
-    - master
+    - deployment
 
 Build Frontend:
   stage: build
@@ -35,7 +36,13 @@ Build Frontend:
     paths:
       - /moovsmart/dist/moovsmart/*
   only:
-    - master
+    - deployment
+
+test:
+  stage: test
+  script:
+    - 'mvn test'
+
 
 # deploy:
 #   stage: deploy
