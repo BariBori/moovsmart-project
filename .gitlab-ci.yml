@@ -19,7 +19,7 @@ Build Backend:
     paths:
       - target/project-1.0-SNAPSHOT.jar
   only:
-    - master
+    - deployment
 
 Build Frontend:
   stage: build
@@ -35,13 +35,13 @@ Build Frontend:
     paths:
       - ./moovsmart/dist/moovsmart/*
   only:
-    - master
+    - deployment
 
 deploy:
   stage: deploy
   script:
-    - scp -i $SSH_PRIVATE_KEY target/project-1.0-SNAPSHOT.jar $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - scp -i $SSH_PRIVATE_KEY ./moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
+    # - scp -i $SSH_PRIVATE_KEY target/project-1.0-SNAPSHOT.jar $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    # - scp -i $SSH_PRIVATE_KEY ./moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
     - ssh -i $SSH_PRIVATE_KEY $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
   only:
-    - master
+    - deployment
