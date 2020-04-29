@@ -2,7 +2,8 @@ image: maven:3.6.3-jdk-11
 
 stages:
   - build
-  - deploy
+  - test
+#   - deploy
 
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -37,11 +38,18 @@ Build Frontend:
   only:
     - master
 
-deploy:
-  stage: deploy
+test:
+  stage: test
   script:
-    - scp -i "$SSH_PRIVATE_KEY" target/project-1.0-SNAPSHOT.jar $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - scp -i "$SSH_PRIVATE_KEY" -r /moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
-    - ssh -i "$SSH_PRIVATE_KEY" $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
-  only:
-    - master
+    - pwd
+    - mvn test
+
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - scp -i "$SSH_PRIVATE_KEY" target/project-1.0-SNAPSHOT.jar $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+#     - scp -i "$SSH_PRIVATE_KEY" -r /moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
+#     - ssh -i "$SSH_PRIVATE_KEY" $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
+#   only:
+#     - master
