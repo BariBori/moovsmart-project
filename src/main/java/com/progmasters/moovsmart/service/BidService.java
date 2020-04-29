@@ -9,9 +9,13 @@ import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.BidRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
+@Transactional
 public class BidService {
 
     private BidRepository bidRepository;
@@ -25,15 +29,20 @@ public class BidService {
         this.userRepository = userRepository;
     }
 
-    public void saveBid(BidFormData bidFormData, UserIdentifier userIdentifier, Long advertId){
+    public Bid saveBid(BidFormData bidFormData, UserIdentifier userIdentifier, Long advertId){
         Optional<User> user = userRepository.findOneByUserName(userIdentifier.getUsername());
         Optional<PropertyAdvert> propertyAdvert = advertRepository.findOneById(advertId);
+        Bid bid;
 
         if (user.isPresent() && propertyAdvert.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert chosenAdvert = propertyAdvert.get();
-            Bid bid = new Bid(chosenAdvert, chosenUser, bidFormData);
+            bid = new Bid(chosenAdvert, chosenUser, bidFormData);
             this.bidRepository.save(bid);
+        } else{
+            bid = null;
         }
+
+        return bid;
     }
 }

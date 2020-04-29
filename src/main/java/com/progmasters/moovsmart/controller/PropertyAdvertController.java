@@ -1,15 +1,15 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.Bid;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
-import com.progmasters.moovsmart.dto.form.PropertyCity;
-import com.progmasters.moovsmart.dto.form.PropertyEditForm;
+import com.progmasters.moovsmart.dto.BidListItem;
+import com.progmasters.moovsmart.dto.form.*;
 import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
 import com.progmasters.moovsmart.dto.list.PageList;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
+import com.progmasters.moovsmart.service.BidService;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
@@ -41,17 +41,19 @@ public class PropertyAdvertController {
     private PropertyAdvertValidator propertyAdvertValidator;
     private UserDetailsFromSecurityContext userDetails;
     private UserService userService;
+    private BidService bidService;
 
     @Autowired
     public PropertyAdvertController(
             PropertyAdvertService propertyAdvertService,
             PropertyAdvertValidator propertyAdvertValidator,
             UserDetailsFromSecurityContext userDetails,
-            UserService userService) {
+            UserService userService, BidService bidService) {
         this.propertyAdvertService = propertyAdvertService;
         this.propertyAdvertValidator = propertyAdvertValidator;
         this.userDetails = userDetails;
         this.userService = userService;
+        this.bidService = bidService;
     }
 
     @InitBinder("propertyAdvertFormData")
@@ -66,6 +68,16 @@ public class PropertyAdvertController {
                 userService.addFavouriteAdvert(userDetails.get(), advertId)
         );
     }
+
+
+    @PostMapping("/bid/{advertId}")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<Bid> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
+        return ResponseEntity.ok(
+                bidService.saveBid(bidFormData, userDetails.get(), advertId)
+        );
+    }
+
 
     @GetMapping("/fav")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
