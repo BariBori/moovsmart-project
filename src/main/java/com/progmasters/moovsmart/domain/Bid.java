@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.domain;
 
 import com.progmasters.moovsmart.domain.user.User;
+import com.progmasters.moovsmart.dto.form.BidFormData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,11 +29,11 @@ public class Bid {
     public Bid() {
     }
 
-    public Bid(PropertyAdvert propertyAdvertId, User userId, Integer amountOfBid) {
+    public Bid(PropertyAdvert propertyAdvertId, User userId, BidFormData bidFormData) {
         this.propertyAdvertId = propertyAdvertId;
         this.userId = userId;
         this.dateTimeOfBid = LocalDateTime.now().plusDays(1);
-        this.amountOfBid = amountOfBid;
+        this.amountOfBid = bidFormData.getAmountOfBid();
     }
 
     public long getId() {
