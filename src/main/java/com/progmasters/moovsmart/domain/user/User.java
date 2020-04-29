@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.domain.user;
 
+import com.progmasters.moovsmart.domain.Bid;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
 
 import javax.persistence.*;
@@ -51,6 +52,9 @@ public class User {
 
     @NotNull
     private Boolean activated;
+
+    @OneToMany(mappedBy = "userId")
+    private List<Bid> bid;
 
     public User(String email, String userName, String passwordHash, UserRole... userRoles) {
         this.email = email;

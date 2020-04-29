@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -103,6 +104,15 @@ public class PropertyAdvert {
     private List<User> likes = new ArrayList<>();
 
     private String userName;
+
+    @Column
+    private LocalDateTime startOfAuction;
+
+    @Column
+    private LocalDateTime endOfAuction;
+
+    @OneToMany(mappedBy = "propertyAdvertId")
+    private List<Bid> lisOfBids;
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
         this.id = propertyAdvertFormData.getId();

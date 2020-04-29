@@ -1,16 +1,49 @@
 image: maven:3.6.3-jdk-11
 
 stages:
+  - build
   - deploy
 
-deploy:
-  stage: deploy
-  
-  only:
-    refs:
-      - master
-      
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$pem_file_full_path" | tr -d '\r' | ssh-add - > /dev/null
+  - ssh-add <(echo "$pem_file_full_path")
+  - mkdir -p ~/.ssh
+  - chmod 600 ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+Build Backend:
+  stage: build
   script:
-    - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
-    - 'apt-get install -y nodejs'
-    - ./deploy_script_linux.sh
+    - mvn package -DskipTests=true -q
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar.new
+  only:
+    - deployment
+
+Build Frontend:
+  stage: build
+  image: node:10
+  cache:
+    paths:
+      - moovsmart/node_modules/
+  script:
+    - cd moovsmart
+    - npm ci
+    - npm run build --quiet
+  artifacts:
+    paths:
+      - moovsmart/build/
+  only:
+    - master
+
+deploy:
+  stage: deploy_production
+  script:
+    - scp -i $pem_file_full_path target/project-1.0-SNAPSHOT.jar.new ec2-user@$remote_address:$frontend_remote_location
+    - scp -i $pem_file_full_path $backend_source_location $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    - ssh -i $pem_file_full_path $server_user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
+      only:
+        - deployment
