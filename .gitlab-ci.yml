@@ -9,7 +9,7 @@ before_script:
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
+  - chmod 400 ~/.ssh
 
 Build Backend:
   stage: build
