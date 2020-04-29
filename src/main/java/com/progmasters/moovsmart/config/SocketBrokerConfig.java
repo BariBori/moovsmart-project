@@ -12,14 +12,12 @@ public class SocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setUserDestinationPrefix("/secured/user/")
+        config.setApplicationDestinationPrefixes("/api/").setUserDestinationPrefix("/user/")
                 .enableSimpleBroker("/queue/");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("secured/notifications")
-                .setAllowedOrigins("*")
-                .withSockJS();
+        registry.addEndpoint("/notifications").setAllowedOrigins("*").withSockJS();
     }
 }

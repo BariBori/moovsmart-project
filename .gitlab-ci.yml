@@ -7,11 +7,9 @@ stages:
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
-  - echo "$pem_file_full_path" | tr -d '\r' | ssh-add - > /dev/null
-  - ssh-add <(echo "$pem_file_full_path")
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
-  - chmod 600 ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - chmod 400 ~/.ssh
 
 Build Backend:
   stage: build
@@ -19,9 +17,9 @@ Build Backend:
     - mvn package -DskipTests=true -q
   artifacts:
     paths:
-      - target/project-1.0-SNAPSHOT.jar.new
+      - target/project-1.0-SNAPSHOT.jar
   only:
-    - deployment
+    - master
 
 Build Frontend:
   stage: build
@@ -35,15 +33,15 @@ Build Frontend:
     - npm run build --quiet
   artifacts:
     paths:
-      - moovsmart/build/
+      - /moovsmart/dist/moovsmart/*
   only:
     - master
 
 deploy:
-  stage: deploy_production
+  stage: deploy
   script:
-    - scp -i $pem_file_full_path target/project-1.0-SNAPSHOT.jar.new ec2-user@$remote_address:$frontend_remote_location
-    - scp -i $pem_file_full_path $backend_source_location $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - ssh -i $pem_file_full_path $server_user@$remote_address './shutdown.sh; mv project-1.0-SNAPSHOT.jar.new project.jar; ./start.sh'
-      only:
-        - deployment
+    - scp -i "$SSH_PRIVATE_KEY" target/project-1.0-SNAPSHOT.jar $server_user@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    - scp -i "$SSH_PRIVATE_KEY" -r /moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
+    - ssh -i "$SSH_PRIVATE_KEY" $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
+  only:
+    - master
