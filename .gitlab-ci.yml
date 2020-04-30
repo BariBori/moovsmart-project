@@ -2,8 +2,8 @@ image: maven:3.6.3-jdk-11
 
 stages:
   - build
-#   - test
-  - deploy
+  - test
+#   - deploy
 
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -38,17 +38,19 @@ Build Frontend:
   only:
     - deployment
 
-# test:
-#   stage: test
-#   script:
-#     - pwd
-#     - mvn test
-
-deploy:
-  stage: deploy
+test:
+  stage: test
   script:
-    - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" ".target/project-1.0-SNAPSHOT.jar" "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" -r /moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
-    - ssh -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
+    - pwd
+    - mvn test
   only:
-    - master
+    - master    
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" ".target/project-1.0-SNAPSHOT.jar" "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+#     - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" -r /moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
+#     - ssh -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" $server_user@$remote_address 'sudo ./deploy_script_linux.sh'
+#   only:
+#     - master
