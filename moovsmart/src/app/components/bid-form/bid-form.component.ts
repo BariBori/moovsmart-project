@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {User} from "../../models/error/User";
+import DateTimeFormat = Intl.DateTimeFormat;
 
 
 
@@ -28,7 +29,7 @@ export class BidFormComponent implements OnInit {
 
   bidForm = this.formBuilder.group({
     amountOfBid : [null],
-    dateTimeOfBid: [null]
+
   })
 
   ngOnInit(): void {

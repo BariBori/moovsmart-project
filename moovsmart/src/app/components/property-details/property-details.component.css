@@ -17,6 +17,12 @@
 .picsum-img-wrapper{
   max-height: 400px;
 }
+
+ngb-carousel img {
+  width: 100%;
+  outline: none;
+}
+
 .label{
   font-weight: bold;
   font-size: x-large;
