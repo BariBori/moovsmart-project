@@ -24,8 +24,8 @@ public class PropertyRepositoryTest {
     @Autowired
     private AdvertRepository advertRepository;
 
-    @Test
-    public void testSaveAndFindAll() {
+//    @Test
+//    public void testSaveAndFindAll() {
 //        PropertyAdvertFormData propertyAdvertFormData = new PropertyAdvertFormData();
 //        propertyAdvertFormData.setPrice(20.0);
 //        propertyAdvertFormData.setId(300000);
@@ -51,7 +51,7 @@ public class PropertyRepositoryTest {
 //        List<PropertyAdvert> propertyList = advertRepository.findAll();
 //
 //        assertEquals(1, propertyList.size());
-    }
+//    }
 
 
 

@@ -1,30 +1,30 @@
-//package com.progmasters.moovsmart.selenium;
-//
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.Keys;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.chrome.ChromeOptions;
-//import org.openqa.selenium.support.ui.Select;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//class AddPropertyTest {
-//
-//    private WebDriver driver;
-//
-//    @BeforeEach
-//    void startBrowser() {
-//        ClassLoader classLoader = AddPropertyTest.class.getClassLoader();
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--start-maximized");
-//        driver = new ChromeDriver(options);
-//    }
-//
+package com.progmasters.moovsmart.selenium;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class AddPropertyTest {
+
+    private WebDriver driver;
+
+    @BeforeEach
+    void startBrowser() {
+        ClassLoader classLoader = AddPropertyTest.class.getClassLoader();
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
+    }
+
 //    @Test
 //    void addNewAdvertFull() {
 //
@@ -112,8 +112,8 @@
 //            e.printStackTrace();
 //        }
 //
-//        String searchTitle = driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > button")).getAttribute("innerHTML");
-//        assertEquals(searchTitle, "Részletes keresés");
+//        String searchTitle = driver.findElement(By.cssSelector("#property-list-link > a")).getAttribute("innerHTML");
+//        assertEquals(searchTitle, "Ingatlanok");
 //
 //        try {
 //            Thread.sleep(2000);
@@ -185,11 +185,11 @@
 //            e.printStackTrace();
 //        }
 //    }
-//
-//    @AfterEach
-//    void tearDown() {
-//        driver.quit();
-//    }
-//
-//
-//}
+
+    @AfterEach
+    void tearDown() {
+        driver.quit();
+    }
+
+
+}

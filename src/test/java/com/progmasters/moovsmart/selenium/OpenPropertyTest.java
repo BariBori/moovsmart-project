@@ -1,29 +1,29 @@
-//package com.progmasters.moovsmart.selenium;
-//
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.chrome.ChromeOptions;
-//import org.openqa.selenium.support.ui.WebDriverWait;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//
-//class OpenPropertyTest {
-//
-//    private WebDriver driver;
-//
-//    @BeforeEach
-//    void startBrowser() {
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--start-maximized");
-//        driver = new ChromeDriver(options);
-//    }
-//
+package com.progmasters.moovsmart.selenium;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+class OpenPropertyTest {
+
+    private WebDriver driver;
+
+    @BeforeEach
+    void startBrowser() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bozsó-Fort Zsuzsanna\\IdeaProjects\\angular-moovsmart\\src\\test\\resources\\win\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
+    }
+
 //    @Test
 //    void toPropertyDetails() {
 //        driver.get("http://localhost:4200");
@@ -54,11 +54,11 @@
 //        }
 //
 //    }
-//
-//    @AfterEach
-//    public void tearDown() {
-//        driver.quit();
-//    }
-//
-//
-//}
+
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
+
+
+}
