@@ -33,11 +33,9 @@ public class BidService {
     }
 
     public Bid saveBid(BidFormData bidFormData, UserIdentifier userIdentifier, Long advertId){
-
         Optional<User> user = userRepository.findOneByUserName(userIdentifier.getUsername());
         Optional<PropertyAdvert> propertyAdvert = advertRepository.findOneById(advertId);
         Bid bid;
-
         if (user.isPresent() && propertyAdvert.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert chosenAdvert = propertyAdvert.get();
@@ -46,7 +44,6 @@ public class BidService {
         } else{
             bid = null;
         }
-
         return bid;
     }
 
