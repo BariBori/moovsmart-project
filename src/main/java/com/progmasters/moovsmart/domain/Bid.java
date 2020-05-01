@@ -19,7 +19,6 @@ public class Bid {
     @ManyToOne
     private User userId;
 
-
     @Column
     private LocalDateTime dateTimeOfBid;
 
@@ -67,6 +66,7 @@ public class Bid {
     public void setDateTimeOfBid(LocalDateTime dateTimeOfBid) {
         this.dateTimeOfBid = dateTimeOfBid;
     }
+
 
     public Integer getAmountOfBid() {
         return amountOfBid;

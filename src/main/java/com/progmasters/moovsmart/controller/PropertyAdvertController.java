@@ -1,8 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.Bid;
-import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
 import com.progmasters.moovsmart.dto.form.*;
 import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
 import com.progmasters.moovsmart.dto.list.PageList;
@@ -16,8 +14,6 @@ import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -26,10 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-//import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -69,15 +61,14 @@ public class PropertyAdvertController {
         );
     }
 
-
-    @PostMapping("/bid/{advertId}")
+    @PostMapping("property-details/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Bid> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
+        logger.info("The bid is created");
         return ResponseEntity.ok(
                 bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId())
         );
     }
-
 
     @GetMapping("/fav")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})

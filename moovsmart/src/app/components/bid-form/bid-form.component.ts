@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {User} from "../../models/error/User";
+import {BidFormDataModel} from "../../models/bids/bidFormData.model";
 
 
 
@@ -27,26 +28,22 @@ export class BidFormComponent implements OnInit {
   ) { }
 
   bidForm = this.formBuilder.group({
-    amountOfBid : [null],
-    dateTimeOfBid: [null]
+    amountOfBid : ['']
   })
 
   ngOnInit(): void {
       this.advertId = Number(this.route.snapshot.paramMap.get('id'));
-      console.log(this.advertId);
-
       this.userService.getCurrentUser.subscribe(
         user => this.userId = user.id
       );
-
-      console.log(this.userId);
-
   };
 
-  submit(bidFormDataModel){
 
-    this.bidService.createBid(bidFormDataModel, this.advertId);
-    console.log("bid created");
+  onSubmit(){
+    let formData: BidFormDataModel = this.bidForm.value;
+    this.bidService.createBid(formData, this.advertId).subscribe(
+      () => this.router.navigate(['../property-list']),
+    );
   }
 
 }

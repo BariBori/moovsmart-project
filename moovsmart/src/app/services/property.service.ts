@@ -12,7 +12,6 @@ import { FilterPropertyAdvertModel } from "../models/filterPropertyAdvert.model"
 import { UserService } from './user.service';
 import { tap, filter, flatMap } from 'rxjs/operators';
 import {PageModel} from "../models/page.model";
-import {LocalNgModuleData} from "@angular/compiler-cli/src/ngtsc/scope";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -20,8 +19,6 @@ const BASE_URL = environment.BASE_URL + "/api/properties";
   providedIn: 'root'
 })
 export class PropertyService {
-
-
 
   setGroupFilter$ = new Subject<any>();
   getGroupFilter = this.setGroupFilter$.asObservable();

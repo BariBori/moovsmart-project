@@ -21,47 +21,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
     }
-//
-//    @Test
-//     void login() {
-//        driver.get("http://localhost:4200");
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String homeTitle = driver.findElement(By.cssSelector("body > app-root > div > app-home > div.container.marketing > div.row > div:nth-child(1) > h2")).getAttribute("innerHTML");
-//        assertEquals(homeTitle, "Töltsd fel az ingatlant!");
-//        driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > li:nth-child(2)")).click();
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        driver.findElement(By.id("email")).sendKeys("moovsmartaltenter@gmail.com");
-//        driver.findElement(By.id("password")).sendKeys("test");
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String loginTitle = driver.findElement(By.cssSelector("body > app-root > div > app-user-login > div > h1")).getAttribute("innerHTML");
-//        assertEquals(loginTitle, "Bejelentkezés");
-//        driver.findElement(By.cssSelector("button[type='submit']")).click();
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+
+    @Test
+     void login() {
+        driver.get("http://localhost:4200");
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String homeTitle = driver.findElement(By.cssSelector("body > app-root > div > app-home > div.container.marketing > div.row > div:nth-child(1) > h2")).getAttribute("innerHTML");
+        assertEquals(homeTitle, "Töltsd fel az ingatlant!");
+        driver.findElement(By.cssSelector("#myNavbar > ul.nav.navbar-nav.navbar-right > li:nth-child(2)")).click();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.id("email")).sendKeys("moovsmartaltenter@gmail.com");
+        driver.findElement(By.id("password")).sendKeys("test");
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String loginTitle = driver.findElement(By.cssSelector("body > app-root > div > app-user-login > div > h1")).getAttribute("innerHTML");
+        assertEquals(loginTitle, "Bejelentkezés");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @AfterEach public void tearDown() {
         driver.quit();

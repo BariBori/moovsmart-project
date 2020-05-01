@@ -24,36 +24,36 @@ class OpenPropertyTest {
         driver = new ChromeDriver(options);
     }
 
-//    @Test
-//    void toPropertyDetails() {
-//        driver.get("http://localhost:4200");
-//        driver.findElement(By.id("property-list-link")).click();
-//        WebDriverWait wait = new WebDriverWait(driver, 30);
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.table-container.mat-elevation-z8 > mat-table > mat-row:nth-child(2) > mat-cell.mat-cell.cdk-cell.click.cdk-column-address.mat-column-address.ng-star-inserted")).click();
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String title = driver.findElement(By.cssSelector("body > app-root > div > app-property-details > div > div > div:nth-child(4) > div:nth-child(2) > p:nth-child(1)")).getAttribute("innerHTML");
-//        assertEquals(title, "Szobaszám");
-//
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    @Test
+    void toPropertyDetails() {
+        driver.get("http://localhost:4200");
+        driver.findElement(By.id("property-list-link")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.cssSelector("body > app-root > div > app-property-list > div > div.table-container.mat-elevation-z8 > mat-table > mat-row:nth-child(2) > mat-cell.mat-cell.cdk-cell.click.cdk-column-address.mat-column-address.ng-star-inserted")).click();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String title = driver.findElement(By.cssSelector("body > app-root > div > app-property-details > div > div > div:nth-child(4) > div:nth-child(2) > p:nth-child(1)")).getAttribute("innerHTML");
+        assertEquals(title, "Szobaszám");
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @AfterEach
     public void tearDown() {
