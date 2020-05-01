@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {BidListItemModel} from "../models/bids/bidListItem.model";
 
-const BASE_URL = environment.BASE_URL + "/api/bids";
+const BASE_URL = environment.BASE_URL + "/api/properties/bid";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class BidService{
   constructor(private httpClient: HttpClient) {
   }
 
-  createBid(bidFormDataModel: BidFormDataModel): Observable<any> {
-    return this.httpClient.post(BASE_URL, bidFormDataModel);
+  createBid(bidFormDataModel: BidFormDataModel, advertId: number): Observable<any> {
+    return this.httpClient.post(BASE_URL + '/' + advertId, bidFormDataModel);
   }
 
 

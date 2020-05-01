@@ -44,8 +44,8 @@ export class BidFormComponent implements OnInit {
   };
 
   submit(bidFormDataModel){
-    debugger;
-    this.bidService.createBid(bidFormDataModel);
+
+    this.bidService.createBid(bidFormDataModel, this.advertId);
     console.log("bid created");
   }
 
