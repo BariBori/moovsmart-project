@@ -10,6 +10,10 @@ import { UserService } from "../../services/user.service";
 import { tap } from "rxjs/operators";
 import { MessagingService } from 'src/app/services/messaging.service';
 import { Observable } from 'rxjs';
+import DateTimeFormat = Intl.DateTimeFormat;
+import {BidService} from "../../services/bid.service";
+import {BidFormDataModel} from "../../models/bids/bidFormData.model";
+import {BidFormComponent} from "../bid-form/bid-form.component";
 
 
 @Component({
@@ -18,6 +22,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./property-details.component.css']
 })
 export class PropertyDetailsComponent implements OnInit {
+
+
 
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
@@ -30,20 +36,26 @@ export class PropertyDetailsComponent implements OnInit {
   farStar = farStar;
   faEnvelope = faEnvelope;
 
+  today = Date.now();
+
   public latitude: number;
   public longitude: number;
   public zoom: number = 15;
   public map: google.maps.Marker;
   public userName: string;
 
+  public now: number = Date.now();
 
-  constructor(private route: ActivatedRoute,
+
+  constructor(
+    private route: ActivatedRoute,
     private propertyAdvertService: PropertyService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private router: Router,
     private userService: UserService,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
+
   ) {
   }
 
@@ -60,6 +72,7 @@ export class PropertyDetailsComponent implements OnInit {
       },
     );
 
+  console.log(this.today);
 
   }
 
@@ -102,6 +115,8 @@ export class PropertyDetailsComponent implements OnInit {
       this.isVisitorLogged = false;
     }
   }
+
+
 
 
 

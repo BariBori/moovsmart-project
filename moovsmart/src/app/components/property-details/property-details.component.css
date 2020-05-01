@@ -11,9 +11,12 @@
 }
 
 .container-small{
-  width: 800px;
+  max-width: 1000px;
 }
 
+.picsum-img-wrapper{
+  max-height: 400px;
+}
 .label{
   font-weight: bold;
   font-size: x-large;
@@ -24,18 +27,31 @@
   font-size: large;
 }
 
+.actual-price{
+  font-weight: bold;
+  font-size: x-large;
+  margin:50px 50px 100px 10px;
+  text-align: left;
+}
+
 .btn-like{
-  padding: 30px 0px 10px 10px;
   color: #5cb85c;
 }
 
 .btn-like:hover{
   font-weight: bold;
   color: #5cb85c;
+  background-color: #f8f9fa;
 }
 
 .btn-envelope{
   color: #5cb85c;
+}
+
+.btn-envelope:hover{
+  font-weight: bold;
+  color: #5cb85c;
+  background-color: #f8f9fa;
 }
 
 .title{
@@ -48,14 +64,13 @@
   color: darkgrey;
   font-weight: bold;
   padding: 30px 0px 30px 10px;
-  text-align: right;
 }
 
 .username{
   color: darkgrey;
   font-weight: bold;
   text-align: right;
-  padding: 10px 0px 10px 0px;
+  padding: 30px 0px 10px 0px;
 }
 
 .details{

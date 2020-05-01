@@ -43,6 +43,8 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
+
+
     public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
         Optional<User> user = userRepository.findOneByUserName(userDetails.getUsername());
         if (user.isPresent()) {

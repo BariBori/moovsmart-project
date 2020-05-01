@@ -5,7 +5,6 @@
   object-fit: cover;
 }
 
-
 .click{
   cursor: pointer;
 }
@@ -33,6 +32,11 @@
 .mat-table {
   overflow: auto;
   max-height: 1000px;
+}
+
+.text-center{
+  text-align: center;
+  justify-content:center;
 }
 
 

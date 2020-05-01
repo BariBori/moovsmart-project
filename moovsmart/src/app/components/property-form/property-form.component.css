@@ -40,3 +40,7 @@
   display: inline-block;
   font-size: 16px;
 }
+
+.cross-validation-error-message{
+  color: red;
+}

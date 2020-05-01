@@ -115,7 +115,7 @@ public class PropertyAdvert {
     private Double actualPrice;
 
     @OneToMany(mappedBy = "propertyAdvertId")
-    private List<Bid> listOfBids;
+    private List<Bid> listOfBids = new ArrayList<>();
 
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {

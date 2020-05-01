@@ -1,0 +1,12 @@
+<div class="container">
+  <form [formGroup]="bidForm">
+    <div class="form-group form-inline">
+      <input class="form-control"
+             formControlName="amountOfBid"
+             id="amountOfBid"
+             name="amountOfBid"
+             placeholder="Licit összege">
+      <button class="btn btn-success my-buttons" (click)="submit(bidForm)">Licit küldése</button>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,5 @@
 import DateTimeFormat = Intl.DateTimeFormat;
+import {JsonFormatter} from "tslint/lib/formatters";
 
 export interface PropertyEditModel {
   id?: number;
@@ -21,6 +22,7 @@ export interface PropertyEditModel {
   description: string;
 
   listOfImages: Array<string>;
+
 
   startOfAuction: DateTimeFormat;
   endOfAuction: DateTimeFormat;

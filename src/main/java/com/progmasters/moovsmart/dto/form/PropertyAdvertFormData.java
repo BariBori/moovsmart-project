@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.dto.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.*;
 
 import java.time.LocalDateTime;
@@ -48,6 +49,7 @@ public class PropertyAdvertFormData {
     private boolean balcony;
 
     private String description;
+
 
     private LocalDateTime startOfAuction;
 

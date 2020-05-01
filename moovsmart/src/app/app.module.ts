@@ -41,6 +41,8 @@ import { CdkTableModule } from "@angular/cdk/table";
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationService } from './services/notification.service';
 import { PropertyListBsComponent } from './components/property-list-bs/property-list-bs.component';
+import { BidFormComponent } from './components/bid-form/bid-form.component';
+import { BidListComponent } from './components/bid-list/bid-list.component';
 
 
 
@@ -59,6 +61,8 @@ import { PropertyListBsComponent } from './components/property-list-bs/property-
     UserLoginComponent,
     MessagingComponent,
     PropertyListBsComponent,
+    BidFormComponent,
+    BidListComponent,
 
   ],
   exports: [

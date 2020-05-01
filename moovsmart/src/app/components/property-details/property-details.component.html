@@ -1,6 +1,4 @@
 <div class="container">
-
-
   <div class="container-small">
     <div class="row owner_banner" *ngIf="isUserSeller">
       <div class="col-6">
@@ -30,11 +28,54 @@
       </div>
     </div>
 
-    <div class="card-columns">
-      <div class="card card-outline-success" *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
-        <img class="card-img-top img-fluid" src="{{image}}" alt="Card image cap">
-        <div class="card-block">
 
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <ngb-carousel class="container-carousel">
+          <ng-template ngbSlide *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
+            <div class="picsum-img-wrapper">
+              <img src="{{image}}" alt="{{i}}">
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div *ngIf="propertyAdvertDetails?.startOfAuction < today">AKTUÁLIS</div>
+        Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd hh:mm:ss'}} -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd hh:mm:ss'}}
+        <div class="actual-price">Aktuális ár</div>
+        <div>{{propertyAdvertDetails?.actualPrice}}</div>
+        <div>
+          <app-bid-form></app-bid-form>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-8 adverId">Azonosító: {{propertyAdvertDetails?.advertId}}
+        <div  *ngIf="isVisitorLogged  && !isUserSeller">
+          <button class="btn btn-like" (click)="saveUnsaveFavourite()">
+            <ng-template [ngIf] ="this.isFavourite()" [ngIfElse]="emptyStar"><fa-icon [icon]="farStar" fa></fa-icon></ng-template>
+            <ng-template #emptyStar><fa-icon [icon]="fasStar" fa></fa-icon></ng-template>
+
+            {{this.isFavourite()?'Eltávolítás':'Mentés' }}
+          </button>
+        </div>
+
+
+
+      </div>
+      <div class="col-4 username">Hirdetés feladója: {{
+        isUserSeller
+          ?'Én'
+          :propertyAdvertDetails?.userName
+        }}
+        <div  *ngIf="isVisitorLogged  && !isUserSeller">
+        <button class="btn btn-envelope float-right" (click)='sendMessage()'>
+          <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
+        </button>
         </div>
       </div>
     </div>
@@ -58,21 +99,11 @@
 
     <hr>
 
-    <div class="row">
-      <div class="col-8"></div>
-      <div class="col-4 username">Hirdetés feladója: {{
-        isUserSeller
-        ?'Én'
-        :propertyAdvertDetails?.userName
-      }}
-        <button *ngIf='isVisitorLogged && !isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
-          <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
-        </button></div>
-    </div>
+
 
     <div class="row">
       <div class="col-8 title">{{propertyAdvertDetails?.title}}</div>
-      <div class="col-4 adverId">Azonosító: {{propertyAdvertDetails?.advertId}}</div>
+      <div class="col-4"></div>
     </div>
 
 

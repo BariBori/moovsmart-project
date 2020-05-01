@@ -12,6 +12,7 @@ import { FilterPropertyAdvertModel } from "../models/filterPropertyAdvert.model"
 import { UserService } from './user.service';
 import { tap, filter, flatMap } from 'rxjs/operators';
 import {PageModel} from "../models/page.model";
+import {LocalNgModuleData} from "@angular/compiler-cli/src/ngtsc/scope";
 
 const BASE_URL = environment.BASE_URL + "/api/properties";
 
@@ -19,6 +20,8 @@ const BASE_URL = environment.BASE_URL + "/api/properties";
   providedIn: 'root'
 })
 export class PropertyService {
+
+
 
   setGroupFilter$ = new Subject<any>();
   getGroupFilter = this.setGroupFilter$.asObservable();
@@ -38,6 +41,7 @@ export class PropertyService {
 
     return this.httpClient.post(BASE_URL, propertyFormDataModel);
   }
+
   getPropertyList(): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
   }
@@ -56,7 +60,7 @@ export class PropertyService {
   }
 
   fetchFormInitData(): Observable<FormInitDataModel> {
-    return this.httpClient.get<FormInitDataModel>(`${BASE_URL}/formData`)
+    return this.httpClient.get<FormInitDataModel>(`${BASE_URL}/formData`);
   }
 
   archivePropertyAdvert(id: number): Observable<Array<PropertyListItemModel>> {
