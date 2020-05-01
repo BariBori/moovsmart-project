@@ -14,7 +14,7 @@ public class BidListItem {
 
     public BidListItem(Bid bid){
         this.id = bid.getId();
-        this.dateTimeOfBid = bid.getDateTimeOfBid();
+        //this.dateTimeOfBid = bid.getDateTimeOfBid();
         this.amountOfBid = bid.getAmountOfBid();
         this.userName = bid.getUserId().getUserName();
     }

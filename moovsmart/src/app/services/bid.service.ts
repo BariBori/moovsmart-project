@@ -4,8 +4,9 @@ import {BidFormDataModel} from "../models/bids/bidFormData.model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {BidListItemModel} from "../models/bids/bidListItem.model";
+import {FormGroup} from "@angular/forms";
 
-const BASE_URL = environment.BASE_URL + "/api/properties/bid";
+const BASE_URL = environment.BASE_URL + "/api/properties/property-details";
 
 @Injectable({
   providedIn: 'root'
