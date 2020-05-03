@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,8 +48,10 @@ public class BidService {
         return bid;
     }
 
-    public List<BidListItem> listBids(){
-        return bidRepository.findAll().stream()
+    public List<BidListItem> listBidsByPropertyId(Long advertId){
+        return bidRepository.findBidsByPropertyAdvertId(advertId)
                 .map(BidListItem::new).collect(Collectors.toList());
     }
+
+
 }

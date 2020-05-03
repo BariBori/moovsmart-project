@@ -23,7 +23,7 @@ public class Bid {
     private LocalDateTime dateTimeOfBid;
 
     @Column
-    private Integer amountOfBid;
+    private Double amountOfBid;
 
     public Bid() {
     }
@@ -68,11 +68,11 @@ public class Bid {
     }
 
 
-    public Integer getAmountOfBid() {
+    public Double getAmountOfBid() {
         return amountOfBid;
     }
 
-    public void setAmountOfBid(Integer amountOfBid) {
+    public void setAmountOfBid(Double amountOfBid) {
         this.amountOfBid = amountOfBid;
     }
 }

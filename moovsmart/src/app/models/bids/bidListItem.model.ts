@@ -2,6 +2,6 @@ import DateTimeFormat = Intl.DateTimeFormat;
 
 export interface BidListItemModel {
   dateTimeOfBid: DateTimeFormat;
-  user: string;
+  userName: string;
   amountOfBid: number;
 }

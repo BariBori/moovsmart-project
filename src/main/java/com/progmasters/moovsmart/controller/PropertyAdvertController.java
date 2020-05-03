@@ -2,10 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.Bid;
 import com.progmasters.moovsmart.dto.form.*;
-import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
-import com.progmasters.moovsmart.dto.list.PageList;
-import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
-import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
+import com.progmasters.moovsmart.dto.list.*;
 import com.progmasters.moovsmart.service.BidService;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
@@ -61,7 +58,16 @@ public class PropertyAdvertController {
         );
     }
 
-    @PostMapping("property-details/{advertId}")
+    @GetMapping("/fav")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<PropertyAdvertListItem>> getFavouriteAdverts() {
+        return ResponseEntity.ok(
+                userService.getFavouriteAdverts(userDetails.get())
+        );
+    }
+
+
+    @PostMapping("/property-details/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Bid> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
         logger.info("The bid is created");
@@ -70,13 +76,14 @@ public class PropertyAdvertController {
         );
     }
 
-    @GetMapping("/fav")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<List<PropertyAdvertListItem>> getFavouriteAdverts() {
-        return ResponseEntity.ok(
-                userService.getFavouriteAdverts(userDetails.get())
-        );
+    @GetMapping("/property-details/bids/{advertId}")
+    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<BidListItem>> getPropertyBids(@PathVariable Long advertId){
+        return new ResponseEntity<>(bidService.listBidsByPropertyId(advertId), HttpStatus.OK);
     }
+
+
+
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -128,6 +135,8 @@ public class PropertyAdvertController {
     public ResponseEntity<List<PropertyAdvertListItem>> getMyProperties(@PathVariable String userName) {
         return new ResponseEntity<>(propertyAdvertService.listMyProperties(userName), HttpStatus.OK);
     }
+
+
 
     //city list for complex search
     @GetMapping("/cities")

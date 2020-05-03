@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class BidFormData {
 
-    private Integer amountOfBid;
+    private Double amountOfBid;
 
     public BidFormData(Bid bid) {
         this.amountOfBid = bid.getAmountOfBid();
@@ -15,11 +15,11 @@ public class BidFormData {
     public BidFormData() {
     }
 
-    public Integer getAmountOfBid() {
+    public Double getAmountOfBid() {
         return amountOfBid;
     }
 
-    public void setAmountOfBid(Integer amountOfBid) {
+    public void setAmountOfBid(Double amountOfBid) {
         this.amountOfBid = amountOfBid;
     }
 }

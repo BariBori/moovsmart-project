@@ -8,13 +8,13 @@ public class BidListItem {
 
     private long id;
     private LocalDateTime dateTimeOfBid;
-    private Integer amountOfBid;
+    private Double amountOfBid;
     private String userName;
 
 
     public BidListItem(Bid bid){
         this.id = bid.getId();
-        //this.dateTimeOfBid = bid.getDateTimeOfBid();
+        this.dateTimeOfBid = bid.getDateTimeOfBid();
         this.amountOfBid = bid.getAmountOfBid();
         this.userName = bid.getUserId().getUserName();
     }
@@ -39,11 +39,11 @@ public class BidListItem {
         this.dateTimeOfBid = dateTimeOfBid;
     }
 
-    public Integer getAmountOfBid() {
+    public Double getAmountOfBid() {
         return amountOfBid;
     }
 
-    public void setAmountOfBid(Integer amountOfBid) {
+    public void setAmountOfBid(Double amountOfBid) {
         this.amountOfBid = amountOfBid;
     }
 

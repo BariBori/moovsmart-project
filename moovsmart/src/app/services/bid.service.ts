@@ -21,13 +21,13 @@ export class BidService{
   }
 
 
-  getBidList(): Observable<Array<BidListItemModel>> {
-    return this.httpClient.get<Array<BidListItemModel>>(BASE_URL);
+  getBidList(advertId: number): Observable<Array<BidListItemModel>> {
+    return this.httpClient.get<Array<BidListItemModel>>(BASE_URL + '/bids/' + advertId);
   }
 
-  getMyBidList(userName: String): Observable<Array<BidListItemModel>> {
-    return this.httpClient.get<Array<BidListItemModel>>(BASE_URL + "myBids" + userName);
-  }
+
+
+
 
 }
 

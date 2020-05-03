@@ -14,18 +14,37 @@
   max-width: 1000px;
 }
 
+.container-auction{
+  margin: 80px 0px 80px 0px;
+  max-width: 900px;
+}
+
+.column-first{
+
+}
+
+.column-auction{
+  -webkit-border-radius: 1px 1px 1px 1px;
+  border-radius: 1px 1px 1px 1px;
+  -webkit-box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.3);
+  box-shadow: 1px 2px 5px 0 rgba(0,5,0,0.3);
+}
+
 .picsum-img-wrapper{
-  max-height: 400px;
+  height: 400px;
 }
 
 ngb-carousel img {
-  width: 100%;
+  width: 95%;
+  height: 400px;
   outline: none;
+  object-fit: cover;
 }
 
 .label{
   font-weight: bold;
   font-size: x-large;
+  text-align: center;
 }
 
 .label-small{
@@ -33,21 +52,31 @@ ngb-carousel img {
   font-size: large;
 }
 
-.actual-price{
+.actual-price-label{
   font-weight: bold;
   font-size: x-large;
-  margin:50px 50px 100px 10px;
+  margin:50px 0px 10px 10px;
+  text-align: left;
+}
+
+.minimum-price{
+  font-size: small;
+  margin:10px 0px 50px 10px;
   text-align: left;
 }
 
 .btn-like{
+  margin: 30px 0px 10px 0px;
   color: #5cb85c;
+  float: right;
+  border: #5cb85c solid 1px;
 }
 
 .btn-like:hover{
   font-weight: bold;
-  color: #5cb85c;
-  background-color: #f8f9fa;
+  color: white;
+  background-color: #5cb85c;
+
 }
 
 .btn-envelope{
@@ -67,9 +96,9 @@ ngb-carousel img {
 }
 
 .adverId{
-  color: darkgrey;
-  font-weight: bold;
-  padding: 30px 0px 30px 10px;
+  float: right;
+  margin-bottom: 20px;
+  margin-right: 5%;
 }
 
 .username{

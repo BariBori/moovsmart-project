@@ -14,6 +14,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
 import {BidService} from "../../services/bid.service";
 import {BidFormDataModel} from "../../models/bids/bidFormData.model";
 import {BidFormComponent} from "../bid-form/bid-form.component";
+import {BidListItemModel} from "../../models/bids/bidListItem.model";
 
 
 @Component({
@@ -23,7 +24,11 @@ import {BidFormComponent} from "../bid-form/bid-form.component";
 })
 export class PropertyDetailsComponent implements OnInit {
 
-
+  bidListItemModel: Array<BidListItemModel>;
+  lastBidArray: Array<BidListItemModel>;
+  lastBid: number;
+  nextBid: string;
+  actualPrice: number;
 
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
@@ -55,6 +60,7 @@ export class PropertyDetailsComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private messagingService: MessagingService,
+    private bidService: BidService,
 
   ) {
   }
@@ -68,6 +74,7 @@ export class PropertyDetailsComponent implements OnInit {
           this.id = id;
           this.loadPropertyAdvertDetails();
           this.getVisitorLogged();
+          this.getLastBid()
         }
       },
     );
@@ -101,6 +108,19 @@ export class PropertyDetailsComponent implements OnInit {
     );
 
   }
+
+  getLastBid(){
+    this.bidService.getBidList(Number(this.id)).subscribe(
+      amount => {
+        this.lastBidArray = amount.slice(0,1);
+        this.lastBid = this.lastBidArray[0].amountOfBid;
+        this.nextBid = (this.lastBid + 0.1).toFixed(1);
+        console.log(this.lastBid);
+      },
+
+    )
+  }
+
   sendMessage() {
     this.userService.isLoggedIn()
       ? this.messagingService.beginDirectMessaging(Number(this.id))
@@ -115,6 +135,13 @@ export class PropertyDetailsComponent implements OnInit {
       this.isVisitorLogged = false;
     }
   }
+
+  isShow = true;
+  toggleDisplay() {
+    this.isShow = !this.isShow;
+  }
+
+
 
 
 

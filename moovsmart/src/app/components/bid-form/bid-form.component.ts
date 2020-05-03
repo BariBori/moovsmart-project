@@ -6,6 +6,7 @@ import {BidService} from "../../services/bid.service";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {User} from "../../models/error/User";
 import {BidFormDataModel} from "../../models/bids/bidFormData.model";
+import {BidListItemModel} from "../../models/bids/bidListItem.model";
 
 
 
@@ -18,6 +19,10 @@ export class BidFormComponent implements OnInit {
 
   advertId: number;
   userId: number;
+
+  lastBidArray: Array<BidListItemModel>;
+  lastBid: number;
+  nextBid: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +41,7 @@ export class BidFormComponent implements OnInit {
       this.userService.getCurrentUser.subscribe(
         user => this.userId = user.id
       );
+      this.getLastBid();
   };
 
 
@@ -44,6 +50,17 @@ export class BidFormComponent implements OnInit {
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => this.router.navigate(['../property-list']),
     );
+  }
+
+  getLastBid(){
+    this.bidService.getBidList(Number(this.advertId)).subscribe(
+      amount => {
+        this.lastBidArray = amount.slice(0,1);
+        this.lastBid = this.lastBidArray[0].amountOfBid;
+        this.nextBid = (this.lastBid + 0.1).toFixed(1);
+        console.log(this.lastBid);
+      },
+    )
   }
 
 }

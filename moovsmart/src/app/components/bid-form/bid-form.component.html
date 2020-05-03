@@ -5,7 +5,10 @@
              formControlName="amountOfBid"
              id="amountOfBid"
              name="amountOfBid"
-             placeholder="Licit összege">
+             type="number"
+             step="0.1"
+             placeholder="Min: {{nextBid}} Millió Ft">
+
       <button class="btn btn-success my-buttons" (click)="onSubmit()">Licit küldése</button>
     </div>
   </form>
