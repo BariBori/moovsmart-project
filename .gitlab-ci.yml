@@ -20,7 +20,7 @@ Build Backend:
     paths:
       - target/project-1.0-SNAPSHOT.jar
   only:
-    - master
+    - deployment
 
 Build Frontend:
   stage: build
@@ -36,7 +36,7 @@ Build Frontend:
     paths:
       - /moovsmart/dist/moovsmart/*
   only:
-    - master
+    - deployment
 
 # test:
 #   stage: test
