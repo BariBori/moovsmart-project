@@ -33,7 +33,7 @@ public class BidService {
         this.userRepository = userRepository;
     }
 
-    public Bid saveBid(BidFormData bidFormData, UserIdentifier userIdentifier, Long advertId){
+    public void saveBid(BidFormData bidFormData, UserIdentifier userIdentifier, Long advertId){
         Optional<User> user = userRepository.findOneByUserName(userIdentifier.getUsername());
         Optional<PropertyAdvert> propertyAdvert = advertRepository.findOneById(advertId);
         Bid bid;
@@ -42,10 +42,7 @@ public class BidService {
             PropertyAdvert chosenAdvert = propertyAdvert.get();
             bid = new Bid(chosenAdvert, chosenUser, bidFormData);
             this.bidRepository.save(bid);
-        } else{
-            bid = null;
         }
-        return bid;
     }
 
     public List<BidListItem> listBidsByPropertyId(Long advertId){

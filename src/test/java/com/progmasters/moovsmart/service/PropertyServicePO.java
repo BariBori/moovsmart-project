@@ -7,20 +7,22 @@ import com.progmasters.moovsmart.domain.user.UserRole;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-@SpringBootTest
-@Transactional
-@Rollback
-@AutoConfigureTestDatabase
+
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
 public class PropertyServicePO {
 
     @Autowired
@@ -55,6 +57,7 @@ public class PropertyServicePO {
         User user = new User("akarmi@akarmi.com", "user", "1234", UserRole.ROLE_USER);
         UserIdentifier.forUser(user);
         advertService.saveAdvert(propertyAdvertFormData, UserIdentifier.forUser(user));
+
 
         List<PropertyAdvertListItem> propertyList = advertService.listPropertyAdverts();
         assertEquals(1, propertyList.size());

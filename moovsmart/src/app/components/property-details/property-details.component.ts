@@ -51,7 +51,6 @@ export class PropertyDetailsComponent implements OnInit {
 
   public now: number = Date.now();
 
-
   constructor(
     private route: ActivatedRoute,
     private propertyAdvertService: PropertyService,
@@ -82,6 +81,7 @@ export class PropertyDetailsComponent implements OnInit {
   console.log(this.today);
 
   }
+
 
   archivePropertyAdvert(id: number) {
     this.propertyAdvertService.archivePropertyAdvert(id).subscribe(

@@ -8,10 +8,10 @@
       <div class="col-6">
         <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
         <button class="btn btn-danger float-right"
-                (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás</button>
+                (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás
+        </button>
       </div>
     </div>
-
 
 
     <div class="row" id="address-favourite">
@@ -20,11 +20,15 @@
           {{propertyAdvertDetails?.street}}</p>
       </div>
       <div class="col-4">
-        <div  *ngIf="isVisitorLogged && !isUserSeller">
+        <div *ngIf="isVisitorLogged && !isUserSeller">
           <button class="btn btn-like" (click)="saveUnsaveFavourite()">
-            <ng-template [ngIf] ="this.isFavourite()" [ngIfElse]="emptyStar"><fa-icon [icon]="farStar" fa></fa-icon></ng-template>
-            <ng-template #emptyStar><fa-icon [icon]="fasStar" fa></fa-icon></ng-template>
-            {{this.isFavourite()?'Eltávolítás':'Mentés' }}
+            <ng-template [ngIf]="this.isFavourite()" [ngIfElse]="emptyStar">
+              <fa-icon [icon]="farStar" fa></fa-icon>
+            </ng-template>
+            <ng-template #emptyStar>
+              <fa-icon [icon]="fasStar" fa></fa-icon>
+            </ng-template>
+            {{this.isFavourite() ? 'Eltávolítás' : 'Mentés' }}
           </button>
         </div>
       </div>
@@ -62,17 +66,24 @@
       </div> <!--end column-first-->
 
       <div class="col-12 col-lg-5 column-auction" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
-        <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))" [ngIfElse]="notActual">AKTUÁLIS</ng-template>
+        <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))"
+                     [ngIfElse]="notActual">AKTUÁLIS
+        </ng-template>
         <ng-template #notActual>
-          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') > (today | date:'yyMMdd'))" [ngIfElse]="closed">JÖVŐBENI</ng-template>
+          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') > (today | date:'yyMMdd'))"
+                       [ngIfElse]="closed">JÖVŐBENI
+          </ng-template>
         </ng-template>
         <ng-template #closed>BEFEJEZŐDÖTT</ng-template>
 
-        <div>Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd hh:mm:ss'}} -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd hh:mm:ss'}}
+        <div>Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd hh:mm:ss'}}
+          -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd hh:mm:ss'}}
         </div>
-        <div class="actual-price-label">Aktuális ár: {{lastBid}} Millió Ft</div>
-        <div>
-          <app-bid-form></app-bid-form>
+
+        <div *ngIf="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))">
+
+          <div class="actual-price-label">Aktuális ár: {{lastBid + propertyAdvertDetails.price}} Millió Ft</div>
+            <app-bid-form></app-bid-form>
         </div>
 
         <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
@@ -80,10 +91,10 @@
         <div>
           <p class="text-right label">Kezdő ár {{propertyAdvertDetails?.price}} Millió Ft</p>
         </div>
-        <button class="btn btn-like" (click) = toggleDisplay() >
+        <button class="btn btn-like" (click)=toggleDisplay()>
           <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">Több</ng-template>
           <ng-template #notShow>Kevesebb</ng-template>
-          </button>
+        </button>
 
       </div><!--end column-auction-->
 
@@ -91,8 +102,7 @@
     </div> <!--end carousel-auction row-->
 
 
-
-    <div class="row container-auction" [hidden] = "isShow" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
+    <div class="row container-auction" [hidden]="isShow" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
 
       <app-bid-list></app-bid-list>
 
@@ -130,12 +140,12 @@
 
     <div class="row details">
       <div class="col-4 label-small">Erkély</div>
-      <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van': 'nincs'}}</div>
+      <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van' : 'nincs'}}</div>
     </div>
 
     <div class="row details">
       <div class="col-4 label-small">Lift</div>
-      <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van': 'nincs'}}</div>
+      <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van' : 'nincs'}}</div>
     </div>
 
     <div class="description">
@@ -151,9 +161,7 @@
     </agm-map>
 
 
-
   </div> <!--end container-small-->
-
 
 
 </div> <!--end container-->

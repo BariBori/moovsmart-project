@@ -69,11 +69,10 @@ public class PropertyAdvertController {
 
     @PostMapping("/property-details/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Bid> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
+    public ResponseEntity<Void> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
         logger.info("The bid is created");
-        return ResponseEntity.ok(
-                bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId())
-        );
+        bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/property-details/bids/{advertId}")

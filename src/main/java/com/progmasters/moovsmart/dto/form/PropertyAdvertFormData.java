@@ -50,7 +50,6 @@ public class PropertyAdvertFormData {
 
     private String description;
 
-
     private LocalDateTime startOfAuction;
 
     private LocalDateTime endOfAuction;
