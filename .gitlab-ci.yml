@@ -51,7 +51,7 @@ deploy:
   script:
     # - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" -r ./moovsmart/dist/moovsmart/* $server_user@$remote_address:/home/ec2-user/frontend
     # - scp -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" ./target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - chmod +x ./deploy_script_linux.sh
+    - chmod 777 ./deploy_script_linux.sh
     - ssh -o 'StrictHostKeyChecking=accept-new' -i "$SSH_PRIVATE_KEY" "$server_user"@"$remote_address" 'sudo ./deploy_script_linux.sh'
 
   only:
