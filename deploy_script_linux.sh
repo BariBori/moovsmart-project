@@ -17,7 +17,7 @@ pem_file_full_path=moovsmart.pem
 
 # #BUILD PROJECT
 cd $frontend_folder_name
-sudo apt-get update && sudo apt-get install npm
+apt-get update && apt-get install npm
 npm link @angular/cli
 ng build --prod
 cd ..
