@@ -22,6 +22,7 @@ export class BidFormComponent implements OnInit {
 
   lastBidArray: Array<BidListItemModel>;
   lastBid: number;
+  minBid: number;
   nextBid: string;
 
   constructor(
@@ -57,6 +58,7 @@ export class BidFormComponent implements OnInit {
       amount => {
         this.lastBidArray = amount.slice(0,1);
         this.lastBid = this.lastBidArray[0].amountOfBid;
+        this.minBid = this.lastBid + 0.1;
         this.nextBid = (this.lastBid + 0.1).toFixed(1);
         console.log(this.lastBid);
       },
