@@ -12,6 +12,9 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 777 ~/.ssh
+  - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
 
 Build Backend:
   stage: build
@@ -50,10 +53,9 @@ Build Frontend:
 deploy:
   stage: deploy
   script:
-    - ls
-    - scp -o 'StrictHostKeyChecking=accept-new'  -r moovsmart/dist/moovsmart/ "$server_user"@"$remote_address:/home/ec2-user/frontend"
-    - scp -o 'StrictHostKeyChecking=accept-new'  target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - ssh -o 'StrictHostKeyChecking=accept-new'  "$server_user"@"$remote_address" 'sudo ./deploy_script_linux.sh'
+    - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
+    - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    #- ssh "$server_user"@"$remote_address" 'sudo ./deploy_script_linux.sh'
 
   only:
     - master
