@@ -15,9 +15,6 @@ before_script:
 
 Build Backend:
   stage: build
-    cache:
-      paths:
-        - .m2/repository
   script:
     - mvn package -DskipTests=true -q
   artifacts:
