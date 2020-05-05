@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BidService} from "../../services/bid.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BidListItemModel} from "../../models/bids/bidListItem.model";
@@ -21,8 +21,9 @@ export class BidListComponent implements OnInit {
     private propertyService: PropertyService,
     private userService: UserService,
     private router: Router,
-    private route:ActivatedRoute
-  ) { }
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
     let advertId = Number(this.route.snapshot.paramMap.get('id'));
@@ -33,9 +34,7 @@ export class BidListComponent implements OnInit {
         this.datasource = bidListItems;
         console.log(this.datasource);
       }
-
-      );
-
+    );
   }
 
 }

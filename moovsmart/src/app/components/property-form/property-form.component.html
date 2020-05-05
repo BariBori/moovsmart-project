@@ -26,7 +26,7 @@
       <label class="property-form-label" for="price">Irányár*</label>
       <div class="input-group">
         <input aria-describedby="price-addon" class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="price"
-               id="price" placeholder="Irányár - csak szám pl.: 45,6" type="number"/>
+               id="price" placeholder="Irányár - csak szám pl.: 45,6" type="number" min="0"/>
         <div class="input-group-append">
           <span class="input-group-text" id="price-addon">millió Ft</span>
         </div>
@@ -39,7 +39,7 @@
     <div class="form-group">
       <label class="property-form-label" for="startOfAuction">Aukció kezdete</label>
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="startOfAuction" id="startOfAuction"
-             type="datetime-local"/>
+            ngModel="actualDateTime" type="datetime-local"/>
     </div>
 
     <div class="form-group">
@@ -52,7 +52,7 @@
       <label class="property-form-label" for="area">Alapterület*</label>
       <div class="input-group">
         <input aria-describedby="area-addon" class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="area"
-               id="area" placeholder="Alapterület - csak szám" type="number"/>
+               id="area" placeholder="Alapterület - csak szám" type="number" min="0"/>
         <div class="input-group-append">
           <span class="input-group-text" id="area-addon">m2</span>
         </div>
@@ -62,13 +62,10 @@
       </small></p>
     </div>
 
-
-
-
     <div class="form-group">
       <label class="property-form-label" for="numberOfRooms">Szobák száma*</label>
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="numberOfRooms" id="numberOfRooms"
-             placeholder="Szobák száma - csak szám" type="number"/>
+             placeholder="Szobák száma - csak szám" type="number" min="0"/>
       <p><small *ngFor=" let errorMessage of propertyForm.get('numberOfRooms').errors | keyvalue" class="text-danger">
         {{errorMessage?.value}}
       </small></p>
