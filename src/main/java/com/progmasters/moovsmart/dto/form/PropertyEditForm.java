@@ -28,10 +28,10 @@ public class PropertyEditForm {
 
     private List<String> listOfImages;
 
-    @JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
+//    @JsonFormat(pattern = "yyyy-MM-dd''HH:mm:ss")
     private LocalDateTime startOfAuction;
 
-    @JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
+//    @JsonFormat(pattern = "yyyy-MM-dd''HH:mm:ss")
     private LocalDateTime endOfAuction;
 
     public PropertyEditForm() {

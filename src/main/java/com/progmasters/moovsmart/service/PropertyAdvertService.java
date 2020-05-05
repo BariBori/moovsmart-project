@@ -164,6 +164,8 @@ public class PropertyAdvertService {
         propertyAdvert.setElevator(propertyEditForm.isElevator());
         propertyAdvert.setBalcony(propertyEditForm.isBalcony());
         propertyAdvert.setDescription(propertyEditForm.getDescription());
+        propertyAdvert.setStartOfAuction(propertyEditForm.getStartOfAuction());
+        propertyAdvert.setEndOfAuction(propertyEditForm.getEndOfAuction());
         this.advertRepository.save(propertyAdvert);
     }
 

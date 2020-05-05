@@ -23,7 +23,6 @@ export interface PropertyEditModel {
 
   listOfImages: Array<string>;
 
-
   startOfAuction: DateTimeFormat;
   endOfAuction: DateTimeFormat;
   actualPrice: number;
