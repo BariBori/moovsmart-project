@@ -3,20 +3,18 @@ import {PropertyConditionTypeOptionItemModel} from "./propertyConditionTypeOptio
 import {ParkingTypeOptionItemModel} from "./parkingTypeOptionItem.model";
 import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
 import {UserFormDataModel} from "./userFormData.model";
+import DateTimeFormat = Intl.DateTimeFormat;
 
 export interface PropertyAdvertDetailsModel {
-  id: number,
-  price: number,
-  listOfImages: Array<string>,
-  advertId: number,
+  id: number;
+  price: number;
+  listOfImages: Array<string>;
+  advertId: number;
 
   propertyType: PropertyTypeOptionItemModel;
   propertyConditionType: PropertyConditionTypeOptionItemModel;
   parkingType: ParkingTypeOptionItemModel;
 
-  // propertyType: string;
-  // propertyConditionType: string;
-  // parkingType: string;
   title: string;
   priceForSquareMeter: number;
   placeId: string;
@@ -37,7 +35,11 @@ export interface PropertyAdvertDetailsModel {
 
   description: string;
   advertStatus: AdvertStatusTypeOptionItemModel;
-  //advertStatus: string;
+
+  startOfAuction: DateTimeFormat;
+  endOfAuction: DateTimeFormat;
+
+  actualPrice: number;
 
   userName: string;
 }

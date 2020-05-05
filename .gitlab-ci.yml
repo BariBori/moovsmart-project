@@ -2,14 +2,29 @@ image: maven:3.6.3-jdk-11
 
 
 stages:
-  - build 
+  - build
 #   - test
   - deploy
 
-# test:
-#   stage: test
-#   script:
-#     - 'mvn test'
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 777 ~/.ssh
+  - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+
+Build Backend:
+  stage: build
+  script:
+    - mvn package -DskipTests=true -q
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar
+  only:
+    - master
 
 Build Frontend:
   stage: build
@@ -20,19 +35,27 @@ Build Frontend:
   script:
     - cd moovsmart
     - npm ci
-    - ng build --prod --aot
+    - npm run build --quiet
   artifacts:
     paths:
-      - moovsmart/build/
+      - moovsmart/dist/moovsmart
   only:
     - master
 
+# test:
+#   stage: test
+#   script:
+#     - pwd
+#     - mvn test
+#   only:
+#     - master    
+
 deploy:
   stage: deploy
-  only:
-    refs:
-      - master
   script:
-    - 'curl -sL https://deb.nodesource.com/setup_12.x | bash -'
-    - 'apt-get install -y nodejs'
-    - ./deploy_script_linux.sh
+    - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
+    - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
+
+  only:
+    - master

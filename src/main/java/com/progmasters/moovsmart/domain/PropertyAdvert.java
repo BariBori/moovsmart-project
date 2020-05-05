@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -104,6 +105,19 @@ public class PropertyAdvert {
 
     private String userName;
 
+    @Column
+    private LocalDateTime startOfAuction;
+
+    @Column
+    private LocalDateTime endOfAuction;
+
+    @Column
+    private Double actualPrice;
+
+    @OneToMany(mappedBy = "propertyAdvertId")
+    private List<Bid> listOfBids = new ArrayList<>();
+
+
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
         this.id = propertyAdvertFormData.getId();
         this.userName = user.getUserName();
@@ -133,10 +147,46 @@ public class PropertyAdvert {
         this.elevator = propertyAdvertFormData.isElevator();
         this.balcony = propertyAdvertFormData.isBalcony();
         this.description = propertyAdvertFormData.getDescription();
+        this.actualPrice = propertyAdvertFormData.getActualPrice();
+        this.startOfAuction = propertyAdvertFormData.getStartOfAuction();
+        this.endOfAuction = propertyAdvertFormData.getEndOfAuction();
 
     }
 
     public PropertyAdvert() {
+    }
+
+
+    public LocalDateTime getStartOfAuction() {
+        return startOfAuction;
+    }
+
+    public void setStartOfAuction(LocalDateTime startOfAuction) {
+        this.startOfAuction = startOfAuction;
+    }
+
+    public LocalDateTime getEndOfAuction() {
+        return endOfAuction;
+    }
+
+    public void setEndOfAuction(LocalDateTime endOfAuction) {
+        this.endOfAuction = endOfAuction;
+    }
+
+    public List<Bid> getListOfBids() {
+        return listOfBids;
+    }
+
+    public void setListOfBids(List<Bid> listOfBids) {
+        this.listOfBids = listOfBids;
+    }
+
+    public Double getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Double actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     public long getId() {

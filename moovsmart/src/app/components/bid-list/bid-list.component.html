@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="label">Licitálás előzmények</div>
+  <div>
+    Licitek száma: {{datasource.length}} Licitálók száma:
+  </div>
+
+  <div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>Licitáló</th>
+      <th>Licitösszeg</th>
+      <th>Dátum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bid of datasource; index as i">
+      <td>{{bid?.userName}}</td>
+      <td>{{bid.amountOfBid}} Millió Ft</td>
+      <td>{{bid?.dateTimeOfBid | date:'yyyy.MM.dd hh:mm:ss'}}</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

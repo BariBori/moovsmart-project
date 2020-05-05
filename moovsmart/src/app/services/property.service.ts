@@ -38,6 +38,7 @@ export class PropertyService {
 
     return this.httpClient.post(BASE_URL, propertyFormDataModel);
   }
+
   getPropertyList(): Observable<Array<PropertyListItemModel>> {
     return this.httpClient.get<Array<PropertyListItemModel>>(BASE_URL);
   }
@@ -56,7 +57,7 @@ export class PropertyService {
   }
 
   fetchFormInitData(): Observable<FormInitDataModel> {
-    return this.httpClient.get<FormInitDataModel>(`${BASE_URL}/formData`)
+    return this.httpClient.get<FormInitDataModel>(`${BASE_URL}/formData`);
   }
 
   archivePropertyAdvert(id: number): Observable<Array<PropertyListItemModel>> {

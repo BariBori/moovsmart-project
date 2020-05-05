@@ -1,7 +1,9 @@
 package com.progmasters.moovsmart.dto.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PropertyAdvertFormData {
@@ -48,6 +50,11 @@ public class PropertyAdvertFormData {
 
     private String description;
 
+    private LocalDateTime startOfAuction;
+
+    private LocalDateTime endOfAuction;
+
+    private Double actualPrice;
 
     public PropertyAdvertFormData() {
     }
@@ -76,6 +83,33 @@ public class PropertyAdvertFormData {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.placeId = propertyAdvert.getPlaceId();
+        this.startOfAuction = propertyAdvert.getStartOfAuction();
+        this.endOfAuction = propertyAdvert.getEndOfAuction();
+        this.actualPrice = propertyAdvert.getActualPrice();
+    }
+
+    public LocalDateTime getStartOfAuction() {
+        return startOfAuction;
+    }
+
+    public void setStartOfAuction(LocalDateTime startOfAuction) {
+        this.startOfAuction = startOfAuction;
+    }
+
+    public LocalDateTime getEndOfAuction() {
+        return endOfAuction;
+    }
+
+    public void setEndOfAuction(LocalDateTime endOfAuction) {
+        this.endOfAuction = endOfAuction;
+    }
+
+    public Double getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Double actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     public String getPlaceId() {

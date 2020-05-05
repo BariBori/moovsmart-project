@@ -1,15 +1,9 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.domain.PropertyAdvert;
-import com.progmasters.moovsmart.domain.search.PropertySpecificationBuilder;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
-import com.progmasters.moovsmart.dto.form.PropertyCity;
-import com.progmasters.moovsmart.dto.form.PropertyEditForm;
-import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
-import com.progmasters.moovsmart.dto.list.PageList;
-import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
-import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
+import com.progmasters.moovsmart.domain.Bid;
+import com.progmasters.moovsmart.dto.form.*;
+import com.progmasters.moovsmart.dto.list.*;
+import com.progmasters.moovsmart.service.BidService;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
@@ -17,7 +11,6 @@ import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -26,10 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-//import com.progmasters.moovsmart.domain.user.UserDetailsImpl;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -41,17 +30,19 @@ public class PropertyAdvertController {
     private PropertyAdvertValidator propertyAdvertValidator;
     private UserDetailsFromSecurityContext userDetails;
     private UserService userService;
+    private BidService bidService;
 
     @Autowired
     public PropertyAdvertController(
             PropertyAdvertService propertyAdvertService,
             PropertyAdvertValidator propertyAdvertValidator,
             UserDetailsFromSecurityContext userDetails,
-            UserService userService) {
+            UserService userService, BidService bidService) {
         this.propertyAdvertService = propertyAdvertService;
         this.propertyAdvertValidator = propertyAdvertValidator;
         this.userDetails = userDetails;
         this.userService = userService;
+        this.bidService = bidService;
     }
 
     @InitBinder("propertyAdvertFormData")
@@ -74,6 +65,24 @@ public class PropertyAdvertController {
                 userService.getFavouriteAdverts(userDetails.get())
         );
     }
+
+
+    @PostMapping("/property-details/{advertId}")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<Void> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
+        logger.info("The bid is created");
+        bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId());
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/property-details/bids/{advertId}")
+    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public ResponseEntity<List<BidListItem>> getPropertyBids(@PathVariable Long advertId){
+        return new ResponseEntity<>(bidService.listBidsByPropertyId(advertId), HttpStatus.OK);
+    }
+
+
+
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -126,6 +135,8 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(propertyAdvertService.listMyProperties(userName), HttpStatus.OK);
     }
 
+
+
     //city list for complex search
     @GetMapping("/cities")
     public ResponseEntity<List<PropertyCity>> getCities() {
@@ -158,20 +169,7 @@ public class PropertyAdvertController {
     }
 
 
-    //--------------SEARCH-----------------
 
-    @GetMapping("/propertySearch")
-    @ResponseBody
-    public ResponseEntity<List<PropertyAdvertListItem>> search(@RequestParam(value = "search") String search) {
-        PropertySpecificationBuilder builder = new PropertySpecificationBuilder();
-        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
-        Matcher matcher = pattern.matcher(search + ",");
-        while (matcher.find()) {
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-        Specification<PropertyAdvert> spec = builder.build();
-        return new ResponseEntity<>(propertyAdvertService.listAllProperty(), HttpStatus.OK);
-    }
 
 
 }

@@ -1,94 +1,138 @@
 <div class="container">
-
-
   <div class="container-small">
+
     <div class="row owner_banner" *ngIf="isUserSeller">
       <div class="col-6">
         {{propertyAdvertDetails.advertStatus.displayName}}
-
       </div>
       <div class="col-6">
         <button class="btn btn-info float-right" (click)="editProperty(propertyAdvertDetails.id)">Szerkesztés</button>
         <button class="btn btn-danger float-right"
-          (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás</button>
-      </div>
-    </div>
-
-    <!--Cím-->
-    <div class="row">
-      <div class="col-8">
-        <p class="address">{{propertyAdvertDetails?.city}}, {{propertyAdvertDetails?.district}}
-          {{propertyAdvertDetails?.street}}</p>
-      </div>
-      <div class="col-4" *ngIf="isVisitorLogged && !isUserSeller">
-        <button class="btn btn-like float-right" (click)="saveUnsaveFavourite()">
-          <ng-template [ngIf] ="this.isFavourite()" [ngIfElse]="emptyStar"><fa-icon [icon]="farStar" fa></fa-icon></ng-template>
-          <ng-template #emptyStar><fa-icon [icon]="fasStar" fa></fa-icon></ng-template>
-
-            {{this.isFavourite()?'Eltávolítás':'Mentés' }}
+                (click)="archivePropertyAdvert(propertyAdvertDetails.id)">Archiválás
         </button>
       </div>
     </div>
 
-    <div class="card-columns">
-      <div class="card card-outline-success" *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
-        <img class="card-img-top img-fluid" src="{{image}}" alt="Card image cap">
-        <div class="card-block">
 
+    <div class="row" id="address-favourite">
+      <div class="col-8">
+        <p class="address">{{propertyAdvertDetails?.city}}, {{propertyAdvertDetails?.district}}
+          {{propertyAdvertDetails?.street}}</p>
+      </div>
+      <div class="col-4">
+        <div *ngIf="isVisitorLogged && !isUserSeller">
+          <button class="btn btn-like" (click)="saveUnsaveFavourite()">
+            <ng-template [ngIf]="this.isFavourite()" [ngIfElse]="emptyStar">
+              <fa-icon [icon]="farStar" fa></fa-icon>
+            </ng-template>
+            <ng-template #emptyStar>
+              <fa-icon [icon]="fasStar" fa></fa-icon>
+            </ng-template>
+            {{this.isFavourite() ? 'Eltávolítás' : 'Mentés' }}
+          </button>
         </div>
       </div>
     </div>
 
-    <hr>
 
-    <div class="row">
-      <div class="col-3 border-right">
-        <p>Alapterület</p>
-        <p class="label">{{propertyAdvertDetails?.area}} m2</p>
-      </div>
-      <div class="col-3 border-right">
-        <p class="">Szobaszám</p>
-        <p class="label">{{propertyAdvertDetails?.numberOfRooms}}</p>
-      </div>
-      <div class="col-6">
-        <p class="text-right">Ár</p>
-        <p class="label text-right">{{propertyAdvertDetails?.price}} Millió Ft</p>
-      </div>
+    <div class="row" id="carousel-auction">
+      <div class="col-12 col-lg-7 column-first">
+        <div class="row">
+          <ngb-carousel class="container-carousel">
+            <ng-template ngbSlide *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
+              <div class="picsum-img-wrapper">
+                <img src="{{image}}" alt="{{i}}">
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="adverId">Hirdetés azonosító: {{propertyAdvertDetails?.advertId}}</div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-6">
+            <p class="label">{{propertyAdvertDetails?.area}} m2</p>
+          </div>
+          <div class="col-6">
+            <p class="label">{{propertyAdvertDetails?.numberOfRooms}} szoba</p>
+          </div>
+        </div>
+
+      </div> <!--end column-first-->
+
+      <div class="col-12 col-lg-5 column-auction" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
+        <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))"
+                     [ngIfElse]="notActual">AKTUÁLIS
+        </ng-template>
+        <ng-template #notActual>
+          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') > (today | date:'yyMMdd'))"
+                       [ngIfElse]="closed">JÖVŐBENI
+          </ng-template>
+        </ng-template>
+        <ng-template #closed>BEFEJEZŐDÖTT</ng-template>
+
+        <div>Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd hh:mm:ss'}}
+          -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd hh:mm:ss'}}
+        </div>
+
+        <div *ngIf="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))">
+
+          <div class="actual-price-label">Aktuális ár: {{lastBid + propertyAdvertDetails.price}} Millió Ft</div>
+            <app-bid-form></app-bid-form>
+        </div>
+
+        <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
+
+        <div>
+          <p class="text-right label">Kezdő ár {{propertyAdvertDetails?.price}} Millió Ft</p>
+        </div>
+        <button class="btn btn-like" (click)=toggleDisplay()>
+          <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">Több</ng-template>
+          <ng-template #notShow>Kevesebb</ng-template>
+        </button>
+
+      </div><!--end column-auction-->
+
+
+    </div> <!--end carousel-auction row-->
+
+
+    <div class="row container-auction" [hidden]="isShow" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
+
+      <app-bid-list></app-bid-list>
+
     </div>
 
-    <hr>
 
     <div class="row">
-      <div class="col-8"></div>
-      <div class="col-4 username">Hirdetés feladója: {{
-        isUserSeller
-        ?'Én'
-        :propertyAdvertDetails?.userName
-      }}
-        <button *ngIf='isVisitorLogged && !isUserSeller' class="btn btn-envelope float-right" (click)='sendMessage()'>
-          <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
-        </button></div>
+      <div class="col-12 title">{{propertyAdvertDetails?.title}}</div>
     </div>
 
-    <div class="row">
-      <div class="col-8 title">{{propertyAdvertDetails?.title}}</div>
-      <div class="col-4 adverId">Azonosító: {{propertyAdvertDetails?.advertId}}</div>
+    <div class="row details">
+      <div class="col-4 label-small">Kezdő ár</div>
+      <div class="col-8 label-small">{{propertyAdvertDetails?.price}} Millió Ft</div>
     </div>
-
 
     <div class="row details">
       <div class="col-4 label-small">Négyzetméter ár</div>
-      <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter}} Ft/m2</div>
+      <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter  | number: '2.'}} Ft/m2</div>
     </div>
 
     <div class="row details">
       <div class="col-4 label-small">Típus</div>
       <div class="col-8">{{propertyAdvertDetails?.propertyType.displayName}}</div>
     </div>
+
     <div class="row details">
       <div class="col-4 label-small">Állapot</div>
       <div class="col-8">{{propertyAdvertDetails?.propertyConditionType.displayName}}</div>
     </div>
+
     <div class="row details">
       <div class="col-4 label-small">Parkolás</div>
       <div class="col-8">{{propertyAdvertDetails?.parkingType.displayName}}</div>
@@ -96,12 +140,12 @@
 
     <div class="row details">
       <div class="col-4 label-small">Erkély</div>
-      <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van': 'nincs'}}</div>
+      <div class="col-8">{{propertyAdvertDetails?.balcony == true ? 'van' : 'nincs'}}</div>
     </div>
 
     <div class="row details">
       <div class="col-4 label-small">Lift</div>
-      <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van': 'nincs'}}</div>
+      <div class="col-8">{{propertyAdvertDetails?.elevator == true ? 'van' : 'nincs'}}</div>
     </div>
 
     <div class="description">
@@ -112,10 +156,13 @@
 
 
     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom"
-      (mapReady)="setLocation($event)">
+             (mapReady)="setLocation($event)">
       <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
     </agm-map>
 
-  </div>
 
-</div>
+  </div> <!--end container-small-->
+
+
+</div> <!--end container-->
+

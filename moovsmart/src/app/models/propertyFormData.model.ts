@@ -1,3 +1,5 @@
+import DateTimeFormat = Intl.DateTimeFormat;
+
 export interface PropertyFormDataModel {
   id?: number;
 
@@ -25,5 +27,10 @@ export interface PropertyFormDataModel {
   balcony: boolean;
 
   description: string;
+
+  startOfAuction: DateTimeFormat;
+  endOfAuction: DateTimeFormat;
+  actualPrice: number;
+
 
 }

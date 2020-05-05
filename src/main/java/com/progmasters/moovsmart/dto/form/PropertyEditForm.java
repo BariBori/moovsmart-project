@@ -1,7 +1,9 @@
 package com.progmasters.moovsmart.dto.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PropertyEditForm {
@@ -26,6 +28,12 @@ public class PropertyEditForm {
 
     private List<String> listOfImages;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd''HH:mm:ss")
+    private LocalDateTime startOfAuction;
+
+//    @JsonFormat(pattern = "yyyy-MM-dd''HH:mm:ss")
+    private LocalDateTime endOfAuction;
+
     public PropertyEditForm() {
     }
 
@@ -41,6 +49,8 @@ public class PropertyEditForm {
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
         this.listOfImages = propertyAdvert.getListOfImages();
+        this.startOfAuction = propertyAdvert.getStartOfAuction();
+        this.endOfAuction = propertyAdvert.getEndOfAuction();
     }
 
 
@@ -130,5 +140,21 @@ public class PropertyEditForm {
 
     public void setListOfImages(List<String> listOfImages) {
         this.listOfImages = listOfImages;
+    }
+
+    public LocalDateTime getStartOfAuction() {
+        return startOfAuction;
+    }
+
+    public void setStartOfAuction(LocalDateTime startOfAuction) {
+        this.startOfAuction = startOfAuction;
+    }
+
+    public LocalDateTime getEndOfAuction() {
+        return endOfAuction;
+    }
+
+    public void setEndOfAuction(LocalDateTime endOfAuction) {
+        this.endOfAuction = endOfAuction;
     }
 }

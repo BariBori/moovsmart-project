@@ -1,0 +1,16 @@
+<div class="container">
+  <form [formGroup]="bidForm">
+    <div class="form-group form-inline">
+      <input class="form-control"
+             formControlName="amountOfBid"
+             id="amountOfBid"
+             name="amountOfBid"
+             type="number"
+             step="0.1"
+             placeholder="Min: {{nextBid}} Millió Ft"
+              min="{{minBid}}">
+
+      <button class="btn btn-success my-buttons" (click)="onSubmit()">Licit küldése</button>
+    </div>
+  </form>
+</div>

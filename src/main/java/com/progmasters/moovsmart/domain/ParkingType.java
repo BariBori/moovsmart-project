@@ -8,12 +8,12 @@ public enum ParkingType {
 
     private String displayName;
 
-    ParkingType(String displayName) {
-        this.displayName = displayName;
-    }
-
     public String getDisplayName() {
         return displayName;
+    }
+
+    ParkingType(String displayName) {
+        this.displayName = displayName;
     }
 
 }

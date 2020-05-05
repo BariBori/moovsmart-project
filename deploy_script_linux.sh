@@ -1,11 +1,11 @@
-#!/bin/sh
+# #!/bin/sh
 set -x
 set -e
 set -v
-#INIT PROJECTS RELATED INFO
-#------------- UPDATE ALWAYS CORRESPONDINGLY!
+# #INIT PROJECTS RELATED INFO
+# #------------- UPDATE ALWAYS CORRESPONDINGLY!
 # pom.xml Artifact id must be 'project'
-#remote_address=moovsmart-demo.progmasters.hu
+remote_address=moovsmart-demo.progmasters.hu
 remote_address=3.18.213.29
 frontend_folder_name=moovsmart
 frontend_source_location=./$frontend_folder_name/dist/$frontend_folder_name/*
@@ -15,10 +15,9 @@ frontend_remote_location=/home/ec2-user/frontend
 backend_remote_location=/home/ec2-user
 pem_file_full_path=moovsmart.pem
 
-#BUILD PROJECT
+# #BUILD PROJECT
 cd $frontend_folder_name
-ng build --prod --aot
-# npm install -g angular-cli
+ng build --prod
 cd ..
 mvn clean package -DskipTests=true
 chmod 400 $pem_file_full_path

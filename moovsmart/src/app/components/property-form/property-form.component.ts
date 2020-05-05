@@ -14,6 +14,8 @@ import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {PropertyFormDataModel} from "../../models/propertyFormData.model";
 import {PropertyEditModel} from "../../models/propertyEdit.model";
+import {areaValidator, priceValidator, roomValidator} from "../SearchForm/search/validator.directive";
+import {dateValidator} from "./date.validator.directive";
 
 
 @Component({
@@ -22,7 +24,7 @@ import {PropertyEditModel} from "../../models/propertyEdit.model";
   styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
-  //------Cloudinary file upload------------
+  // ------Cloudinary file upload------------
   @Input()
   responses: Array<any>;
   listOfImages: Array<string> = [];
@@ -31,7 +33,7 @@ export class PropertyFormComponent implements OnInit {
   uploader: FileUploader;
   private imgTitle: string;
   allowedMimeType:Array<string> = [];
-  //---------------------------------------
+  // ---------------------------------------
 
 
   //------Google Maps------------
@@ -53,7 +55,7 @@ export class PropertyFormComponent implements OnInit {
   //---------------------------------
 
   private id: number;
-  private userName : string;
+  private userName: string;
 
   propertyType: PropertyTypeOptionItemModel[];
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
@@ -86,7 +88,13 @@ export class PropertyFormComponent implements OnInit {
     description: [''],
 
     listOfImages: [null],
-  });
+
+    startOfAuction: [null],
+    endOfAuction: [null],
+    actualPrice: [null],
+  }
+
+    );
 
 
 
@@ -337,6 +345,9 @@ export class PropertyFormComponent implements OnInit {
 
             listOfImages: response.listOfImages,
 
+            startOfAuction: response.startOfAuction,
+            endOfAuction: response.endOfAuction
+
           });
       },
     );
@@ -396,6 +407,7 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.longitude = this.longitude;
     propertyFormDataModel.listOfImages = this.listOfImages;
     propertyFormDataModel.userName = this.userName;
+
 
     //this.id ? this.updateProperty(propertyFormDataModel) :
 
