@@ -82,7 +82,7 @@
 
         <div *ngIf="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))">
 
-          <div class="actual-price-label">Aktuális ár: {{lastBid + propertyAdvertDetails.price}} Millió Ft</div>
+          <div class="actual-price-label">Aktuális ár: {{lastBid}} Millió Ft</div>
             <app-bid-form></app-bid-form>
         </div>
 

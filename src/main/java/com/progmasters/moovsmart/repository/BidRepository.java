@@ -19,4 +19,5 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
     Long findNumberOfUniqueBidders(@Param("advertId") Long advertId);
 
 
+
 }
