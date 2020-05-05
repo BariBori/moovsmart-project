@@ -62,6 +62,7 @@ export class PropertyFormComponent implements OnInit {
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
   parkingType: ParkingTypeOptionItemModel[];
 
+  actualDateTime = new Date(new Date().getTime()).toLocaleString();
 
   propertyForm = this.formBuilder.group({
     advertStatus: ['FORAPPROVAL'],

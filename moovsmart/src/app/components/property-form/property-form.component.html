@@ -39,13 +39,14 @@
     <div class="form-group">
       <label class="property-form-label" for="startOfAuction">Aukció kezdete</label>
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="startOfAuction" id="startOfAuction"
-            ngModel="actualDateTime" type="datetime-local"/>
+             type="datetime-local"
+             min="2020.05.05.T10.00"/>
     </div>
 
     <div class="form-group">
       <label class="property-form-label" for="endOfAuction">Aukció vége</label>
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="endOfAuction" id="endOfAuction"
-             type="datetime-local" />
+             type="datetime-local"/>
     </div>
 
     <div class="form-group">

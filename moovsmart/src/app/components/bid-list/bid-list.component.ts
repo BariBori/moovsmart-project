@@ -15,6 +15,7 @@ export class BidListComponent implements OnInit {
   datasource: Array<BidListItemModel>;
   user: String;
   advertId: number;
+  numberOfBidUsers: number;
 
   constructor(
     private bidService: BidService,
@@ -35,6 +36,17 @@ export class BidListComponent implements OnInit {
         console.log(this.datasource);
       }
     );
+    this.getBidUserNumber(advertId);
+
   }
 
+  getBidUserNumber(advertId: number) {
+    this.bidService.getNumberOfBidUsers(advertId).subscribe(
+      numberOfBidders => {
+        this.numberOfBidUsers = numberOfBidders;
+      }
+  ) }
+
 }
+
+

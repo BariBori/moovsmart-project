@@ -81,8 +81,10 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(bidService.listBidsByPropertyId(advertId), HttpStatus.OK);
     }
 
-
-
+    @GetMapping("/property-details/bidder/{advertId}")
+    public ResponseEntity<Long> getNumberOfBidUser(@PathVariable Long advertId) {
+        return new ResponseEntity<>(bidService.getBidUserNumber(advertId), HttpStatus.OK);
+    }
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
