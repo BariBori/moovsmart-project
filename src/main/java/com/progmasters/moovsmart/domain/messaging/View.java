@@ -2,18 +2,21 @@ package com.progmasters.moovsmart.domain.messaging;
 
 import com.progmasters.moovsmart.domain.user.User;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(
-        columnNames = {"user_id", "conversation_id"})})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "conversation_id" }) })
 public abstract class View<T extends Conversation> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     private User user;
+    // TODO use JPA inheritance
     @OneToOne
+    @Type(type = "com.progmasters.moovsmart.domain.messaging.Chat")
     protected T conversation;
 
     public View() {
