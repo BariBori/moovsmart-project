@@ -53,7 +53,7 @@ public class BidService {
 
     public Long getBidUserNumber(Long advertId) {
         Long result = bidRepository.findNumberOfUniqueBidders(advertId);
-        logger.info("" + result);
+        //logger.info("" + result);
         return result;
     }
 

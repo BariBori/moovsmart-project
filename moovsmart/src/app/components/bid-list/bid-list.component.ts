@@ -44,8 +44,11 @@ export class BidListComponent implements OnInit {
     this.bidService.getNumberOfBidUsers(advertId).subscribe(
       numberOfBidders => {
         this.numberOfBidUsers = numberOfBidders;
+        console.log(this.numberOfBidUsers);
       }
-  ) }
+  );
+
+  }
 
 }
 

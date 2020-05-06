@@ -8,6 +8,7 @@ import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
+import com.sun.xml.bind.v2.schemagen.xmlschema.Any;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -65,7 +67,6 @@ public class PropertyAdvertController {
                 userService.getFavouriteAdverts(userDetails.get())
         );
     }
-
 
     @PostMapping("/property-details/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
