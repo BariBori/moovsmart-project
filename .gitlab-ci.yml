@@ -26,21 +26,21 @@ Build Backend:
   only:
     - master
 
-Build Frontend:
-  stage: build
-  image: node:10
-  cache:
-    paths:
-      - moovsmart/node_modules/
-  script:
-    - cd moovsmart
-    - npm ci
-    - npm run build --quiet
-  artifacts:
-    paths:
-      - moovsmart/dist/moovsmart
-  only:
-    - master
+# Build Frontend:
+#   stage: build
+#   image: node:10
+#   cache:
+#     paths:
+#       - moovsmart/node_modules/
+#   script:
+#     - cd moovsmart
+#     - npm ci
+#     - npm run build --quiet
+#   artifacts:
+#     paths:
+#       - moovsmart/dist/moovsmart
+#   only:
+#     - master
 
 # test:
 #   stage: test
