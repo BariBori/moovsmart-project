@@ -77,7 +77,6 @@ public class PropertyAdvertController {
     }
 
     @GetMapping("/property-details/bids/{advertId}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<List<BidListItem>> getPropertyBids(@PathVariable Long advertId){
         return new ResponseEntity<>(bidService.listBidsByPropertyId(advertId), HttpStatus.OK);
     }
@@ -85,6 +84,11 @@ public class PropertyAdvertController {
     @GetMapping("/property-details/bidder/{advertId}")
     public ResponseEntity<Long> getNumberOfBidUser(@PathVariable Long advertId) {
         return new ResponseEntity<>(bidService.getBidUserNumber(advertId), HttpStatus.OK);
+    }
+
+    @GetMapping("/property-details/lastBid/{advertId}")
+    public ResponseEntity<Double> getLastBidAmount(@PathVariable Long advertId) {
+        return new ResponseEntity<>(bidService.getLastBidAmount(advertId), HttpStatus.OK);
     }
 
     @PostMapping

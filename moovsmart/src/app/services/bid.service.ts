@@ -24,6 +24,10 @@ export class BidService{
     return this.httpClient.get<Array<BidListItemModel>>(BASE_URL + '/bids/' + advertId);
   }
 
+  getLastBid(advertId: number): Observable<number> {
+    return this.httpClient.get<number>(BASE_URL + "/lastBid/" + advertId);
+  }
+
   getNumberOfBidUsers(advertId: number): Observable<number> {
     return this.httpClient.get<number>(BASE_URL + '/bidder/' + advertId);
   }

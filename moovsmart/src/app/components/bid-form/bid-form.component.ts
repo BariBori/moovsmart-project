@@ -3,12 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
-import {User} from "../../models/error/User";
 import {BidFormDataModel} from "../../models/bids/bidFormData.model";
-import {BidListItemModel} from "../../models/bids/bidListItem.model";
-
-
 
 @Component({
   selector: 'app-bid-form',
@@ -20,10 +15,12 @@ export class BidFormComponent implements OnInit {
   advertId: number;
   userId: number;
 
-  lastBidArray: Array<BidListItemModel>;
-  lastBid: number;
+  // lastBidArray: Array<BidListItemModel>;
+  // lastBid: number;
   minBid: number;
   nextBid: string;
+
+  lastBidAmount: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,14 +51,19 @@ export class BidFormComponent implements OnInit {
   }
 
   getLastBid(){
-    this.bidService.getBidList(Number(this.advertId)).subscribe(
-      amount => {
-        this.lastBidArray = amount.slice(0,1);
-        this.lastBid = this.lastBidArray[0].amountOfBid;
-        this.minBid = this.lastBid + 0.1;
-        this.nextBid = (this.lastBid + 0.1).toFixed(1);
-        console.log(this.lastBid);
-      },
+    // this.bidService.getBidList(Number(this.advertId)).subscribe(
+    //   amount => {
+    //     this.lastBidArray = amount.slice(0,1);
+    //     this.lastBid = this.lastBidArray[0].amountOfBid;
+    //     this.minBid = this.lastBid + 0.1;
+    //     this.nextBid = (this.lastBid + 0.1).toFixed(1);
+    //     console.log(this.lastBid);
+    //   },
+    // )
+    this.bidService.getLastBid(this.advertId).subscribe(
+      lastAmount => {
+        this.lastBidAmount = lastAmount;
+      }
     )
   }
 

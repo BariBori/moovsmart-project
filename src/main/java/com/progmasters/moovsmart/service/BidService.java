@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -52,9 +53,13 @@ public class BidService {
     }
 
     public Long getBidUserNumber(Long advertId) {
-        Long result = bidRepository.findNumberOfUniqueBidders(advertId);
-        //logger.info("" + result);
-        return result;
+        return bidRepository.findNumberOfUniqueBidders(advertId);
+    }
+
+    public Double getLastBidAmount(Long advertId) {
+        List<Bid> bidsList = bidRepository.findBidsByPropertyAdvertId(advertId).collect(Collectors.toList());
+        Double result = bidsList.get(0).getAmountOfBid();
+        return Objects.requireNonNullElse(result, 0.0);
     }
 
 
