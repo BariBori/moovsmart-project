@@ -52,7 +52,7 @@ export class BidFormComponent implements OnInit {
   getLastBid() {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
-        this.lastBidAmount = lastAmount;
+        this.lastBidAmount = lastAmount ;
       }
     )
   }
