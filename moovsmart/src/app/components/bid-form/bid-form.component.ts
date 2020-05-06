@@ -15,8 +15,6 @@ export class BidFormComponent implements OnInit {
   advertId: number;
   userId: number;
 
-  // lastBidArray: Array<BidListItemModel>;
-  // lastBid: number;
   minBid: number;
   nextBid: string;
 
@@ -28,38 +26,30 @@ export class BidFormComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   bidForm = this.formBuilder.group({
-    amountOfBid : ['']
+    amountOfBid: ['']
   })
 
   ngOnInit(): void {
-      this.advertId = Number(this.route.snapshot.paramMap.get('id'));
-      this.userService.getCurrentUser.subscribe(
-        user => this.userId = user.id
-      );
-      this.getLastBid();
+    this.advertId = Number(this.route.snapshot.paramMap.get('id'));
+    this.userService.getCurrentUser.subscribe(
+      user => this.userId = user.id
+    );
+    this.getLastBid();
   };
 
 
-  onSubmit(){
+  onSubmit() {
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => this.router.navigate(['../property-list']),
     );
   }
 
-  getLastBid(){
-    // this.bidService.getBidList(Number(this.advertId)).subscribe(
-    //   amount => {
-    //     this.lastBidArray = amount.slice(0,1);
-    //     this.lastBid = this.lastBidArray[0].amountOfBid;
-    //     this.minBid = this.lastBid + 0.1;
-    //     this.nextBid = (this.lastBid + 0.1).toFixed(1);
-    //     console.log(this.lastBid);
-    //   },
-    // )
+  getLastBid() {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount;
