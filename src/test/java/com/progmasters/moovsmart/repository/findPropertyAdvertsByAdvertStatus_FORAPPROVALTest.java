@@ -291,4 +291,5 @@ public class findPropertyAdvertsByAdvertStatus_FORAPPROVALTest {
         Double tempPrice = 20.0;
         assertEquals(tempPrice, propertyList.get(0).getPrice());
     }
+
 }
