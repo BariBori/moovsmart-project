@@ -72,6 +72,7 @@ public class PropertyAdvertController {
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Void> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
         logger.info("The bid is created");
+        propertyAdvertService.updatePropertyActualPrice(bidFormData,advertId);
         bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Component
 public class PropertyAdvertValidator implements Validator {
 
@@ -49,6 +52,12 @@ public class PropertyAdvertValidator implements Validator {
         String description = propertyAdvertFormData.getDescription();
         if (description.length() < 20 || description.length() > 600) {
             errors.rejectValue("description", "moovsmart.description.invalid");
+        }
+
+        LocalDateTime startOfAuction = propertyAdvertFormData.getStartOfAuction();
+        LocalDateTime endOfAuction = propertyAdvertFormData.getEndOfAuction();
+        if((startOfAuction !=null && endOfAuction!=null) && endOfAuction.isBefore(startOfAuction)){
+            errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.invalid");
         }
     }
 }

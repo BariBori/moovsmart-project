@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
 import {BidFormDataModel} from "../../models/bids/bidFormData.model";
+import {PropertyService} from "../../services/property.service";
 
 @Component({
   selector: 'app-bid-form',
@@ -15,17 +16,16 @@ export class BidFormComponent implements OnInit {
   advertId: number;
   userId: number;
 
-  minBid: number;
-  nextBid: string;
-
   lastBidAmount: number;
+  nextBid: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private bidService: BidService,
     private router: Router,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private propertyService: PropertyService
   ) {
   }
 
@@ -45,7 +45,7 @@ export class BidFormComponent implements OnInit {
   onSubmit() {
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
-      () => this.router.navigate(['../property-list']),
+      () => this.router.navigate(['../property-details/' + this.advertId]),
     );
   }
 
@@ -53,8 +53,10 @@ export class BidFormComponent implements OnInit {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
+        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+
       }
-    )
+    );
   }
 
 }

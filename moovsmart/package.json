@@ -38,6 +38,7 @@
     "jquery": "^3.4.1",
     "net": "^1.0.2",
     "ng-sort": "^0.1.18",
+    "ng2-date-countdown": "^1.1.2",
     "ng2-file-upload": "^1.4.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",

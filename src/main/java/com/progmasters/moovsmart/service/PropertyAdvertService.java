@@ -1,15 +1,10 @@
 package com.progmasters.moovsmart.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserIdentifier;
-import com.progmasters.moovsmart.dto.form.ParkingTypeOption;
-import com.progmasters.moovsmart.dto.form.PropertyConditionOption;
-import com.progmasters.moovsmart.dto.form.PropertyTypeOption;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
-import com.progmasters.moovsmart.dto.form.PropertyAdvertInitFormData;
-import com.progmasters.moovsmart.dto.form.PropertyCity;
-import com.progmasters.moovsmart.dto.form.PropertyEditForm;
+import com.progmasters.moovsmart.dto.form.*;
 import com.progmasters.moovsmart.dto.list.FilterPropertyAdvert;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertDetailsData;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
@@ -143,6 +138,22 @@ public class PropertyAdvertService {
         return filteredList;
     }
 
+    private void updateActualPrice(BidFormData bidFormData, PropertyAdvert propertyAdvert){
+        propertyAdvert.setActualPrice(bidFormData.getAmountOfBid());
+        this.advertRepository.save(propertyAdvert);
+    }
+
+    public boolean updatePropertyActualPrice(BidFormData bidFormData, Long id){
+        Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findOneById(id);
+        if(propertyAdvertOptional.isPresent()){
+            PropertyAdvert propertyAdvert = propertyAdvertOptional.get();
+            updateActualPrice(bidFormData,propertyAdvert);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean updateProperty(PropertyEditForm propertyEditForm, Long id) {
         Optional<PropertyAdvert> propertyAdvertOptional = advertRepository.findById(id);
         if (propertyAdvertOptional.isPresent()) {
@@ -164,6 +175,7 @@ public class PropertyAdvertService {
         propertyAdvert.setElevator(propertyEditForm.isElevator());
         propertyAdvert.setBalcony(propertyEditForm.isBalcony());
         propertyAdvert.setDescription(propertyEditForm.getDescription());
+        propertyAdvert.setListOfImages(propertyEditForm.getListOfImages());
         propertyAdvert.setStartOfAuction(propertyEditForm.getStartOfAuction());
         propertyAdvert.setEndOfAuction(propertyEditForm.getEndOfAuction());
         this.advertRepository.save(propertyAdvert);
