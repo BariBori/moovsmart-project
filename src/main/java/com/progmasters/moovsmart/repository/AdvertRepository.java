@@ -17,10 +17,10 @@ import java.util.stream.Stream;
 @Repository
 public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
 
+    Optional<PropertyAdvert> findOneById(Long id);
+
     @Query(value = "SELECT p FROM PropertyAdvert p WHERE p.advertStatus='FORAPPROVAL' ORDER BY p.createdAt DESC")
     List<PropertyAdvert> findPropertyAdvertsByAdvertStatus_FORAPPROVAL();
-
-    Optional<PropertyAdvert> findOneById(Long id);
 
     @Query("SELECT DISTINCT p.city FROM PropertyAdvert p ORDER BY p.city")
     List<String> findAllCities();
