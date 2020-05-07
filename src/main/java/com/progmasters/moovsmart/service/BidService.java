@@ -26,8 +26,6 @@ public class BidService {
     private BidRepository bidRepository;
     private AdvertRepository advertRepository;
     private UserRepository userRepository;
-    private Logger logger;
-    private PropertyAdvertService propertyAdvertService;
 
     @Autowired
     public BidService(BidRepository bidRepository, AdvertRepository advertRepository, UserRepository userRepository) {
@@ -44,7 +42,7 @@ public class BidService {
             User chosenUser = user.get();
             PropertyAdvert chosenAdvert = propertyAdvert.get();
             bid = new Bid(chosenAdvert, chosenUser, bidFormData);
-            this.bidRepository.save(bid);
+            bidRepository.save(bid);
         }
     }
 

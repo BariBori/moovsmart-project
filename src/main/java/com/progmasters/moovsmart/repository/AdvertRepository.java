@@ -45,8 +45,6 @@ public interface AdvertRepository extends JpaRepository<PropertyAdvert, Long> {
                                                      @Param("advertStatusType") AdvertStatusType advertStatusType);
 
 
-
-    //user's property list in profil
     @Query("SELECT p FROM PropertyAdvert p WHERE p.userName = :userName ORDER BY p.createdAt DESC")
     Stream<PropertyAdvert> findMyProperties(String userName);
 
