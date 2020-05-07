@@ -25,10 +25,11 @@ Build Backend:
       - target/project-1.0-SNAPSHOT.jar
   only:
     - master
+  tags:
+    - java
 
 Build Frontend:
   stage: build
-  image: node:10
   cache:
     paths:
       - moovsmart/node_modules/
@@ -41,6 +42,8 @@ Build Frontend:
       - moovsmart/dist/moovsmart
   only:
     - master
+  tags:
+    - node
 
 # test:
 #   stage: test
