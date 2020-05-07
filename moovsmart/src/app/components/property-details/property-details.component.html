@@ -66,35 +66,53 @@
       </div> <!--end column-first-->
 
       <div class="col-12 col-lg-5 column-auction" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
-        <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))"
-                     [ngIfElse]="notActual">AKTUÁLIS
+
+        <!--
+        <ng-template [ngIf]="(
+        (propertyAdvertDetails?.endOfAuction | date:'medium') > (today | date:'medium')
+        )"
+                     [ngIfElse]="notActual">AUKCIÓ LEZÁRULT
         </ng-template>
         <ng-template #notActual>
-          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') > (today | date:'yyMMdd'))"
-                       [ngIfElse]="closed">JÖVŐBENI
+          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'medium') > (today | date:'medium'))"
+                       [ngIfElse]="closed">HAMAROSAN
           </ng-template>
         </ng-template>
-        <ng-template #closed>BEFEJEZŐDÖTT</ng-template>
+        <ng-template #closed>AKTUÁLIS</ng-template>
+        -->
 
-        <div>Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd hh:mm:ss'}}
-          -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd hh:mm:ss'}}
+        <div>Aukció ideje: {{startOfAuction| date:'yyyy.MM.dd HH:mm:ss'}}
+          -         {{endOfAuction | date:'yyyy.MM.dd HH:mm:ss'}}
         </div>
 
-        <div *ngIf="((propertyAdvertDetails?.startOfAuction | date:'yyMMdd') < (today | date:'yyMMdd'))">
 
-          <div class="actual-price-label">Aktuális ár: {{lastBid}} Millió Ft</div>
-            <app-bid-form></app-bid-form>
+        <countdown [text]="text" units="Days | Hours | Minutes | Seconds"  end="{{endOfAuction}}"></countdown>
+
+
+
+
+
+        <div *ngIf="(
+        ((propertyAdvertDetails?.startOfAuction | date:'medium') <= (today | date:'medium'))
+
+        )">
+
+          <div class="actual-price-label">Aktuális ár: {{propertyAdvertDetails.actualPrice}} Millió Ft</div>
+          <app-bid-form></app-bid-form>
+          <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
+
         </div>
 
-        <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
 
-        <div>
-          <p class="text-right label">Kezdő ár {{propertyAdvertDetails?.price}} Millió Ft</p>
-        </div>
-        <button class="btn btn-like" (click)=toggleDisplay()>
-          <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">Több</ng-template>
-          <ng-template #notShow>Kevesebb</ng-template>
+
+
+        <button class="btn bid-history-button" (click)=toggleDisplay()>
+          <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">[Licit előzmények]</ng-template>
+          <ng-template #notShow>[Előzmények elrejtése]</ng-template>
         </button>
+        <div>
+          <p class="start-price">Kezdő ár {{propertyAdvertDetails?.price}} Millió Ft</p>
+        </div>
 
       </div><!--end column-auction-->
 
@@ -110,7 +128,19 @@
 
 
     <div class="row">
-      <div class="col-12 title">{{propertyAdvertDetails?.title}}</div>
+      <div class="col-6 title">{{propertyAdvertDetails?.title}}</div>
+      <div class="col-6 username">Hirdetés feladója: {{
+        isUserSeller
+          ?'Én'
+          :propertyAdvertDetails?.userName
+        }}
+        <div  *ngIf="isVisitorLogged  && !isUserSeller">
+          <button class="btn btn-envelope float-right" (click)='sendMessage()'>
+            <fa-icon [icon]="faEnvelope"></fa-icon> Üzenetet küldök
+          </button>
+        </div>
+      </div>
+
     </div>
 
     <div class="row details">

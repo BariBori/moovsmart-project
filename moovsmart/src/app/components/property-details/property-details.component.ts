@@ -24,11 +24,8 @@ import {BidListItemModel} from "../../models/bids/bidListItem.model";
 })
 export class PropertyDetailsComponent implements OnInit {
 
-  bidListItemModel: Array<BidListItemModel>;
-  lastBidArray: Array<BidListItemModel>;
-  lastBid: number;
+  lastBidAmount: number;
   nextBid: string;
-  actualPrice: number;
 
   id: string;
   propertyAdvertDetails: PropertyAdvertDetailsModel;
@@ -42,6 +39,20 @@ export class PropertyDetailsComponent implements OnInit {
   faEnvelope = faEnvelope;
 
   today = Date.now();
+
+  startOfAuction: DateTimeFormat;
+  endOfAuction: DateTimeFormat;
+
+  text:any = {
+    Year: 'Év',
+    Month: 'Hónap',
+    Weeks: "Hét",
+    Days: "Nap",
+    Hours: "Óra",
+    Minutes: "Perc",
+    Seconds: "Másodperc",
+    MilliSeconds: "MilliSeconds"
+  };
 
   public latitude: number;
   public longitude: number;
@@ -78,7 +89,9 @@ export class PropertyDetailsComponent implements OnInit {
       },
     );
 
-  console.log(this.today);
+  console.log("now: " + this.today);
+    console.log("start: " + this.startOfAuction);
+    console.log("end: " + this.endOfAuction);
 
   }
 
@@ -102,24 +115,27 @@ export class PropertyDetailsComponent implements OnInit {
         )
       )
     ).subscribe(
-      (data: PropertyAdvertDetailsModel) => this.propertyAdvertDetails = data,
-
-      error => console.warn(error),
-    );
-
-  }
-
-  getLastBid(){
-    this.bidService.getBidList(Number(this.id)).subscribe(
-      amount => {
-        this.lastBidArray = amount.slice(0,1);
-        this.lastBid = this.lastBidArray[0].amountOfBid;
-        this.nextBid = (this.lastBid + 0.1).toFixed(1);
-        console.log(this.lastBid);
+      (data: PropertyAdvertDetailsModel) => {
+        this.propertyAdvertDetails = data
+        this.startOfAuction = data.startOfAuction
+        this.endOfAuction = data.endOfAuction
       },
 
+      error => console.warn(error),
+
+    );
+     }
+
+  getLastBid() {
+    this.bidService.getLastBid(Number(this.id)).subscribe(
+      lastAmount => {
+        this.lastBidAmount = lastAmount ;
+        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        this.propertyAdvertDetails.actualPrice = this.lastBidAmount;
+      }
     )
   }
+
 
   sendMessage() {
     this.userService.isLoggedIn()

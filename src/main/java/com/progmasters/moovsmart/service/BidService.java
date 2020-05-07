@@ -27,6 +27,7 @@ public class BidService {
     private AdvertRepository advertRepository;
     private UserRepository userRepository;
     private Logger logger;
+    private PropertyAdvertService propertyAdvertService;
 
     @Autowired
     public BidService(BidRepository bidRepository, AdvertRepository advertRepository, UserRepository userRepository) {

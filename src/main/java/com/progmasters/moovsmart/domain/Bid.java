@@ -4,6 +4,7 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.BidFormData;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,6 +24,7 @@ public class Bid {
     private LocalDateTime dateTimeOfBid;
 
     @Column
+
     private Double amountOfBid;
 
     public Bid() {

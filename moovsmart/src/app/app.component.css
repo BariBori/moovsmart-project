@@ -2,3 +2,27 @@
   margin-top: 80px;
 }
 
+/deep/ .countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: auto;
+  height: 70px;
+  background: white;
+  margin-top: 30px;
+}
+
+/deep/ .countdown .measurements {
+  color: black;
+  margin-right: 5px;
+  padding: 10px;
+  text-align: center;
+  display: inline;
+  font-size: small;
+}
+/deep/  p.measurements-number{
+  margin-bottom:0px;
+}
+
+

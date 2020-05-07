@@ -4,6 +4,8 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -147,7 +149,7 @@ public class PropertyAdvert {
         this.elevator = propertyAdvertFormData.isElevator();
         this.balcony = propertyAdvertFormData.isBalcony();
         this.description = propertyAdvertFormData.getDescription();
-        this.actualPrice = propertyAdvertFormData.getActualPrice();
+        this.actualPrice = propertyAdvertFormData.getPrice();
         this.startOfAuction = propertyAdvertFormData.getStartOfAuction();
         this.endOfAuction = propertyAdvertFormData.getEndOfAuction();
 
