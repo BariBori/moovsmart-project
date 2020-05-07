@@ -1,5 +1,5 @@
 stages:
-#   - build
+  - build
   - test
   - deploy
 
@@ -13,35 +13,35 @@ before_script:
   - chmod 644 ~/.ssh/known_hosts
 
 
-# Build Backend:
-#   image: maven:3.6.3
-#   stage: build
-#   script:
-#     - mvn package -DskipTests=true -q
-#   artifacts:
-#     paths:
-#       - target/project-1.0-SNAPSHOT.jar
-#   only:
-#     - master
-#   tags:
-#     - java
+Build Backend:
+  image: maven:3.6.3
+  stage: build
+  script:
+    - mvn package -DskipTests=true -q
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar
+  only:
+    - master
+  tags:
+    - java
 
-# Build Frontend:
-#   stage: build
-#   cache:
-#     paths:
-#       - moovsmart/node_modules/
-#   script:
-#     - cd moovsmart
-#     - npm ci
-#     - npm run build --quiet
-#   artifacts:
-#     paths:
-#       - moovsmart/dist/moovsmart
-#   only:
-#     - master
-#   tags:
-#     - node
+Build Frontend:
+  stage: build
+  cache:
+    paths:
+      - moovsmart/node_modules/
+  script:
+    - cd moovsmart
+    - npm ci
+    - npm run build --quiet
+  artifacts:
+    paths:
+      - moovsmart/dist/moovsmart
+  only:
+    - master
+  tags:
+    - node
 
 test:
   stage: test
