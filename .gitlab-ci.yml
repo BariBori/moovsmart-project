@@ -1,62 +1,63 @@
 stages:
-  - build
+  # - staging
   - test
-  - deploy
+  # - package
+  # - deploy
 
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-  - mkdir -p ~/.ssh
-  - chmod 777 ~/.ssh
-  - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
+# before_script:
+#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#   - eval $(ssh-agent -s)
+#   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#   - mkdir -p ~/.ssh
+#   - chmod 777 ~/.ssh
+#   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
+#   - chmod 644 ~/.ssh/known_hosts
 
 
-Build Backend:
-  image: maven:3.6.3
-  stage: build
-  script:
-    - mvn package -DskipTests=true -q
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
-  only:
-    - master
-  tags:
-    - java
+# Build Backend:
+#   image: maven:3.6.3
+#   stage: build
+#   script:
+#     - mvn package -DskipTests=true -q
+#   artifacts:
+#     paths:
+#       - target/project-1.0-SNAPSHOT.jar
+#   only:
+#     - master
+#   tags:
+#     - java
 
-Build Frontend:
-  stage: build
-  cache:
-    paths:
-      - moovsmart/node_modules/
-  script:
-    - cd moovsmart
-    - npm ci
-    - npm run build --quiet
-  artifacts:
-    paths:
-      - moovsmart/dist/moovsmart
-  only:
-    - master
-  tags:
-    - node
+# Build Frontend:
+#   stage: build
+#   cache:
+#     paths:
+#       - moovsmart/node_modules/
+#   script:
+#     - cd moovsmart
+#     - npm ci
+#     - npm run build --quiet
+#   artifacts:
+#     paths:
+#       - moovsmart/dist/moovsmart
+#   only:
+#     - master
+#   tags:
+#     - node
 
-test:
+BE mvn test:
+  image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/backend-stage:latest
   stage: test
   script:
-    - pwd
     - mvn test
   only:
     - master    
 
-deploy:
-  stage: deploy
-  script:
-    - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
-    - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-    - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
+# deploy:
+#   stage: deploy
+#   script:
+#     - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
+#     - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+#     - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
 
-  only:
-    - master
+#   only:
+#     - master
