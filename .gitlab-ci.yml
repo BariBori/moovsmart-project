@@ -86,6 +86,20 @@ BE mvn test:
   tags:
     - test
 
+FE karma test:
+  image: $MOOVSMART_REGISTRY/frontend-stage:latest
+  stage: test
+  variables:
+    CHROME_BIN: chromium
+  script:
+    - > 
+        ng test
+        --browsers=ChromeHeadlessCI
+        --code-coverage=true
+        --watch=false
+        --progress=false
+
+
 # deploy:
 #   stage: deploy
 #   script:
