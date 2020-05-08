@@ -85,7 +85,7 @@ BE mvn test:
     - ls
   artifacts:
     paths:
-      # - /backend/target/project-1.0-SNAPSHOT.jar
+      - target/project-1.0-SNAPSHOT.jar
   tags:
     - test
 
