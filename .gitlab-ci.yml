@@ -45,7 +45,7 @@ stages:
 #     - node
 
 BE mvn test:
-  image: backend-stage:latest
+  image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/backend-stage:latest
   stage: test
   script:
     - mvn test
