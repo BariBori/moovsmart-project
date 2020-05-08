@@ -92,6 +92,8 @@ FE karma test:
   variables:
     CHROME_BIN: chromium
   script:
+    - pwd
+    - ls
     - > 
         npm test
         --browsers=ChromeHeadlessCI
