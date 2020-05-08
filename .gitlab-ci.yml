@@ -16,7 +16,7 @@ services:
 before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-Stage:
+Stage Backend:
   stage: staging
   script:
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
@@ -28,6 +28,19 @@ Stage:
         -f dockerfiles/backend-stage.dockerfile
         .
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+
+Stage Frontend:
+  stage: staging
+  script:
+    - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
+    - > 
+        docker build
+        --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
+        -f dockerfiles/frontend-stage.dockerfile
+        .
+    - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 # before_script:
 #   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
