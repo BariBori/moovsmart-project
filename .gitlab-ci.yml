@@ -93,7 +93,7 @@ FE karma test:
     CHROME_BIN: chromium
   script:
     - > 
-        ng test
+        npm test
         --browsers=ChromeHeadlessCI
         --code-coverage=true
         --watch=false
