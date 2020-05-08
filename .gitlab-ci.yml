@@ -6,9 +6,12 @@ stages:
 
 Stage Backend:
   stage: staging
-  image: docker:latest
+  image: docker:18
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
   services:
-    - docker:dind
+    - docker:18-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build --rm -f "dockerfiles/backend-stage.dockerfile" -t $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart/backend-stage:latest "."
