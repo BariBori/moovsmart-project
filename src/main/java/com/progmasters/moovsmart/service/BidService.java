@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,13 +42,23 @@ public class BidService {
             User chosenUser = user.get();
             PropertyAdvert chosenAdvert = propertyAdvert.get();
             bid = new Bid(chosenAdvert, chosenUser, bidFormData);
-            this.bidRepository.save(bid);
+            bidRepository.save(bid);
         }
     }
 
     public List<BidListItem> listBidsByPropertyId(Long advertId){
         return bidRepository.findBidsByPropertyAdvertId(advertId)
                 .map(BidListItem::new).collect(Collectors.toList());
+    }
+
+    public Long getBidUserNumber(Long advertId) {
+        return bidRepository.findNumberOfUniqueBidders(advertId);
+    }
+
+    public Double getLastBidAmount(Long advertId) {
+        List<Bid> bidsList = bidRepository.findBidsByPropertyAdvertId(advertId).collect(Collectors.toList());
+        Double result = bidsList.get(0).getAmountOfBid();
+        return Objects.requireNonNullElse(result, 0.0);
     }
 
 

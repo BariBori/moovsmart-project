@@ -85,7 +85,7 @@ public class PropertyAdvertFormData {
         this.placeId = propertyAdvert.getPlaceId();
         this.startOfAuction = propertyAdvert.getStartOfAuction();
         this.endOfAuction = propertyAdvert.getEndOfAuction();
-        this.actualPrice = propertyAdvert.getActualPrice();
+        this.actualPrice = propertyAdvert.getPrice();
     }
 
     public LocalDateTime getStartOfAuction() {
@@ -154,6 +154,10 @@ public class PropertyAdvertFormData {
 
     public void setPropertyConditionType(PropertyConditionType propertyConditionType) {
         this.propertyConditionType = propertyConditionType;
+    }
+
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
     }
 
     public ParkingType getParkingType() {

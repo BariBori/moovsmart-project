@@ -14,7 +14,6 @@ import {Cloudinary} from "@cloudinary/angular-5.x";
 import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 import {PropertyFormDataModel} from "../../models/propertyFormData.model";
 import {PropertyEditModel} from "../../models/propertyEdit.model";
-import {areaValidator, priceValidator, roomValidator} from "../SearchForm/search/validator.directive";
 import {dateValidator} from "./date.validator.directive";
 
 
@@ -60,6 +59,8 @@ export class PropertyFormComponent implements OnInit {
   propertyType: PropertyTypeOptionItemModel[];
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
   parkingType: ParkingTypeOptionItemModel[];
+
+  actualDateTime = new Date(new Date().getTime()).toLocaleString();
 
   propertyForm = this.formBuilder.group({
     advertStatus: ['FORAPPROVAL'],

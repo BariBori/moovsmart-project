@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BidService} from "../../services/bid.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BidListItemModel} from "../../models/bids/bidListItem.model";
@@ -15,27 +15,29 @@ export class BidListComponent implements OnInit {
   datasource: Array<BidListItemModel>;
   user: String;
   advertId: number;
+  numberOfBidUsers: number;
 
   constructor(
     private bidService: BidService,
     private propertyService: PropertyService,
     private userService: UserService,
     private router: Router,
-    private route:ActivatedRoute
-  ) { }
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
     let advertId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("List advert id:" + this.advertId);
-
     this.bidService.getBidList(advertId).subscribe(
       bidListItems => {
         this.datasource = bidListItems;
-        console.log(this.datasource);
+      });
+    this.bidService.getNumberOfBidUsers(advertId).subscribe(
+      numberOfBidders => {
+        this.numberOfBidUsers = numberOfBidders;
       }
-
-      );
-
+    );
   }
-
 }
+
+

@@ -8,6 +8,7 @@ import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
+import com.sun.xml.bind.v2.schemagen.xmlschema.Any;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -66,23 +68,29 @@ public class PropertyAdvertController {
         );
     }
 
-
     @PostMapping("/property-details/{advertId}")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<Void> saveBid(@PathVariable Long advertId, @RequestBody BidFormData bidFormData) {
         logger.info("The bid is created");
+        propertyAdvertService.updatePropertyActualPrice(bidFormData,advertId);
         bidService.saveBid(bidFormData, userDetails.get(), propertyAdvertService.getPropertyAdvertDetails(advertId).getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/property-details/bids/{advertId}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<List<BidListItem>> getPropertyBids(@PathVariable Long advertId){
         return new ResponseEntity<>(bidService.listBidsByPropertyId(advertId), HttpStatus.OK);
     }
 
+    @GetMapping("/property-details/bidder/{advertId}")
+    public ResponseEntity<Long> getNumberOfBidUser(@PathVariable Long advertId) {
+        return new ResponseEntity<>(bidService.getBidUserNumber(advertId), HttpStatus.OK);
+    }
 
-
+    @GetMapping("/property-details/lastBid/{advertId}")
+    public ResponseEntity<Double> getLastBidAmount(@PathVariable Long advertId) {
+        return new ResponseEntity<>(bidService.getLastBidAmount(advertId), HttpStatus.OK);
+    }
 
     @PostMapping
     @Secured({"ROLE_USER", "ROLE_ADMIN"})

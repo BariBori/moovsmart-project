@@ -43,6 +43,7 @@ import { NotificationService } from './services/notification.service';
 import { PropertyListBsComponent } from './components/property-list-bs/property-list-bs.component';
 import { BidFormComponent } from './components/bid-form/bid-form.component';
 import { BidListComponent } from './components/bid-list/bid-list.component';
+import {CountdownModule} from "ng2-date-countdown";
 
 
 
@@ -96,7 +97,7 @@ import { BidListComponent } from './components/bid-list/bid-list.component';
     MatSortModule,
     MatTableModule,
     MatTooltipModule,
-
+    CountdownModule
   ],
   providers: [
     {
