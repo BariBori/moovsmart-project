@@ -80,11 +80,12 @@ BE mvn test:
   image: $MOOVSMART_REGISTRY/backend-stage:latest
   stage: test
   script:
-    - mvn test
+    # runs tests as well
     - mvn package
+    - ls
   artifacts:
     paths:
-      - /backend/target/project-1.0-SNAPSHOT.jar
+      # - /backend/target/project-1.0-SNAPSHOT.jar
   tags:
     - test
 
