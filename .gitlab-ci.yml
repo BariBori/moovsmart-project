@@ -17,10 +17,11 @@ Stage:
     - docker:18-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
-        "dockerfiles/backend-stage.dockerfile" 
+        --rm -f
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
         .
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
