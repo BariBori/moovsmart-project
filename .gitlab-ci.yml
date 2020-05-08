@@ -4,6 +4,7 @@ stages:
   - package
   # - deploy
 
+# needed for Docker-In-Docker
 variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay
@@ -21,27 +22,36 @@ variables:
 setup:
   image: docker:18
   services:
+    # enables calling docker from within docker image
     - docker:18-dind   
   stage: init
   script:
+    # makes pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    # pulls latest BE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
+    # verifies / updates BE env
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-        -f backend-stage.dockerfile
+        -f base.dockerfile
         .
+    # pushes BE env
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+
+    # pulls latest FE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
+    # verifies / updates FE env
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
-        -f moovsmart/frontend-stage.dockerfile
+        -f moovsmart/base.dockerfile
         moovsmart
+    # pushes FE env
     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 
@@ -77,12 +87,13 @@ setup:
 #     - node
 
 BE mvn test:
+  # BE env image build in init stage
   image: $MOOVSMART_REGISTRY/backend-stage:latest
   stage: test
   script:
     # runs tests as well
     - mvn package
-    - ls
+  # caches jar for later use  
   artifacts:
     paths:
       - target/project-1.0-SNAPSHOT.jar
@@ -90,15 +101,17 @@ BE mvn test:
     - test
 
 FE karma test:
-  image:
-    name: $MOOVSMART_REGISTRY/frontend-stage:latest
-    entrypoint: ["/bin/sh", "-c"]
+  # FE env image build in init stage
+  image: $MOOVSMART_REGISTRY/frontend-stage:latest
   stage: test
   script:
+    # copy FE folder to where node_modules are installed
     - cp -a moovsmart/. /frontend/
     - cd /frontend
+    # actual business
     - npm run-script build
     # - npm test
+  # caching build results for later use  
   artifacts:
     paths:
       - /frontend/dist/

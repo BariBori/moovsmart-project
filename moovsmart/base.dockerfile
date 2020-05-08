@@ -6,3 +6,4 @@ COPY package-lock.json package.json /frontend/
 WORKDIR /frontend
 RUN npm ci --silent
 RUN apk del .build-deps
+ENTRYPOINT ["/bin/sh", "-c"]
