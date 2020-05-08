@@ -97,6 +97,7 @@ FE karma test:
   script:
     - cp -a moovsmart/. /frontend/
     - cd /frontend
+    - npm run-script build
     - npm test
   artifacts:
     paths:
