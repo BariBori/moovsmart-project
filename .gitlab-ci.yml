@@ -4,10 +4,11 @@ stages:
   - package
   # - deploy
 
-# needed for Docker-In-Docker
 variables:
+    # needed for Docker-In-Docker
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay
+    # project's gitlab ci registry
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
 # before_script:
@@ -22,15 +23,15 @@ variables:
 setup:
   image: docker:18
   services:
-    # enables calling docker from within docker image
+    # enable calling docker from within docker image
     - docker:18-dind   
   stage: init
   script:
-    # makes pushing and pulling possible
+    # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pulls latest BE env to use as cache
+    # pull latest BE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
-    # verifies / updates BE env
+    # verify / update BE env
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
@@ -38,12 +39,12 @@ setup:
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
         -f base.dockerfile
         .
-    # pushes BE env
+    # push BE env
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
 
-    # pulls latest FE env to use as cache
+    # pull latest FE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
-    # verifies / updates FE env
+    # verify / update FE env
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
@@ -51,7 +52,7 @@ setup:
         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
         -f moovsmart/base.dockerfile
         moovsmart
-    # pushes FE env
+    # push FE env
     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 
@@ -87,13 +88,13 @@ setup:
 #     - node
 
 BE mvn test:
-  # BE env image build in init stage
+  # use BE env image build in init stage
   image: $MOOVSMART_REGISTRY/backend-stage:latest
   stage: test
   script:
-    # runs tests as well
+    # run tests as well
     - mvn package
-  # caches jar for later use  
+  # cache jar for deploy stage  
   artifacts:
     paths:
       - target/project-1.0-SNAPSHOT.jar
@@ -111,7 +112,7 @@ FE karma test:
     # actual business
     - npm run-script build
     # - npm test
-  # caching build results for later use  
+  # cache build results for deploy stage 
   artifacts:
     paths:
       - /frontend/dist/
