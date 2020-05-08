@@ -118,6 +118,7 @@ FE karma test:
   # cache build results for deploy stage 
   artifacts:
     paths:
+      - /frontend/dist/moovsmart
       - /frontend/dist/moovsmart/
   tags:
     - test
