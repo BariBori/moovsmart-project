@@ -35,7 +35,7 @@ Stage Frontend:
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
     - > 
         docker build
-        --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
+        # --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
         -f dockerfiles/frontend-stage.dockerfile
