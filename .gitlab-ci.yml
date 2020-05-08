@@ -32,10 +32,9 @@ Stage Backend:
 Stage Frontend:
   stage: staging
   script:
-    - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
+    # - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
     - > 
         docker build
-        # --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
         -f dockerfiles/frontend-stage.dockerfile
