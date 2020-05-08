@@ -1,7 +1,7 @@
 stages:
-  - staging
+  - init
   - test
-  # - package
+  - package
   # - deploy
 
 variables:
@@ -18,11 +18,11 @@ variables:
 #   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
 #   - chmod 644 ~/.ssh/known_hosts
 
-Setup Stage:
+setup:
   image: docker:18
   services:
     - docker:18-dind   
-  stage: staging
+  stage: init
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
@@ -31,7 +31,7 @@ Setup Stage:
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-        -f dockerfiles/backend-stage.dockerfile
+        -f backend-stage.dockerfile
         .
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
@@ -40,8 +40,8 @@ Setup Stage:
         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
-        -f dockerfiles/frontend-stage.dockerfile
-        .
+        -f moovsmart/frontend-stage.dockerfile
+        moovsmart
     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 
@@ -81,8 +81,10 @@ BE mvn test:
   stage: test
   script:
     - mvn test
-  only:
-    - master    
+    - mvn package
+  artifacts:
+    paths:
+      -/backend/target/project-1.0-SNAPSHOT.jar
   tags:
     - test
 
@@ -92,9 +94,15 @@ FE karma test:
     entrypoint: ["/bin/sh", "-c"]
   stage: test
   script:
-    - cp -a moovsmart/. /stage/
+    - cp -a moovsmart/. /frontend/
     - cd /stage
+    - npm build
     - npm test
+  artifacts:
+    paths:
+      - /frontend/dist
+  tags:
+    - test
 
 
 # deploy:
