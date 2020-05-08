@@ -18,7 +18,9 @@ module.exports = function (config) {
         flags: [
           '--no-sandbox',
           '--disable-gpu',
-          '--disable-dev-shm-usage'
+          '--disable-dev-shm-usage',
+          '--disable-extensions',
+          '--disable - translate'
         ]
       }
     },
