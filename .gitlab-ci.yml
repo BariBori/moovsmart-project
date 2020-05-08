@@ -9,7 +9,7 @@ variables:
     DOCKER_DRIVER: overlay
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
-Stage Backend:
+Stage:
   stage: staging
   image: docker:18
 
@@ -21,7 +21,8 @@ Stage Backend:
         docker build --rm -f
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         "dockerfiles/backend-stage.dockerfile" 
-        -tag $MOOVSMART_REGISTRY/backend-stage:latest .
+        --tag $MOOVSMART_REGISTRY/backend-stage:latest .
+    - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
 
 # before_script:
 #   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
