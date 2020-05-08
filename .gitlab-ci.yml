@@ -87,15 +87,17 @@ BE mvn test:
     - test
 
 FE karma test:
-  image: $MOOVSMART_REGISTRY/frontend-stage:latest
+  image:
+    name: $MOOVSMART_REGISTRY/frontend-stage:latest
+    entrypoint: ["/bin/sh", "-c"]
   stage: test
   variables:
     CHROME_BIN: chromium
   script:
-    - pwd
-    - ls /frontend
+    - cp -a /stage/. moovsmart/
+    - cd moovsmart
     - > 
-        npm test
+        ng test
         --browsers=ChromeHeadlessCI
         --code-coverage=true
         --watch=false
