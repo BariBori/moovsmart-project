@@ -18,12 +18,12 @@ variables:
 #   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
 #   - chmod 644 ~/.ssh/known_hosts
 
-# setup:
-#   image: docker:18
-#   services:
-#     - docker:18-dind   
-#   stage: init
-#   script:
+setup:
+  image: docker:18
+  services:
+    - docker:18-dind   
+  stage: init
+  script:
 #     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 #     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
 #     - > 
@@ -34,15 +34,15 @@ variables:
 #         -f backend-stage.dockerfile
 #         .
 #     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
-#     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
-#     - > 
-#         docker build
-#         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
-#         --rm
-#         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
-#         -f moovsmart/frontend-stage.dockerfile
-#         moovsmart
-#     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
+    - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
+    - > 
+        docker build
+        --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
+        -f moovsmart/frontend-stage.dockerfile
+        moovsmart
+    - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 
 
