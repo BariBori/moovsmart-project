@@ -111,17 +111,11 @@ FE karma test:
     - cd /frontend
     # actual business
     - npm run-script build
-    - ls
-    - ls dist
-    - ls dist/moovsmart
     # - npm test
   # cache build results for deploy stage 
   artifacts:
     paths:
-      - dist/moovsmart
-      - dist/moovsmart/
-      - frontend/dist/moovsmart
-      - frontend/dist/moovsmart/
+      - /frontend/dist/moovsmart/
   tags:
     - test
 
