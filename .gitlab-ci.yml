@@ -13,12 +13,10 @@ image: docker:18
 services:
     - docker:18-dind   
 
-before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
 Setup Stage:
   stage: staging
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
     - > 
         docker build
