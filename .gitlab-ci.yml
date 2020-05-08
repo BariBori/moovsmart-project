@@ -1,8 +1,18 @@
 stages:
-  # - staging
+  - staging
   - test
   # - package
   # - deploy
+  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+Stage Backend:
+  stage: staging
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --rm -f "dockerfiles/backend-stage.dockerfile" -t $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart/backend-stage:latest "."
 
 # before_script:
 #   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -51,6 +61,8 @@ BE mvn test:
     - mvn test
   only:
     - master    
+  tags:
+    - test
 
 # deploy:
 #   stage: deploy
