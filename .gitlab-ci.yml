@@ -97,7 +97,7 @@ FE karma test:
     - cp -a /stage/. moovsmart/
     - cd moovsmart
     - > 
-        ng test
+        npm test
         --browsers=ChromeHeadlessCI
         --code-coverage=true
         --watch=false
