@@ -9,11 +9,11 @@ variables:
     DOCKER_DRIVER: overlay
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
-image: docker:18
-services:
-    - docker:18-dind   
 
 Setup Stage:
+  image: docker:18
+  services:
+    - docker:18-dind   
   stage: staging
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
