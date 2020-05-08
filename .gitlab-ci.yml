@@ -51,6 +51,8 @@ BE mvn test:
     - mvn test
   only:
     - master    
+  tags:
+    - docker  
 
 # deploy:
 #   stage: deploy
