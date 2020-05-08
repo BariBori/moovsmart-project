@@ -9,19 +9,21 @@ variables:
     DOCKER_DRIVER: overlay
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
+ image: docker:18
+ services:
+    - docker:18-din   
+
+before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
 Stage:
   stage: staging
-  image: docker:18
-
-  services:
-    - docker:18-dind
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
     - > 
         docker build
-        --rm
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
+        --rm
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
         -f dockerfiles/backend-stage.dockerfile
         .
