@@ -108,7 +108,7 @@ FE karma test:
   script:
     # copy FE folder to where node_modules are installed
     - cp -a moovsmart/. /frontend/
-    - cd /frontent
+    - cd /frontend
     # actual business
     - npm run-script build
     # - npm test
