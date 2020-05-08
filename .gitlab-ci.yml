@@ -16,18 +16,18 @@ services:
 before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-Stage Backend:
-  stage: staging
-  script:
-    - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-        -f dockerfiles/backend-stage.dockerfile
-        .
-    - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+# Stage Backend:
+#   stage: staging
+#   script:
+#     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
+#     - > 
+#         docker build
+#         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
+#         -f dockerfiles/backend-stage.dockerfile
+#         .
+#     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
 
 Stage Frontend:
   stage: staging
