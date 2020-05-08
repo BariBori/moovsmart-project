@@ -4,17 +4,24 @@ stages:
   # - package
   # - deploy
 
+variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay
+    MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
+
 Stage Backend:
   stage: staging
   image: docker:18
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
+
   services:
     - docker:18-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build --rm -f "dockerfiles/backend-stage.dockerfile" -t $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart/backend-stage:latest "."
+    - > 
+        docker build --rm -f
+        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
+        "dockerfiles/backend-stage.dockerfile" 
+        -tag $MOOVSMART_REGISTRY/backend-stage:latest .
 
 # before_script:
 #   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
