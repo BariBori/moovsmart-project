@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test --prod=true --browsers=ChromeHeadlessCI --code-coverage=true --watch=false --progress=false ",
+    "build": "ng build --prod",
+    "test": "ng test --browsers=ChromeHeadlessCI --code-coverage=true --watch=false --progress=false ",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
