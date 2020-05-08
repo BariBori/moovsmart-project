@@ -22,7 +22,7 @@ Stage:
         docker build
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-        .
+        dockerfiles/backend-stage.dockerfile
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
 
 # before_script:
