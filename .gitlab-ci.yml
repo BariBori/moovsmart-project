@@ -93,7 +93,7 @@ FE karma test:
     CHROME_BIN: chromium
   script:
     - pwd
-    - ls
+    - ls /frontend
     - > 
         npm test
         --browsers=ChromeHeadlessCI
