@@ -94,14 +94,9 @@ FE karma test:
   variables:
     CHROME_BIN: chromium
   script:
-    - cp -a /stage/. moovsmart/
-    - cd moovsmart
-    - > 
-        npm test
-        --browsers=ChromeHeadlessCI
-        --code-coverage=true
-        --watch=false
-        --progress=false
+    - cp -a moovsmart/. /stage/
+    - cd /stage
+    - npm test
 
 
 # deploy:
