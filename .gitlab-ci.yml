@@ -20,8 +20,8 @@ Stage:
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
     - > 
         docker build
-        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --rm -f
+        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
         .
     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
