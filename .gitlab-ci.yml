@@ -119,6 +119,9 @@ FE karma test:
   artifacts:
     paths:
       - dist/moovsmart
+      - dist/moovsmart/
+      - frontend/dist/moovsmart
+      - frontend/dist/moovsmart/
   tags:
     - test
 
