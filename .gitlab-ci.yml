@@ -9,6 +9,14 @@ variables:
     DOCKER_DRIVER: overlay
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
+# before_script:
+#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#   - eval $(ssh-agent -s)
+#   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#   - mkdir -p ~/.ssh
+#   - chmod 777 ~/.ssh
+#   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
+#   - chmod 644 ~/.ssh/known_hosts
 
 Setup Stage:
   image: docker:18
@@ -36,14 +44,6 @@ Setup Stage:
         .
     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
-# before_script:
-#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#   - eval $(ssh-agent -s)
-#   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#   - mkdir -p ~/.ssh
-#   - chmod 777 ~/.ssh
-#   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
-#   - chmod 644 ~/.ssh/known_hosts
 
 
 # Build Backend:
