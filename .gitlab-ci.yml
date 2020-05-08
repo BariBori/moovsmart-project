@@ -107,19 +107,14 @@ FE karma test:
   stage: test
   script:
     # copy FE folder to where node_modules are installed
-    - cp -a moovsmart/. /frontend/
-    - cd /frontend
+    - cp -a frontend/. /moovsmart/
     # actual business
     - npm run-script build
-    - cd dist/moovsmart
-    - ls
-    - pwd
     # - npm test
   # cache build results for deploy stage 
   artifacts:
     paths:
-      - /frontend/dist/moovsmart
-      - /frontend/dist/moovsmart/
+      - dist/moovsmart/
   tags:
     - test
 
