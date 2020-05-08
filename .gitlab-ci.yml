@@ -24,8 +24,8 @@ setup:
     - docker:18-dind   
   stage: init
   script:
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
 #     - > 
 #         docker build
 #         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
