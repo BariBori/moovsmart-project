@@ -26,14 +26,14 @@ setup:
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
-#     - > 
-#         docker build
-#         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
-#         --rm
-#         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-#         -f backend-stage.dockerfile
-#         .
-#     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+    - > 
+        docker build
+        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
+        --rm
+        --tag $MOOVSMART_REGISTRY/backend-stage:latest 
+        -f backend-stage.dockerfile
+        .
+    - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
     - > 
         docker build
@@ -97,7 +97,6 @@ FE karma test:
   script:
     - cp -a moovsmart/. /frontend/
     - cd /frontend
-    - npm build
     - npm test
   artifacts:
     paths:
