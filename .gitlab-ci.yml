@@ -107,10 +107,12 @@ FE karma test:
   stage: test
   script:
     # copy FE folder to where node_modules are installed
-    - cp -a /frontend/. moovsmart/
+    - cp -a moovsmart/. /frontend/
+    - cd frontent
     # actual business
     - npm run-script build
     # - npm test
+    - mv /frontend/dist /builds/fort.zsuzsanna/angular-moovsmart/
   # cache build results for deploy stage 
   artifacts:
     paths:
