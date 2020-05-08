@@ -111,6 +111,7 @@ FE karma test:
     - cd /frontend
     # actual business
     - npm run-script build
+    - ls
     # - npm test
   # cache build results for deploy stage 
   artifacts:
