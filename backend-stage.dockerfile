@@ -13,4 +13,5 @@ ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 COPY pom.xml /backend/
 WORKDIR /backend
 RUN mvn dependency:resolve
+RUN mvn dependency:resolve-plugins
 RUN mvn resources:resources
