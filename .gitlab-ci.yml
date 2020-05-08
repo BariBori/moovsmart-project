@@ -20,40 +20,40 @@ variables:
 #   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
 #   - chmod 644 ~/.ssh/known_hosts
 
-setup:
-  image: docker:18
-  services:
-    # enable calling docker from within docker image
-    - docker:18-dind   
-  stage: init
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pull latest BE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
-    # verify / update BE env
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-stage:latest 
-        -f base.dockerfile
-        .
-    # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+# setup:
+#   image: docker:18
+#   services:
+#     # enable calling docker from within docker image
+#     - docker:18-dind   
+#   stage: init
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     # pull latest BE env to use as cache
+#     - docker pull $MOOVSMART_REGISTRY/backend-stage:latest
+#     # verify / update BE env
+#     - > 
+#         docker build
+#         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-stage:latest 
+#         -f base.dockerfile
+#         .
+#     # push BE env
+#     - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
 
-    # pull latest FE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
-    # verify / update FE env
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
-        -f moovsmart/base.dockerfile
-        moovsmart
-    # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
+#     # pull latest FE env to use as cache
+#     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
+#     # verify / update FE env
+#     - > 
+#         docker build
+#         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
+#         -f moovsmart/base.dockerfile
+#         moovsmart
+#     # push FE env
+#     - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
 
 
 
@@ -87,19 +87,19 @@ setup:
 #   tags:
 #     - node
 
-BE mvn test:
-  # use BE env image build in init stage
-  image: $MOOVSMART_REGISTRY/backend-stage:latest
-  stage: test
-  script:
-    # run tests as well
-    - mvn package
-  # cache jar for deploy stage  
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
-  tags:
-    - test
+# BE mvn test:
+#   # use BE env image build in init stage
+#   image: $MOOVSMART_REGISTRY/backend-stage:latest
+#   stage: test
+#   script:
+#     # run tests as well
+#     - mvn package
+#   # cache jar for deploy stage  
+#   artifacts:
+#     paths:
+#       - target/project-1.0-SNAPSHOT.jar
+#   tags:
+#     - test
 
 FE karma test:
   # FE env image build in init stage
@@ -112,11 +112,12 @@ FE karma test:
     # actual business
     - npm run-script build
     - ls
+    - ls dist
     # - npm test
   # cache build results for deploy stage 
   artifacts:
     paths:
-      - dist/
+      - dist/moovsmart/
   tags:
     - test
 
