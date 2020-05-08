@@ -91,8 +91,6 @@ FE karma test:
     name: $MOOVSMART_REGISTRY/frontend-stage:latest
     entrypoint: ["/bin/sh", "-c"]
   stage: test
-  variables:
-    CHROME_BIN: chromium
   script:
     - cp -a moovsmart/. /stage/
     - cd /stage

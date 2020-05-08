@@ -5,3 +5,4 @@ COPY moovsmart/package-lock.json moovsmart/package.json /stage/
 WORKDIR /stage
 RUN npm ci --silent
 RUN apk del .build-deps
+ENV CHROME_BIN=chromium
