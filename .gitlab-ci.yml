@@ -95,12 +95,12 @@ FE karma test:
   stage: test
   script:
     - cp -a moovsmart/. /frontend/
-    - cd /stage
+    - cd /frontend
     - npm build
     - npm test
   artifacts:
     paths:
-      - /frontend/dist
+      - /frontend/dist/
   tags:
     - test
 
