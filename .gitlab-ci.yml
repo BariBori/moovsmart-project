@@ -9,8 +9,8 @@ variables:
     DOCKER_DRIVER: overlay
     MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
 
- image: docker:18
- services:
+image: docker:18
+services:
     - docker:18-din   
 
 before_script:
