@@ -81,11 +81,11 @@ FE karma test:
     - npm run-script build
     # - npm test
     # move compiled files to where the runner sees them
-    - mv /frontend/dist $CI_PROJECT_DIR/
+    - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
   # cache build results for deploy stage 
   artifacts:
     paths:
-      - dist/moovsmart/
+      - moovsmart/dist/moovsmart/
   tags:
     - test
 
