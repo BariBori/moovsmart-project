@@ -121,6 +121,24 @@ FE karma test:
   tags:
     - test
 
+BE package:
+  image: docker:18
+  services:
+    # enable calling docker from within docker image
+    - docker:18-dind   
+  script:
+    # make pushing and pulling possible
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    #build BE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+        -f prod.dockerfile
+        .
+    # push BE prod image
+    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+
 
 # deploy:
 #   stage: deploy
