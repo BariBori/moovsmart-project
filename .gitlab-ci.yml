@@ -55,38 +55,6 @@ variables:
 #     # push FE env
 #     - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
 
-
-
-# Build Backend:
-#   image: maven:3.6.3
-#   stage: build
-#   script:
-#     - mvn package -DskipTests=true -q
-#   artifacts:
-#     paths:
-#       - target/project-1.0-SNAPSHOT.jar
-#   only:
-#     - master
-#   tags:
-#     - java
-
-# Build Frontend:
-#   stage: build
-#   cache:
-#     paths:
-#       - moovsmart/node_modules/
-#   script:
-#     - cd moovsmart
-#     - npm ci
-#     - npm run build --quiet
-#   artifacts:
-#     paths:
-#       - moovsmart/dist/moovsmart
-#   only:
-#     - master
-#   tags:
-#     - node
-
 BE mvn test:
   stage: test
   # use BE env image build in init stage
@@ -101,27 +69,27 @@ BE mvn test:
   tags:
     - test
 
-# FE karma test:
-#   # FE env image build in init stage
-#   image: $MOOVSMART_REGISTRY/frontend-stage:latest
-#   stage: test
-#   script:
-#     # copy FE folder to where node_modules are installed
-#     - cp -a moovsmart/. /frontend/
-#     - cd /frontend
-#     # actual business
-#     - npm run-script build
-#     # - npm test
-#     # move compiled files to where the runner sees them
-#     - mv /frontend/dist $CI_PROJECT_DIR/
-#   # cache build results for deploy stage 
-#   artifacts:
-#     paths:
-#       - dist/moovsmart/
-#   tags:
-#     - test
+FE karma test:
+  # FE env image build in init stage
+  image: $MOOVSMART_REGISTRY/frontend-stage:latest
+  stage: test
+  script:
+    # copy FE folder to where node_modules are installed
+    - cp -a moovsmart/. /frontend/
+    - cd /frontend
+    # actual business
+    - npm run-script build
+    # - npm test
+    # move compiled files to where the runner sees them
+    - mv /frontend/dist $CI_PROJECT_DIR/
+  # cache build results for deploy stage 
+  artifacts:
+    paths:
+      - dist/moovsmart/
+  tags:
+    - test
 
-BE package:
+Package app:
   stage: package
   image: docker:18
   services:
@@ -139,6 +107,15 @@ BE package:
         .
     # push BE prod image
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+    #build FE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+        -f moovsmart/prod.dockerfile
+        moovsmart
+    # push FE prod image
+    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
 
 
 # deploy:
