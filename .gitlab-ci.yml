@@ -20,40 +20,40 @@ variables:
 #   - ssh-keyscan $remote_address >> ~/.ssh/known_hosts
 #   - chmod 644 ~/.ssh/known_hosts
 
-setup:
-  image: docker:18
-  services:
-    # enable calling docker from within docker image
-    - docker:18-dind   
-  stage: init
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pull latest BE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/backend-base:latest
-    # verify / update BE env
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/backend-base:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-base:latest 
-        -f base.dockerfile
-        .
-    # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-base:latest    
+# setup:
+#   image: docker:18
+#   services:
+#     # enable calling docker from within docker image
+#     - docker:18-dind   
+#   stage: init
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     # pull latest BE env to use as cache
+#     - docker pull $MOOVSMART_REGISTRY/backend-base:latest
+#     # verify / update BE env
+#     - > 
+#         docker build
+#         --cache-from $MOOVSMART_REGISTRY/backend-base:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-base:latest 
+#         -f base.dockerfile
+#         .
+#     # push BE env
+#     - docker push $MOOVSMART_REGISTRY/backend-base:latest    
 
-    # pull latest FE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/frontend-base:latest
-    # verify / update FE env
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/frontend-base:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-base:latest 
-        -f moovsmart/base.dockerfile
-        moovsmart
-    # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
+#     # pull latest FE env to use as cache
+#     - docker pull $MOOVSMART_REGISTRY/frontend-base:latest
+#     # verify / update FE env
+#     - > 
+#         docker build
+#         --cache-from $MOOVSMART_REGISTRY/frontend-base:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-base:latest 
+#         -f moovsmart/base.dockerfile
+#         moovsmart
+#     # push FE env
+#     - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
 
 
 
@@ -101,25 +101,25 @@ BE mvn test:
   tags:
     - test
 
-FE karma test:
-  # FE env image build in init stage
-  image: $MOOVSMART_REGISTRY/frontend-stage:latest
-  stage: test
-  script:
-    # copy FE folder to where node_modules are installed
-    - cp -a moovsmart/. /frontend/
-    - cd /frontend
-    # actual business
-    - npm run-script build
-    # - npm test
-    # move compiled files to where the runner sees them
-    - mv /frontend/dist $CI_PROJECT_DIR/
-  # cache build results for deploy stage 
-  artifacts:
-    paths:
-      - dist/moovsmart/
-  tags:
-    - test
+# FE karma test:
+#   # FE env image build in init stage
+#   image: $MOOVSMART_REGISTRY/frontend-stage:latest
+#   stage: test
+#   script:
+#     # copy FE folder to where node_modules are installed
+#     - cp -a moovsmart/. /frontend/
+#     - cd /frontend
+#     # actual business
+#     - npm run-script build
+#     # - npm test
+#     # move compiled files to where the runner sees them
+#     - mv /frontend/dist $CI_PROJECT_DIR/
+#   # cache build results for deploy stage 
+#   artifacts:
+#     paths:
+#       - dist/moovsmart/
+#   tags:
+#     - test
 
 BE package:
   image: docker:18
@@ -129,6 +129,8 @@ BE package:
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - ls
+    - pwd
     #build BE prod image
     - > 
         docker build
