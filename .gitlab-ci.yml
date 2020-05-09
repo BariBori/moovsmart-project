@@ -36,11 +36,11 @@ setup:
         docker build
         --cache-from $MOOVSMART_REGISTRY/backend-stage:latest
         --rm
-        --tag $MOOVSMART_REGISTRY/backend-stage:latest 
+        --tag $MOOVSMART_REGISTRY/backend-base:latest 
         -f base.dockerfile
         .
     # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-stage:latest    
+    - docker push $MOOVSMART_REGISTRY/backend-base:latest    
 
     # pull latest FE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/frontend-stage:latest
@@ -49,11 +49,11 @@ setup:
         docker build
         --cache-from $MOOVSMART_REGISTRY/frontend-stage:latest
         --rm
-        --tag $MOOVSMART_REGISTRY/frontend-stage:latest 
+        --tag $MOOVSMART_REGISTRY/frontend-base:latest 
         -f moovsmart/base.dockerfile
         moovsmart
     # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-stage:latest    
+    - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
 
 
 
