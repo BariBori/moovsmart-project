@@ -130,8 +130,6 @@ BE package:
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - ls
-    - pwd
     #build BE prod image
     - > 
         docker build
