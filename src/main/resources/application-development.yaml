@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/moovsmart?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1/moovsmart?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: test1234
 
+cors-policies: http://3.18.213.29, http://127.0.0.1:4200, http://127.0.0.1:80
