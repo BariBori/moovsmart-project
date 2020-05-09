@@ -88,9 +88,9 @@ variables:
 #     - node
 
 BE mvn test:
+  stage: test
   # use BE env image build in init stage
   image: $MOOVSMART_REGISTRY/backend-stage:latest
-  stage: test
   script:
     # run tests as well
     - mvn package
@@ -122,6 +122,7 @@ BE mvn test:
 #     - test
 
 BE package:
+  stage: package
   image: docker:18
   services:
     # enable calling docker from within docker image
