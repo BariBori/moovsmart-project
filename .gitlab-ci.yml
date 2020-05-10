@@ -116,12 +116,11 @@ FE karma test:
   stage: test
   script:
     # copy FE folder to where node_modules are installed
-    # - ls moovsmart/dist/moovsmart
-    # - pwd
-    # - mv moovsmart /frontend/
-    # - cd /frontend/moovsmart
-    # - ls
-    # - pwd
+    - pwd
+    - mv moovsmart /frontend/
+    - cd /frontend/moovsmart
+    - ls
+    - pwd
     - npm run-script ci-test
   tags:
     - test
