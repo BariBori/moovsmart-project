@@ -107,6 +107,9 @@ BE mvn test:
       - target/project-1.0-SNAPSHOT.jar
   tags:
     - test
+  only:
+    changes:
+      - src/*
 
 FE karma test:
   # FE test image build in init stage
@@ -117,37 +120,33 @@ FE karma test:
     - mv moovsmart/* /frontend/
     - cd /frontend
     - npm run-script ci-test --cache .npm --prefer-offline
-  cache:
-    key: npm
-    paths:
-      - moovsmart/.npm
   tags:
     - test
 
-# Package app:
-#   stage: package
-#   image: docker:18
-#   script:
-#     # make pushing and pulling possible
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#     #build BE prod image
-#     - > 
-#         docker build
-#         --rm
-#         --tag $MOOVSMART_REGISTRY/backend-prod:latest 
-#         -f prod.dockerfile
-#         .
-#     # push BE prod image
-#     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-#     #build FE prod image
-#     - > 
-#         docker build
-#         --rm
-#         --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
-#         -f moovsmart/prod.dockerfile
-#         moovsmart
-#     # push FE prod image
-#     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+Package app:
+  stage: package
+  image: docker:18
+  script:
+    # make pushing and pulling possible
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    #build BE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+        -f prod.dockerfile
+        .
+    # push BE prod image
+    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+    #build FE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+        -f moovsmart/prod.dockerfile
+        moovsmart
+    # push FE prod image
+    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
 
 
 # Deploy app:
