@@ -19,8 +19,6 @@ default:
   image: docker:18
   services:
     - docker:18-dind   
-  artifacts:
-    expire_in: 20 mins
 
 Create BE compile image:
   stage: pre-compile
