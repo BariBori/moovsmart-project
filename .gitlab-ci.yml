@@ -124,9 +124,9 @@ FE karma test:
       - target/project-1.0-SNAPSHOT.ja
   tags:
     - test
-  # only:
-  #   changes:
-  #     - moovsmart/*
+  only:
+    changes:
+      - moovsmart/*
 
 Package app:
   stage: deploy
