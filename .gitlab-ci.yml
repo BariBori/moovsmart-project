@@ -110,23 +110,23 @@ BE mvn test:
   #   changes:
   #     - src/*
 
-FE karma test:
-  # FE test image build in init stage
-  image: $MOOVSMART_REGISTRY/frontend-test:latest
-  stage: test
-  script:
-    # copy FE folder contents to where node_modules are installed
-    - mv moovsmart/* /frontend/
-    - cd /frontend
-    - npm run-script ci-test --cache .npm --prefer-offline
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.ja
-  tags:
-    - test
-  only:
-    changes:
-      - moovsmart/*
+# FE karma test:
+#   # FE test image build in init stage
+#   image: $MOOVSMART_REGISTRY/frontend-test:latest
+#   stage: test
+#   script:
+#     # copy FE folder contents to where node_modules are installed
+#     - mv moovsmart/* /frontend/
+#     - cd /frontend
+#     - npm run-script ci-test --cache .npm --prefer-offline
+#   artifacts:
+#     paths:
+#       - target/project-1.0-SNAPSHOT.ja
+#   tags:
+#     - test
+#   only:
+#     changes:
+#       - moovsmart/*
 
 Package app:
   stage: deploy
