@@ -145,7 +145,7 @@ Package app:
         .
     # push BE prod image
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    build FE prod image
+    # build FE prod image
     - > 
         docker build
         --rm
