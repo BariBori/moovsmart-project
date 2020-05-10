@@ -116,6 +116,7 @@ FE karma test:
     # copy FE folder contents to where node_modules are installed
     - mv moovsmart/* /frontend/
     - cd /frontend
+    - ls
     - npm run-script ci-test
   cache:
     key: dist
