@@ -127,7 +127,6 @@ cache:
   key: dist
   paths:
     - moovsmart/dist/moovsmart/
-    only:
   tags:
     - test
 
