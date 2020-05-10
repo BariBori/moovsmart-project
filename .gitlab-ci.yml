@@ -19,6 +19,8 @@ default:
   image: docker:18
   services:
     - docker:18-dind   
+  artifacts:
+    expire_in: 20 mins
 
 Create BE compile image:
   stage: pre-compile
@@ -80,9 +82,19 @@ Compile FE:
     - cd /frontend
     # actual business
     - npm run-script ci-build
+    # move compiled files to where the runner sees them
+    - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
   artifacts:
     paths:
       - moovsmart/dist/moovsmart/
+  # only:
+  #   changes:
+  #     - moovsmart/src/*
+  #     - moovsmart/angular.json
+  #     - moovsmart/tsconfig.json
+  #     - moovsmart/tsconfig.app.json
+  #     - moovsmart/nginx.conf
+  #     - moovsmart/ci-build.sh
 
 # BE mvn test:
 #   stage: test
