@@ -3,5 +3,5 @@ FROM gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/frontend-compil
 # ENV CHROME_BIN /usr/bin/chromium-browser
 # FROM chromium
 COPY src /frontend/src/
-COPY angular.json tsconfig.app.json ci-build.sh /frontend/
+COPY angular.json tsconfig.json tsconfig.app.json ci-build.sh /frontend/
 RUN npm run-script ci-build
