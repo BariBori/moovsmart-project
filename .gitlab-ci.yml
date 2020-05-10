@@ -17,9 +17,7 @@ variables:
 
 default:
   image: docker:18
-  services:
-    # enable calling docker from within docker image
-    - docker:18-dind   
+  services: docker:18-dind   
 
 Create BE compile image:
   stage: pre-compile
@@ -50,7 +48,7 @@ Create FE compile image:
     # verify / update FE env
     - > 
         docker build
-       --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
+        --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-compiler:latest 
         -f moovsmart/compiler.dockerfile
