@@ -25,21 +25,18 @@ Create BE compile image:
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pull latest BE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/backend-compiler:latest
-    # verify / update BE env
+    # update BE compile image
     - > 
         docker build
-        --cache-from $MOOVSMART_REGISTRY/backend-compiler:latest
         --rm
-        --tag $MOOVSMART_REGISTRY/backend-compiler:latest 
-        -f compiler.dockerfile
+        --tag $MOOVSMART_REGISTRY/backend-compile:latest 
+        -f compile.dockerfile
         .
     # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-compiler:latest    
+    - docker push $MOOVSMART_REGISTRY/backend-compile:latest    
   only:
     changes:
-      - pom.xml
+      # - pom.xml
 
 
 Create FE compile and test images:
@@ -85,14 +82,14 @@ Compile FE:
   artifacts:
     paths:
       - moovsmart/dist/moovsmart/
-  # only:
-  #   changes:
-  #     - moovsmart/src/*
-  #     - moovsmart/angular.json
-  #     - moovsmart/tsconfig.json
-  #     - moovsmart/tsconfig.app.json
-  #     - moovsmart/nginx.conf
-  #     - moovsmart/ci-build.sh
+  only:
+    changes:
+      - moovsmart/src/*
+      - moovsmart/angular.json
+      - moovsmart/tsconfig.json
+      - moovsmart/tsconfig.app.json
+      - moovsmart/nginx.conf
+      - moovsmart/ci-build.sh
 
 # BE mvn test:
 #   stage: test
