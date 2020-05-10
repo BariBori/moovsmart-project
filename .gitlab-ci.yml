@@ -76,7 +76,7 @@ Compile FE:
   script:
     # move necessary files to where node_modules are installed
     - cd moovsmart
-    - mv -t /frontend/ angular.json tsconfig.json tsconfig.app.json ci-build.sh src
+    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
     - cd /frontend
     # actual business
     - npm run-script ci-build
