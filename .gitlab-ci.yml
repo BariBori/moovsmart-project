@@ -123,10 +123,10 @@ FE karma test:
     - ls
     - pwd
     - npm run-script ci-test
-    cache:
-      key: dist
-      paths:
-        - moovsmart/dist/moovsmart/
+cache:
+  key: dist
+  paths:
+    - moovsmart/dist/moovsmart/
     only:
   tags:
     - test
