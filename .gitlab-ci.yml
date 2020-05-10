@@ -107,9 +107,9 @@ BE mvn test:
       - target/project-1.0-SNAPSHOT.jar
   tags:
     - test
-  only:
-    changes:
-      - src/*
+  # only:
+  #   changes:
+  #     - src/*
 
 FE karma test:
   # FE test image build in init stage
