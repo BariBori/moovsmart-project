@@ -5,6 +5,8 @@ import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
 import {BidFormDataModel} from "../../models/bids/bidFormData.model";
 import {PropertyService} from "../../services/property.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-bid-form',
@@ -15,7 +17,7 @@ export class BidFormComponent implements OnInit {
 
   advertId: number;
   userId: number;
-
+  amountOfBid: number;
   lastBidAmount: number;
   nextBid: string;
 
@@ -25,7 +27,8 @@ export class BidFormComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private route: ActivatedRoute,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -43,10 +46,24 @@ export class BidFormComponent implements OnInit {
 
 
   onSubmit() {
+
+    if(this.userService.isLoggedIn()){
+
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
-      () => this.router.navigate(['../property-details/' + this.advertId]),
+      () => {
+        this.router.navigate(['../property-details/' + this.advertId])
+      },
     );
+    } else{
+      this.router.navigate(['user-login']);
+    }
+    this.bidForm.reset();
+    alert("Sikeres licit!");
+  }
+
+  openDialog(content) {
+    this.modalService.open(content, { centered: true });
   }
 
   getLastBid() {
@@ -57,6 +74,10 @@ export class BidFormComponent implements OnInit {
 
       }
     );
+  }
+
+  clearBidInput(){
+
   }
 
 }

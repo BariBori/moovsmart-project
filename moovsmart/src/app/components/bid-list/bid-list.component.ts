@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BidListItemModel} from "../../models/bids/bidListItem.model";
 import {UserService} from "../../services/user.service";
 import {PropertyService} from "../../services/property.service";
+import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 
 @Component({
   selector: 'app-bid-list',
@@ -16,6 +17,9 @@ export class BidListComponent implements OnInit {
   user: String;
   advertId: number;
   numberOfBidUsers: number;
+  propertyAdvert: PropertyAdvertDetailsModel;
+  startOfAuction: any;
+  endOfAuction: any;
 
   constructor(
     private bidService: BidService,
@@ -37,7 +41,14 @@ export class BidListComponent implements OnInit {
         this.numberOfBidUsers = numberOfBidders;
       }
     );
-  }
+    this.propertyService.fetchAdvertDetails(String(advertId)).subscribe(
+      propertyDetails =>{
+        this.propertyAdvert = propertyDetails;
+        this.startOfAuction = this.propertyAdvert.startOfAuction;
+        this.endOfAuction = this.propertyAdvert.endOfAuction;
+      });
+    }
+
 }
 
 
