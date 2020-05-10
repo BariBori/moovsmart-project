@@ -7,7 +7,7 @@ if [ -z ${BACKEND_HOST+x} ];
         echo "setting BASE_URL in environment.prod.ts to http://$BACKEND_HOST";
         sed  -i "s/BASE_URL: '.*'/BASE_URL: '$BACKEND_HOST'/g" src/environments/environment.prod.ts
         echo "setting upstream backend in nginx.conf to $BACKEND_HOST";
-        sed -i  "s/upstream backend {.*}/upstream backend { server $BACKEND_HOST:8080 }/g" nginx.conf
+        sed -i  "s/upstream backend {.*}/upstream backend { server $BACKEND_HOST:8080; }/g" nginx.conf
 fi
 
 ng build --prod
