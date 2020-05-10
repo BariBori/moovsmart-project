@@ -45,15 +45,15 @@ Create BE compile image:
         -f compiler.dockerfile
         .
     # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-base:latest    
+    - docker push $MOOVSMART_REGISTRY/backend-compiler:latest    
 
 
-# Create FE compile image:
-#   stage: precompile
-#   image: docker:18
-#   services:
-#     # enable calling docker from within docker image
-#     - docker:18-dind   
+Create FE compile image:
+  stage: precompile
+  image: docker:18
+  services:
+    # enable calling docker from within docker image
+    - docker:18-dind   
 #   script:
 #     # make pushing and pulling possible
 #     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
