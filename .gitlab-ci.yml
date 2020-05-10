@@ -122,6 +122,9 @@ FE karma test:
     - npm run-script ci-test --cache .npm --prefer-offline
   tags:
     - test
+  only:
+    changes:
+      - moovsmart/*
 
 Package app:
   stage: deploy
