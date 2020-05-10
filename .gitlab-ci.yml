@@ -15,13 +15,12 @@ variables:
   BACKEND_HOST: 127.0.0.1
   BACKEND_USER: $server_user
 
-default:
-  image: docker:18
-  services:
-    - docker:18-dind   
 
 Create BE compile image:
   stage: pre-compile
+  image: docker:18
+  services:
+    - docker:18-dind   
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -41,6 +40,9 @@ Create BE compile image:
 
 Create FE compile and test images:
   stage: pre-compile
+  image: docker:18
+  services:
+    - docker:18-dind   
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -113,6 +115,8 @@ FE karma test:
     # copy FE folder to where node_modules are installed
     - mv moovsmart /frontend/
     - cd /frontend
+    - ls
+    - pwd
     - npm test
   tags:
     - test
