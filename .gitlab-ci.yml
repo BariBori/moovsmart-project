@@ -82,7 +82,7 @@ Compile FE:
     # move compiled files to where the runner sees them
     - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
   cache:
-    key: dist
+    key: npm
     paths:
       - moovsmart/dist/moovsmart/
   only:
@@ -94,19 +94,19 @@ Compile FE:
       - moovsmart/nginx.conf
       - moovsmart/ci-build.sh
 
-# BE mvn test:
-#   stage: test
-#   # use BE env image build in init stage
-#   image: $MOOVSMART_REGISTRY/backend-compiler:latest
-#   script:
-#     # run tests as well
-#     - mvn package
-#   # cache jar for deploy stage  
-#   artifacts:
-#     paths:
-#       - target/project-1.0-SNAPSHOT.jar
-#   tags:
-#     - test
+BE mvn test:
+  stage: test
+  # use BE env image build in init stage
+  image: $MOOVSMART_REGISTRY/backend-compile:latest
+  script:
+    # run tests as well
+    - mvn package
+  # cache jar for deploy stage  
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar
+  tags:
+    - test
 
 FE karma test:
   # FE test image build in init stage
@@ -116,11 +116,9 @@ FE karma test:
     # copy FE folder contents to where node_modules are installed
     - mv moovsmart/* /frontend/
     - cd /frontend
-    - ls
-    - ng test
-    - npm run-script ci-test
+    # - npm run-script ci-test
   cache:
-    key: dist
+    key: npm
     paths:
       - moovsmart/dist/moovsmart/
   tags:
