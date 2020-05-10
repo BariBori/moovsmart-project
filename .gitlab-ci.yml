@@ -17,7 +17,8 @@ variables:
 
 default:
   image: docker:18
-  services: docker:18-dind   
+  services:
+    - docker:18-dind   
 
 Create BE compile image:
   stage: pre-compile
