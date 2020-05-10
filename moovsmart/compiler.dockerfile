@@ -5,5 +5,5 @@ WORKDIR /frontend
 RUN npm ci --silent
 RUN apk del .build-deps
 FROM base
-RUN apk add --no-cache chromium
-ENV CHROME_BIN /usr/bin/chromium-browser
+# RUN apk add --no-cache chromium
+# ENV CHROME_BIN /usr/bin/chromium-browser
