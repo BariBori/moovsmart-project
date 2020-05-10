@@ -47,11 +47,9 @@ Create FE compile and test images:
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $MOOVSMART_REGISTRY/frontend-compiler:latest
-    # verify / update FE compile image
+    # update FE compile and test images
     - > 
         docker build
-        --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
         --rm
         --tag $MOOVSMART_REGISTRY/frontend-compile:latest 
         -f moovsmart/compile.dockerfile
@@ -66,10 +64,10 @@ Create FE compile and test images:
     # push images
     - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
     - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
-  # only:
-  #   changes:
-  #     - moovsmart/package.json
-  #     - moovsmart/package-lock.json
+  only:
+    changes:
+      - moovsmart/package.json
+      - moovsmart/package-lock.json
       
 
 Compile FE:
@@ -78,7 +76,7 @@ Compile FE:
   script:
     # move necessary files to where node_modules are installed
     - cd moovsmart
-    - mv -t angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
+    - mv -t /frontend/ angular.json tsconfig.json tsconfig.app.json ci-build.sh src
     - cd /frontend
     # actual business
     - npm run-script ci-build
