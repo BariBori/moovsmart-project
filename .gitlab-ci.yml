@@ -65,14 +65,19 @@ Create FE compile image:
       - moovsmart/package-lock.json
       
 
-# Compile FE:
-#   image: $MOOVSMART_REGISTRY/frontend-compiler:latest
-#   stage: compile
-#   script:
-#     -mvn compile
-#   artifacts:
-#     paths:
-#       - target/
+Compile FE:
+  stage: compile
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - > 
+        docker build
+        --cache-from $MOOVSMART_REGISTRY/frontend-build:latest
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-build:latest 
+        -f moovsmart/build.dockerfile
+        moovsmart
+    # push FE env
+    - docker push $MOOVSMART_REGISTRY/frontend-build:latest    
 
 # BE mvn test:
 #   stage: test
