@@ -3,4 +3,5 @@ RUN apk add --no-cache chromium
 ENV CHROME_BIN /usr/bin/chromium-browser
 FROM chromium
 COPY src /frontend/src/
+COPY ci-build.sh /frontend/
 RUN npm run-script ci-build

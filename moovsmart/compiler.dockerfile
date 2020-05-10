@@ -1,4 +1,4 @@
-FROM node:current-alpine as base
+FROM node:current-alpine
 RUN apk add --no-cache --virtual .build-deps make gcc g++ python 
 COPY package-lock.json package.json /frontend/
 WORKDIR /frontend
