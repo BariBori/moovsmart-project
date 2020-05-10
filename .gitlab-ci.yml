@@ -42,44 +42,49 @@ Create BE compile image:
       - pom.xml
 
 
-Create FE compile image:
+Create FE compile and test images:
   stage: pre-compile
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pull latest FE env to use as cache
     - docker pull $MOOVSMART_REGISTRY/frontend-compiler:latest
-    # verify / update FE env
+    # verify / update FE compile image
     - > 
         docker build
         --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
         --rm
-        --tag $MOOVSMART_REGISTRY/frontend-compiler:latest 
-        -f moovsmart/compiler.dockerfile
+        --tag $MOOVSMART_REGISTRY/frontend-compile:latest 
+        -f moovsmart/compile.dockerfile
         moovsmart
-    # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-compiler:latest    
-  only:
-    changes:
-      - moovsmart/package.json
-      - moovsmart/package-lock.json
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-test:latest 
+        -f moovsmart/test.dockerfile
+        moovsmart
+
+    # push images
+    - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
+    - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
+  # only:
+  #   changes:
+  #     - moovsmart/package.json
+  #     - moovsmart/package-lock.json
       
 
 Compile FE:
   stage: compile
+  image: $MOOVSMART_REGISTRY/frontend-compile:latest
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - pwd
-    - ls
-    - > 
-        docker build
-        --cache-from $MOOVSMART_REGISTRY/frontend-build:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-build:latest 
-        -f moovsmart/build.dockerfile
-        moovsmart
-    # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-build:latest    
+    # move necessary files to where node_modules are installed
+    - cd moovsmart
+    - mv -t angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
+    - cd /frontend
+    # actual business
+    - npm run-script ci-build
+  artifacts:
+    paths:
+      - moovsmart/dist/moovsmart/
 
 # BE mvn test:
 #   stage: test
