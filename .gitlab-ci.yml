@@ -39,7 +39,7 @@ Create BE compile image:
     # verify / update BE env
     - > 
         docker build
-        #--cache-from $MOOVSMART_REGISTRY/backend-compiler:latest
+       #--cache-from $MOOVSMART_REGISTRY/backend-compiler:latest
         --rm
         --tag $MOOVSMART_REGISTRY/backend-compiler:latest 
         -f compiler.dockerfile
