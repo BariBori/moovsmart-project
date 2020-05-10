@@ -119,9 +119,9 @@ FE karma test:
     - mv moovsmart/* /frontend/
     - cd /frontend
     - npm run-script ci-test --cache .npm --prefer-offline
-    artifacts:
-      paths:
-        - target/project-1.0-SNAPSHOT.ja
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.ja
   tags:
     - test
   # only:
