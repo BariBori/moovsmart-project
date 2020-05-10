@@ -81,17 +81,18 @@ Compile FE:
     - npm run-script ci-build
     # move compiled files to where the runner sees them
     - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
-  artifacts:
-    paths:
-      - moovsmart/dist/moovsmart/
-  only:
-    changes:
-      - moovsmart/src/*
-      - moovsmart/angular.json
-      - moovsmart/tsconfig.json
-      - moovsmart/tsconfig.app.json
-      - moovsmart/nginx.conf
-      - moovsmart/ci-build.sh
+  cache:
+    key: dist
+      paths:
+        - moovsmart/dist/moovsmart/
+  # only:
+  #   changes:
+  #     - moovsmart/src/*
+  #     - moovsmart/angular.json
+  #     - moovsmart/tsconfig.json
+  #     - moovsmart/tsconfig.app.json
+  #     - moovsmart/nginx.conf
+  #     - moovsmart/ci-build.sh
 
 # BE mvn test:
 #   stage: test
@@ -110,6 +111,8 @@ Compile FE:
 FE karma test:
   # FE test image build in init stage
   image: $MOOVSMART_REGISTRY/frontend-test:latest
+  cache:
+    key: dist
   stage: test
   script:
     # copy FE folder to where node_modules are installed
