@@ -48,27 +48,27 @@ Create BE compile image:
     - docker push $MOOVSMART_REGISTRY/backend-base:latest    
 
 
-Create FE compile image:
-  stage: precompile
-  image: docker:18
-  services:
-    # enable calling docker from within docker image
-    - docker:18-dind   
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # pull latest FE env to use as cache
-    - docker pull $MOOVSMART_REGISTRY/frontend-compiler:latest
-    # verify / update FE env
-    - > 
-        docker build
-       --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-compiler:latest 
-        -f moovsmart/compiler.dockerfile
-        moovsmart
-    # push FE env
-    - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
+# Create FE compile image:
+#   stage: precompile
+#   image: docker:18
+#   services:
+#     # enable calling docker from within docker image
+#     - docker:18-dind   
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     # pull latest FE env to use as cache
+#     - docker pull $MOOVSMART_REGISTRY/frontend-compiler:latest
+#     # verify / update FE env
+#     - > 
+#         docker build
+#        --cache-from $MOOVSMART_REGISTRY/frontend-compiler:latest
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-compiler:latest 
+#         -f moovsmart/compiler.dockerfile
+#         moovsmart
+#     # push FE env
+#     - docker push $MOOVSMART_REGISTRY/frontend-base:latest    
 
 # Compile FE:
 #   image: $MOOVSMART_REGISTRY/frontend-compiler:latest
