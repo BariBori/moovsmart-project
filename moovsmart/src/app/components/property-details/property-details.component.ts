@@ -16,6 +16,8 @@ import {BidFormDataModel} from "../../models/bids/bidFormData.model";
 import {BidFormComponent} from "../bid-form/bid-form.component";
 import {BidListItemModel} from "../../models/bids/bidListItem.model";
 
+import {DatePipe} from "@angular/common";
+
 
 @Component({
   selector: 'app-property-details',
@@ -38,21 +40,32 @@ export class PropertyDetailsComponent implements OnInit {
   farStar = farStar;
   faEnvelope = faEnvelope;
 
-  today = Date.now();
 
-  startOfAuction: DateTimeFormat;
-  endOfAuction: DateTimeFormat;
+  today: any;
+  startDate: any;
+  endDate: any;
+  diffStartToday: boolean;
+  diffEndToday: boolean;
+  diffStartEnd: number;
+  actual: boolean; //startDate < today && endDate > today
+  expired: boolean; //startDate< today && endDate < today
+  future: boolean; //startDate >today && endDate > today
+
+
+
 
   text:any = {
     Year: 'Év',
     Month: 'Hónap',
     Weeks: "Hét",
-    Days: "Nap",
-    Hours: "Óra",
-    Minutes: "Perc",
-    Seconds: "Másodperc",
+    Days: "nap",
+    Hours: "óra",
+    Minutes: "perc",
+    Seconds: "másodperc",
     MilliSeconds: "MilliSeconds"
   };
+
+
 
   public latitude: number;
   public longitude: number;
@@ -60,7 +73,6 @@ export class PropertyDetailsComponent implements OnInit {
   public map: google.maps.Marker;
   public userName: string;
 
-  public now: number = Date.now();
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +83,7 @@ export class PropertyDetailsComponent implements OnInit {
     private userService: UserService,
     private messagingService: MessagingService,
     private bidService: BidService,
+    private datePipe: DatePipe
 
   ) {
   }
@@ -84,14 +97,11 @@ export class PropertyDetailsComponent implements OnInit {
           this.id = id;
           this.loadPropertyAdvertDetails();
           this.getVisitorLogged();
-          this.getLastBid()
+          this.getLastBid();
+
         }
       },
     );
-
-  console.log("now: " + this.today);
-    console.log("start: " + this.startOfAuction);
-    console.log("end: " + this.endOfAuction);
 
   }
 
@@ -116,22 +126,51 @@ export class PropertyDetailsComponent implements OnInit {
       )
     ).subscribe(
       (data: PropertyAdvertDetailsModel) => {
-        this.propertyAdvertDetails = data
-        this.startOfAuction = data.startOfAuction
-        this.endOfAuction = data.endOfAuction
+        this.propertyAdvertDetails = data;
+        this.propertyAdvertDetails.startOfAuction = data.startOfAuction;
+        this.propertyAdvertDetails.endOfAuction = data.endOfAuction;
+        this.startDate = this.datePipe.transform(this.propertyAdvertDetails?.startOfAuction, 'medium')
+        this.endDate = this.datePipe.transform(this.propertyAdvertDetails?.endOfAuction, 'medium')
+        this.today = this.datePipe.transform(Date.now(),'medium');
+
+        this.diffStartToday = new Date(this.startDate).getTime() <= new Date(this.today).getTime();
+        this.diffEndToday = new Date(this.endDate).getTime() >= new Date(this.today).getTime();
+
+        this.diffStartEnd = Math.floor(Math.abs((new Date(this.endDate).getTime()-new Date(this.startDate).getTime())/ (1000*60*60*24)));
+
+        this.actual = (this.diffStartToday === true) && (this.diffEndToday === true);
+        this.expired = (this.diffEndToday === false);
+        this.future = (this.diffStartToday === false);
+
+          //actual: boolean; //startDate < today && endDate > today
+          //expired: boolean; //startDate< today && endDate < today
+          //future: boolean; //startDate >today && endDate > today
+
+
+        console.log(this.startDate);
+        console.log(this.endDate);
+        console.log(this.today);
+        console.log("Start: " + this.diffStartToday);
+        console.log("End: " + this.diffEndToday);
+        console.log("Future: " + this.future);
+        console.log("Actual: " + this.actual);
+        console.log("Expired: " + this.expired);
+        console.log(data);
       },
 
       error => console.warn(error),
 
     );
-     }
+  }
+
+
 
   getLastBid() {
     this.bidService.getLastBid(Number(this.id)).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
         this.propertyAdvertDetails.actualPrice = this.lastBidAmount;
+        this.nextBid = (this.propertyAdvertDetails?.actualPrice +0.1).toFixed(1);
       }
     )
   }

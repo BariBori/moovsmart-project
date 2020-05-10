@@ -5,6 +5,7 @@ import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.mode
 import {UserFormDataModel} from "./userFormData.model";
 import DateTimeFormat = Intl.DateTimeFormat;
 
+
 export interface PropertyAdvertDetailsModel {
   id: number;
   price: number;
@@ -36,8 +37,11 @@ export interface PropertyAdvertDetailsModel {
   description: string;
   advertStatus: AdvertStatusTypeOptionItemModel;
 
-  startOfAuction: DateTimeFormat;
+  startOfAuction: Date;
   endOfAuction: DateTimeFormat;
+
+
+
 
   actualPrice: number;
 
