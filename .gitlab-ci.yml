@@ -4,9 +4,6 @@ stages:
   - test
   - deploy
 
-services:
-  # enable calling docker from within docker image
-  - docker:18-dind   
 
 variables:
     # needed for Docker-In-Docker
@@ -29,8 +26,11 @@ variables:
 #   - chmod 644 ~/.ssh/known_hosts
 
 Create BE compile image:
-  image: docker:18
   stage: pre-compile
+  image: docker:18
+  services:
+    # enable calling docker from within docker image
+    - docker:18-dind   
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -49,8 +49,11 @@ Create BE compile image:
 
 
 Create FE compile image:
-  image: docker:18
   stage: pre-compile
+  image: docker:18
+  services:
+    # enable calling docker from within docker image
+    - docker:18-dind   
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
