@@ -115,6 +115,7 @@ FE karma test:
     key: dist
   stage: test
   script:
+    - ls moovsmart/dist/moovsmart
     # copy FE folder to where node_modules are installed
     - mv /frontend/node_modules moovsmart/
     - pwd
