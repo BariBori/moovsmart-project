@@ -117,7 +117,7 @@ FE karma test:
     - cd /frontend
     - ls moovsmart
     - pwd
-    - npm test
+    - npm run-script ci-test
   tags:
     - test
 
