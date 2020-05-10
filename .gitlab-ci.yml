@@ -72,11 +72,13 @@ Create FE compile and test images:
 
 Compile FE:
   stage: compile
+  inherit:
+    default: false
   image: $MOOVSMART_REGISTRY/frontend-compile:latest
   script:
     # move necessary files to where node_modules are installed
     - cd moovsmart
-    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
+    - mv angular.json tsconfig.json tsconfig.app.json nginx.conf ci-build.sh src /frontend/
     - cd /frontend
     # actual business
     - npm run-script ci-build
