@@ -156,6 +156,10 @@ public class PropertyAdvertFormData {
         this.propertyConditionType = propertyConditionType;
     }
 
+    public void setAdvertStatus(AdvertStatusType advertStatus) {
+        this.advertStatus = advertStatus;
+    }
+
     public ParkingType getParkingType() {
         return parkingType;
     }
