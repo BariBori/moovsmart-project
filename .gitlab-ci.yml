@@ -83,8 +83,8 @@ Compile FE:
     - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
   cache:
     key: dist
-      paths:
-        - moovsmart/dist/moovsmart/
+    paths:
+      - moovsmart/dist/moovsmart/
   # only:
   #   changes:
   #     - moovsmart/src/*
