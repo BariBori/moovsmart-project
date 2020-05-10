@@ -74,6 +74,7 @@ Compile FE:
   stage: compile
   inherit:
     default: false
+    variables: [BACKEND_HOST]
   image: $MOOVSMART_REGISTRY/frontend-compile:latest
   script:
     # move necessary files to where node_modules are installed
