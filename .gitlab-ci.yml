@@ -113,9 +113,9 @@ FE karma test:
   image: $MOOVSMART_REGISTRY/frontend-test:latest
   stage: test
   script:
-    # copy FE folder to where node_modules are installed
-    - mv moovsmart /frontend/
-    - cd /frontend/moovsmart
+    # copy FE folder contents to where node_modules are installed
+    - mv moovsmart/* /frontend/
+    - cd /frontend
     - npm run-script ci-test
   cache:
     key: dist
