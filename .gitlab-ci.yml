@@ -1,5 +1,5 @@
 stages:
-  - pre-compile
+  - precompile
   - compile
   - test
   - deploy
@@ -26,7 +26,7 @@ variables:
 #   - chmod 644 ~/.ssh/known_hosts
 
 Create BE compile image:
-  stage: pre-compile
+  stage: precompile
   image: docker:18
   services:
     # enable calling docker from within docker image
@@ -49,7 +49,7 @@ Create BE compile image:
 
 
 Create FE compile image:
-  stage: pre-compile
+  stage: precompile
   image: docker:18
   services:
     # enable calling docker from within docker image
