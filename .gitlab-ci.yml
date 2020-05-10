@@ -124,7 +124,7 @@ FE karma test:
     - test
 
 Package app:
-  stage: package
+  stage: deploy
   image: docker:18
   script:
     # make pushing and pulling possible
