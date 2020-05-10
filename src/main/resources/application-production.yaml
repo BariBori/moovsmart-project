@@ -1,2 +1,2 @@
 
-cors-policies: http://${BACKEND_HOST}
+cors-policies: http://${FRONTEND_HOST}

@@ -84,14 +84,14 @@ Compile FE:
   artifacts:
     paths:
       - moovsmart/dist/moovsmart
-  only:
-    changes:
-      - moovsmart/src/*
-      - moovsmart/angular.json
-      - moovsmart/tsconfig.json
-      - moovsmart/tsconfig.app.json
-      - moovsmart/nginx.conf
-      - moovsmart/ci-build.sh
+  # only:
+  #   changes:
+  #     - moovsmart/src/*
+  #     - moovsmart/angular.json
+  #     - moovsmart/tsconfig.json
+  #     - moovsmart/tsconfig.app.json
+  #     - moovsmart/nginx.conf
+  #     - moovsmart/ci-build.sh
 
 BE mvn test:
   stage: test
@@ -145,15 +145,15 @@ Package app:
         .
     # push BE prod image
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    #build FE prod image
-    # - > 
-    #     docker build
-    #     --rm
-    #     --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
-    #     -f moovsmart/prod.dockerfile
-    #     moovsmart
-    # # push FE prod image
-    # - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+    build FE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+        -f moovsmart/prod.dockerfile
+        moovsmart
+    # push FE prod image
+    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
 
 
 # Deploy app:
