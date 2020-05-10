@@ -78,13 +78,13 @@ Compile FE:
     - mv angular.json tsconfig.json tsconfig.app.json nginx.conf ci-build.sh src /frontend/
     - cd /frontend
     # actual business
-    - npm run-script ci-build
+    - npm run-script ci-build --cache .npm --prefer-offline
     # move compiled files to where the runner sees them
     - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
   cache:
     key: npm
     paths:
-      - moovsmart/dist/moovsmart/
+      - moovsmart/.npm
   only:
     changes:
       - moovsmart/src/*
@@ -116,11 +116,11 @@ FE karma test:
     # copy FE folder contents to where node_modules are installed
     - mv moovsmart/* /frontend/
     - cd /frontend
-    # - npm run-script ci-test
+    - npm run-script ci-test --cache .npm --prefer-offline
   cache:
     key: npm
     paths:
-      - moovsmart/dist/moovsmart/
+      - moovsmart/.npm
   tags:
     - test
 
