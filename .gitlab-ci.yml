@@ -117,6 +117,7 @@ FE karma test:
     - mv moovsmart/* /frontend/
     - cd /frontend
     - ls
+    - ng test
     - npm run-script ci-test
   cache:
     key: dist
