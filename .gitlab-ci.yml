@@ -33,9 +33,9 @@ Create BE compile image:
         .
     # push BE env
     - docker push $MOOVSMART_REGISTRY/backend-compile:latest    
-  # only:
-  #   changes:
-  #     - pom.xml
+  only:
+    changes:
+      - pom.xml
 
 
 Create FE compile and test images:
