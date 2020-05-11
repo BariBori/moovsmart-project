@@ -11,6 +11,7 @@ services:
     network_mode: host
       
   frontend:
-    image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/frontend-prod
+    image: nginxt:latest
     ports: 
       - 80:80
+    network_mode: host
