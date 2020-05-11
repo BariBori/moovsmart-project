@@ -74,7 +74,8 @@ Compile FE:
     # copy cache if exists
     - >
         [ -d $CI_PROJECT_DIR/moovsmart/node_modules/.cache ]
-        && mv $CI_PROJECT_DIR/moovsmart/node_modules/.cache /frontend/node_modules/
+        && echo "File exist"
+        || echo "File does not exist"
     - cd moovsmart
     # copy files to where node_modules are
     - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
