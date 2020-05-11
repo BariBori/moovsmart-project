@@ -77,22 +77,22 @@ Compile FE:
   #     - moovsmart/nginx.conf
   #     - moovsmart/ci-build.sh
 
-BE mvn test:
-  stage: test
-  # use BE env image build in init stage
-  image: $MOOVSMART_REGISTRY/backend-compile:latest
-  script:
-    # run tests as well
-    - mvn package
-  # cache jar for deploy stage  
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
-  tags:
-    - test
-  only:
-    changes:
-      - src/*
+# BE mvn test:
+#   stage: test
+#   # use BE env image build in init stage
+#   image: $MOOVSMART_REGISTRY/backend-compile:latest
+#   script:
+#     # run tests as well
+#     - mvn package
+#   # cache jar for deploy stage  
+#   artifacts:
+#     paths:
+#       - target/project-1.0-SNAPSHOT.jar
+#   tags:
+#     - test
+#   only:
+#     changes:
+#       - src/*
 
 FE karma test:
   # FE test image build in init stage
