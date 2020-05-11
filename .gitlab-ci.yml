@@ -38,46 +38,57 @@ Create BE compile image:
       - pom.xml
 
 
-Cache node_modules:
+Create FE compile and test images:
   stage: pre-compile
-  image: node:current-alpine
+  image: docker:18
+  services:
+    - docker:18-dind   
   script:
-    # node-gyp needs these
-    - apk add --no-cache make gcc g++ python
-    # init node_modules
-    - cd moovsmart
-    - npm ci --silent
-  cache:
-    key: node_modules    
-    paths:
-      - moovsmart/node_modules
-  only:
-    changes:
-      - moovsmart/package.json
-      - moovsmart/package-lock.json
-
-Compile FE:
-  stage: compile
-  image: node:current-alpine
-  script:
-    - cd moovsmart
-    # actual business
-    - npm run-script ci-build
-  cache:
-    key: node_modules
-    paths:
-      - moovsmart/node_modules
-  artifacts:
-    paths:
-      - moovsmart/dist  
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    # build FE compile image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-compile:latest 
+        -f moovsmart/compile.dockerfile
+        moovsmart
+    # build FE test image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-test:latest 
+        -f moovsmart/compile.dockerfile
+        moovsmart
+    # push images
+    - docker push $MOOVSMART_REGISTRY/backend-compile:latest    
+    - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
   # only:
   #   changes:
-  #     - moovsmart/src/*
-  #     - moovsmart/angular.json
-  #     - moovsmart/tsconfig.json
-  #     - moovsmart/tsconfig.app.json
-  #     - moovsmart/nginx.conf
-  #     - moovsmart/ci-build.sh
+  #     - moovsmart/package.json
+  #     - moovsmart/package-lock.json
+
+# Compile FE:
+#   stage: compile
+#   image: node:current-alpine
+#   script:
+#     - cd moovsmart
+#     # actual business
+#     - npm run-script ci-build
+#   cache:
+#     key: node_modules
+#     paths:
+#       - moovsmart/node_modules
+#   artifacts:
+#     paths:
+#       - moovsmart/dist  
+#   # only:
+#   #   changes:
+#   #     - moovsmart/src/*
+#   #     - moovsmart/angular.json
+#   #     - moovsmart/tsconfig.json
+#   #     - moovsmart/tsconfig.app.json
+#   #     - moovsmart/nginx.conf
+#   #     - moovsmart/ci-build.sh
 
 # BE mvn test:
 #   stage: test
@@ -96,49 +107,49 @@ Compile FE:
 #     changes:
 #       - src/*
 
-FE karma test:
-  # FE test image build in init stage
-  image: $MOOVSMART_REGISTRY/frontend-test:latest
-  stage: test
-  script:
-    - cd moovsmart
-    - npm run-script ci-test
-  tags:
-    - test
-  cache:
-    key: node_modules
-    paths:
-      - moovsmart/node_modules
-  # only:
-  #   changes:
-  #     - moovsmart/*
+# FE karma test:
+#   # FE test image build in init stage
+#   image: $MOOVSMART_REGISTRY/frontend-test:latest
+#   stage: test
+#   script:
+#     - cd moovsmart
+#     - npm run-script ci-test
+#   tags:
+#     - test
+#   cache:
+#     key: node_modules
+#     paths:
+#       - moovsmart/node_modules
+#   # only:
+#   #   changes:
+#   #     - moovsmart/*
 
-Package app:
-  stage: deploy
-  image: docker:18
-  services:
-    - docker:18-dind   
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    #build BE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
-        -f prod.dockerfile
-        .
-    # push BE prod image
-    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    #build FE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
-        -f moovsmart/prod.dockerfile
-        moovsmart
-    # push FE prod image
-    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+# Package app:
+#   stage: deploy
+#   image: docker:18
+#   services:
+#     - docker:18-dind   
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     #build BE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+#         -f prod.dockerfile
+#         .
+#     # push BE prod image
+#     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+#     #build FE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+#         -f moovsmart/prod.dockerfile
+#         moovsmart
+#     # push FE prod image
+#     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
 
 
 # Deploy app:
