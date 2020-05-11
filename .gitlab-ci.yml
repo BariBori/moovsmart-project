@@ -47,17 +47,14 @@ Cache node_modules:
     # init node_modules
     - cd moovsmart
     - npm ci --silent
-  # only:
-  #   changes:
-  #     - moovsmart/package.json
-  #     - moovsmart/package-lock.json
   cache:
     key: node_modules    
     paths:
       - moovsmart/node_modules
-  artifacts:
-    paths:
-      - moovsmart/node_modules
+  only:
+    changes:
+      - moovsmart/package.json
+      - moovsmart/package-lock.json
 
 Compile FE:
   stage: compile
