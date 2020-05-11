@@ -62,22 +62,28 @@ Create FE compile and test images:
     # push images
     - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
     - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
-  # only:
-  #   changes:
-  #     - moovsmart/package.json
-  #     - moovsmart/package-lock.json
+  only:
+    changes:
+      - moovsmart/package.json
+      - moovsmart/package-lock.json
 
 Compile FE:
   stage: compile
   image: $MOOVSMART_REGISTRY/frontend-compile:latest  
   script:
+    # copy cache if exists
+    - >
+        [ -d $CI_PROJECT_DIR/moovsmart/node_modules/.cache ]
+        && mv $CI_PROJECT_DIR/moovsmart/node_modules/.cache /frontend/node_modules/
     - cd moovsmart
-    - mv angular.json src /frontend/
-    - cd /frontend
+    # copy files to where node_modules are
+    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
     # actual business
+    - cd /frontend
     - npm run-script ci-build
+    # move cache and artifacts to where gitlab sees them
     - mv dist $CI_PROJECT_DIR/moovsmart/
-    - mv node_modules/.cache $CI_PROJECT_DIR/moovsmart/node_modules
+    - mv node_modules/.cache $CI_PROJECT_DIR/moovsmart/node_modules/
   cache:
     key: node_modules
     paths:
