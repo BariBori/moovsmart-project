@@ -65,9 +65,9 @@ Compile FE:
     # - npm run-script ci-build
   cache:
     key: node_modules
-  artifacts:
-    paths:
-      - moovsmart/dist  
+  # artifacts:
+  #   paths:
+  #     - moovsmart/dist  
   # only:
   #   changes:
   #     - moovsmart/src/*
@@ -100,7 +100,7 @@ FE karma test:
   stage: test
   script:
     - cd moovsmart
-    - npm run-script ci-test
+    # - npm run-script ci-test
   tags:
     - test
   cache:
