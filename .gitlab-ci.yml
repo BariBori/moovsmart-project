@@ -71,22 +71,12 @@ Compile FE:
   stage: compile
   image: $MOOVSMART_REGISTRY/frontend-compile:latest  
   script:
-    # copy cache if exists
+    # update node_modules if necessary
     - >
-        [ -d moovsmart/node_modulessss ]
-        || echo "no cache"
-       # mv -v moovsmart/node_modules /frontend/node_modules
-    # - ls /frontend/node_modules
-    # - ls /frontend/node_modules/.cache
-    # - cd moovsmart
-    # # copy files to where node_modules are
-    # - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
-    # # actual business
-    # - cd /frontend
-    # - npm run-script ci-build
-    # # move cache and artifacts to where gitlab sees them
-    # - mv dist $CI_PROJECT_DIR/moovsmart/
-    # - mv node_modules/.cache $CI_PROJECT_DIR/moovsmart/node_modules/
+        mv -u -v
+        /frontend/node_modules moovsmart/node_modules
+    # run build    
+    - npm run-script ci-build
   cache:
     key: node_modules
     paths:
