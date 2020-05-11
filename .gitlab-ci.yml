@@ -77,7 +77,7 @@ Compile FE:
         && mv $CI_PROJECT_DIR/moovsmart/node_modules/.cache /frontend/node_modules/
     - cd moovsmart
     # copy files to where node_modules are
-    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh src /frontend/
+    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
     # actual business
     - cd /frontend
     - npm run-script ci-build
