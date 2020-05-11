@@ -62,7 +62,8 @@ Compile FE:
   script:
     - cd moovsmart
     # actual business
-    # - npm run-script ci-build
+    - npm install
+    - npm run-script ci-build
   cache:
     key: node_modules
   # artifacts:
@@ -100,7 +101,8 @@ FE karma test:
   stage: test
   script:
     - cd moovsmart
-    # - npm run-script ci-test
+    - npm install
+    - npm run-script ci-test
   tags:
     - test
   cache:
