@@ -1,0 +1,2 @@
+
+cors-policies: http://${FRONTEND_HOST}

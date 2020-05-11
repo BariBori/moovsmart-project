@@ -43,10 +43,8 @@ import { NotificationService } from './services/notification.service';
 import { PropertyListBsComponent } from './components/property-list-bs/property-list-bs.component';
 import { BidFormComponent } from './components/bid-form/bid-form.component';
 import { BidListComponent } from './components/bid-list/bid-list.component';
-import {CountdownModule} from "ng2-date-countdown";
-
-
-
+import { CountdownModule } from "ng2-date-countdown";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -97,7 +95,8 @@ import {CountdownModule} from "ng2-date-countdown";
     MatSortModule,
     MatTableModule,
     MatTooltipModule,
-    CountdownModule
+    CountdownModule,
+
   ],
   providers: [
     {
@@ -106,7 +105,8 @@ import {CountdownModule} from "ng2-date-countdown";
       multi: true
     },
     UserService,
-    NotificationService
+    NotificationService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

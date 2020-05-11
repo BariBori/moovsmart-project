@@ -5,6 +5,8 @@ import com.progmasters.moovsmart.dto.form.BidFormData;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,7 +26,8 @@ public class Bid {
     private LocalDateTime dateTimeOfBid;
 
     @Column
-
+    @Positive
+    @NotNull(message = "A licit mező nem lehet üres")
     private Double amountOfBid;
 
     public Bid() {

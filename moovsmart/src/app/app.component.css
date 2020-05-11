@@ -20,6 +20,7 @@
   text-align: center;
   display: inline;
   font-size: small;
+  flex: 0.1;
 }
 /deep/  p.measurements-number{
   margin-bottom:0px;

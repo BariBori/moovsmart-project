@@ -95,10 +95,11 @@ public class PropertyAdvertDetailsData {
         this.elevator = propertyAdvert.isElevator();
         this.balcony = propertyAdvert.isBalcony();
         this.description = propertyAdvert.getDescription();
-        this.priceForSquareMeter = Math.round(price *1000000 / area);
+        this.actualPrice = propertyAdvert.getActualPrice();
+        this.priceForSquareMeter = Math.round(actualPrice *1000000 / area);
         this.startOfAuction = propertyAdvert.getStartOfAuction();
         this.endOfAuction = propertyAdvert.getEndOfAuction();
-        this.actualPrice = propertyAdvert.getActualPrice();
+
     }
 
 

@@ -65,52 +65,49 @@
 
       </div> <!--end column-first-->
 
-      <div class="col-12 col-lg-5 column-auction" *ngIf="propertyAdvertDetails?.startOfAuction !== null">
+      <div class="col-12 col-lg-5 column-auction" *ngIf="propertyAdvertDetails?.startOfAuction !=null">
+        <div class="auction-time">Aukció ideje: {{propertyAdvertDetails?.startOfAuction| date:'yyyy.MM.dd HH:mm:ss'}}
+          -         {{propertyAdvertDetails?.endOfAuction | date:'yyyy.MM.dd HH:mm:ss'}}
+        </div>
 
-        <!--
-        <ng-template [ngIf]="(
-        (propertyAdvertDetails?.endOfAuction | date:'medium') > (today | date:'medium')
-        )"
-                     [ngIfElse]="notActual">AUKCIÓ LEZÁRULT
-        </ng-template>
-        <ng-template #notActual>
-          <ng-template [ngIf]="((propertyAdvertDetails?.startOfAuction | date:'medium') > (today | date:'medium'))"
-                       [ngIfElse]="closed">HAMAROSAN
-          </ng-template>
-        </ng-template>
-        <ng-template #closed>AKTUÁLIS</ng-template>
-        -->
+        <div *ngIf="actual; else notActual">
+        <countdown [text]="text"  units="Days | Hours | Minutes | Seconds"  end="{{propertyAdvertDetails?.endOfAuction}}"></countdown>
+        </div>
+        <ng-template #notActual >
 
-        <div>Aukció ideje: {{startOfAuction| date:'yyyy.MM.dd HH:mm:ss'}}
-          -         {{endOfAuction | date:'yyyy.MM.dd HH:mm:ss'}}
+          <ng-container *ngIf="future; else expired" >
+            <div class="auction-state">Aukció hamarosan elindul</div>
+          </ng-container>
+        </ng-template>
+        <ng-template #expired class="auction-state">
+          <div class="auction-state">Aukció lezárult</div>
+        </ng-template>
+
+
+
+
+        <div *ngIf="propertyAdvertDetails?.startOfAuction !==null"> <!--show when startDate is exist-->
+          <div *ngIf="actual" class="actual-price-label">Aktuális ár: {{propertyAdvertDetails?.actualPrice}} Millió Ft</div> <!--show when auction is not expired-->
+          <div *ngIf="!actual && !future" class="final-price-label">Záró ár: {{propertyAdvertDetails?.actualPrice}} Millió Ft</div> <!--show when auction is expired-->
+          <app-bid-form *ngIf="actual"></app-bid-form> <!--show when auction is actual-->
+          <div class="row">
+            <div col-6 *ngIf="actual">
+              <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
+            </div>
+            <div col-6 *ngIf="!future">
+              <button class="btn bid-history-button" (click)=toggleDisplay()>
+                <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">[Licit előzmények]</ng-template>
+                <ng-template #notShow>[Előzmények elrejtése]</ng-template>
+              </button>
+            </div>
+          </div>
         </div>
 
 
-        <countdown [text]="text" units="Days | Hours | Minutes | Seconds"  end="{{endOfAuction}}"></countdown>
 
 
 
-
-
-        <div *ngIf="(
-        ((propertyAdvertDetails?.startOfAuction | date:'medium') <= (today | date:'medium'))
-
-        )">
-
-          <div class="actual-price-label">Aktuális ár: {{propertyAdvertDetails.actualPrice}} Millió Ft</div>
-          <app-bid-form></app-bid-form>
-          <div class="minimum-price">Minimum licit: {{nextBid}} Millió Ft</div>
-
-        </div>
-
-
-
-
-        <button class="btn bid-history-button" (click)=toggleDisplay()>
-          <ng-template [ngIf]="isShow == true" [ngIfElse]="notShow">[Licit előzmények]</ng-template>
-          <ng-template #notShow>[Előzmények elrejtése]</ng-template>
-        </button>
-        <div>
+        <div *ngIf="actual">
           <p class="start-price">Kezdő ár {{propertyAdvertDetails?.price}} Millió Ft</p>
         </div>
 
