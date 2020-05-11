@@ -73,23 +73,24 @@ Compile FE:
   script:
     # copy cache if exists
     - >
-        [ -d moovsmart/node_modules/.cache ]
-        && mv -v moovsmart/node_modules/.cache /frontend/node_modules/
-    - ls /frontend/node_modules
-    - ls /frontend/node_modules/.cache
-    - cd moovsmart
-    # copy files to where node_modules are
-    - cp angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
-    # actual business
-    - cd /frontend
-    - npm run-script ci-build
-    # move cache and artifacts to where gitlab sees them
-    - mv dist $CI_PROJECT_DIR/moovsmart/
-    - mv node_modules/.cache $CI_PROJECT_DIR/moovsmart/node_modules/
+        [ -d moovsmart/node_modules ]
+        || echo "no cache"
+       # mv -v moovsmart/node_modules /frontend/node_modules
+    # - ls /frontend/node_modules
+    # - ls /frontend/node_modules/.cache
+    # - cd moovsmart
+    # # copy files to where node_modules are
+    # - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
+    # # actual business
+    # - cd /frontend
+    # - npm run-script ci-build
+    # # move cache and artifacts to where gitlab sees them
+    # - mv dist $CI_PROJECT_DIR/moovsmart/
+    # - mv node_modules/.cache $CI_PROJECT_DIR/moovsmart/node_modules/
   cache:
     key: node_modules
     paths:
-      - moovsmart/node_modules/.cache
+      - moovsmart/node_modules
   artifacts:
     paths:
       - moovsmart/dist  
