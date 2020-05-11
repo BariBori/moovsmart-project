@@ -60,7 +60,7 @@ Create FE compile and test images:
         -f moovsmart/compile.dockerfile
         moovsmart
     # push images
-    - docker push $MOOVSMART_REGISTRY/backend-compile:latest    
+    - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
     - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
   # only:
   #   changes:
