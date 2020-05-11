@@ -1,4 +1,4 @@
-package com.progmasters.moovsmart.repository;
+package com.progmasters.moovsmart.repository.propertyAdvert;
 
 import com.progmasters.moovsmart.domain.ParkingType;
 import com.progmasters.moovsmart.domain.PropertyAdvert;
@@ -8,6 +8,8 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserRole;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
 import com.progmasters.moovsmart.dto.list.PropertyAdvertListItem;
+import com.progmasters.moovsmart.repository.AdvertRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

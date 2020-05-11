@@ -47,15 +47,15 @@ export class BidFormComponent implements OnInit {
 
   onSubmit() {
 
-    if(this.userService.isLoggedIn()){
+    if (this.userService.isLoggedIn()) {
 
-    let formData: BidFormDataModel = this.bidForm.value;
-    this.bidService.createBid(formData, this.advertId).subscribe(
-      () => {
-        this.router.navigate(['../property-details/' + this.advertId])
-      },
-    );
-    } else{
+      let formData: BidFormDataModel = this.bidForm.value;
+      this.bidService.createBid(formData, this.advertId).subscribe(
+        () => {
+          this.router.navigate(['../property-details/' + this.advertId])
+        },
+      );
+    } else {
       this.router.navigate(['user-login']);
     }
     this.bidForm.reset();
@@ -63,20 +63,20 @@ export class BidFormComponent implements OnInit {
   }
 
   openDialog(content) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, {centered: true});
   }
 
   getLastBid() {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
-        this.lastBidAmount = lastAmount ;
-        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        this.lastBidAmount = lastAmount;
+        this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
 
       }
     );
   }
 
-  clearBidInput(){
+  clearBidInput() {
 
   }
 

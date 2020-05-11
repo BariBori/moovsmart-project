@@ -23,7 +23,6 @@ public abstract class Conversation {
         return this;
     }
 
-
     public List<Message> getMessages() {
         return this.messages;
     }

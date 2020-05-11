@@ -13,8 +13,10 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints = {@UniqueConstraint(
         columnNames = {"advert_id", "enquirer_id"})})
 public class Chat extends Conversation {
+
     @OneToOne
     private PropertyAdvert advert;
+
     @OneToOne
     private User enquirer;
 
@@ -22,8 +24,10 @@ public class Chat extends Conversation {
     @Table(uniqueConstraints = {@UniqueConstraint(
             columnNames = {"partner_id", "conversation_id"})})
     public static class View extends com.progmasters.moovsmart.domain.messaging.View<Chat> {
+
         @OneToOne
         private User partner;
+
         private Integer unread;
 
         public View() {
@@ -76,7 +80,7 @@ public class Chat extends Conversation {
         this.advert = advert;
     }
 
-    public PropertyAdvert getAdvert() {
+    PropertyAdvert getAdvert() {
         return advert;
     }
 }
