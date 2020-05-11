@@ -39,6 +39,10 @@ public class PropertyAdvertListItem {
 
     private LocalDate timeOfActivation;
 
+    private LocalDateTime startOfAuction;
+    private LocalDateTime endOfAuction;
+    private LocalDateTime today;
+
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.title = propertyAdvert.getTitle();
@@ -54,6 +58,9 @@ public class PropertyAdvertListItem {
         this.longitude = propertyAdvert.getLongitude();
         this.createdAt = propertyAdvert.getCreatedAt();
         this.timeOfActivation  =propertyAdvert.getTimeOfActivation();
+        this.startOfAuction = propertyAdvert.getStartOfAuction();
+        this.endOfAuction = propertyAdvert.getEndOfAuction();
+        this.today = LocalDateTime.now();
     }
 
     public PropertyAdvertListItem() {
@@ -125,5 +132,17 @@ public class PropertyAdvertListItem {
 
     public void setTimeOfActivation(LocalDate timeOfActivation) {
         this.timeOfActivation = timeOfActivation;
+    }
+
+    public LocalDateTime getStartOfAuction() {
+        return startOfAuction;
+    }
+
+    public LocalDateTime getEndOfAuction() {
+        return endOfAuction;
+    }
+
+    public LocalDateTime getToday() {
+        return today;
     }
 }

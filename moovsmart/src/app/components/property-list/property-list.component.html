@@ -43,13 +43,24 @@
       </ng-container>
 
       <ng-container matColumnDef="priceForSquareMeter">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
+        <mat-header-cell class="text-center" *matHeaderCellDef mat-sort-header>Nm ár</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="text-center">{{row.priceForSquareMeter  | number: '2.'}} Ft/m2</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="advertId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Hirdetés azonosító</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.advertId}}</mat-cell>
+        <mat-header-cell class="text-center" *matHeaderCellDef mat-sort-header >Hirdetés azonosító</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="text-center">{{row.advertId}}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="startOfAuction">
+        <mat-header-cell  class="text-center" *matHeaderCellDef mat-sort-header>Aukció</mat-header-cell>
+        <mat-cell class="text-center" *matCellDef="let row">
+          <div class="auction" class="gavel" *ngIf="row.endOfAuction > row.today">
+            <fa-icon [icon]="faGavel" ></fa-icon>
+          <!--{{row.startOfAuction | date:'yyyy.MM.dd HH:mm:ss'}} - {{row.endOfAuction  | date:'yyyy.MM.dd HH:mm:ss'}}-->
+          </div>
+        </mat-cell>
       </ng-container>
 
 

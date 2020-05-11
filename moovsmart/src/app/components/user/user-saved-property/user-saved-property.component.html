@@ -24,7 +24,7 @@
 
       <ng-container matColumnDef="numberOfRooms">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Szobák száma </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.numberOfRooms}}</mat-cell>
+        <mat-cell *matCellDef="let row" class="text-center">{{row.numberOfRooms}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">

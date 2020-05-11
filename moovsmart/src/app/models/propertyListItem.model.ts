@@ -14,4 +14,8 @@ export interface PropertyListItemModel {
   advertStatus: AdvertStatusTypeOptionItemModel;
   createdAt: DateTimeFormat;
   timeOfActivation: DateTimeFormat;
+
+  startOfAuction: DateTimeFormat;
+  endOfAuction: DateTimeFormat;
+  today: DateTimeFormat;
 }
