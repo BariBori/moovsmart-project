@@ -6,6 +6,8 @@ import {MatSort, MatSortable, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {PageModel} from "../../models/page.model";
+import {DatePipe} from "@angular/common";
+import {faGavel} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-property-list',
@@ -14,16 +16,22 @@ import {PageModel} from "../../models/page.model";
 })
 export class PropertyListComponent implements OnInit {
 
-  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
+
+
+  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId', 'startOfAuction'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
   data: PageModel;
+
+  faGavel= faGavel;
+
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
   constructor(private propertyService: PropertyService,
-              private router: Router) {
+              private router: Router,
+              private datePipe: DatePipe) {
   }
 
   applyFilter(filterEvent: any) {
@@ -45,6 +53,7 @@ export class PropertyListComponent implements OnInit {
         this.dataSource.sort = this.sort;
         console.log(this.dataSource);
         console.log(this.paginator.length)
+
       });
   }
 
@@ -65,6 +74,8 @@ export class PropertyListComponent implements OnInit {
         this.dataSource.sort = this.sort;
         console.log(this.dataSource);
       }
-    )
+    );
   }
+
+
 }

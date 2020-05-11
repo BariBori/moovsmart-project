@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class findPropertyAdvertsByAdvertStatus_FORAPPROVALTest {
+public class FindPropertyAdvertsByAdvertStatus_FORAPPROVALTest {
 
     @Autowired
     private AdvertRepository advertRepository;

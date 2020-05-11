@@ -40,3 +40,16 @@
 }
 
 
+
+
+.auction{
+  font-size: small;
+}
+
+.gavel{
+  /*transform: rotate(45deg);*/
+  color: #28a745;
+  font-size: large;
+}
+
+
