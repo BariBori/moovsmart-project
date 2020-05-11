@@ -62,10 +62,10 @@ Create FE compile and test images:
     # push images
     - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
     - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
-  only:
-    changes:
-      - moovsmart/package.json
-      - moovsmart/package-lock.json
+  # only:
+  #   changes:
+  #     - moovsmart/package.json
+  #     - moovsmart/package-lock.json
 
 Compile FE:
   stage: compile
