@@ -79,7 +79,7 @@ Compile FE:
     - ls /frontend/node_modules/.cache
     - cd moovsmart
     # copy files to where node_modules are
-    - mv angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
+    - cp angular.json tsconfig.json tsconfig.app.json ci-build.sh nginx.conf src /frontend/
     # actual business
     - cd /frontend
     - npm run-script ci-build
@@ -103,22 +103,22 @@ Compile FE:
   #     - moovsmart/nginx.conf
   #     - moovsmart/ci-build.sh
 
-# BE mvn test:
-#   stage: test
-#   # use BE env image build in init stage
-#   image: $MOOVSMART_REGISTRY/backend-compile:latest
-#   script:
-#     # run tests as well
-#     - mvn package
-#   # cache jar for deploy stage  
-#   artifacts:
-#     paths:
-#       - target/project-1.0-SNAPSHOT.jar
-#   tags:
-#     - test
-#   only:
-#     changes:
-#       - src/*
+BE mvn test:
+  stage: test
+  # use BE env image build in init stage
+  image: $MOOVSMART_REGISTRY/backend-compile:latest
+  script:
+    # run tests as well
+    - mvn package
+  # cache jar for deploy stage  
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar
+  tags:
+    - test
+  # only:
+  #   changes:
+  #     - src/*
 
 # FE karma test:
 #   # FE test image build in init stage
