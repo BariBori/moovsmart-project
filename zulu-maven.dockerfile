@@ -18,6 +18,3 @@ WORKDIR /backend
 RUN mvn dependency:resolve
 RUN mvn dependency:resolve-plugins
 RUN mvn resources:resources
-# compile backend
-COPY src /backend/
-RUN mvn compile

@@ -16,7 +16,7 @@ variables:
   BACKEND_USER: $server_user
 
 
-Create BE compile image:
+Update BE compile image:
   stage: pre-compile
   image: docker:18
   services:
@@ -28,57 +28,55 @@ Create BE compile image:
     - > 
         docker build
         --rm
-        --tag $MOOVSMART_REGISTRY/backend-compile:latest 
-        -f compile.dockerfile
+        --tag $MOOVSMART_REGISTRY/zulu-maven:latest 
+        -f zulu-maven.dockerfile
         .
     # push BE env
-    - docker push $MOOVSMART_REGISTRY/backend-compile:latest    
-  only:
-    changes:
-      - pom.xml
+    - docker push $MOOVSMART_REGISTRY/zulu-maven:latest    
+  when: manual
 
-
-Create FE compile and test images:
+Update FE test image:
   stage: pre-compile
   image: docker:18
   services:
     - docker:18-dind   
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # build FE compile image
-    - > 
+    - >
         docker build
         --rm
-        --tag $MOOVSMART_REGISTRY/frontend-compile:latest 
-        -f moovsmart/compile.dockerfile
+        --tag $MOOVSMART_REGISTRY/node-chromium:latest 
+        -f moovsmart/node-chromium.dockerfile
         moovsmart
-    # build FE test image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-test:latest 
-        -f moovsmart/test.dockerfile
-        moovsmart
-    # push images
-    - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
-    - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
+    # push image
+    - docker push $MOOVSMART_REGISTRY/node-chromium:latest    
+  when: manual
+
+Cache node_modules:
+  stage: pre-compile
+  image: node:current-alpine
+  script:
+    - apk add --no-cache .build-deps make gcc g++ python 
+    - cd moovsmart
+    - npm ci --silent
+  cache:
+    key: node
+    paths:
+      - moovsmart/node_modules
   # only:
   #   changes:
   #     - moovsmart/package.json
   #     - moovsmart/package-lock.json
 
+
 Compile FE:
   stage: compile
-  image: $MOOVSMART_REGISTRY/frontend-compile:latest  
+  image: node:current-alpine
   script:
-    # update node_modules if necessary
-    - >
-        mv --update -v
-        /frontend/node_modules moovsmart/node_modules
-    # run build    
+    - cd moovsmart
     - npm run-script ci-build
   cache:
-    key: node_modules
+    key: node
     paths:
       - moovsmart/node_modules
   artifacts:
@@ -96,8 +94,7 @@ Compile FE:
 
 BE mvn test:
   stage: test
-  # use BE env image build in init stage
-  image: $MOOVSMART_REGISTRY/backend-compile:latest
+  image: $MOOVSMART_REGISTRY/zulu-maven:latest
   script:
     # run tests as well
     - mvn package
@@ -111,22 +108,23 @@ BE mvn test:
   #   changes:
   #     - src/*
 
-# FE karma test:
-#   # FE test image build in init stage
-#   image: $MOOVSMART_REGISTRY/frontend-test:latest
-#   stage: test
-#   script:
-#     - cd moovsmart
-#     - npm run-script ci-test
-#   tags:
-#     - test
-#   cache:
-#     key: node_modules
-#     paths:
-#       - moovsmart/node_modules
-#   # only:
-#   #   changes:
-#   #     - moovsmart/*
+FE karma test:
+  # FE test image build in init stage
+  image: $MOOVSMART_REGISTRY/node-chromium:latest
+  stage: test
+  script:
+    - cd moovsmart
+    - echo "fake tests"
+    # - npm run-script ci-test
+  tags:
+    - test
+  cache:
+    key: node_modules
+    paths:
+      - moovsmart/node_modules
+  # only:
+  #   changes:
+  #     - moovsmart/*
 
 Package app:
   stage: deploy
