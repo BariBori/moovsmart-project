@@ -75,4 +75,8 @@ public class UserIdentifier implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -17,6 +17,7 @@ import {BidFormComponent} from "../bid-form/bid-form.component";
 import {BidListItemModel} from "../../models/bids/bidListItem.model";
 
 import {DatePipe} from "@angular/common";
+import {consoleTestResultHandler} from "tslint/lib/test";
 
 
 @Component({
@@ -169,8 +170,12 @@ export class PropertyDetailsComponent implements OnInit {
     this.bidService.getLastBid(Number(this.id)).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        this.propertyAdvertDetails.actualPrice = this.lastBidAmount;
-        this.nextBid = (this.propertyAdvertDetails?.actualPrice +0.1).toFixed(1);
+        if(this.lastBidAmount === null){
+          this.nextBid = (this.propertyAdvertDetails?.actualPrice +0.1).toFixed(1);
+        } else {
+          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        }
+
       }
     )
   }

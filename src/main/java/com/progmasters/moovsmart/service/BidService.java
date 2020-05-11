@@ -57,8 +57,11 @@ public class BidService {
 
     public Double getLastBidAmount(Long advertId) {
         List<Bid> bidsList = bidRepository.findBidsByPropertyAdvertId(advertId).collect(Collectors.toList());
-        Double result = bidsList.get(0).getAmountOfBid();
-        return Objects.requireNonNullElse(result, 0.0);
+        if(bidsList.size()!=0){
+            Double result = bidsList.get(0).getAmountOfBid();
+            return Objects.requireNonNullElse(result, 0.0);
+        }
+        return null;
     }
 
 
