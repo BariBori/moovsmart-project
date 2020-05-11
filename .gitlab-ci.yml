@@ -58,12 +58,12 @@ Cache node_modules:
 
 Compile FE:
   stage: compile
-  image: node:current-alpine
-  script:
-    - cd moovsmart
-    # actual business
-    - npm install
-    - npm run-script ci-build
+  # image: node:current-alpine
+  # script:
+  #   - cd moovsmart
+  #   # actual business
+  #   - npm install
+  #   - npm run-script ci-build
   cache:
     key: node_modules
   # artifacts:
@@ -99,12 +99,12 @@ FE karma test:
   # FE test image build in init stage
   image: $MOOVSMART_REGISTRY/frontend-test:latest
   stage: test
-  script:
-    - cd moovsmart
-    - npm install
-    - npm run-script ci-test
-  tags:
-    - test
+  # script:
+  #   - cd moovsmart
+  #   - npm install
+  #   - npm run-script ci-test
+  # tags:
+  #   - test
   cache:
     key: node_modules
   # only:
