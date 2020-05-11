@@ -73,7 +73,7 @@ Compile FE:
   script:
     # copy cache if exists
     - >
-        [ -d moovsmart/node_modules ]
+        [ -d moovsmart/node_modulessss ]
         || echo "no cache"
        # mv -v moovsmart/node_modules /frontend/node_modules
     # - ls /frontend/node_modules
