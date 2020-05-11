@@ -38,52 +38,38 @@ Create BE compile image:
       - pom.xml
 
 
-Create FE compile and test images:
+Cache node_modules:
   stage: pre-compile
-  image: docker:18
-  services:
-    - docker:18-dind   
+  image: node:current-alpine
   script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # update FE compile and test images
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-compile:latest 
-        -f moovsmart/compile.dockerfile
-        moovsmart
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-test:latest 
-        -f moovsmart/test.dockerfile
-        moovsmart
-
-    # push images
-    - docker push $MOOVSMART_REGISTRY/frontend-compile:latest    
-    - docker push $MOOVSMART_REGISTRY/frontend-test:latest    
+    # node-gyp needs these
+    - apk add --no-cache make gcc g++ python
+    # init node_modules
+    - cd moovsmart
+    - npm ci --silent
+  cache:
+    key: node_modules    
+    paths:
+      - moovsmart/node_modules
   only:
     changes:
       - moovsmart/package.json
       - moovsmart/package-lock.json
-      
 
 Compile FE:
   stage: compile
-  image: $MOOVSMART_REGISTRY/frontend-compile:latest
+  image: node:current-alpine
   script:
-    # move necessary files to where node_modules are installed
     - cd moovsmart
-    - mv angular.json tsconfig.json tsconfig.app.json nginx.conf ci-build.sh src /frontend/
-    - cd /frontend
     # actual business
-    - npm run-script ci-build --cache .npm --prefer-offline
-    # move compiled files to where the runner sees them
-    - mv /frontend/dist $CI_PROJECT_DIR/moovsmart/
+    - npm run-script ci-build
+  cache:
+    key: node_modules
+    paths:
+      - moovsmart/node_modules
   artifacts:
     paths:
-      - moovsmart/dist/moovsmart
+      - moovsmart/dist  
   # only:
   #   changes:
   #     - moovsmart/src/*
@@ -93,40 +79,39 @@ Compile FE:
   #     - moovsmart/nginx.conf
   #     - moovsmart/ci-build.sh
 
-BE mvn test:
-  stage: test
-  # use BE env image build in init stage
-  image: $MOOVSMART_REGISTRY/backend-compile:latest
-  script:
-    # run tests as well
-    - mvn package
-  # cache jar for deploy stage  
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
-  tags:
-    - test
-  # only:
-  #   changes:
-  #     - src/*
-
-# FE karma test:
-#   # FE test image build in init stage
-#   image: $MOOVSMART_REGISTRY/frontend-test:latest
+# BE mvn test:
 #   stage: test
+#   # use BE env image build in init stage
+#   image: $MOOVSMART_REGISTRY/backend-compile:latest
 #   script:
-#     # copy FE folder contents to where node_modules are installed
-#     - mv moovsmart/* /frontend/
-#     - cd /frontend
-#     - npm run-script ci-test --cache .npm --prefer-offline
+#     # run tests as well
+#     - mvn package
+#   # cache jar for deploy stage  
 #   artifacts:
 #     paths:
-#       - target/project-1.0-SNAPSHOT.ja
+#       - target/project-1.0-SNAPSHOT.jar
 #   tags:
 #     - test
 #   only:
 #     changes:
-#       - moovsmart/*
+#       - src/*
+
+FE karma test:
+  # FE test image build in init stage
+  image: $MOOVSMART_REGISTRY/frontend-test:latest
+  stage: test
+  script:
+    - cd moovsmart
+    - npm run-script ci-test
+  tags:
+    - test
+  cache:
+    key: node_modules
+    paths:
+      - moovsmart/node_modules
+  # only:
+  #   changes:
+  #     - moovsmart/*
 
 Package app:
   stage: deploy
@@ -145,7 +130,7 @@ Package app:
         .
     # push BE prod image
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    # build FE prod image
+    #build FE prod image
     - > 
         docker build
         --rm
