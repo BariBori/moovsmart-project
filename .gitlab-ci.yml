@@ -55,6 +55,9 @@ Cache node_modules:
     key: node_modules    
     paths:
       - moovsmart/node_modules
+  artifacts:
+    paths:
+      - moovsmart/node_modules
 
 Compile FE:
   stage: compile
