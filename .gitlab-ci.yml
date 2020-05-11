@@ -63,10 +63,10 @@ Cache node_modules:
     key: node
     paths:
       - moovsmart/node_modules
-  # only:
-  #   changes:
-  #     - moovsmart/package.json
-  #     - moovsmart/package-lock.json
+  only:
+    changes:
+      - moovsmart/package.json
+      - moovsmart/package-lock.json
 
 
 Compile FE:
