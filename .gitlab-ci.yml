@@ -60,10 +60,9 @@ Compile FE:
   stage: compile
   image: node:current-alpine
   script:
-    - ls moovsmart/node_modules
     - cd moovsmart
     # actual business
-    - npm run-script ci-build
+    # - npm run-script ci-build
   cache:
     key: node_modules
   artifacts:
