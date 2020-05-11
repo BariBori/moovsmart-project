@@ -73,7 +73,7 @@ Compile FE:
   script:
     # update node_modules if necessary
     - >
-        mv -u -v
+        mv --update -v
         /frontend/node_modules moovsmart/node_modules
     # run build    
     - npm run-script ci-build
