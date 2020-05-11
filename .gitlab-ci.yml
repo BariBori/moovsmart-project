@@ -119,7 +119,7 @@ FE karma test:
   tags:
     - test
   cache:
-    key: node_modules
+    key: node
     paths:
       - moovsmart/node_modules
   # only:
