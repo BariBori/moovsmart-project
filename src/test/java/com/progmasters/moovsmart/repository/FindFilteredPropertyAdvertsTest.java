@@ -17,7 +17,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class findFilteredPropertyAdvertsTest {
+public class FindFilteredPropertyAdvertsTest {
 
     @Autowired
     private AdvertRepository advertRepository;
