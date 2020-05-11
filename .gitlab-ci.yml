@@ -72,7 +72,7 @@ Compile FE:
   image: $MOOVSMART_REGISTRY/frontend-compile:latest  
   script:
     - cd moovsmart
-    - mv angular.json src frontend/
+    - mv angular.json src /frontend/
     - cd /frontend
     # actual business
     - npm run-script ci-build
