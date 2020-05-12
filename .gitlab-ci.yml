@@ -64,7 +64,6 @@ Cache node_modules:
       - moovsmart/node_modules
   only:
     changes:
-      - moovsmart/package.json
       - moovsmart/package-lock.json
 
 
