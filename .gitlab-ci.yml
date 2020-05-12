@@ -166,9 +166,9 @@ Package FE:
         -f moovsmart/prod.dockerfile
         moovsmart
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
-  # only:
-  #   changes:
-  #     - moovsmart/*
+  only:
+    changes:
+      - moovsmart/*
 
 Deploy app:
   stage: deploy
