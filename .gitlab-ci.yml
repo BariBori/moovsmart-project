@@ -152,11 +152,12 @@ Deploy app:
   before_script:  
     # install and run ssh
     - apk add --no-cache openssh && eval $(ssh-agent -s)
-    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
-    - alias ssh 'ssh -o StrictHostKeyChecking=no $remote_address'
+    - echo "HOST $remote_address \n StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+    - cat /etc/ssh/ssh_config
+    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
+    - ssh $server_user@$remote_address 'ls'
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
-    - cat /etc/ssh/ssh_config
     - ssh -v $server_user@$remote_address
     - docker ps
     # make pushing and pulling possible
