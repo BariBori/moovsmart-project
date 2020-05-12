@@ -96,10 +96,10 @@ Compile BE:
     paths:
       - target/project-1.0-SNAPSHOT.jar
     expire_in: 1 hour
-  # only:
-  #   changes:
-  #     - src/*
-  #     - pom.xml
+  only:
+    changes:
+      - src/*
+      - pom.xml
 
 
 BE mvn test:
@@ -148,10 +148,10 @@ Package BE:
         .
     # push prod image
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-  # only:
-  #   changes:
-  #     - src/*
-  #     - pom.xml
+  only:
+    changes:
+      - src/*
+      - pom.xml
 
 Package FE:
   stage: package
