@@ -34,9 +34,10 @@ public class BidFormValidator implements Validator {
         Double amountOfBid = bidFormData.getAmountOfBid();
         Long propertyId = bidFormData.getPropertyAdvertId();
 
-        Double actualPrice = this.propertyAdvertService.getPropertyAdvertDetails(propertyId).getActualPrice();
+        //Double actualPrice = this.propertyAdvertService.getPropertyAdvertDetails(propertyId).getActualPrice();
+        Double actual = this.bidService.getLastBidAmount(propertyId);
 
-        if(amountOfBid == null || amountOfBid < actualPrice){
+       if(amountOfBid < (actual+0.1)){
             errors.rejectValue("amountOfBid", "moovsmart.amountOfBid.invalid");
         }
     }

@@ -1,3 +1,7 @@
+.container{
+  width: 800px;
+}
+
 .label{
   font-weight: bold;
   font-size: x-large;
@@ -9,6 +13,10 @@
   font-size: medium;
   text-align: left;
   margin: 20px 0px 20px 0px;
+}
+
+.bid-table-cell{
+  font-size: small;
 }
 
 

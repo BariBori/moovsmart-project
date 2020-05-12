@@ -28,7 +28,6 @@ public class Bid {
 
     @Column
     @Positive
-    @NotNull(message = "A licit mező nem lehet üres")
     private Double amountOfBid;
 
     public Bid() {
