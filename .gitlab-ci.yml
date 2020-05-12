@@ -171,7 +171,7 @@ Package FE:
 
 
 Deploy app:
-  stage: compile
+  stage: deploy
   variables:
     DOCKER_HOST: ssh://$server_user@$remote_address
   before_script:  
