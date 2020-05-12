@@ -1,8 +1,8 @@
-stages:
-  - pre-compile
-  - compile
-  - test
-  - package
+# stages:
+#   - pre-compile
+#   - compile
+#   - test
+#   - package
   - deploy
 
 variables:
@@ -16,159 +16,159 @@ variables:
   BACKEND_HOST: 127.0.0.1
   BACKEND_USER: $server_user
 
-default:
-  image: docker:18
-  services:
-    - docker:18-dind
+# default:
+#   image: docker:18
+#   services:
+#     - docker:18-dind
 
-Update BE compile image:
-  stage: pre-compile
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    # update BE compile image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/zulu-maven:latest 
-        -f zulu-maven.dockerfile
-        .
-    # push BE env
-    - docker push $MOOVSMART_REGISTRY/zulu-maven:latest    
-  when: manual
+# Update BE compile image:
+#   stage: pre-compile
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     # update BE compile image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/zulu-maven:latest 
+#         -f zulu-maven.dockerfile
+#         .
+#     # push BE env
+#     - docker push $MOOVSMART_REGISTRY/zulu-maven:latest    
+#   when: manual
 
-Update FE test image:
-  stage: pre-compile
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - >
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/node-chromium:latest 
-        -f moovsmart/node-chromium.dockerfile
-        moovsmart
-    # push image
-    - docker push $MOOVSMART_REGISTRY/node-chromium:latest    
-  when: manual
+# Update FE test image:
+#   stage: pre-compile
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - >
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/node-chromium:latest 
+#         -f moovsmart/node-chromium.dockerfile
+#         moovsmart
+#     # push image
+#     - docker push $MOOVSMART_REGISTRY/node-chromium:latest    
+#   when: manual
 
-Cache node_modules:
-  stage: pre-compile
-  image: node:current-alpine
-  script:
-    - apk add --no-cache make gcc g++ python 
-    - cd moovsmart
-    - npm ci --silent
-  cache:
-    key: node
-    paths:
-      - moovsmart/node_modules
-  only:
-    changes:
-      - moovsmart/package.json
-      - moovsmart/package-lock.json
+# Cache node_modules:
+#   stage: pre-compile
+#   image: node:current-alpine
+#   script:
+#     - apk add --no-cache make gcc g++ python 
+#     - cd moovsmart
+#     - npm ci --silent
+#   cache:
+#     key: node
+#     paths:
+#       - moovsmart/node_modules
+#   only:
+#     changes:
+#       - moovsmart/package.json
+#       - moovsmart/package-lock.json
 
 
-Compile FE:
-  stage: compile
-  image: node:current-alpine
-  script:
-    - cd moovsmart
-    - npm run-script ci-build
-  cache:
-    key: node
-    paths:
-      - moovsmart/node_modules
-  artifacts:
-    paths:
-      - moovsmart/dist  
-      - moovsmart/nginx.conf
-  only:
-    changes:
-      - moovsmart/*
+# Compile FE:
+#   stage: compile
+#   image: node:current-alpine
+#   script:
+#     - cd moovsmart
+#     - npm run-script ci-build
+#   cache:
+#     key: node
+#     paths:
+#       - moovsmart/node_modules
+#   artifacts:
+#     paths:
+#       - moovsmart/dist  
+#       - moovsmart/nginx.conf
+#   only:
+#     changes:
+#       - moovsmart/*
 
-BE mvn test:
-  stage: test
-  image: $MOOVSMART_REGISTRY/zulu-maven:latest
-  script:
-    # run tests as well
-    - mvn package
-  # cache jar for deploy stage  
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
-    expire_in: 1 hour
-  tags:
-    - test
-  when: manual
-  # except:
-  #   changes:
-  #     - moovsmart/*
+# BE mvn test:
+#   stage: test
+#   image: $MOOVSMART_REGISTRY/zulu-maven:latest
+#   script:
+#     # run tests as well
+#     - mvn package
+#   # cache jar for deploy stage  
+#   artifacts:
+#     paths:
+#       - target/project-1.0-SNAPSHOT.jar
+#     expire_in: 1 hour
+#   tags:
+#     - test
+#   when: manual
+#   # except:
+#   #   changes:
+#   #     - moovsmart/*
 
-FE karma test:
-  # FE test image build in init stage
-  image: $MOOVSMART_REGISTRY/node-chromium:latest
-  stage: test
-  script:
-    - cd moovsmart
-    - echo "fake tests"
-    # - npm run-script ci-test
-  tags:
-    - test
-  cache:
-    key: node
-    paths:
-      - moovsmart/node_modules
-  only:
-    changes:
-      - moovsmart/*
+# FE karma test:
+#   # FE test image build in init stage
+#   image: $MOOVSMART_REGISTRY/node-chromium:latest
+#   stage: test
+#   script:
+#     - cd moovsmart
+#     - echo "fake tests"
+#     # - npm run-script ci-test
+#   tags:
+#     - test
+#   cache:
+#     key: node
+#     paths:
+#       - moovsmart/node_modules
+#   only:
+#     changes:
+#       - moovsmart/*
 
-Package BE:
-  stage: package
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    #build BE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
-        -f prod.dockerfile
-        .
-    #build FE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
-        -f moovsmart/prod.dockerfile
-        moovsmart
-    # push prod images
-    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
-  when: manual
+# Package BE:
+#   stage: package
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     #build BE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+#         -f prod.dockerfile
+#         .
+#     #build FE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+#         -f moovsmart/prod.dockerfile
+#         moovsmart
+#     # push prod images
+#     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+#     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+#   when: manual
 
-Package FE:
-  stage: package
-  script:
-    # make pushing and pulling possible
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    #build BE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
-        -f prod.dockerfile
-        .
-    #build FE prod image
-    - > 
-        docker build
-        --rm
-        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
-        -f moovsmart/prod.dockerfile
-        moovsmart
-    # push prod images
-    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
-    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
-  when: manual
+# Package FE:
+#   stage: package
+#   script:
+#     # make pushing and pulling possible
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     #build BE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+#         -f prod.dockerfile
+#         .
+#     #build FE prod image
+#     - > 
+#         docker build
+#         --rm
+#         --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+#         -f moovsmart/prod.dockerfile
+#         moovsmart
+#     # push prod images
+#     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+#     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+#   when: manual
 
 
 Deploy app:
@@ -182,12 +182,11 @@ Deploy app:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
     - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
   script:
+    - pwd
+    - ls
     - ./docker_deploy.sh
-    # - pwd
-    # make pushing and pulling possible
-    # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
     # - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
     # - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
     # - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
-  when: manual
+  # when: manual
