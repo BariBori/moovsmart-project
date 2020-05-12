@@ -49,7 +49,7 @@ Update FE test image:
         moovsmart
     # push image
     - docker push $MOOVSMART_REGISTRY/node-chromium:latest    
-#   when: manual
+  when: manual
 
 Cache node_modules:
   stage: pre-compile
