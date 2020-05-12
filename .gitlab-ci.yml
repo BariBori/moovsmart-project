@@ -154,6 +154,7 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
+    - cat /etc/ssh/ssh_config
     - ssh -v $server_user@$remote_address
     - docker ps
     # make pushing and pulling possible
