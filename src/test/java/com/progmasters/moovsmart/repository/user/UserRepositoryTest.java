@@ -1,8 +1,9 @@
-package com.progmasters.moovsmart.repository;
+package com.progmasters.moovsmart.repository.user;
 
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.domain.user.UserRole;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

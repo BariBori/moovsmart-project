@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {BidService} from "../../services/bid.service";
@@ -7,6 +7,8 @@ import {BidFormDataModel} from "../../models/bids/bidFormData.model";
 import {PropertyService} from "../../services/property.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatDialogRef} from "@angular/material/dialog";
+import {validationHandler} from "../../utils/validationHandler";
+import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 
 @Component({
   selector: 'app-bid-form',
@@ -20,6 +22,8 @@ export class BidFormComponent implements OnInit {
   amountOfBid: number;
   lastBidAmount: number;
   nextBid: string;
+  isEmpty: boolean = false;
+  property: PropertyAdvertDetailsModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,38 +50,47 @@ export class BidFormComponent implements OnInit {
 
 
   onSubmit() {
-
-    if(this.userService.isLoggedIn()){
-
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
-        this.router.navigate(['../property-details/' + this.advertId])
-      },
+        debugger;
+        this.router.navigate(['../property-details/' + this.advertId]);
+        this.bidForm.reset();
+        location.reload();
+    },
+      error => validationHandler(error, this.bidForm)
     );
-    } else{
-      this.router.navigate(['user-login']);
-    }
-    this.bidForm.reset();
-    alert("Sikeres licit!");
+
   }
 
   openDialog(content) {
-    this.modalService.open(content, { centered: true });
+    if(this.userService.isLoggedIn()) {
+      this.modalService.open(content, {centered: true});
+    } else{
+      this.router.navigate(['user-login']);
+      alert("A licitáláshoz be kell jeletkezni");
+    }
   }
 
   getLastBid() {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
-
+        if(this.lastBidAmount !=null){
+          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        }
+        else{
+          this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
+            property=>{
+              this.property = property;
+              this.nextBid = (this.property.actualPrice+0.1).toFixed(1)
+            }
+          );
+        }
       }
     );
   }
 
-  clearBidInput(){
 
-  }
 
 }

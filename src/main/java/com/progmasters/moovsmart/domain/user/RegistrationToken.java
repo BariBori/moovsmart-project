@@ -8,14 +8,18 @@ import java.util.UUID;
 
 @Entity(name = "registration_token")
 public class RegistrationToken {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     private User user;
+
     @Column(unique = true)
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
+
     private Instant issuedAt;
 
     public static RegistrationToken forUser(User user) {
@@ -40,5 +44,9 @@ public class RegistrationToken {
 
     public Instant getIssuedAt() {
         return issuedAt;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 }
