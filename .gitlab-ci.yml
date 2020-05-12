@@ -4,20 +4,21 @@ stages:
   - test
   - deploy
 
+variables:
+  # needed for Docker-In-Docker
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay
+  # project's gitlab ci registry
+  MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
+  FRONTEND_HOST: 127.0.0.1
+  FRONTEND_USER: $server_user
+  BACKEND_HOST: 127.0.0.1
+  BACKEND_USER: $server_user
+
 default:
   image: docker:18
   services:
     - docker:18-dind
-  variables:
-    # needed for Docker-In-Docker
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay
-    # project's gitlab ci registry
-    MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
-    FRONTEND_HOST: 127.0.0.1
-    FRONTEND_USER: $server_user
-    BACKEND_HOST: 127.0.0.1
-    BACKEND_USER: $server_user
 
 
 Update BE compile image:
