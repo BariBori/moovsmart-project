@@ -16,10 +16,10 @@ variables:
   BACKEND_HOST: 127.0.0.1
   BACKEND_USER: $server_user
 
-# default:
-#   image: docker:18
-#   services:
-#     - docker:18-dind
+default:
+  image: docker:18
+  services:
+    - docker:18-dind
 
 # Update BE compile image:
 #   stage: pre-compile
