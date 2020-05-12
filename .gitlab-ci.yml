@@ -13,7 +13,7 @@ variables:
   MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
   FRONTEND_HOST: 3.18.213.29
   FRONTEND_USER: $server_user
-  BACKEND_HOST: 127.0.0.1
+  BACKEND_HOST: 127.0.0.1:8080
   BACKEND_USER: $server_user
 
 default:
