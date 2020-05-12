@@ -182,9 +182,10 @@ Deploy app:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
     - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
   script:
-    - pwd
-    - ls
-    - ./docker_deploy.sh
+    - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
+    - docker pull $MOOVSMART_REGISTRY/backend-prod:latest  
+    - docker pull $MOOVSMART_REGISTRY/frontend-prod:latest 
+    - ssh $server_user@$remote_address 'docker-compose down && docker system prune -f && docker-compose up'
 
     # - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
     # - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
