@@ -172,7 +172,7 @@ Package FE:
 
 
 Deploy app:
-  stage: deploy
+  # stage: deploy
   variables:
     DOCKER_HOST: ssh://$server_user@$remote_address
   before_script:  
