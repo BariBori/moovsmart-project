@@ -41,6 +41,9 @@
       <input class="form-control col-lg-4 col-md-6 col-sm-6" formControlName="startOfAuction" id="startOfAuction"
              type="datetime-local"/>
     </div>
+    <p><small *ngFor=" let errorMessage of propertyForm.get('startOfAuction').errors | keyvalue" class="text-danger">
+      {{errorMessage?.value}}
+    </small></p>
 
     <div class="form-group">
       <label class="property-form-label" for="endOfAuction">Aukció vége</label>

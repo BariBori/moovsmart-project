@@ -56,8 +56,33 @@ public class PropertyAdvertValidator implements Validator {
 
         LocalDateTime startOfAuction = propertyAdvertFormData.getStartOfAuction();
         LocalDateTime endOfAuction = propertyAdvertFormData.getEndOfAuction();
+        LocalDateTime today = LocalDateTime.now();
         if((startOfAuction !=null && endOfAuction!=null) && endOfAuction.isBefore(startOfAuction)){
             errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.invalid");
+        }
+
+        if(startOfAuction!=null && startOfAuction.isBefore(today)){
+            errors.rejectValue("startOfAuction", "moovsmart.startOfAuction.before.today");
+        }
+
+        if(endOfAuction!=null && endOfAuction.isBefore(today)){
+            errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.before.today");
+        }
+
+        if(startOfAuction !=null && endOfAuction == null){
+            errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.missing");
+        }
+
+        if(startOfAuction ==null && endOfAuction != null){
+            errors.rejectValue("startOfAuction", "moovsmart.startOfAuction.missing");
+        }
+
+        if(startOfAuction.getYear()>today.getYear()+1){
+            errors.rejectValue("startOfAuction", "moovsmart.startOfAuction.tooFar");
+        }
+
+        if(endOfAuction.getYear()>today.getYear()+1){
+            errors.rejectValue("startOfAuction", "moovsmart.endOfAuction.tooFar");
         }
     }
 }
