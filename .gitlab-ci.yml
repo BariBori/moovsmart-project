@@ -158,7 +158,8 @@ Deploy app:
     # enable calling docker from within docker image
     - docker:18-dind   
   before_script:  
-    - apk add --no-cache openssh
+    # install and run ssh
+    - apk add --no-cache openssh && eval $(ssh-agent -s)
   script:
     - ssh-add moovsmart.pem
     # make pushing and pulling possible
