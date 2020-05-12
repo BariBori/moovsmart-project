@@ -178,7 +178,7 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
     # add ssh identity
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
-    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
+    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'pwd'
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
