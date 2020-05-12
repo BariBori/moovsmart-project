@@ -157,6 +157,8 @@ Deploy app:
   services:
     # enable calling docker from within docker image
     - docker:18-dind   
+  before_script:  
+    - ssh-add moovsmart.pem
   script:
     - ssh-add moovsmart.pem
     # make pushing and pulling possible
