@@ -32,23 +32,24 @@ class MessageRepositoryTest {
         User user = new User("akarmi@akarmi.com", "user", "1234", UserRole.ROLE_USER);
         userRepository.save(user);
 
-        Conversation conversation = new Conversation() {
-            @Override
-            public List<Message> getMessages() {
-                return super.getMessages();
-            }
-        };
+        Conversation conversation = null;
 
         String actualMessage = "Message";
         Message message = new Message(user, conversation, actualMessage);
         messageRepository.save(message);
-
     }
 
     @Test
     void testSaveMessageWithOneHit() {
         List<Message> messageList = messageRepository.findAll();
         assertEquals(1, messageList.size());
+    }
+
+    @Test
+    void testDeleteAllByConversation_Id() {
+        messageRepository.deleteAllByConversation_Id(null);
+        List<Message> messageList = messageRepository.findAll();
+        assertEquals(0, messageList.size());
     }
 
 

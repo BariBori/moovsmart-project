@@ -18,6 +18,4 @@ public interface ChatViewRepository extends JpaRepository<Chat.View, Long> {
 
     Optional<Chat.View> findOneByPartner_IdAndConversation_Id(Long userId, Long chatId);
 
-
-
 }
