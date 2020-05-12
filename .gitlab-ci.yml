@@ -83,9 +83,9 @@ Compile FE:
       - moovsmart/dist  
       - moovsmart/nginx.conf
     expire_in: 1 hour
-#   only:
-#     changes:
-#       - moovsmart/*
+  only:
+    changes:
+      - moovsmart/*
 
 Compile BE:
   stage: compile
