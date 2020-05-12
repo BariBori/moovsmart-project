@@ -97,10 +97,10 @@ Compile BE:
     paths:
       - target/project-1.0-SNAPSHOT.jar
     expire_in: 1 hour
-  when: manual
-  # except:
+  # only:
   #   changes:
-  #     - moovsmart/*
+  #     - src/*
+  #     - pom.xml
 
 
 BE mvn test:
