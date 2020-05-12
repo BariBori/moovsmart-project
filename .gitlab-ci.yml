@@ -2,6 +2,7 @@ stages:
   - pre-compile
   - compile
   - test
+  - package
   - deploy
 
 variables:
@@ -82,9 +83,9 @@ Compile FE:
     paths:
       - moovsmart/dist  
       - moovsmart/nginx.conf
-  only:
-    changes:
-      - moovsmart/*
+  # only:
+  #   changes:
+  #     - moovsmart/*
 
 BE mvn test:
   stage: test
@@ -99,9 +100,9 @@ BE mvn test:
     expire_in: 1 hour
   tags:
     - test
-  except:
-    changes:
-      - moovsmart/*
+  # except:
+  #   changes:
+  #     - moovsmart/*
 
 FE karma test:
   # FE test image build in init stage
@@ -117,12 +118,35 @@ FE karma test:
     key: node
     paths:
       - moovsmart/node_modules
-  only:
-    changes:
-      - moovsmart/*
+  # only:
+  #   changes:
+  #     - moovsmart/*
 
-Package app:
-  stage: deploy
+Package BE:
+  stage: package
+  script:
+    # make pushing and pulling possible
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    #build BE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/backend-prod:latest 
+        -f prod.dockerfile
+        .
+    #build FE prod image
+    - > 
+        docker build
+        --rm
+        --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
+        -f moovsmart/prod.dockerfile
+        moovsmart
+    # push prod images
+    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+    - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+
+Package FE:
+  stage: package
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -154,7 +178,8 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
-    - ssh -v -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
+    - ssh -v -o StrictHostKeyChecking=no $server_user@$remote_address
+    - ssh $server_user@$remote_address 'ls'
     # - pwd
     # - docker ps
     # make pushing and pulling possible
