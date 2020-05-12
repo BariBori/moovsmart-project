@@ -151,7 +151,7 @@ Package app:
 Deploy app:
   variables:
     DOCKER_HOST: ssh://$server_user@$remote_address
-  stage: deploy
+  stage: compile
   image: docker:18
   services:
     # enable calling docker from within docker image
