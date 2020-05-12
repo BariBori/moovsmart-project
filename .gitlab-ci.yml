@@ -152,6 +152,7 @@ Deploy app:
   before_script:  
     # install and run ssh
     - apk add --no-cache openssh && eval $(ssh-agent -s)
+    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
     - alias ssh 'ssh -o StrictHostKeyChecking=no $remote_address'
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
