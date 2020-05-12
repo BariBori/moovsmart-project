@@ -143,6 +143,7 @@ Package BE:
     # push prod images
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+  when: manual
 
 Package FE:
   stage: package
@@ -166,6 +167,7 @@ Package FE:
     # push prod images
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+  when: manual
 
 
 Deploy app:
