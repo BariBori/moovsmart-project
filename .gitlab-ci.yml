@@ -85,12 +85,7 @@ Compile FE:
       - moovsmart/nginx.conf
   only:
     changes:
-      - moovsmart/src/*
-      - moovsmart/angular.json
-      - moovsmart/tsconfig.json
-      - moovsmart/tsconfig.app.json
-      - moovsmart/nginx.conf
-      - moovsmart/ci-build.sh
+      - moovsmart/*
 
 BE mvn test:
   stage: test
@@ -104,9 +99,9 @@ BE mvn test:
       - target/project-1.0-SNAPSHOT.jar
   tags:
     - test
-  # only:
-  #   changes:
-  #     - src/*
+   except:
+    changes:
+      - moovsmart/*
 
 FE karma test:
   # FE test image build in init stage
@@ -122,9 +117,9 @@ FE karma test:
     key: node
     paths:
       - moovsmart/node_modules
-  # only:
-  #   changes:
-  #     - moovsmart/*
+  only:
+    changes:
+      - moovsmart/*
 
 Package app:
   stage: deploy
@@ -153,20 +148,23 @@ Package app:
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
 
 
-# Deploy app:
-#   stage: deploy
-#   image: docker:18
-#   services:
-#     # enable calling docker from within docker image
-#     - docker:18-dind   
-#   script:
-#     - ssh-add moovsmart.pem
-#     # make pushing and pulling possible
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+Deploy app:
+  variables:
+    DOCKER_HOST: ssh://$server_user@$remote_address
+  stage: deploy
+  image: docker:18
+  services:
+    # enable calling docker from within docker image
+    - docker:18-dind   
+  script:
+    - ssh-add moovsmart.pem
+    # make pushing and pulling possible
+    - echo "test"
+    # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-#     - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
-#     - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-#     - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
+    # - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
+    # - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
+    # - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
 
-#   only:
-#     - master
+  only:
+    - master
