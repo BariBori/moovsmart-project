@@ -5,7 +5,7 @@ if [ -z ${BACKEND_HOST+x} ] && [ -z ${FRONTEND_HOST+x} ];
         echo "BACKEND_HOST or FRONTEND_HOST is unset, going with default";
     else
         echo "setting BASE_URL in environment.prod.ts to $FRONTEND_HOST";
-        sed  -i "s/BASE_URL: '.*'/BASE_URL: '$FRONTEND_HOST'/g" src/environments/environment.prod.ts
+        sed  -i "s/frontend/$FRONTEND_HOST/g" src/environments/environment.prod.ts
         echo "setting proxy_pass in nginx.conf to $BACKEND_HOST";
         sed -i  "s/backend/$BACKEND_HOST/g" nginx.conf
         echo "setting FE server name in nginx.conf to $FRONTEND_HOST";
