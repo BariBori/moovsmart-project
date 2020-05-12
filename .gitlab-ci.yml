@@ -152,9 +152,9 @@ Deploy app:
   before_script:  
     # install and run ssh
     - apk add --no-cache openssh && eval $(ssh-agent -s)
-    - echo "HOST $remote_address \n StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+    - printf "HOST $remote_address \n StrictHostKeyChecking no" >> /etc/ssh/ssh_config
     - cat /etc/ssh/ssh_config
-    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
+    # - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
     - ssh $server_user@$remote_address 'ls'
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
