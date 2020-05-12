@@ -180,7 +180,7 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
     # add ssh identity
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
-    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
+    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'ls'
   script:
     - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
     - docker pull $MOOVSMART_REGISTRY/backend-prod:latest  
