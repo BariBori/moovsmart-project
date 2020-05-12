@@ -154,9 +154,9 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
   script:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
+    - ssh "echo foo"
     - docker ps
     # make pushing and pulling possible
-    - echo "test"
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
     # - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
