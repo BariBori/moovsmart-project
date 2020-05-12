@@ -97,6 +97,7 @@ BE mvn test:
   artifacts:
     paths:
       - target/project-1.0-SNAPSHOT.jar
+    expire_in: 1 hour
   tags:
     - test
   except:
