@@ -181,9 +181,8 @@ Deploy app:
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
     - ssh -o StrictHostKeyChecking=no $server_user@$remote_address
   script:
-    - ssh $server_user@$remote_address 'ls'
+    - ./docker_deploy.sh
     # - pwd
-    - docker ps
     # make pushing and pulling possible
     # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
