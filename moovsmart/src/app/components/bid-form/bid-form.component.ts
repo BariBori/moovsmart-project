@@ -8,6 +8,7 @@ import {PropertyService} from "../../services/property.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatDialogRef} from "@angular/material/dialog";
 import {validationHandler} from "../../utils/validationHandler";
+import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
 
 @Component({
   selector: 'app-bid-form',
@@ -22,6 +23,7 @@ export class BidFormComponent implements OnInit {
   lastBidAmount: number;
   nextBid: string;
   isEmpty: boolean = false;
+  property: PropertyAdvertDetailsModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,8 +76,17 @@ export class BidFormComponent implements OnInit {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
-
+        if(this.lastBidAmount !=null){
+          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        }
+        else{
+          this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
+            property=>{
+              this.property = property;
+              this.nextBid = (this.property.actualPrice+0.1).toFixed(1)
+            }
+          );
+        }
       }
     );
   }
