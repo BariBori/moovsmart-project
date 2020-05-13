@@ -53,7 +53,6 @@ export class BidFormComponent implements OnInit {
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
-        debugger;
         this.router.navigate(['../property-details/' + this.advertId]);
         this.bidForm.reset();
         location.reload();
