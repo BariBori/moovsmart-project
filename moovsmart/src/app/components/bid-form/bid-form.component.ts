@@ -56,7 +56,7 @@ export class BidFormComponent implements OnInit {
         debugger;
         this.router.navigate(['../property-details/' + this.advertId]);
         this.bidForm.reset();
-        //location.reload();
+        location.reload();
     },
       error => validationHandler(error, this.bidForm)
     );
