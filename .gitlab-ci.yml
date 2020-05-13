@@ -2,6 +2,7 @@ stages:
   - pre-compile
   - compile
   - test
+  - package
   - deploy
 
 variables:
@@ -10,17 +11,18 @@ variables:
   DOCKER_DRIVER: overlay
   # project's gitlab ci registry
   MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
-  FRONTEND_HOST: 127.0.0.1
+  FRONTEND_HOST: 3.18.213.29
   FRONTEND_USER: $server_user
-  BACKEND_HOST: 127.0.0.1
+  BACKEND_HOST: 127.0.0.1:8080
   BACKEND_USER: $server_user
 
+default:
+  image: docker:18
+  services:
+    - docker:18-dind
 
 Update BE compile image:
   stage: pre-compile
-  image: docker:18
-  services:
-    - docker:18-dind   
   script:
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -37,9 +39,6 @@ Update BE compile image:
 
 Update FE test image:
   stage: pre-compile
-  image: docker:18
-  services:
-    - docker:18-dind   
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - >
@@ -65,7 +64,6 @@ Cache node_modules:
       - moovsmart/node_modules
   only:
     changes:
-      - moovsmart/package.json
       - moovsmart/package-lock.json
 
 
@@ -83,30 +81,39 @@ Compile FE:
     paths:
       - moovsmart/dist  
       - moovsmart/nginx.conf
+    expire_in: 1 hour
   only:
     changes:
-      - moovsmart/src/*
-      - moovsmart/angular.json
-      - moovsmart/tsconfig.json
-      - moovsmart/tsconfig.app.json
-      - moovsmart/nginx.conf
-      - moovsmart/ci-build.sh
+      - moovsmart/*
+
+Compile BE:
+  stage: compile
+  image: $MOOVSMART_REGISTRY/zulu-maven:latest
+  script:
+    - mvn package -DskipTests
+  # cache jar for package stage  
+  artifacts:
+    paths:
+      - target/project-1.0-SNAPSHOT.jar
+    expire_in: 1 hour
+  only:
+    changes:
+      - src/*
+      - pom.xml
+
 
 BE mvn test:
   stage: test
   image: $MOOVSMART_REGISTRY/zulu-maven:latest
   script:
     # run tests as well
-    - mvn package
-  # cache jar for deploy stage  
-  artifacts:
-    paths:
-      - target/project-1.0-SNAPSHOT.jar
+    - mvn test
   tags:
     - test
-  # only:
-  #   changes:
-  #     - src/*
+  only:
+    changes:
+      - src/*
+      - pom.xml
 
 FE karma test:
   # FE test image build in init stage
@@ -114,26 +121,23 @@ FE karma test:
   stage: test
   script:
     - cd moovsmart
-    - echo "fake tests"
-    # - npm run-script ci-test
+    - npm run-script ci-test
   tags:
     - test
   cache:
     key: node
     paths:
       - moovsmart/node_modules
-  # only:
-  #   changes:
-  #     - moovsmart/*
+  only:
+    changes:
+      - moovsmart/karma.conf.js
 
-Package app:
-  stage: deploy
-  image: docker:18
-  services:
-    - docker:18-dind   
-  script:
+Package BE:
+  stage: package
+  before_script:  
     # make pushing and pulling possible
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
     #build BE prod image
     - > 
         docker build
@@ -141,6 +145,18 @@ Package app:
         --tag $MOOVSMART_REGISTRY/backend-prod:latest 
         -f prod.dockerfile
         .
+    # push prod image
+    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
+  only:
+    changes:
+      - src/*
+      - pom.xml
+
+Package FE:
+  stage: package
+  before_script:  
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
     #build FE prod image
     - > 
         docker build
@@ -148,25 +164,26 @@ Package app:
         --tag $MOOVSMART_REGISTRY/frontend-prod:latest 
         -f moovsmart/prod.dockerfile
         moovsmart
-    # push prod images
-    - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
+  only:
+    changes:
+      - moovsmart/*
 
-
-# Deploy app:
-#   stage: deploy
-#   image: docker:18
-#   services:
-#     # enable calling docker from within docker image
-#     - docker:18-dind   
-#   script:
-#     - ssh-add moovsmart.pem
-#     # make pushing and pulling possible
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-#     - scp -r moovsmart/dist/moovsmart "$server_user"@"$remote_address:/home/ec2-user/frontend"
-#     - scp target/project-1.0-SNAPSHOT.jar "$server_user"@$remote_address:/home/ec2-user/project-1.0-SNAPSHOT.jar.new
-#     - ssh "$server_user"@"$remote_address" './shutdown.sh && mv project-1.0-SNAPSHOT.jar.new project.jar && ./start.sh'
-
-#   only:
-#     - master
+Deploy app:
+  stage: deploy
+  variables:
+    DOCKER_HOST: ssh://$server_user@$remote_address
+  before_script:  
+    # install and run ssh
+    - apk add --no-cache openssh && eval $(ssh-agent -s)
+    # add ssh identity
+    - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
+    - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'pwd'
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
+    - docker pull $MOOVSMART_REGISTRY/backend-prod:latest  
+    - docker pull $MOOVSMART_REGISTRY/frontend-prod:latest 
+    - ssh $server_user@$remote_address 'docker-compose down && docker system prune -f && docker-compose up -d'
+  only:
+    - master
