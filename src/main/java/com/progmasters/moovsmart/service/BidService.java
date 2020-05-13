@@ -6,6 +6,7 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.domain.user.UserIdentifier;
 import com.progmasters.moovsmart.dto.list.BidListItem;
 import com.progmasters.moovsmart.dto.form.BidFormData;
+import com.progmasters.moovsmart.dto.list.MyBidList;
 import com.progmasters.moovsmart.repository.AdvertRepository;
 import com.progmasters.moovsmart.repository.BidRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,6 +62,11 @@ public class BidService {
             return Objects.requireNonNullElse(result, 0.0);
         }
         return null;
+    }
+
+    public List<MyBidList> listMyBids(String userName){
+        return bidRepository.findMyBids(userName)
+                .map(MyBidList::new).collect(Collectors.toList());
     }
 
 

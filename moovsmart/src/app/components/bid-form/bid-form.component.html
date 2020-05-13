@@ -4,13 +4,18 @@
       <input class="form-control"
              formControlName="amountOfBid"
              id="amountOfBid"
+             [(ngModel)]="amountOfBid"
              name="amountOfBid"
              type="number"
              step="0.1"
              min="{{nextBid}}"
-             [(ngModel)]="amountOfBid"
+             placeholder="{{nextBid}} Millió Ft"
       >
 
+      <div>
+        <small *ngFor=" let errorMessage of bidForm.get('amountOfBid').errors | keyvalue" class="text-danger">
+          {{errorMessage?.value}}
+        </small></div>
 
 
       <ng-template #content let-modal>
@@ -25,12 +30,15 @@
           <button type="button" class="btn btn-light" (click)="onSubmit(); modal.close()" data-dismiss="modal">Licitálok</button>
           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Mégsem</button>
         </div>
+        <div>
+          <small *ngFor=" let errorMessage of bidForm.get('amountOfBid').errors | keyvalue" class="text-danger">
+            {{errorMessage?.value}}
+          </small></div>
       </ng-template>
 
-      <!--
-      <button class="btn btn-success my-buttons" (click)="openDialog(content)" [disabled]="(!amountOfBid)">Licit küldése</button>
-      -->
-      <button class="btn btn-success my-buttons" (click)="openDialog(content)" [disabled]="(!amountOfBid)">Licit küldése</button>
+
+      <button class="btn btn-success my-buttons" (click)="openDialog(content)" [disabled]="amountOfBid < nextBid">Licit küldése</button>
+
 
 
     </div>

@@ -89,7 +89,7 @@ export class PropertyDetailsComponent implements OnInit {
   public map: google.maps.Marker;
   public userName: string;
 
-  isShow = true;
+  //isShow = true;
 
   ngOnInit(): void {
     this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
@@ -172,12 +172,12 @@ export class PropertyDetailsComponent implements OnInit {
     this.bidService.getLastBid(Number(this.id)).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        if (this.lastBidAmount === null) {
+        if(this.lastBidAmount === null){
           this.nextBid = (this.propertyAdvertDetails?.actualPrice + 0.1).toFixed(1);
         } else {
           this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
         }
-
+        console.log("nextbid: " + this.nextBid);
       }
     );
   }
@@ -197,6 +197,8 @@ export class PropertyDetailsComponent implements OnInit {
       this.isVisitorLogged = false;
     }
   }
+
+  isShow = true;
   toggleDisplay() {
     this.isShow = !this.isShow;
   }

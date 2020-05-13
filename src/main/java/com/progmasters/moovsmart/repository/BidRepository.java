@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.repository;
 
 import com.progmasters.moovsmart.domain.Bid;
+import com.progmasters.moovsmart.dto.list.MyBidList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +21,9 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
     Long findNumberOfUniqueBidders(@Param("advertId") Long advertId);
 
     List<Bid> findAll();
+
+
+   @Query("SELECT b FROM Bid b WHERE b.userId.userName = :userName")
+    Stream<Bid> findMyBids(String userName);
 
 }

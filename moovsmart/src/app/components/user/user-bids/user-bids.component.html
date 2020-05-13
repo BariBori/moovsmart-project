@@ -1,0 +1,38 @@
+<div class="container">
+
+
+  <div class="table-responsive">
+    <table
+           data-group-by="true"
+           data-group-by-field="title">
+      <thead class="thead-light">
+      <tr>
+        <th data-field="advertId">Hirdetésazonosító</th>
+        <th data-field="title">Megnevezés</th>
+        <th>Licitösszeg</th>
+        <th>Dátum</th>
+        <th>Aukció</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bid of dataSource; index as i">
+        <td class="bid-table-cell">{{bid?.advertId}}</td>
+        <td class="bid-table-cell">{{bid?.title}}</td>
+        <td class="bid-table-cell">{{bid?.amountOfBid}} Millió Ft</td>
+        <td class="bid-table-cell">{{bid?.dateTimeOfBid | date:'yyyy.MM.dd HH:mm:ss'}}</td>
+        <td class="bid-table-cell">{{bid?.startOfAuction | date:'yyyy.MM.dd HH:mm:ss'}} - {{bid?.endOfAuction | date:'yyyy.MM.dd HH:mm:ss'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+</div>
+
+

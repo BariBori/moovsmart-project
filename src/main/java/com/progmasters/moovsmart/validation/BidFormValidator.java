@@ -24,7 +24,8 @@ public class BidFormValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> aClass){ return aClass.equals(BidFormData.class);
+    public boolean supports(Class<?> aClass)
+    { return aClass.equals(BidFormData.class);
     }
 
     @Override
@@ -34,10 +35,10 @@ public class BidFormValidator implements Validator {
         Double amountOfBid = bidFormData.getAmountOfBid();
         Long propertyId = bidFormData.getPropertyAdvertId();
 
-        //Double actualPrice = this.propertyAdvertService.getPropertyAdvertDetails(propertyId).getActualPrice();
-        Double actual = this.bidService.getLastBidAmount(propertyId);
+        Double actualPrice = this.propertyAdvertService.getPropertyAdvertDetails(propertyId).getActualPrice();
+        //Double actual = this.bidService.getLastBidAmount(propertyId);
 
-       if(amountOfBid < (actual+0.1)){
+       if(amountOfBid !=null && amountOfBid < actualPrice){
             errors.rejectValue("amountOfBid", "moovsmart.amountOfBid.invalid");
         }
     }
