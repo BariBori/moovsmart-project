@@ -84,7 +84,7 @@ Compile FE:
     expire_in: 1 hour
   only:
     changes:
-      - moovsmart/*
+      - moovsmart/**/*
 
 Compile BE:
   stage: compile
