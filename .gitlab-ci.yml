@@ -130,7 +130,7 @@ FE karma test:
       - moovsmart/node_modules
   only:
     changes:
-      - moovsmart/*
+      - moovsmart/**/*
   allow_failure: true
 
 Package BE:
@@ -168,7 +168,7 @@ Package FE:
     - docker push $MOOVSMART_REGISTRY/frontend-prod:latest  
   only:
     changes:
-      - moovsmart/*
+      - moovsmart/**/*
 
 Deploy app:
   stage: deploy
