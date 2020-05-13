@@ -48,4 +48,6 @@ export class UserPropertyComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
+
+
 }

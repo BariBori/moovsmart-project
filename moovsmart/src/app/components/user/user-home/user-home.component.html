@@ -14,6 +14,7 @@
         <li><a routerLink="./user-details" routerLinkActive="active">
             <fa-icon [icon]="faUser" class="icon"></fa-icon> Adataim
           </a></li>
+
         <li><a routerLink="/messaging" routerLinkActive="active">
             <fa-icon [icon]="faEnvelope" class="icon"></fa-icon>
             <span [matBadge]="unread===0?'':unread" matBadgeOverlap='false'> Üzeneteim</span>
@@ -22,9 +23,12 @@
         <li><a routerLink="./user-property" routerLinkActive="active">
             <fa-icon [icon]="faCity" class="icon"></fa-icon> Eladó ingatlanjaim
           </a></li>
+
         <li><a routerLink="./user-saved-property" routerLinkActive="active">
           <fa-icon [icon]="faStar" class="icon"></fa-icon> Mentett hirdetéseim</a></li>
-        <li><a routerLink="./user-details" routerLinkActive="inactive">Licitált ingatlanjaim</a></li>
+
+        <li><a routerLink="./user-bids" routerLinkActive="active">
+          <fa-icon [icon]="faGavel" class="icon"></fa-icon>Licitált ingatlanjaim</a></li>
       </ul>
     </nav>
 

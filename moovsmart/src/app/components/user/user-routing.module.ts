@@ -4,6 +4,7 @@ import {NgModule} from "@angular/core";
 import {UserDetailsComponent} from "./user-details/user-details.component";
 import {UserPropertyComponent} from "./user-property/user-property.component";
 import {UserSavedPropertyComponent} from "./user-saved-property/user-saved-property.component";
+import {UserBidsComponent} from "./user-bids/user-bids.component";
 
 const userRoutes: Routes = [
   {
@@ -15,7 +16,8 @@ const userRoutes: Routes = [
         children: [
           {path: 'user-details', component: UserDetailsComponent},
           {path: 'user-property', component: UserPropertyComponent},
-          {path: 'user-saved-property', component: UserSavedPropertyComponent}
+          {path: 'user-saved-property', component: UserSavedPropertyComponent},
+          {path: 'user-bids', component: UserBidsComponent}
         ]
       }
     ]

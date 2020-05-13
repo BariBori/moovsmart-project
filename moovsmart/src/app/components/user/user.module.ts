@@ -28,6 +28,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserSavedPropertyComponent } from './user-saved-property/user-saved-property.component';
 import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
+import { UserBidsComponent } from './user-bids/user-bids.component';
 
 @NgModule({
     imports: [
@@ -59,6 +60,7 @@ import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
     UserDetailsComponent,
     UserPropertyComponent,
     UserSavedPropertyComponent,
+    UserBidsComponent,
   ]
 }
 

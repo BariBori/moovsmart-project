@@ -4,6 +4,7 @@ import {BidFormDataModel} from "../models/bids/bidFormData.model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {BidListItemModel} from "../models/bids/bidListItem.model";
+import {MyBidsModel} from "../models/bids/myBids.model";
 
 const BASE_URL = environment.BASE_URL + "/api/properties/property-details";
 
@@ -30,6 +31,10 @@ export class BidService{
 
   getNumberOfBidUsers(advertId: number): Observable<number> {
     return this.httpClient.get<number>(BASE_URL + '/bidder/' + advertId);
+  }
+
+  getMyBids(userName: string): Observable<Array<MyBidsModel>>{
+    return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + userName);
   }
 
 }
