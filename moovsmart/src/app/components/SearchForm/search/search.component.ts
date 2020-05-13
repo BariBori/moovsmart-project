@@ -1,11 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validator, ValidatorFn, Validators} from "@angular/forms";
-import {PropertyTypeOptionItemModel} from "../../../models/propertyTypeOptionItem.model";
-import {PropertyConditionTypeOptionItemModel} from "../../../models/propertyConditionTypeOptionItem.model";
-import {PropertyService} from "../../../services/property.service";
-import {FormInitDataModel} from "../../../models/formInitDataModel";
-import {areaValidator,  priceValidator, roomValidator} from "./validator.directive";
-import {SharingSearchService} from "../../../services/sharing-search.service";
+import {FormBuilder, FormControl, FormGroup, Validator, ValidatorFn, Validators} from '@angular/forms';
+import {PropertyTypeOptionItemModel} from '../../../models/propertyTypeOptionItem.model';
+import {PropertyConditionTypeOptionItemModel} from '../../../models/propertyConditionTypeOptionItem.model';
+import {PropertyService} from '../../../services/property.service';
+import {FormInitDataModel} from '../../../models/formInitDataModel';
+import {areaValidator,  priceValidator, roomValidator} from './validator.directive';
+import {SharingSearchService} from '../../../services/sharing-search.service';
 
 
 
@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit {
     minArea: [null, Validators.required],
     maxArea:  [null, Validators.required],
 
-  }, {validators:Validators.compose([areaValidator, priceValidator, roomValidator])}
+  }, {validators: Validators.compose([areaValidator, priceValidator, roomValidator])}
 
   );
 
@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.propertyService?.getCityList().subscribe(
-      (cityData: any) =>{
+      (cityData: any) => {
         this.city = cityData;
         console.log(cityData);
         console.log(this.city);
@@ -74,8 +74,8 @@ export class SearchComponent implements OnInit {
 
   }
 
-  makeCityList(){
-    for (let index of this.city){
+  makeCityList() {
+    for (const index of this.city) {
       this.cityNameList?.push(index.city);
     }
     return this.cityNameList;
@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit {
 
 
 
-  submit (filterPropertyAdvertModel){
+  submit(filterPropertyAdvertModel) {
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
     console.log(filterPropertyAdvertModel);
 

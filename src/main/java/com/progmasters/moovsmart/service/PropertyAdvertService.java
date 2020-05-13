@@ -38,13 +38,14 @@ public class PropertyAdvertService {
         this.advertRepository = advertRepository;
     }
 
-    public void saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
+    public String saveAdvert(PropertyAdvertFormData propertyAdvertFormData, UserIdentifier userDetails) {
         Optional<User> user = userRepository.findOneByUserName(userDetails.getUsername());
         if (user.isPresent()) {
             User chosenUser = user.get();
             PropertyAdvert propertyAdvert = new PropertyAdvert(propertyAdvertFormData, chosenUser);
             this.advertRepository.save(propertyAdvert);
         }
+        return "";
     }
 
     public PropertyAdvertInitFormData createPropertyAdvertFormInitData() {

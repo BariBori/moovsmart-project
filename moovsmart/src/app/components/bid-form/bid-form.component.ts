@@ -39,7 +39,7 @@ export class BidFormComponent implements OnInit {
 
   bidForm = this.formBuilder.group({
     amountOfBid: ['']
-  })
+  });
 
   ngOnInit(): void {
     this.advertId = Number(this.route.snapshot.paramMap.get('id'));
@@ -47,13 +47,14 @@ export class BidFormComponent implements OnInit {
       user => this.userId = user.id
     );
     this.getLastBid();
-  };
+  }
 
 
   onSubmit() {
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
+        debugger;
         this.router.navigate(['../property-details/' + this.advertId]);
         this.bidForm.reset();
         location.reload();
@@ -82,7 +83,7 @@ export class BidFormComponent implements OnInit {
         }
         else{
           this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
-            property=>{
+            property => {
               this.property = property;
               this.nextBid = (this.property.actualPrice+0.1).toFixed(1);
               this.nextBidNumber = (this.property.actualPrice + 0.1)

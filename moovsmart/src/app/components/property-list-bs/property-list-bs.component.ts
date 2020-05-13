@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {PropertyService} from "../../services/property.service";
-import {Router} from "@angular/router";
-import {PropertyListItemModel} from "../../models/propertyListItem.model";
-import {faCameraRetro} from "@fortawesome/free-solid-svg-icons/faCameraRetro";
+import {Observable} from 'rxjs';
+import {PropertyService} from '../../services/property.service';
+import {Router} from '@angular/router';
+import {PropertyListItemModel} from '../../models/propertyListItem.model';
+import {faCameraRetro} from '@fortawesome/free-solid-svg-icons/faCameraRetro';
 
 @Component({
   selector: 'app-property-list-bs',
@@ -33,7 +33,7 @@ export class PropertyListBsComponent implements OnInit {
         this.collectionSize = this.dataSource.length;
         console.log(this.collectionSize);
       }
-    )
+    );
   }
 
   goToDetails(id: number) {

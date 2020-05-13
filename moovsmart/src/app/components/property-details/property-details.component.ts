@@ -1,23 +1,23 @@
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { PropertyAdvertDetailsModel } from "../../models/propertyAdvertDetails.model";
-import { PropertyService } from "../../services/property.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { PropertyAdvertDetailsModel } from '../../models/propertyAdvertDetails.model';
+import { PropertyService } from '../../services/property.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
-import { MapsAPILoader } from "@agm/core";
-import { PropertyListItemModel } from "../../models/propertyListItem.model";
-import { faEnvelope, faStar as farStar } from "@fortawesome/free-solid-svg-icons";
-import { UserService } from "../../services/user.service";
-import { tap } from "rxjs/operators";
+import { MapsAPILoader } from '@agm/core';
+import { PropertyListItemModel } from '../../models/propertyListItem.model';
+import { faEnvelope, faStar as farStar } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '../../services/user.service';
+import { tap } from 'rxjs/operators';
 import { MessagingService } from 'src/app/services/messaging.service';
 import { Observable } from 'rxjs';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {BidService} from "../../services/bid.service";
-import {BidFormDataModel} from "../../models/bids/bidFormData.model";
-import {BidFormComponent} from "../bid-form/bid-form.component";
-import {BidListItemModel} from "../../models/bids/bidListItem.model";
+import {BidService} from '../../services/bid.service';
+import {BidFormDataModel} from '../../models/bids/bidFormData.model';
+import {BidFormComponent} from '../bid-form/bid-form.component';
+import {BidListItemModel} from '../../models/bids/bidListItem.model';
 
-import {DatePipe} from "@angular/common";
-import {consoleTestResultHandler} from "tslint/lib/test";
+import {DatePipe} from '@angular/common';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 
 @Component({
@@ -26,6 +26,21 @@ import {consoleTestResultHandler} from "tslint/lib/test";
   styleUrls: ['./property-details.component.css']
 })
 export class PropertyDetailsComponent implements OnInit {
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private propertyAdvertService: PropertyService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private router: Router,
+    private userService: UserService,
+    private messagingService: MessagingService,
+    private bidService: BidService,
+    private datePipe: DatePipe
+
+  ) {
+  }
 
   lastBidAmount: number;
   nextBid: string;
@@ -48,46 +63,33 @@ export class PropertyDetailsComponent implements OnInit {
   diffStartToday: boolean;
   diffEndToday: boolean;
   diffStartEnd: number;
-  actual: boolean; //startDate < today && endDate > today
-  expired: boolean; //startDate< today && endDate < today
-  future: boolean; //startDate >today && endDate > today
+  actual: boolean; // startDate < today && endDate > today
+  expired: boolean; // startDate< today && endDate < today
+  future: boolean; // startDate >today && endDate > today
 
 
 
 
-  text:any = {
+  text: any = {
     Year: 'Év',
     Month: 'Hónap',
-    Weeks: "Hét",
-    Days: "nap",
-    Hours: "óra",
-    Minutes: "perc",
-    Seconds: "másodperc",
-    MilliSeconds: "MilliSeconds"
+    Weeks: 'Hét',
+    Days: 'nap',
+    Hours: 'óra',
+    Minutes: 'perc',
+    Seconds: 'másodperc',
+    MilliSeconds: 'MilliSeconds'
   };
 
 
 
   public latitude: number;
   public longitude: number;
-  public zoom: number = 15;
+  public zoom = 15;
   public map: google.maps.Marker;
   public userName: string;
 
-
-  constructor(
-    private route: ActivatedRoute,
-    private propertyAdvertService: PropertyService,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
-    private router: Router,
-    private userService: UserService,
-    private messagingService: MessagingService,
-    private bidService: BidService,
-    private datePipe: DatePipe
-
-  ) {
-  }
+  isShow = true;
 
   ngOnInit(): void {
     this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
@@ -130,32 +132,32 @@ export class PropertyDetailsComponent implements OnInit {
         this.propertyAdvertDetails = data;
         this.propertyAdvertDetails.startOfAuction = data.startOfAuction;
         this.propertyAdvertDetails.endOfAuction = data.endOfAuction;
-        this.startDate = this.datePipe.transform(this.propertyAdvertDetails?.startOfAuction, 'medium')
-        this.endDate = this.datePipe.transform(this.propertyAdvertDetails?.endOfAuction, 'medium')
-        this.today = this.datePipe.transform(Date.now(),'medium');
+        this.startDate = this.datePipe.transform(this.propertyAdvertDetails?.startOfAuction, 'medium');
+        this.endDate = this.datePipe.transform(this.propertyAdvertDetails?.endOfAuction, 'medium');
+        this.today = this.datePipe.transform(Date.now(), 'medium');
 
         this.diffStartToday = new Date(this.startDate).getTime() <= new Date(this.today).getTime();
         this.diffEndToday = new Date(this.endDate).getTime() >= new Date(this.today).getTime();
 
-        this.diffStartEnd = Math.floor(Math.abs((new Date(this.endDate).getTime()-new Date(this.startDate).getTime())/ (1000*60*60*24)));
+        this.diffStartEnd = Math.floor(Math.abs((new Date(this.endDate).getTime() - new Date(this.startDate).getTime()) / (1000 * 60 * 60 * 24)));
 
         this.actual = (this.diffStartToday === true) && (this.diffEndToday === true);
         this.expired = (this.diffEndToday === false);
         this.future = (this.diffStartToday === false);
 
-          //actual: boolean; //startDate < today && endDate > today
-          //expired: boolean; //startDate< today && endDate < today
-          //future: boolean; //startDate >today && endDate > today
+          // actual: boolean; //startDate < today && endDate > today
+          // expired: boolean; //startDate< today && endDate < today
+          // future: boolean; //startDate >today && endDate > today
 
 
         console.log(this.startDate);
         console.log(this.endDate);
         console.log(this.today);
-        console.log("Start: " + this.diffStartToday);
-        console.log("End: " + this.diffEndToday);
-        console.log("Future: " + this.future);
-        console.log("Actual: " + this.actual);
-        console.log("Expired: " + this.expired);
+        console.log('Start: ' + this.diffStartToday);
+        console.log('End: ' + this.diffEndToday);
+        console.log('Future: ' + this.future);
+        console.log('Actual: ' + this.actual);
+        console.log('Expired: ' + this.expired);
         console.log(data);
       },
 
@@ -177,7 +179,7 @@ export class PropertyDetailsComponent implements OnInit {
         }
         console.log("nextbid: " + this.nextBid);
       }
-    )
+    );
   }
 
 
@@ -208,7 +210,7 @@ export class PropertyDetailsComponent implements OnInit {
 
 
 
-  //--------Google map------//
+  // --------Google map------//
 
 
   setLocation(map) {
@@ -220,7 +222,7 @@ export class PropertyDetailsComponent implements OnInit {
         this.longitude = this.propertyAdvertDetails?.longitude;
         this.map = new google.maps.Marker({
           position: { lat: this.latitude, lng: this.longitude },
-          map: map
+          map
         });
 
       }

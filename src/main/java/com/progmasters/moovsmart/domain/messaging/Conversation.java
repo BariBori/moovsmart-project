@@ -23,12 +23,15 @@ public abstract class Conversation {
         return this;
     }
 
-
     public List<Message> getMessages() {
         return this.messages;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

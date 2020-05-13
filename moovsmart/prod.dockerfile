@@ -1,4 +1,4 @@
 FROM nginx:latest
-COPY dist/moovsmart /usr/share/nginx/html/
+COPY dist/moovsmart /srv/moovsmart
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80

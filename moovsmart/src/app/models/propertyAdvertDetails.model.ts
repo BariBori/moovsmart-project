@@ -1,8 +1,8 @@
-import {PropertyTypeOptionItemModel} from "./propertyTypeOptionItem.model";
-import {PropertyConditionTypeOptionItemModel} from "./propertyConditionTypeOptionItem.model";
-import {ParkingTypeOptionItemModel} from "./parkingTypeOptionItem.model";
-import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
-import {UserFormDataModel} from "./userFormData.model";
+import {PropertyTypeOptionItemModel} from './propertyTypeOptionItem.model';
+import {PropertyConditionTypeOptionItemModel} from './propertyConditionTypeOptionItem.model';
+import {ParkingTypeOptionItemModel} from './parkingTypeOptionItem.model';
+import {AdvertStatusTypeOptionItemModel} from './advertStatusTypeOptionItem.model';
+import {UserFormDataModel} from './userFormData.model';
 import DateTimeFormat = Intl.DateTimeFormat;
 
 

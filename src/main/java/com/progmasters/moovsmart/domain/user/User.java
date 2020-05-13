@@ -68,6 +68,18 @@ public class User {
     public User() {
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     public List<Bid> getListOfBids() {
         return listOfBids;
     }

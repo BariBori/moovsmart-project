@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { validationHandler } from 'src/app/utils/validationHandler';
 import { FormValidationError } from 'src/app/models/error/FormValidationError';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-userregister-form',

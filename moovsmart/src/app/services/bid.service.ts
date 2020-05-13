@@ -6,12 +6,13 @@ import {HttpClient} from "@angular/common/http";
 import {BidListItemModel} from "../models/bids/bidListItem.model";
 import {MyBidsModel} from "../models/bids/myBids.model";
 
-const BASE_URL = environment.BASE_URL + "/api/properties/property-details";
+
+const BASE_URL = environment.BASE_URL + '/api/properties/property-details';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BidService{
+export class BidService {
 
   constructor(private httpClient: HttpClient) {
   }
@@ -26,7 +27,7 @@ export class BidService{
   }
 
   getLastBid(advertId: number): Observable<number> {
-    return this.httpClient.get<number>(BASE_URL + "/lastBid/" + advertId);
+    return this.httpClient.get<number>(BASE_URL + '/lastBid/' + advertId);
   }
 
   getNumberOfBidUsers(advertId: number): Observable<number> {

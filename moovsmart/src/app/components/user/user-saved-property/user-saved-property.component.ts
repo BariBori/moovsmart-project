@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from "@angular/material/table";
-import { PropertyListItemModel } from "../../../models/propertyListItem.model";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { PropertyService } from "../../../services/property.service";
-import { UserService } from "../../../services/user.service";
-import { Router } from "@angular/router";
+import { MatTableDataSource } from '@angular/material/table';
+import { PropertyListItemModel } from '../../../models/propertyListItem.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { PropertyService } from '../../../services/property.service';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class UserSavedPropertyComponent implements OnInit {
 
   displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
-  //data: Observable<MatTableDataSource<PropertyListItemModel>>;
+  // data: Observable<MatTableDataSource<PropertyListItemModel>>;
 
   userName: string;
 
@@ -48,7 +48,7 @@ export class UserSavedPropertyComponent implements OnInit {
 
   ngOnInit(): void {
       this.propertyService.savedAdverts.subscribe(
-        ads =>{
+        ads => {
           this.dataSource = new MatTableDataSource(ads);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
