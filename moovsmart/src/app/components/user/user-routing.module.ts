@@ -1,9 +1,9 @@
-import {RouterModule, Routes} from "@angular/router";
-import {UserHomeComponent} from "./user-home/user-home.component";
-import {NgModule} from "@angular/core";
-import {UserDetailsComponent} from "./user-details/user-details.component";
-import {UserPropertyComponent} from "./user-property/user-property.component";
-import {UserSavedPropertyComponent} from "./user-saved-property/user-saved-property.component";
+import {RouterModule, Routes} from '@angular/router';
+import {UserHomeComponent} from './user-home/user-home.component';
+import {NgModule} from '@angular/core';
+import {UserDetailsComponent} from './user-details/user-details.component';
+import {UserPropertyComponent} from './user-property/user-property.component';
+import {UserSavedPropertyComponent} from './user-saved-property/user-saved-property.component';
 
 const userRoutes: Routes = [
   {
@@ -31,4 +31,4 @@ const userRoutes: Routes = [
   ]
 })
 
-export class UserRoutingModule{}
+export class UserRoutingModule {}

@@ -1,5 +1,5 @@
 import DateTimeFormat = Intl.DateTimeFormat;
-import {JsonFormatter} from "tslint/lib/formatters";
+import {JsonFormatter} from 'tslint/lib/formatters';
 
 export interface PropertyEditModel {
   id?: number;

@@ -3,18 +3,18 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {validationHandler} from '../../utils/validationHandler';
-import {PropertyTypeOptionItemModel} from "../../models/propertyTypeOptionItem.model";
-import {PropertyConditionTypeOptionItemModel} from "../../models/propertyConditionTypeOptionItem.model";
-import {ParkingTypeOptionItemModel} from "../../models/parkingTypeOptionItem.model";
-import {FormInitDataModel} from "../../models/formInitDataModel";
-import {MapsAPILoader} from "@agm/core";
-import {HttpClient} from "@angular/common/http";
-import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
-import {Cloudinary} from "@cloudinary/angular-5.x";
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
-import {PropertyFormDataModel} from "../../models/propertyFormData.model";
-import {PropertyEditModel} from "../../models/propertyEdit.model";
-import {dateValidator} from "./date.validator.directive";
+import {PropertyTypeOptionItemModel} from '../../models/propertyTypeOptionItem.model';
+import {PropertyConditionTypeOptionItemModel} from '../../models/propertyConditionTypeOptionItem.model';
+import {ParkingTypeOptionItemModel} from '../../models/parkingTypeOptionItem.model';
+import {FormInitDataModel} from '../../models/formInitDataModel';
+import {MapsAPILoader} from '@agm/core';
+import {HttpClient} from '@angular/common/http';
+import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
+import {Cloudinary} from '@cloudinary/angular-5.x';
+import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
+import {PropertyFormDataModel} from '../../models/propertyFormData.model';
+import {PropertyEditModel} from '../../models/propertyEdit.model';
+import {dateValidator} from './date.validator.directive';
 
 
 @Component({
@@ -28,14 +28,14 @@ export class PropertyFormComponent implements OnInit {
   responses: Array<any>;
   listOfImages: Array<string> = [];
   propertyEditModel: PropertyEditModel;
-  hasBaseDropZoneOver: boolean = false;
+  hasBaseDropZoneOver = false;
   uploader: FileUploader;
   private imgTitle: string;
-  allowedMimeType:Array<string> = [];
+  allowedMimeType: Array<string> = [];
   // ---------------------------------------
 
 
-  //------Google Maps------------
+  // ------Google Maps------------
   private geoCoder;
   zoom: number;
   address: string;
@@ -51,7 +51,7 @@ export class PropertyFormComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  //---------------------------------
+  // ---------------------------------
 
   private id: number;
   private userName: string;
@@ -105,10 +105,10 @@ export class PropertyFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private httpClient: HttpClient,
-    //-----Google Maps----
+    // -----Google Maps----
     private mapsAPILoader: MapsAPILoader,
     private zone: NgZone,
-    //----Cloudinary-----
+    // ----Cloudinary-----
     private cloudinary: Cloudinary,
   ) {
     this.responses = [];
@@ -135,16 +135,16 @@ export class PropertyFormComponent implements OnInit {
       });
 
 
-    //----------CLOUDINARY----------------------
+    // ----------CLOUDINARY----------------------
     // Create the file uploader, wire it to upload to your account
 
-    //filter for specific file types
+    // filter for specific file types
     this.allowedMimeType = ['image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/tiff'];
 
     const config = this.cloudinary.config();
-    const cloud_name = "dqmt1lieq";
+    const cloud_name = 'dqmt1lieq';
     const uploaderOptions: FileUploaderOptions = {
-      url: "https://api.cloudinary.com/v1_1/" + this.cloudinary.config().cloud_name + "/image/upload",
+      url: 'https://api.cloudinary.com/v1_1/' + this.cloudinary.config().cloud_name + '/image/upload',
 
       allowedMimeType: this.allowedMimeType,
       // Upload files automatically upon addition to upload queue
@@ -168,7 +168,7 @@ export class PropertyFormComponent implements OnInit {
 
     this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
       // Add Cloudinary unsigned upload preset to the upload form
-      const upload_preset = "s1jujbuu";
+      const upload_preset = 's1jujbuu';
       form.append('upload_preset', this.cloudinary.config().upload_preset);
 
       let tags = 'mypropertyalbum';
@@ -218,13 +218,13 @@ export class PropertyFormComponent implements OnInit {
         }
         console.log(this.responses);
 
-        //fill listOfImages array
+        // fill listOfImages array
 
         this.listOfImages.push(fileItem.data.url);
-        this.listOfImages = this.listOfImages.filter(function (el) {
+        this.listOfImages = this.listOfImages.filter(function(el) {
           return el != null;
         });
-        console.log("list of images");
+        console.log('list of images');
         console.log(this.listOfImages);
       });
 
@@ -250,24 +250,24 @@ export class PropertyFormComponent implements OnInit {
         }
       );
 
-    //---------CLOUDINARY END--------------------
+    // ---------CLOUDINARY END--------------------
 
 
-    //---------GOOGLE MAPS----------------------
-    //load Places Autocomplete
+    // ---------GOOGLE MAPS----------------------
+    // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
 
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ['address']
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.zone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -283,19 +283,19 @@ export class PropertyFormComponent implements OnInit {
 
           for (let i = 0; i < this.addressComponent.length; i++) {
             switch (this.addressComponent[i].types[0]) {
-              case "route": {
+              case 'route': {
                 this.street = place.address_components[i].long_name;
                 break;
               }
-              case "sublocality_level_1": {
+              case 'sublocality_level_1': {
                 this.district = place.address_components[i].long_name;
                 break;
               }
-              case "locality": {
+              case 'locality': {
                 this.city = place.address_components[i].long_name;
                 break;
               }
-              case "postal_code": {
+              case 'postal_code': {
                 this.postalCode = place.address_components[i].long_name;
                 break;
               }
@@ -307,7 +307,7 @@ export class PropertyFormComponent implements OnInit {
         });
       });
     });
-  } //NGONINIT END
+  } // NGONINIT END
 
 
   getPropertyDetails = (id: string) => {
@@ -352,9 +352,9 @@ export class PropertyFormComponent implements OnInit {
           });
       },
     );
-  };
+  }
 
-  //-----------GOOGLE MAPS------------
+  // -----------GOOGLE MAPS------------
   clearAddressDetails() {
     this.street = '';
     this.postalCode = '';
@@ -363,17 +363,17 @@ export class PropertyFormComponent implements OnInit {
     this.district = '';
   }
 
-  //---------GOOGLE MAPS END-----------
+  // ---------GOOGLE MAPS END-----------
 
-  //----------CLOUDINARY----------------
+  // ----------CLOUDINARY----------------
 
 
   // Delete an uploaded image
-  deleteImage= function (index: number){
-    //remove deleted item from own server database table
+  deleteImage = function(index: number) {
+    // remove deleted item from own server database table
     this.listOfImages.splice(index, 1);
     console.log(this.listOfImages);
-  }
+  };
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
@@ -384,20 +384,20 @@ export class PropertyFormComponent implements OnInit {
     if (!fileProperties) {
       return null;
     }
-    let fileObject = Object.keys(fileProperties)
-      .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
+    const fileObject = Object.keys(fileProperties)
+      .map((key) => ({ key, value: fileProperties[key] }));
     return fileObject;
 
   }
 
 
 
-  //--------CLOUDINARY END-------------
+  // --------CLOUDINARY END-------------
 
 
   submit = () => {
 
-    let propertyFormDataModel = this.propertyForm.value;
+    const propertyFormDataModel = this.propertyForm.value;
     propertyFormDataModel.address = this.address;
     propertyFormDataModel.city = this.city;
     propertyFormDataModel.district = this.district;
@@ -410,13 +410,13 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.userName = this.userName;
 
 
-    //this.id ? this.updateProperty(propertyFormDataModel) :
+    // this.id ? this.updateProperty(propertyFormDataModel) :
 
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['../user-home/user-property']),
       error => validationHandler(error, this.propertyForm)
-    )
-  };
+    );
+  }
 
   onSubmit() {
     const data = {...this.propertyForm.value};
@@ -431,12 +431,12 @@ export class PropertyFormComponent implements OnInit {
     return !this.id;
   }
 
-  private updateProperty(data: PropertyEditModel){
+  private updateProperty(data: PropertyEditModel) {
     this.propertyService.updateProperty(data, this.id).subscribe(
       () => this.router.navigate(['../user-home/user-property']),
-      //error => validationHandler(error, this.propertyForm),
+      // error => validationHandler(error, this.propertyForm),
     );
-    console.log("PropertyForm");
+    console.log('PropertyForm');
   }
 
 

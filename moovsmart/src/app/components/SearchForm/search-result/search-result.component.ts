@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {PropertyService} from "../../../services/property.service";
-import {PropertyListItemModel} from "../../../models/propertyListItem.model";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {Router} from "@angular/router";
-import {SharingSearchService} from "../../../services/sharing-search.service";
+import {PropertyService} from '../../../services/property.service';
+import {PropertyListItemModel} from '../../../models/propertyListItem.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {Router} from '@angular/router';
+import {SharingSearchService} from '../../../services/sharing-search.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import {SharingSearchService} from "../../../services/sharing-search.service";
 export class SearchResultComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['image', 'address','numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
+  displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
 
 
@@ -26,7 +26,7 @@ export class SearchResultComponent implements OnInit {
 
 
   constructor(
-              //private ref: ChangeDetectorRef,
+              // private ref: ChangeDetectorRef,
               private propertyService: PropertyService,
               private router: Router,
               private sharingSearchService: SharingSearchService
@@ -34,7 +34,7 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharingSearchService.filteredProperties.subscribe(
-        filteredProperties =>{
+        filteredProperties => {
           console.log(filteredProperties);
           this.propertyService.postFilteredPropertyAdverts(filteredProperties).subscribe(
             propertyListItems => {

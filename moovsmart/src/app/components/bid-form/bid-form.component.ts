@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {BidService} from "../../services/bid.service";
-import {BidFormDataModel} from "../../models/bids/bidFormData.model";
-import {PropertyService} from "../../services/property.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MatDialogRef} from "@angular/material/dialog";
-import {validationHandler} from "../../utils/validationHandler";
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {BidService} from '../../services/bid.service';
+import {BidFormDataModel} from '../../models/bids/bidFormData.model';
+import {PropertyService} from '../../services/property.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatDialogRef} from '@angular/material/dialog';
+import {validationHandler} from '../../utils/validationHandler';
+import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 
 @Component({
   selector: 'app-bid-form',
@@ -22,7 +22,7 @@ export class BidFormComponent implements OnInit {
   amountOfBid: number;
   lastBidAmount: number;
   nextBid: string;
-  isEmpty: boolean = false;
+  isEmpty = false;
   property: PropertyAdvertDetailsModel;
 
   constructor(
@@ -38,7 +38,7 @@ export class BidFormComponent implements OnInit {
 
   bidForm = this.formBuilder.group({
     amountOfBid: ['']
-  })
+  });
 
   ngOnInit(): void {
     this.advertId = Number(this.route.snapshot.paramMap.get('id'));
@@ -46,11 +46,11 @@ export class BidFormComponent implements OnInit {
       user => this.userId = user.id
     );
     this.getLastBid();
-  };
+  }
 
 
   onSubmit() {
-    let formData: BidFormDataModel = this.bidForm.value;
+    const formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
         debugger;
@@ -64,11 +64,11 @@ export class BidFormComponent implements OnInit {
   }
 
   openDialog(content) {
-    if(this.userService.isLoggedIn()) {
+    if (this.userService.isLoggedIn()) {
       this.modalService.open(content, {centered: true});
-    } else{
+    } else {
       this.router.navigate(['user-login']);
-      alert("A licitáláshoz be kell jeletkezni");
+      alert('A licitáláshoz be kell jeletkezni');
     }
   }
 
@@ -76,14 +76,13 @@ export class BidFormComponent implements OnInit {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        if(this.lastBidAmount !=null){
-          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
-        }
-        else{
+        if (this.lastBidAmount != null) {
+          this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
+        } else {
           this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
-            property=>{
+            property => {
               this.property = property;
-              this.nextBid = (this.property.actualPrice+0.1).toFixed(1)
+              this.nextBid = (this.property.actualPrice + 0.1).toFixed(1);
             }
           );
         }

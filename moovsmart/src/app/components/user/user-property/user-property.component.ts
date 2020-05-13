@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {PropertyListItemModel} from "../../../models/propertyListItem.model";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort, MatSortable} from "@angular/material/sort";
-import {PropertyService} from "../../../services/property.service";
-import {Router} from "@angular/router";
-import {UserService} from "../../../services/user.service";
+import {MatTableDataSource} from '@angular/material/table';
+import {PropertyListItemModel} from '../../../models/propertyListItem.model';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort, MatSortable} from '@angular/material/sort';
+import {PropertyService} from '../../../services/property.service';
+import {Router} from '@angular/router';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-property',
@@ -41,7 +41,7 @@ export class UserPropertyComponent implements OnInit {
             console.log(this.dataSource);
           });
       }
-    )
+    );
   }
 
   goToDetails(id: number) {

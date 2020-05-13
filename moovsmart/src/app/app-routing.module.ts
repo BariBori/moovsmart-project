@@ -7,9 +7,9 @@ import { UserregisterFormComponent } from './components/userregister-form/userre
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
-import { SelectivePreloadingStrategyService } from "./selective-preloading-strategy.service";
+import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 import { MessagingComponent } from './components/messaging/messaging.component';
-import {PropertyListBsComponent} from "./components/property-list-bs/property-list-bs.component";
+import {PropertyListBsComponent} from './components/property-list-bs/property-list-bs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

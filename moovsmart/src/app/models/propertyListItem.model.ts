@@ -1,4 +1,4 @@
-import {AdvertStatusTypeOptionItemModel} from "./advertStatusTypeOptionItem.model";
+import {AdvertStatusTypeOptionItemModel} from './advertStatusTypeOptionItem.model';
 import DateTimeFormat = Intl.DateTimeFormat;
 
 export interface PropertyListItemModel {

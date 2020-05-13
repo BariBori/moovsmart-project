@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {PropertyService} from "../../../services/property.service";
-import {SharingSearchService} from "../../../services/sharing-search.service";
-import {MapsAPILoader} from "@agm/core";
-import {FilterPropertyAdvertModel} from "../../../models/filterPropertyAdvert.model";
-import {PropertyListItemModel} from "../../../models/propertyListItem.model";
-import {PropertyAdvertDetailsModel} from "../../../models/propertyAdvertDetails.model";
+import {PropertyService} from '../../../services/property.service';
+import {SharingSearchService} from '../../../services/sharing-search.service';
+import {MapsAPILoader} from '@agm/core';
+import {FilterPropertyAdvertModel} from '../../../models/filterPropertyAdvert.model';
+import {PropertyListItemModel} from '../../../models/propertyListItem.model';
+import {PropertyAdvertDetailsModel} from '../../../models/propertyAdvertDetails.model';
 
 @Component({
   selector: 'app-search-result-map',
@@ -17,8 +17,8 @@ export class SearchResultMapComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom: number;
-  showMap: boolean = false;
-  showPropertyDetails: boolean = false;
+  showMap = false;
+  showPropertyDetails = false;
   propertyDetail: PropertyAdvertDetailsModel;
 
 
@@ -30,13 +30,13 @@ export class SearchResultMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharingSearchService.filteredProperties.subscribe(
-      filteredProperties =>{
+      filteredProperties => {
         console.log(filteredProperties);
         this.propertyService.postFilteredPropertyAdverts(filteredProperties).subscribe(
-          propertyListItems =>{
+          propertyListItems => {
             console.log(propertyListItems);
             this.datasource = propertyListItems;
-            console.log("map-datasource");
+            console.log('map-datasource');
             console.log(this.datasource);
           }
         );
@@ -61,10 +61,10 @@ export class SearchResultMapComponent implements OnInit {
     this.propertyService.fetchAdvertDetails(id).subscribe(
       value => this.propertyDetail = value,
       error => console.warn(error),
-      ()=> {
+      () => {
         this.showPropertyDetails = true;
       }
-    )
+    );
   }
 
   setCurrentLocation = () => {
@@ -73,7 +73,7 @@ export class SearchResultMapComponent implements OnInit {
           this.latitude = position.coords.latitude;
           this.longitude = position.coords.longitude;
           this.zoom = 16;
-      })
+      });
     }
   }
 

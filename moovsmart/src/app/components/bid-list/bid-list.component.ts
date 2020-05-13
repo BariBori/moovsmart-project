@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BidService} from "../../services/bid.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BidListItemModel} from "../../models/bids/bidListItem.model";
-import {UserService} from "../../services/user.service";
-import {PropertyService} from "../../services/property.service";
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
+import {BidService} from '../../services/bid.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BidListItemModel} from '../../models/bids/bidListItem.model';
+import {UserService} from '../../services/user.service';
+import {PropertyService} from '../../services/property.service';
+import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 
 @Component({
   selector: 'app-bid-list',
@@ -31,7 +31,7 @@ export class BidListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let advertId = Number(this.route.snapshot.paramMap.get('id'));
+    const advertId = Number(this.route.snapshot.paramMap.get('id'));
     this.bidService.getBidList(advertId).subscribe(
       bidListItems => {
         this.datasource = bidListItems;
@@ -42,7 +42,7 @@ export class BidListComponent implements OnInit {
       }
     );
     this.propertyService.fetchAdvertDetails(String(advertId)).subscribe(
-      propertyDetails =>{
+      propertyDetails => {
         this.propertyAdvert = propertyDetails;
         this.startOfAuction = this.propertyAdvert.startOfAuction;
         this.endOfAuction = this.propertyAdvert.endOfAuction;
