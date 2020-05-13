@@ -36,7 +36,6 @@ public class Bid {
         this.propertyAdvertId = propertyAdvertId;
         this.userId = userId;
         this.dateTimeOfBid = LocalDateTime.now();
-        //this.dateTimeOfBid = LocalDateTime.now().plusDays(1);
         this.amountOfBid = bidFormData.getAmountOfBid();
     }
 

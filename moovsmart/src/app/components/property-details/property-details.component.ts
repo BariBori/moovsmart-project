@@ -171,11 +171,11 @@ export class PropertyDetailsComponent implements OnInit {
       lastAmount => {
         this.lastBidAmount = lastAmount ;
         if(this.lastBidAmount === null){
-          this.nextBid = (this.propertyAdvertDetails?.actualPrice +0.1).toFixed(1);
+          this.nextBid = (this.propertyAdvertDetails?.actualPrice + 0.1).toFixed(1);
         } else {
-          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+          this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
         }
-
+        console.log("nextbid: " + this.nextBid);
       }
     )
   }

@@ -22,6 +22,7 @@ export class BidFormComponent implements OnInit {
   amountOfBid: number;
   lastBidAmount: number;
   nextBid: string;
+  nextBidNumber: number;
   isEmpty: boolean = false;
   property: PropertyAdvertDetailsModel;
 
@@ -77,12 +78,14 @@ export class BidFormComponent implements OnInit {
         this.lastBidAmount = lastAmount ;
         if(this.lastBidAmount !=null){
           this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+          this.nextBidNumber = (this.lastBidAmount + 0.1)
         }
         else{
           this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
             property=>{
               this.property = property;
-              this.nextBid = (this.property.actualPrice+0.1).toFixed(1)
+              this.nextBid = (this.property.actualPrice+0.1).toFixed(1);
+              this.nextBidNumber = (this.property.actualPrice + 0.1)
             }
           );
         }
