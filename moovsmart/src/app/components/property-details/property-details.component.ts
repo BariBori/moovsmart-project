@@ -89,7 +89,7 @@ export class PropertyDetailsComponent implements OnInit {
   public map: google.maps.Marker;
   public userName: string;
 
-  isShow = true;
+  //isShow = true;
 
   ngOnInit(): void {
     this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
