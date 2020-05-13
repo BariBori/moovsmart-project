@@ -130,7 +130,8 @@ FE karma test:
       - moovsmart/node_modules
   only:
     changes:
-      - moovsmart/karma.conf.js
+      - moovsmart/*
+  allow_failure: true
 
 Package BE:
   stage: package
