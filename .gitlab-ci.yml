@@ -66,6 +66,16 @@ Cache node_modules:
     changes:
       - moovsmart/package-lock.json
 
+Lint FE:
+  stage: pre-compile
+  image: node:current-alpine
+  script:
+    - cd moovsmart
+    - ng lint
+  only:
+    changes:
+      - moovsmart/**/*
+  allow_failure: true
 
 Compile FE:
   stage: compile
