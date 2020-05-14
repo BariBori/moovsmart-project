@@ -30,6 +30,7 @@ public class Bid {
     @Positive
     private Double amountOfBid;
 
+
     public Bid() {
     }
 
