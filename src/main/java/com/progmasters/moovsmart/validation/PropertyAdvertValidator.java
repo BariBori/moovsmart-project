@@ -82,7 +82,7 @@ public class PropertyAdvertValidator implements Validator {
         }
 
         if(endOfAuction !=null && endOfAuction.getYear()>today.getYear()+1){
-            errors.rejectValue("startOfAuction", "moovsmart.endOfAuction.tooFar");
+            errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.tooFar");
         }
     }
 }
