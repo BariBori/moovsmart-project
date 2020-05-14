@@ -98,7 +98,7 @@ Compile BE:
     expire_in: 1 hour
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 
@@ -112,7 +112,7 @@ BE mvn test:
     - test
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 FE karma test:
@@ -150,7 +150,7 @@ Package BE:
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 Package FE:
