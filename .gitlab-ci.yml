@@ -189,12 +189,16 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
     # add ssh identity
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
+    # execute an ssh command on remote server to get around host checking popup
     - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'pwd'
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
+    # update docker-compose file on server
     - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
+    # update prod images on server
     - docker pull $MOOVSMART_REGISTRY/backend-prod:latest  
     - docker pull $MOOVSMART_REGISTRY/frontend-prod:latest 
+    # stop services, cleanup docker, and start them again
     - ssh $server_user@$remote_address 'docker-compose down && docker system prune -f && docker-compose up -d'
   only:
     - master
