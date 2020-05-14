@@ -71,7 +71,7 @@ Lint FE:
   image: node:current-alpine
   script:
     - cd moovsmart
-    - ng lint
+    - npm run-script lint
   only:
     changes:
       - moovsmart/**/*
