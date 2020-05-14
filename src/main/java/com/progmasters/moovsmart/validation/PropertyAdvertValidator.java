@@ -77,11 +77,11 @@ public class PropertyAdvertValidator implements Validator {
             errors.rejectValue("startOfAuction", "moovsmart.startOfAuction.missing");
         }
 
-        if(startOfAuction.getYear()>today.getYear()+1){
+        if(startOfAuction !=null && startOfAuction.getYear()>today.getYear()+1){
             errors.rejectValue("startOfAuction", "moovsmart.startOfAuction.tooFar");
         }
 
-        if(endOfAuction.getYear()>today.getYear()+1){
+        if(endOfAuction !=null && endOfAuction.getYear()>today.getYear()+1){
             errors.rejectValue("startOfAuction", "moovsmart.endOfAuction.tooFar");
         }
     }
