@@ -72,6 +72,10 @@ Lint FE:
   script:
     - cd moovsmart
     - npm run-script lint
+  cache:
+    key: node
+    paths:
+      - moovsmart/node_modules
   only:
     changes:
       - moovsmart/**/*
