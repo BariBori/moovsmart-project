@@ -196,7 +196,7 @@ Deploy app:
     # execute an ssh command on remote server to get around host checking popup
     # - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'pwd'
     # add disable ssh host checking prompt for prod server
-    - echo -e "Host $server_user@$remote_address\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo -e "Host $server_user@$remote_address\n\tStrictHostKeyChecking no\n\n" > /etc/ssh/ssh_config
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     # update docker-compose file on server
