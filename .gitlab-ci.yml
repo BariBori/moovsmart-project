@@ -120,7 +120,6 @@ BE mvn test:
   stage: test
   image: $MOOVSMART_REGISTRY/zulu-maven:latest
   script:
-    # run tests as well
     - mvn test
   tags:
     - test
