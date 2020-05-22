@@ -5,7 +5,7 @@ services:
     image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/backend-prod
     environment: 
       - SPRING_PROFILES_ACTIVE=production
-      - FRONTEND_HOST=http://moovsmart.progmasters.hu
+      - FRONTEND_HOST=moovsmart.progmasters.hu
     ports:
       - 8080:8080
     network_mode: host
