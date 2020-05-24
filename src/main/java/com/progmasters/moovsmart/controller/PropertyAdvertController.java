@@ -145,8 +145,13 @@ public class PropertyAdvertController {
 
     //user's bids in profil
     @GetMapping("/property-details/myBids/{userName}")
-    public ResponseEntity<List<MyBidList>> getMyBids(@PathVariable String userName){
-        return new ResponseEntity<>(bidService.listMyBids(userName), HttpStatus.OK);
+    public ResponseEntity<List<MyBidList>> getMyBidProperties(@PathVariable String userName){
+        return new ResponseEntity<>(bidService.listMyBidProperties(userName), HttpStatus.OK);
+    }
+
+    @GetMapping("/property-details/myBids/{advertId}/{userName}")
+    public ResponseEntity<List<MyBidList>> getMyBidsByProperties(@PathVariable Long advertId, @PathVariable String userName){
+        return new ResponseEntity<>(bidService.listMyBidsByProperty(advertId, userName), HttpStatus.OK);
     }
 
     //city list for complex search

@@ -34,9 +34,13 @@ export class BidService {
     return this.httpClient.get<number>(BASE_URL + '/bidder/' + advertId);
   }
 
-  getMyBids(userName: string): Observable<Array<MyBidsModel>>{
+  getMyBidProperties(userName: string): Observable<Array<MyBidsModel>>{
     return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + userName);
   }
+
+  getMyBidsByProperty(advertId:number, userName: string): Observable<Array<MyBidsModel>>{
+    return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + advertId +'/'+ userName)
+}
 
 }
 

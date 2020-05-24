@@ -14,7 +14,6 @@ import {Cloudinary} from '@cloudinary/angular-5.x';
 import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 import {PropertyFormDataModel} from '../../models/propertyFormData.model';
 import {PropertyEditModel} from '../../models/propertyEdit.model';
-import {dateValidator} from './date.validator.directive';
 
 
 @Component({
@@ -349,7 +348,7 @@ export class PropertyFormComponent implements OnInit {
             startOfAuction: response.startOfAuction,
             endOfAuction: response.endOfAuction
 
-          });
+          }, {onlySelf: true});
       },
     );
   }
@@ -434,7 +433,7 @@ export class PropertyFormComponent implements OnInit {
   private updateProperty(data: PropertyEditModel) {
     this.propertyService.updateProperty(data, this.id).subscribe(
       () => this.router.navigate(['../user-home/user-property']),
-      // error => validationHandler(error, this.propertyForm),
+      error => validationHandler(error, this.propertyForm),
     );
     console.log('PropertyForm');
   }
