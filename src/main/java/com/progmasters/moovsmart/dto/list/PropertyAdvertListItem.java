@@ -26,6 +26,8 @@ public class PropertyAdvertListItem {
 
     private Double price;
 
+    private Double actualPrice;
+
     private String address;
 
     private AdvertStatusTypeOption advertStatus;
@@ -52,7 +54,8 @@ public class PropertyAdvertListItem {
         this.listOfImages = propertyAdvert.getListOfImages();
         this.area = propertyAdvert.getArea();
         this.address = propertyAdvert.getAddress();
-        this.priceForSquareMeter = (int) Math.round(price * 1000000 / area);
+        this.actualPrice = propertyAdvert.getActualPrice();
+        this.priceForSquareMeter = (int) Math.round(actualPrice * 1000000 / area);
         this.advertStatus = new AdvertStatusTypeOption(propertyAdvert.getAdvertStatus());
         this.latitude = propertyAdvert.getLatitude();
         this.longitude = propertyAdvert.getLongitude();
@@ -61,6 +64,7 @@ public class PropertyAdvertListItem {
         this.startOfAuction = propertyAdvert.getStartOfAuction();
         this.endOfAuction = propertyAdvert.getEndOfAuction();
         this.today = LocalDateTime.now();
+
     }
 
     public PropertyAdvertListItem() {
@@ -144,5 +148,9 @@ public class PropertyAdvertListItem {
 
     public LocalDateTime getToday() {
         return today;
+    }
+
+    public Double getActualPrice() {
+        return actualPrice;
     }
 }

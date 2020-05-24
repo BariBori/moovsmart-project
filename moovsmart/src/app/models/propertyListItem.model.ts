@@ -9,6 +9,7 @@ export interface PropertyListItemModel {
   numberOfRooms: number;
   area: number;
   price: number;
+  actualPrice: number;
   priceForSquareMeter: number;
   address: string;
   advertStatus: AdvertStatusTypeOptionItemModel;

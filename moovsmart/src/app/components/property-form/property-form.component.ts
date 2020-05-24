@@ -26,7 +26,6 @@ export class PropertyFormComponent implements OnInit {
   @Input()
   responses: Array<any>;
   listOfImages: Array<string> = [];
-  propertyEditModel: PropertyEditModel;
   hasBaseDropZoneOver = false;
   uploader: FileUploader;
   private imgTitle: string;
@@ -125,7 +124,7 @@ export class PropertyFormComponent implements OnInit {
           paraMap => {
             const editablePropertyId = paraMap.get('id');
             if (editablePropertyId) {
-              this.id = +editablePropertyId;
+              this.id = + editablePropertyId;
               this.getPropertyDetails(editablePropertyId);
             }
           },
@@ -220,7 +219,7 @@ export class PropertyFormComponent implements OnInit {
         // fill listOfImages array
 
         this.listOfImages.push(fileItem.data.url);
-        this.listOfImages = this.listOfImages.filter(function(el) {
+        this.listOfImages = this.listOfImages.filter(function (el) {
           return el != null;
         });
         console.log('list of images');
@@ -343,7 +342,7 @@ export class PropertyFormComponent implements OnInit {
 
             description: response.description,
 
-            listOfImages: response.listOfImages,
+            listOfImages: response?.listOfImages,
 
             startOfAuction: response.startOfAuction,
             endOfAuction: response.endOfAuction
@@ -377,19 +376,6 @@ export class PropertyFormComponent implements OnInit {
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
-
-  getFileProperties(fileProperties: any) {
-    // Transforms Javascript Object to an iterable to be used by *ngFor
-    if (!fileProperties) {
-      return null;
-    }
-    const fileObject = Object.keys(fileProperties)
-      .map((key) => ({ key, value: fileProperties[key] }));
-    return fileObject;
-
-  }
-
-
 
   // --------CLOUDINARY END-------------
 
