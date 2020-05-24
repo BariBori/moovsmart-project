@@ -11,7 +11,7 @@ variables:
   DOCKER_DRIVER: overlay
   # project's gitlab ci registry
   MOOVSMART_REGISTRY: $CI_REGISTRY/fort.zsuzsanna/angular-moovsmart
-  FRONTEND_HOST: 3.18.213.29
+  FRONTEND_HOST: moovsmart.progmasters.hu
   FRONTEND_USER: $server_user
   BACKEND_HOST: 127.0.0.1:8080
   BACKEND_USER: $server_user
@@ -66,6 +66,20 @@ Cache node_modules:
     changes:
       - moovsmart/package-lock.json
 
+Lint FE:
+  stage: pre-compile
+  image: node:current-alpine
+  script:
+    - cd moovsmart
+    - npm run-script lint
+  cache:
+    key: node
+    paths:
+      - moovsmart/node_modules
+  only:
+    changes:
+      - moovsmart/**/*
+  allow_failure: true
 
 Compile FE:
   stage: compile
@@ -98,7 +112,7 @@ Compile BE:
     expire_in: 1 hour
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 
@@ -106,13 +120,12 @@ BE mvn test:
   stage: test
   image: $MOOVSMART_REGISTRY/zulu-maven:latest
   script:
-    # run tests as well
     - mvn test
   tags:
     - test
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 FE karma test:
@@ -150,7 +163,7 @@ Package BE:
     - docker push $MOOVSMART_REGISTRY/backend-prod:latest  
   only:
     changes:
-      - src/*
+      - src/**/*
       - pom.xml
 
 Package FE:
@@ -179,12 +192,16 @@ Deploy app:
     - apk add --no-cache openssh && eval $(ssh-agent -s)
     # add ssh identity
     - chmod 400 moovsmart.pem && ssh-add moovsmart.pem
+    # execute an ssh command on remote server to get around host checking prompt
     - ssh -o StrictHostKeyChecking=no $server_user@$remote_address 'pwd'
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
+    # update docker-compose file on server
     - scp docker-compose.yml $server_user@$remote_address:/home/ec2-user/docker-compose.yml
+    # update prod images on server
     - docker pull $MOOVSMART_REGISTRY/backend-prod:latest  
     - docker pull $MOOVSMART_REGISTRY/frontend-prod:latest 
+    # stop services, cleanup docker, and start them again
     - ssh $server_user@$remote_address 'docker-compose down && docker system prune -f && docker-compose up -d'
   only:
     - master
