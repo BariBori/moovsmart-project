@@ -23,7 +23,6 @@ export class BidFormComponent implements OnInit {
   lastBidAmount: number;
   nextBid: string;
   nextBidNumber: number;
-  isEmpty: boolean = false;
   property: PropertyAdvertDetailsModel;
 
   constructor(
@@ -55,7 +54,6 @@ export class BidFormComponent implements OnInit {
     let formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
-        debugger;
         this.router.navigate(['../property-details/' + this.advertId]);
         this.bidForm.reset();
         location.reload();
@@ -66,11 +64,11 @@ export class BidFormComponent implements OnInit {
   }
 
   openDialog(content) {
-    if(this.userService.isLoggedIn()) {
+    if (this.userService.isLoggedIn()) {
       this.modalService.open(content, {centered: true});
-    } else{
+    } else {
       this.router.navigate(['user-login']);
-      alert("A licitáláshoz be kell jeletkezni");
+      alert('A licitáláshoz be kell jeletkezni');
     }
   }
 
@@ -78,16 +76,15 @@ export class BidFormComponent implements OnInit {
     this.bidService.getLastBid(this.advertId).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        if(this.lastBidAmount !=null){
-          this.nextBid = (this.lastBidAmount +0.1).toFixed(1);
+        if (this.lastBidAmount != null) {
+          this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
           this.nextBidNumber = Number((this.lastBidAmount + 0.1).toFixed(1));
           console.log(this.nextBidNumber);
-        }
-        else{
+        } else {
           this.propertyService.fetchAdvertDetails(String(this.advertId)).subscribe(
             property => {
               this.property = property;
-              this.nextBid = (this.property.actualPrice+0.1).toFixed(1);
+              this.nextBid = (this.property.actualPrice + 0.1).toFixed(1);
               this.nextBidNumber = Number((this.property.actualPrice + 0.1).toFixed(1));
               console.log(this.nextBidNumber);
             }

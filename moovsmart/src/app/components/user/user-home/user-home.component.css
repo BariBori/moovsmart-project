@@ -1,4 +1,6 @@
-
+.container{
+  min-height: 500px;
+}
 
 .content-header{
   margin-top: 50px;
