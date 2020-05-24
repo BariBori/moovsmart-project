@@ -47,7 +47,7 @@
           </div>
           <div class="modal-body">
             <div *ngFor="let bids of bidSource; index as i">
-              <div class="row">
+              <div class="row" [style.font-weight]="bids.userName == loggedUser ? 'bold' : 'normal'"  >
                 <div class="col-4">{{bids.userName}}</div>
                 <div class="col-4">{{bids.amountOfBid}} Millió Ft</div>
                 <div class="col-4">{{bids.dateTimeOfBid  | date:'yyyy.MM.dd HH:mm:ss'}}</div>
@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
 
           </div>
         </div>

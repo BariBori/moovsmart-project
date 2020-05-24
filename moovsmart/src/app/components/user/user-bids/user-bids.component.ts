@@ -17,6 +17,8 @@ export class UserBidsComponent implements OnInit {
   bidSource: Array<BidListItemModel>;
   faGavel = faGavel;
   faHandPaper = faHandPaper;
+  myBid: any;
+  loggedUser: any;
 
   constructor(private bidService: BidService,
               private userService: UserService,
@@ -25,14 +27,16 @@ export class UserBidsComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser.subscribe(
       gotUser => {
+        this.loggedUser = gotUser.userName;
         this.bidService.getMyBidProperties(gotUser.userName).subscribe(
           myBids =>{
             this.dataSource = myBids;
             console.log(this.dataSource);
+
           }
         );
       }
-    )
+    );
 
   }
 
@@ -40,12 +44,14 @@ export class UserBidsComponent implements OnInit {
     this.router.navigate(['property-details', id]);
   }
 
-  goToBids(id:number){
+  goToBids(id: number) {
     this.bidService.getBidList(id).subscribe(
-      propertyBids =>{
+      propertyBids => {
         this.bidSource = propertyBids;
       }
-    )
+    );
   }
+
+
 
 }
