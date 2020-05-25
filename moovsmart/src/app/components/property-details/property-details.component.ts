@@ -12,7 +12,7 @@ import { MessagingService } from 'src/app/services/messaging.service';
 import {BidService} from '../../services/bid.service';
 
 import {DatePipe} from '@angular/common';
-import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -35,10 +35,11 @@ export class PropertyDetailsComponent implements OnInit {
     private userService: UserService,
     private messagingService: MessagingService,
     private bidService: BidService,
-    private datePipe: DatePipe
-
+    private datePipe: DatePipe,
+    private carouselConfig: NgbCarouselConfig
   ) {
-
+      carouselConfig.showNavigationArrows = true;
+      carouselConfig.showNavigationIndicators = true;
   }
 
   lastBidAmount: number;
@@ -169,7 +170,7 @@ export class PropertyDetailsComponent implements OnInit {
     this.bidService.getLastBid(Number(this.id)).subscribe(
       lastAmount => {
         this.lastBidAmount = lastAmount ;
-        if(this.lastBidAmount === null){
+        if (this.lastBidAmount === null) {
           this.nextBid = (this.propertyAdvertDetails?.actualPrice + 0.1).toFixed(1);
         } else {
           this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
