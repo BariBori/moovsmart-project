@@ -30,8 +30,12 @@ public class PropertyAdvertValidator implements Validator {
 
         PropertyAdvertFormData propertyAdvertFormData = (PropertyAdvertFormData) o;
         Double price = propertyAdvertFormData.getPrice();
-        if (price == null || price <= 0 || price > 1000) {
+        if (price == null) {
             errors.rejectValue("price", "moovsmart.price.invalid");
+        }
+
+        if (price <= 0 || price > 1000000000) {
+            errors.rejectValue("price", "moovsmart.priceMin.invalid");
         }
 
         String title = propertyAdvertFormData.getTitle();
@@ -40,12 +44,16 @@ public class PropertyAdvertValidator implements Validator {
         }
 
         Integer area = propertyAdvertFormData.getArea();
-        if (area == null || area <= 0  || area > 1000) {
+        if (area == null) {
             errors.rejectValue("area", "moovsmart.area.invalid");
         }
 
+        if (area <= 0) {
+            errors.rejectValue("area", "moovsmart.areaMin.invalid");
+        }
+
         Integer numberOfRooms = propertyAdvertFormData.getNumberOfRooms();
-        if (numberOfRooms == null || numberOfRooms <= 0  || numberOfRooms > 30) {
+        if (numberOfRooms == null || numberOfRooms <= 0) {
             errors.rejectValue("numberOfRooms", "moovsmart.numberOfRooms.invalid");
         }
 

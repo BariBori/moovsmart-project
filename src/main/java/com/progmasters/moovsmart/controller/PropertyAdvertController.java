@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.domain.Bid;
 import com.progmasters.moovsmart.dto.form.*;
 import com.progmasters.moovsmart.dto.list.*;
 import com.progmasters.moovsmart.service.BidService;
@@ -9,7 +8,7 @@ import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
 import com.progmasters.moovsmart.validation.PropertyUpdateValidator;
-import com.sun.xml.bind.v2.schemagen.xmlschema.Any;
+import com.progmasters.moovsmart.validation.SearchFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -35,6 +33,7 @@ public class PropertyAdvertController {
     private UserService userService;
     private BidService bidService;
     private PropertyUpdateValidator propertyUpdateValidator;
+    private SearchFormValidator searchFormValidator;
 
     @Autowired
     public PropertyAdvertController(
@@ -42,19 +41,30 @@ public class PropertyAdvertController {
             PropertyAdvertValidator propertyAdvertValidator,
             UserDetailsFromSecurityContext userDetails,
             UserService userService, BidService bidService,
-            PropertyUpdateValidator propertyUpdateValidator) {
+            PropertyUpdateValidator propertyUpdateValidator,
+            SearchFormValidator searchFormValidator) {
         this.propertyAdvertService = propertyAdvertService;
         this.propertyAdvertValidator = propertyAdvertValidator;
         this.userDetails = userDetails;
         this.userService = userService;
         this.bidService = bidService;
         this.propertyUpdateValidator = propertyUpdateValidator;
+        this.searchFormValidator = searchFormValidator;
     }
 
     @InitBinder("propertyAdvertFormData")
     public void bind(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(propertyAdvertValidator);
+    }
+
+    @InitBinder("propertyEditForm")
+    public void updateBind(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(propertyUpdateValidator);
+    }
+
+    @InitBinder("filterPropertyAdvert")
+    public void filterBind(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(searchFormValidator);
     }
 
     @PostMapping("/fav/{advertId}")
@@ -105,8 +115,20 @@ public class PropertyAdvertController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@RequestBody @Valid PropertyEditForm propertyEditForm, @PathVariable Long id) {
+        boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
+        ResponseEntity<PropertyAdvertDetailsData> result;
+        if (!isUpdated) {
+            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            result = new ResponseEntity<>(HttpStatus.OK);
+        }
+        return result;
+    }
+
     @PostMapping("/search")
-    public ResponseEntity<List<PropertyAdvertListItem>> getFilteredPropertyAdverts(@RequestBody FilterPropertyAdvert filterPropertyAdvert) {
+    public ResponseEntity<List<PropertyAdvertListItem>> getFilteredPropertyAdverts(@RequestBody @Valid FilterPropertyAdvert filterPropertyAdvert) {
         List<PropertyAdvertListItem> filteredPropertyAdverts = propertyAdvertService.getFilteredPropertyAdverts(filterPropertyAdvert);
         return new ResponseEntity<>(filteredPropertyAdverts, HttpStatus.OK);
     }
@@ -123,17 +145,7 @@ public class PropertyAdvertController {
     }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@RequestBody @Valid PropertyEditForm propertyEditForm, @PathVariable Long id) {
-        boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
-        ResponseEntity<PropertyAdvertDetailsData> result;
-        if (!isUpdated) {
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            result = new ResponseEntity<>(HttpStatus.OK);
-        }
-        return result;
-    }
+
 
 
     @GetMapping("/formData")
