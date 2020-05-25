@@ -29,8 +29,13 @@ public class PropertyUpdateValidator implements Validator {
 
         PropertyEditForm propertyEditForm = (PropertyEditForm) o;
         Double price = propertyEditForm.getPrice();
-        if (price == null || price <= 0 || price > 1000000000) {
+        if (price == null || price <= 0 || price > 1000) {
             errors.rejectValue("price", "moovsmart.price.invalid");
+        }
+
+        String title = propertyEditForm.getTitle();
+        if (title.length() < 10 || title.length() > 50) {
+            errors.rejectValue("title", "moovsmart.title.invalid");
         }
 
         Integer area = propertyEditForm.getArea();
