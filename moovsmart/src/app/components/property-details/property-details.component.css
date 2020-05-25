@@ -167,3 +167,7 @@ agm-map {
   height: 300px;
   padding: 30px;
 }
+
+.no-indicators .carousel-indicators {
+  display: none;
+}

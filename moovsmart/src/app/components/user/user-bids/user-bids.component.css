@@ -1,0 +1,98 @@
+.container{
+  min-height: 500px;
+}
+
+.list-img {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  object-fit: cover;
+  background-color: black;
+  overflow: hidden;
+  opacity: 70%;
+}
+
+.img-container{
+  width: 100%;
+  height: 150px;
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 25px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.property-container{
+  max-width: 600px;
+  width: auto;
+  padding: 10px;
+  margin: 20px;
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 5px 10px 0 rgba(0,5,0,0.3);
+}
+
+.row-price{
+  padding:10px;
+}
+
+.row{
+  font-size: small;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.row-address{
+  font-size: medium;
+  font-weight: bold;
+}
+
+.row-bid{
+  text-align: center;
+}
+
+.row-bid-actual{
+  font-size: medium;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.row-auction{
+  text-align: center;
+}
+
+.click{
+  cursor: pointer;
+}
+
+.click:hover{
+  font-size: 90%;
+  font-weight: bold;
+  border-right-style: solid;
+  border-color: #28a745;
+}
+
+.row-rooms{
+  padding:10px;
+}
+

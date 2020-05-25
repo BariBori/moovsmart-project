@@ -38,7 +38,7 @@
     <div class="row" id="carousel-auction">
       <div class="col-12 col-lg-7 column-first">
         <div class="row">
-          <ngb-carousel class="container-carousel">
+          <ngb-carousel class="container-carousel" >
             <ng-template ngbSlide *ngFor="let image of propertyAdvertDetails?.listOfImages; let i = index">
               <div class="picsum-img-wrapper">
                 <img src="{{image}}" alt="{{i}}">
@@ -141,12 +141,17 @@
     </div>
 
     <div class="row details">
-      <div class="col-4 label-small">Kezdő ár</div>
-      <div class="col-8 label-small">{{propertyAdvertDetails?.price}} Millió Ft</div>
+    <div class="col-4 label-small">Kezdő ár</div>
+    <div class="col-8 label-small">{{propertyAdvertDetails?.price}} Millió Ft</div>
+  </div>
+
+    <div class="row details">
+      <div class="col-4 label-small">Aktuális ár</div>
+      <div class="col-8 label-small">{{propertyAdvertDetails?.actualPrice}} Millió Ft</div>
     </div>
 
     <div class="row details">
-      <div class="col-4 label-small">Négyzetméter ár</div>
+      <div class="col-4 label-small">Négyzetméter ár (aktuális)</div>
       <div class="col-8">{{propertyAdvertDetails?.priceForSquareMeter  | number: '2.'}} Ft/m2</div>
     </div>
 

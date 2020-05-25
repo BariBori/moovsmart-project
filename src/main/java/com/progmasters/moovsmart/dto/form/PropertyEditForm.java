@@ -12,6 +12,8 @@ public class PropertyEditForm {
 
     private Double price;
 
+    private String title;
+
     private String propertyType;
     private String propertyConditionType;
     private String parkingType;
@@ -38,6 +40,7 @@ public class PropertyEditForm {
     public PropertyEditForm(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
         this.price = propertyAdvert.getPrice();
+        this.title = propertyAdvert.getTitle();
         this.propertyType = propertyAdvert.getPropertyType().getDisplayName();
         this.propertyConditionType = propertyAdvert.getPropertyConditionType().getDisplayName();
         this.parkingType = propertyAdvert.getParkingType().getDisplayName();
@@ -154,5 +157,13 @@ public class PropertyEditForm {
 
     public void setEndOfAuction(LocalDateTime endOfAuction) {
         this.endOfAuction = endOfAuction;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

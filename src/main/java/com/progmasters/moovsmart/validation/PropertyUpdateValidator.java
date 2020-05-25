@@ -1,61 +1,60 @@
 package com.progmasters.moovsmart.validation;
 
-import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
+import com.progmasters.moovsmart.dto.form.PropertyEditForm;
 import com.progmasters.moovsmart.service.PropertyAdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
-public class PropertyAdvertValidator implements Validator {
+public class PropertyUpdateValidator implements Validator {
 
     private PropertyAdvertService propertyAdvertService;
 
     @Autowired
-    public PropertyAdvertValidator(PropertyAdvertService propertyAdvertService) {
+    public PropertyUpdateValidator(PropertyAdvertService propertyAdvertService) {
         this.propertyAdvertService = propertyAdvertService;
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.equals(PropertyAdvertFormData.class);
+        return aClass.equals(PropertyEditForm.class);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
 
-        PropertyAdvertFormData propertyAdvertFormData = (PropertyAdvertFormData) o;
-        Double price = propertyAdvertFormData.getPrice();
+        PropertyEditForm propertyEditForm = (PropertyEditForm) o;
+        Double price = propertyEditForm.getPrice();
         if (price == null || price <= 0 || price > 1000) {
             errors.rejectValue("price", "moovsmart.price.invalid");
         }
 
-        String title = propertyAdvertFormData.getTitle();
+        String title = propertyEditForm.getTitle();
         if (title.length() < 10 || title.length() > 50) {
             errors.rejectValue("title", "moovsmart.title.invalid");
         }
 
-        Integer area = propertyAdvertFormData.getArea();
-        if (area == null || area <= 0  || area > 1000) {
+        Integer area = propertyEditForm.getArea();
+        if (area == null || area <= 10 || area > 1000) {
             errors.rejectValue("area", "moovsmart.area.invalid");
         }
 
-        Integer numberOfRooms = propertyAdvertFormData.getNumberOfRooms();
-        if (numberOfRooms == null || numberOfRooms <= 0  || numberOfRooms > 30) {
+        Integer numberOfRooms = propertyEditForm.getNumberOfRooms();
+        if (numberOfRooms == null || numberOfRooms < 1 || numberOfRooms > 30) {
             errors.rejectValue("numberOfRooms", "moovsmart.numberOfRooms.invalid");
         }
 
-        String description = propertyAdvertFormData.getDescription();
+        String description = propertyEditForm.getDescription();
         if (description.length() < 20 || description.length() > 600) {
             errors.rejectValue("description", "moovsmart.description.invalid");
         }
 
-        LocalDateTime startOfAuction = propertyAdvertFormData.getStartOfAuction();
-        LocalDateTime endOfAuction = propertyAdvertFormData.getEndOfAuction();
+        LocalDateTime startOfAuction = propertyEditForm.getStartOfAuction();
+        LocalDateTime endOfAuction = propertyEditForm.getEndOfAuction();
         LocalDateTime today = LocalDateTime.now();
         if((startOfAuction !=null && endOfAuction!=null) && endOfAuction.isBefore(startOfAuction)){
             errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.invalid");
@@ -84,5 +83,6 @@ public class PropertyAdvertValidator implements Validator {
         if(endOfAuction !=null && endOfAuction.getYear()>today.getYear()+1){
             errors.rejectValue("endOfAuction", "moovsmart.endOfAuction.tooFar");
         }
+
     }
 }

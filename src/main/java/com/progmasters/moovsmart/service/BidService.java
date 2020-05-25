@@ -64,8 +64,13 @@ public class BidService {
         return null;
     }
 
-    public List<MyBidList> listMyBids(String userName){
-        return bidRepository.findMyBids(userName)
+    public List<MyBidList> listMyBidProperties(String userName){
+        return bidRepository.findMyBidProperties(userName)
+                .map(MyBidList::new).collect(Collectors.toList());
+    }
+
+    public List<MyBidList> listMyBidsByProperty(Long advertId, String userName){
+        return bidRepository.findMyBidsByPropertyAdvertId(advertId, userName)
                 .map(MyBidList::new).collect(Collectors.toList());
     }
 

@@ -19,7 +19,16 @@
       <ng-container matColumnDef="image">
         <mat-header-cell *matHeaderCellDef > Kép </mat-header-cell>
         <mat-cell *matCellDef="let row" >
-          <img class="list-img" src="{{row.listOfImages[0]}}"></mat-cell>
+          <div *ngIf="row.listOfImages.length > 0">
+          <img class="list-img" src="{{row.listOfImages[0]}}">
+          </div>
+
+          <div *ngIf="row.listOfImages.length == 0">
+            <img src="https://res.cloudinary.com/dqmt1lieq/image/upload/v1590311372/property_album/no-property-found.jpg">
+          </div>
+        </mat-cell>
+
+
       </ng-container>
 
       <ng-container matColumnDef="address">
@@ -33,8 +42,8 @@
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Ár</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.price}} millió Ft</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Aktuális ár</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.actualPrice}} millió Ft</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="area">

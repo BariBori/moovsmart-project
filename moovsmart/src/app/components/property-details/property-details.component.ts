@@ -9,15 +9,11 @@ import { faEnvelope, faStar as farStar } from '@fortawesome/free-solid-svg-icons
 import { UserService } from '../../services/user.service';
 import { tap } from 'rxjs/operators';
 import { MessagingService } from 'src/app/services/messaging.service';
-import { Observable } from 'rxjs';
-import DateTimeFormat = Intl.DateTimeFormat;
 import {BidService} from '../../services/bid.service';
-import {BidFormDataModel} from '../../models/bids/bidFormData.model';
-import {BidFormComponent} from '../bid-form/bid-form.component';
-import {BidListItemModel} from '../../models/bids/bidListItem.model';
 
 import {DatePipe} from '@angular/common';
-import {consoleTestResultHandler} from 'tslint/lib/test';
+import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
+
 
 
 @Component({
@@ -26,6 +22,8 @@ import {consoleTestResultHandler} from 'tslint/lib/test';
   styleUrls: ['./property-details.component.css']
 })
 export class PropertyDetailsComponent implements OnInit {
+
+
 
 
   constructor(
@@ -40,6 +38,7 @@ export class PropertyDetailsComponent implements OnInit {
     private datePipe: DatePipe
 
   ) {
+
   }
 
   lastBidAmount: number;
@@ -89,7 +88,6 @@ export class PropertyDetailsComponent implements OnInit {
   public map: google.maps.Marker;
   public userName: string;
 
-  //isShow = true;
 
   ngOnInit(): void {
     this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
@@ -105,7 +103,6 @@ export class PropertyDetailsComponent implements OnInit {
         }
       },
     );
-
   }
 
 
@@ -177,7 +174,7 @@ export class PropertyDetailsComponent implements OnInit {
         } else {
           this.nextBid = (this.lastBidAmount + 0.1).toFixed(1);
         }
-        console.log("nextbid: " + this.nextBid);
+        console.log('nextbid: ' + this.nextBid);
       }
     );
   }
@@ -202,6 +199,8 @@ export class PropertyDetailsComponent implements OnInit {
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
+
+
 
 
 
