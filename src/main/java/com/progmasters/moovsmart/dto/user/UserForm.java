@@ -26,4 +26,6 @@ public class UserForm {
     public PersonalDetailsForm getPersonalDetails() {
         return personalDetails;
     }
+
+
 }

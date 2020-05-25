@@ -4,7 +4,6 @@ public enum PropertyType {
 
     FLAT("Lakás"),
     HOUSE("Ház"),
-    SITE("Telek"),
     GARAGE("Garázs"),
     SUMMERHOUSE("Nyaraló"),
     OFFICE("Iroda"),

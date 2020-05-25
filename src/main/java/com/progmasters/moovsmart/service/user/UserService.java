@@ -43,6 +43,10 @@ public class UserService {
 
     }
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public boolean isEmailTaken(String emailAddress) {
         return userRepository.findOneByEmail(emailAddress).isPresent();
     }

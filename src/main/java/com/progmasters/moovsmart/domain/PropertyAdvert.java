@@ -4,10 +4,7 @@ import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,10 +17,6 @@ public class PropertyAdvert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column
-    @NotNull
-    private Double price;
 
     @ElementCollection
     @CollectionTable(name = "images")
@@ -71,18 +64,26 @@ public class PropertyAdvert {
 
     @Column
     @NotNull
+    @Min(10)
+    @Max(1000)
     private Integer area;
 
     @Column
     @NotNull
+    @Min(1)
+    @Max(30)
     private Integer numberOfRooms;
 
     @Column
-    //@NotNull
+    @NotNull
+    @Min(0)
+    @Max(1000000000)
+    private Double price;
+
+    @Column
     private boolean elevator;
 
     @Column
-    //@NotNull
     private boolean balcony;
 
     @Column
@@ -118,7 +119,6 @@ public class PropertyAdvert {
 
     @OneToMany(mappedBy = "propertyAdvertId")
     private List<Bid> listOfBids = new ArrayList<>();
-
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {
         this.id = propertyAdvertFormData.getId();

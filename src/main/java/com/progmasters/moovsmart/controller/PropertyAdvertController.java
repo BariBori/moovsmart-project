@@ -8,6 +8,7 @@ import com.progmasters.moovsmart.service.PropertyAdvertService;
 import com.progmasters.moovsmart.service.user.UserService;
 import com.progmasters.moovsmart.utils.UserDetailsFromSecurityContext;
 import com.progmasters.moovsmart.validation.PropertyAdvertValidator;
+import com.progmasters.moovsmart.validation.PropertyUpdateValidator;
 import com.sun.xml.bind.v2.schemagen.xmlschema.Any;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,23 +34,27 @@ public class PropertyAdvertController {
     private UserDetailsFromSecurityContext userDetails;
     private UserService userService;
     private BidService bidService;
+    private PropertyUpdateValidator propertyUpdateValidator;
 
     @Autowired
     public PropertyAdvertController(
             PropertyAdvertService propertyAdvertService,
             PropertyAdvertValidator propertyAdvertValidator,
             UserDetailsFromSecurityContext userDetails,
-            UserService userService, BidService bidService) {
+            UserService userService, BidService bidService,
+            PropertyUpdateValidator propertyUpdateValidator) {
         this.propertyAdvertService = propertyAdvertService;
         this.propertyAdvertValidator = propertyAdvertValidator;
         this.userDetails = userDetails;
         this.userService = userService;
         this.bidService = bidService;
+        this.propertyUpdateValidator = propertyUpdateValidator;
     }
 
     @InitBinder("propertyAdvertFormData")
     public void bind(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(propertyAdvertValidator);
+        webDataBinder.addValidators(propertyUpdateValidator);
     }
 
     @PostMapping("/fav/{advertId}")
@@ -119,7 +124,7 @@ public class PropertyAdvertController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@Valid @RequestBody PropertyEditForm propertyEditForm, @PathVariable Long id) {
+    public ResponseEntity<PropertyAdvertDetailsData> updateProperty(@RequestBody @Valid PropertyEditForm propertyEditForm, @PathVariable Long id) {
         boolean isUpdated = propertyAdvertService.updateProperty(propertyEditForm, id);
         ResponseEntity<PropertyAdvertDetailsData> result;
         if (!isUpdated) {
