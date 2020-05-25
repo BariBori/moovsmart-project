@@ -76,8 +76,8 @@ public class PropertyAdvert {
 
     @Column
     @NotNull
-    @Min(0)
-    @Max(1000000000)
+    @Min(1)
+    @Max(1000)
     private Double price;
 
     @Column
