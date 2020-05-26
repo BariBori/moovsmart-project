@@ -4,15 +4,38 @@ import com.progmasters.moovsmart.domain.AdvertStatusType;
 import com.progmasters.moovsmart.domain.PropertyConditionType;
 import com.progmasters.moovsmart.domain.PropertyType;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class FilterPropertyAdvert {
 
     private String city;
+
+    @Min(0)
+    @Max(1000000000)
     private Double minPrice;
+
+    @Min(0)
+    @Max(1000000000)
     private Double maxPrice;
+
+    @Min(10)
+    @Max(1000)
     private Integer minArea;
+
+    @Min(10)
+    @Max(1000)
     private Integer maxArea;
+
+    @Min(1)
+    @Max(30)
     private Integer minRooms;
+
+    @Min(1)
+    @Max(30)
     private Integer maxRooms;
+
     private AdvertStatusType advertStatusType;
     private PropertyType propertyType;
     private PropertyConditionType propertyConditionType;

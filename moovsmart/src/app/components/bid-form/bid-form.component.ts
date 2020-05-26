@@ -63,13 +63,25 @@ export class BidFormComponent implements OnInit {
 
   }
 
-  openDialog(content) {
+  /*openDialog(content) {
     if (this.userService.isLoggedIn()) {
       this.modalService.open(content, {centered: true});
     } else {
       this.router.navigate(['user-login']);
       alert('A licitáláshoz be kell jeletkezni');
     }
+  }*/
+
+  openDialog(content, logging) {
+    if (this.userService.isLoggedIn()) {
+      this.modalService.open(content, {centered: true});
+    } else {
+      this.modalService.open(logging, {centered: true});
+    }
+  }
+
+  loggingOn() {
+    this.router.navigate(['user-login']);
   }
 
   getLastBid() {

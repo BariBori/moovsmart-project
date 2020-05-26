@@ -40,19 +40,20 @@
       </select>
     </div>
 
-
-
-
     <div class="form-group form-inline">
+      <div>
       <label class="property-form-label" for="minPrice">Irányár</label>
       <input type="number"
-             formControlName="minPrice"
              class="form-control min-max-field"
+             formControlName="minPrice"
              placeholder="min"
              id="minPrice"
              min="0"
-
       />
+      <p><small *ngFor=" let errorMessage of searchFrom.get('minPrice').errors | keyvalue" class="text-danger">
+        {{errorMessage?.value}}
+      </small></p>
+      </div>
 
       <label class="property-form-label" for="maxPrice"> - </label>
       <input type="number"

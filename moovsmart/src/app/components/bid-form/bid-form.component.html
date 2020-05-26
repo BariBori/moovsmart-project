@@ -36,8 +36,23 @@
           </small></div>
       </ng-template>
 
+      <ng-template #logging let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Bejelentkezés licitáláshoz</h4>
+        </div>
 
-      <button class="btn btn-success my-buttons" (click)="openDialog(content)" [disabled]="amountOfBid < nextBidNumber">Licit küldése</button>
+        <div class="modal-body">
+          <p>A licitáláshoz be kell jelentkezni</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="loggingOn(); modal.close()" data-dismiss="modal">Bejelentkezek</button>
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Mégsem</button>
+        </div>
+
+      </ng-template>
+
+
+      <button class="btn btn-success my-buttons" (click)="openDialog(content, logging)" [disabled]="amountOfBid < nextBidNumber">Licit küldése</button>
 
 
 
@@ -49,4 +64,3 @@
   </form>
 </div>
 
-<!--placeholder="Min: {{nextBid}} Millió Ft"-->

@@ -29,24 +29,32 @@ public class PropertyUpdateValidator implements Validator {
 
         PropertyEditForm propertyEditForm = (PropertyEditForm) o;
         Double price = propertyEditForm.getPrice();
-        if (price == null || price <= 0 || price > 1000) {
+        if (price == null) {
             errors.rejectValue("price", "moovsmart.price.invalid");
         }
 
-        String title = propertyEditForm.getTitle();
-        if (title.length() < 10 || title.length() > 50) {
-            errors.rejectValue("title", "moovsmart.title.invalid");
+        if (price <= 0 || price > 1000000000) {
+            errors.rejectValue("price", "moovsmart.priceMin.invalid");
         }
 
         Integer area = propertyEditForm.getArea();
-        if (area == null || area <= 10 || area > 1000) {
+        if (area == null) {
             errors.rejectValue("area", "moovsmart.area.invalid");
         }
 
+        if (area <= 0) {
+            errors.rejectValue("area", "moovsmart.areaMin.invalid");
+        }
+
         Integer numberOfRooms = propertyEditForm.getNumberOfRooms();
-        if (numberOfRooms == null || numberOfRooms < 1 || numberOfRooms > 30) {
+        if (numberOfRooms == null) {
             errors.rejectValue("numberOfRooms", "moovsmart.numberOfRooms.invalid");
         }
+
+        if (numberOfRooms < 1 || numberOfRooms > 30) {
+            errors.rejectValue("numberOfRooms", "moovsmart.numberOfRoomsMin.invalid");
+        }
+
 
         String description = propertyEditForm.getDescription();
         if (description.length() < 20 || description.length() > 600) {
