@@ -120,7 +120,6 @@ public class PropertyAdvert {
 
 
     @OneToMany(mappedBy = "propertyAdvertId")
-    @UniqueElements
     private List<Bid> listOfBids = new ArrayList<>();
 
     public PropertyAdvert(PropertyAdvertFormData propertyAdvertFormData, User user) {

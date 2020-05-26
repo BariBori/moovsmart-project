@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"property_advert_id_id", "amount_of_bid"}))
 public class Bid {
 
     @Id
@@ -27,7 +28,7 @@ public class Bid {
     @Column
     private LocalDateTime dateTimeOfBid;
 
-    @Column
+    @Column(name="amount_of_bid")
     @Positive
     private Double amountOfBid;
 
