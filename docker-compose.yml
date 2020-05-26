@@ -2,6 +2,7 @@ version: '3.4'
 
 volumes:
   ssl_certs:
+    external: true
 
 services:
   backend:
