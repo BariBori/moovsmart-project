@@ -1,5 +1,8 @@
 version: '3.4'
 
+volumes:
+  ssl_certs:
+
 services:
   backend:
     image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/backend-prod
@@ -17,5 +20,5 @@ services:
       - "443:443"
     volumes:
       - /etc/ssl/certs/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
-      - ssl_certs:/etc/letsencrypt/live/ohhaithere.com/fullchain.pem
+      - ssl_certs:/etc/letsencrypt:ro
     network_mode: host
