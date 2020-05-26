@@ -219,7 +219,7 @@ export class PropertyFormComponent implements OnInit {
         // fill listOfImages array
 
         this.listOfImages.push(fileItem.data.url);
-        this.listOfImages = this.listOfImages.filter(function (el) {
+        this.listOfImages = this.listOfImages.filter(function(el) {
           return el != null;
         });
         console.log('list of images');

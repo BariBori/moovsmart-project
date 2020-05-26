@@ -1,10 +1,10 @@
-import {environment} from "../../environments/environment";
-import {Injectable} from "@angular/core";
-import {BidFormDataModel} from "../models/bids/bidFormData.model";
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {BidListItemModel} from "../models/bids/bidListItem.model";
-import {MyBidsModel} from "../models/bids/myBids.model";
+import {environment} from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {BidFormDataModel} from '../models/bids/bidFormData.model';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {BidListItemModel} from '../models/bids/bidListItem.model';
+import {MyBidsModel} from '../models/bids/myBids.model';
 
 
 const BASE_URL = environment.BASE_URL + '/api/properties/property-details';
@@ -34,12 +34,12 @@ export class BidService {
     return this.httpClient.get<number>(BASE_URL + '/bidder/' + advertId);
   }
 
-  getMyBidProperties(userName: string): Observable<Array<MyBidsModel>>{
+  getMyBidProperties(userName: string): Observable<Array<MyBidsModel>> {
     return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + userName);
   }
 
-  getMyBidsByProperty(advertId:number, userName: string): Observable<Array<MyBidsModel>>{
-    return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + advertId +'/'+ userName)
+  getMyBidsByProperty(advertId: number, userName: string): Observable<Array<MyBidsModel>> {
+    return this.httpClient.get<Array<MyBidsModel>>(BASE_URL + '/myBids/' + advertId + '/' + userName);
 }
 
 }

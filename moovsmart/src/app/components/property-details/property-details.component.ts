@@ -89,6 +89,8 @@ export class PropertyDetailsComponent implements OnInit {
   public map: google.maps.Marker;
   public userName: string;
 
+  isShow = true;
+
 
   ngOnInit(): void {
     this.propertyAdvertService.savedAdverts.pipe(tap(console.log)).subscribe(saved => this.favourites = saved);
@@ -195,8 +197,6 @@ export class PropertyDetailsComponent implements OnInit {
       this.isVisitorLogged = false;
     }
   }
-
-  isShow = true;
   toggleDisplay() {
     this.isShow = !this.isShow;
   }

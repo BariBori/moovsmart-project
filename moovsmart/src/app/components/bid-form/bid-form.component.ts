@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {BidService} from "../../services/bid.service";
-import {BidFormDataModel} from "../../models/bids/bidFormData.model";
-import {PropertyService} from "../../services/property.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MatDialogRef} from "@angular/material/dialog";
-import {validationHandler} from "../../utils/validationHandler";
-import {PropertyAdvertDetailsModel} from "../../models/propertyAdvertDetails.model";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {BidService} from '../../services/bid.service';
+import {BidFormDataModel} from '../../models/bids/bidFormData.model';
+import {PropertyService} from '../../services/property.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatDialogRef} from '@angular/material/dialog';
+import {validationHandler} from '../../utils/validationHandler';
+import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 
 @Component({
   selector: 'app-bid-form',
@@ -51,7 +51,7 @@ export class BidFormComponent implements OnInit {
 
 
   onSubmit() {
-    let formData: BidFormDataModel = this.bidForm.value;
+    const formData: BidFormDataModel = this.bidForm.value;
     this.bidService.createBid(formData, this.advertId).subscribe(
       () => {
         this.router.navigate(['../property-details/' + this.advertId]);
