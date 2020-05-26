@@ -15,4 +15,7 @@ services:
     ports: 
       - "80:80"
       - "443:443"
+    volumes:
+      - /etc/ssl/certs/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - ssl_certs:/etc/letsencrypt/live/ohhaithere.com/fullchain.pem
     network_mode: host
