@@ -41,7 +41,6 @@
     </div>
 
     <div class="form-group form-inline">
-      <div>
       <label class="property-form-label" for="minPrice">Irányár</label>
       <input type="number"
              class="form-control min-max-field"
@@ -50,10 +49,6 @@
              id="minPrice"
              min="0"
       />
-      <p><small *ngFor=" let errorMessage of searchFrom.get('minPrice').errors | keyvalue" class="text-danger">
-        {{errorMessage?.value}}
-      </small></p>
-      </div>
 
       <label class="property-form-label" for="maxPrice"> - </label>
       <input type="number"
@@ -64,12 +59,14 @@
              min="0"
       /> <label>Millió Ft</label>
 
+
     </div>
+    <p><small *ngFor=" let errorMessage of searchFrom.get('maxPrice').errors | keyvalue" class="text-danger">
+      {{errorMessage?.value}}
+    </small></p>
     <p><small *ngIf="searchFrom.errors?.priceRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
       A minimum ár nem lehet nagyobb mint a maximum ár!
     </small></p>
-
-
 
     <div class="form-group form-inline ">
       <label class="property-form-label" for="minArea">Négyzetméter</label>
