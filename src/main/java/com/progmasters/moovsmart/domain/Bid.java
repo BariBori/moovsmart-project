@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.domain;
 
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.BidFormData;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
