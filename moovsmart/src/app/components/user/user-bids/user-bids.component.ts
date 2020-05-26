@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {BidService} from "../../../services/bid.service";
-import {UserService} from "../../../services/user.service";
-import {Router} from "@angular/router";
-import {MyBidsModel} from "../../../models/bids/myBids.model";
-import {faGavel, faHandPaper} from "@fortawesome/free-solid-svg-icons";
-import {BidListItemModel} from "../../../models/bids/bidListItem.model";
+import {BidService} from '../../../services/bid.service';
+import {UserService} from '../../../services/user.service';
+import {Router} from '@angular/router';
+import {MyBidsModel} from '../../../models/bids/myBids.model';
+import {faGavel, faHandPaper} from '@fortawesome/free-solid-svg-icons';
+import {BidListItemModel} from '../../../models/bids/bidListItem.model';
 
 @Component({
   selector: 'app-user-bids',
@@ -29,7 +29,7 @@ export class UserBidsComponent implements OnInit {
       gotUser => {
         this.loggedUser = gotUser.userName;
         this.bidService.getMyBidProperties(gotUser.userName).subscribe(
-          myBids =>{
+          myBids => {
             this.dataSource = myBids;
             console.log(this.dataSource);
 

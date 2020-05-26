@@ -1,5 +1,9 @@
 version: '3.4'
 
+volumes:
+  ssl_certs:
+    external: true
+
 services:
   backend:
     image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/backend-prod
@@ -7,11 +11,15 @@ services:
       - SPRING_PROFILES_ACTIVE=production
       - FRONTEND_HOST=moovsmart.progmasters.hu
     ports:
-      - 8080:8080
+      - "8080:8080"
     network_mode: host
       
   frontend:
     image: gitlab.progmasters.hu:4567/fort.zsuzsanna/angular-moovsmart/frontend-prod
     ports: 
-      - 80:80
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/ssl/certs/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - ssl_certs:/etc/letsencrypt:ro
     network_mode: host

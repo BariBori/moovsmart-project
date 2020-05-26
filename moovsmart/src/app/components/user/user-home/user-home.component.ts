@@ -5,7 +5,7 @@ import { faCity, faEnvelope, faUser, faStar } from '@fortawesome/free-solid-svg-
 import { Router } from '@angular/router';
 import { MessagingService, TopicMap } from 'src/app/services/messaging.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import {faGavel} from "@fortawesome/free-solid-svg-icons";
+import {faGavel} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-home',
