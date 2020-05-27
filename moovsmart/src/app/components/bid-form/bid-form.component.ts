@@ -58,19 +58,16 @@ export class BidFormComponent implements OnInit {
         this.bidForm.reset();
         location.reload();
     },
-      error => validationHandler(error, this.bidForm)
+      error => {
+        if (error.status === 500) {
+          alert('Már beérkezett ilyen összegű licit, próbálkozz magasabb összeggel!');
+          location.reload();
+        }
+        validationHandler(error, this.bidForm);
+      }
     );
 
   }
-
-  /*openDialog(content) {
-    if (this.userService.isLoggedIn()) {
-      this.modalService.open(content, {centered: true});
-    } else {
-      this.router.navigate(['user-login']);
-      alert('A licitáláshoz be kell jeletkezni');
-    }
-  }*/
 
   openDialog(content, logging) {
     if (this.userService.isLoggedIn()) {
