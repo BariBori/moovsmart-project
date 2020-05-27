@@ -19,13 +19,13 @@
       <ng-container matColumnDef="image">
         <mat-header-cell *matHeaderCellDef > Kép </mat-header-cell>
         <mat-cell *matCellDef="let row" >
-          <div *ngIf="row.listOfImages.length > 0">
+          <span *ngIf="row.listOfImages.length > 0">
           <img class="list-img" src="{{row.listOfImages[0]}}">
-          </div>
+          </span>
 
-          <div *ngIf="row.listOfImages.length == 0">
-            <img src="https://res.cloudinary.com/dqmt1lieq/image/upload/v1590311372/property_album/no-property-found.jpg">
-          </div>
+          <span *ngIf="row.listOfImages.length == 0">
+            <img class="list-img" src="https://res.cloudinary.com/dqmt1lieq/image/upload/c_scale,w_100/v1590572230/property_album/placeholder_house.jpg">
+          </span>
         </mat-cell>
 
 
