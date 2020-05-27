@@ -1,6 +1,8 @@
 .container{
   min-height: 500px;
+  margin-bottom: 50px;
 }
+
 
 .list-img {
   width: 100px;

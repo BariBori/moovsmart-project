@@ -11,7 +11,7 @@
   padding: 0;
   width: 200px;
   background: #f8f9fa;
-  position: fixed;
+  position: absolute;
   height: 500px;
   overflow: auto;
 }
