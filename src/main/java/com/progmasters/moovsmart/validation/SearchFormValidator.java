@@ -28,32 +28,32 @@ public class SearchFormValidator implements Validator {
         FilterPropertyAdvert filterPropertyAdvert = (FilterPropertyAdvert) o;
 
         Integer maxArea = filterPropertyAdvert.getMaxArea();
-        if(maxArea < 0) {
+        if(maxArea != null && maxArea < 0) {
             errors.rejectValue("maxArea", "moovsmart.maxArea.invalid");
         }
 
         Integer minArea = filterPropertyAdvert.getMinArea();
-        if(minArea < 0) {
+        if(minArea != null && minArea < 0) {
             errors.rejectValue("minArea", "moovsmart.minArea.invalid");
         }
 
         Double maxPrice = filterPropertyAdvert.getMaxPrice();
-        if(maxPrice < 0) {
+        if(maxPrice != null && maxPrice < 0) {
             errors.rejectValue("maxPrice", "moovsmart.maxPrice.invalid");
         }
 
         Double minPrice = filterPropertyAdvert.getMinPrice();
-        if(minPrice < 0) {
+        if(minPrice != null && minPrice < 0) {
             errors.rejectValue("minPrice", "moovsmart.minPrice.invalid");
         }
 
         Integer minNumberOfRooms = filterPropertyAdvert.getMinRooms();
-        if(minNumberOfRooms < 0) {
+        if(minNumberOfRooms != null && minNumberOfRooms < 0) {
             errors.rejectValue("minNumberOfRooms", "moovsmart.minNumberOfRooms.invalid");
         }
 
         Integer maxNumberOfRooms = filterPropertyAdvert.getMaxRooms();
-        if(maxNumberOfRooms < 0) {
+        if(maxNumberOfRooms != null && maxNumberOfRooms < 0) {
             errors.rejectValue("maxNumberOfRooms", "moovsmart.manNumberOfRooms.invalid");
         }
 

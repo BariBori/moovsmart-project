@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.domain;
 
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -116,6 +117,7 @@ public class PropertyAdvert {
 
     @Column
     private Double actualPrice;
+
 
     @OneToMany(mappedBy = "propertyAdvertId")
     private List<Bid> listOfBids = new ArrayList<>();
