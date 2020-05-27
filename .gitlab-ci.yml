@@ -81,6 +81,18 @@ Lint FE:
       - moovsmart/**/*
   allow_failure: true
 
+Lint BE:
+  stage: pre-compile
+  image: $MOOVSMART_REGISTRY/zulu-maven:latest
+  variables:
+    SONAR_HOST_URL: http://52.143.29.14:9000
+  script:
+    - mvn sonar:sonar
+  only:
+    changes:
+      - src/**/*
+      - pom.xml
+
 Compile FE:
   stage: compile
   image: node:current-alpine
