@@ -15,7 +15,15 @@
       <ng-container matColumnDef="image">
         <mat-header-cell *matHeaderCellDef> Kép </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <img class="list-img" src="{{row.listOfImages[0]}}"></mat-cell>
+          <span *ngIf="row.listOfImages.length > 0">
+          <img class="list-img" src="{{row.listOfImages[0]}}">
+          </span>
+
+          <span *ngIf="row.listOfImages.length == 0">
+            <img class="list-img" src="https://res.cloudinary.com/dqmt1lieq/image/upload/c_scale,w_100/v1590572230/property_album/placeholder_house.jpg">
+          </span>
+
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="address">

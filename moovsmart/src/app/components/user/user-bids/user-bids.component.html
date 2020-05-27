@@ -4,35 +4,48 @@
   <div *ngFor="let bid of dataSource; index as i">
     <div class="property-container click">
       <div class="row">
+
         <div class="col col-12 col-sm-12 col-lg-4 img-container">
-          <img class="list-img" src="{{bid.listOfImages[0]}}">
+          <span *ngIf="bid.listOfImages.length>0">
+            <img class="list-img" src="{{bid.listOfImages[0]}}">
+          </span>
+          <span *ngIf="bid.listOfImages.length==0">
+            <img class="list-img" src="https://res.cloudinary.com/dqmt1lieq/image/upload/v1590572230/property_album/placeholder_house.jpg">
+          </span>
           <div class="bottom-left">{{bid?.numberOfBids}}
             <fa-icon [icon]="faHandPaper" class="icon"></fa-icon>
           </div>
         </div>
+
         <div class="col col-12 col-sm-12 col-lg-8 " >
+
           <div class="row row-address" (click)="goToDetails(bid.propertyId)">
             <div class="col">{{bid.address}}</div>
           </div>
+
           <div class="row row-auction" >
             <div class="col">
             {{bid.startOfAuction | date:'yyyy.MM.dd HH:mm:ss'}} - {{bid.endOfAuction | date:'yyyy.MM.dd HH:mm:ss'}}
             </div>
           </div>
+
           <div class="row row-bid">
             <div class="col"></div>
             <div class="col"></div>
           </div>
+
           <div class="row row-bid-actual">
             <div *ngIf="bid.endOfAuction < bid.today" class="col">Záró ár: {{bid.actualPrice}} Millió Ft</div>
             <div *ngIf="bid.endOfAuction >= bid.today" class="col">Aktuális ár: {{bid.actualPrice}} Millió Ft</div>
           </div>
+
           <div class="row">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" (click)="goToBids(bid.propertyId)">
               Részletek
             </button>
           </div>
-        </div>
+
+        </div><!--end column 2-->
 
 
       </div>
@@ -58,11 +71,10 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
-
           </div>
         </div>
       </div>
-    </div>
+    </div> <!--modal end-->
 
   </div>
 
