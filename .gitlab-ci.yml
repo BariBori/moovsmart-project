@@ -87,7 +87,7 @@ Lint BE:
   variables:
     SONAR_HOST_URL: http://52.143.29.14:9000
   script:
-    - mvn sonar:sonar
+    - mvn compile && mvn sonar:sonar
   only:
     changes:
       - src/**/*
