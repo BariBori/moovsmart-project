@@ -32,6 +32,10 @@
   color: white;
 }
 
+.sidebar-header{
+  padding: 10px 0px 0px 10px;
+}
+
 div.content {
   margin-left: 200px;
   padding: 1px 16px;
