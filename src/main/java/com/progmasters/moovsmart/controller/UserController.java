@@ -56,7 +56,7 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<UserDto> authenticateUser() {
-        logger.info("user " + userDetails.get().getUsername() + " logged in");
+        logger.info(String.format("User %s was logged in", userDetails.get().getUsername()));
         return ResponseEntity.ok(UserDto.fromUserDetails(userDetails.get()));
     }
 
