@@ -22,55 +22,39 @@ public class MessagingController {
     private UserDetailsFromSecurityContext userDetails;
 
     @Autowired
-    public MessagingController(
-            MessagingService service,
-            UserDetailsFromSecurityContext userDetails) {
+    public MessagingController(MessagingService service, UserDetailsFromSecurityContext userDetails) {
         this.service = service;
         this.userDetails = userDetails;
     }
 
-
     @PutMapping("/topic/{chatId}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<ChatDto> directMessage(
-            @RequestBody String message,
-            @PathVariable Long chatId
-    ) {
-        return service.saveDirectMessage(
-                userDetails.get(),
-                message,
-                chatId)
-                .map(ChatDto::fromTopicView)
-                .map(ResponseEntity::ok)
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    public ResponseEntity<ChatDto> directMessage(@RequestBody String message, @PathVariable Long chatId) {
+        logger.info("Message saved");
+        return service.saveDirectMessage(userDetails.get(), message, chatId).map(ChatDto::fromTopicView)
+                .map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/my-topics")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<Map<Long, TopicDto>>
-    fetchTopicsByUser() {
-        return ResponseEntity.ok(
-                service.getTopicsByUserIdentifier(
-                        userDetails.get()
-                ));
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    public ResponseEntity<Map<Long, TopicDto>> fetchTopicsByUser() {
+        return ResponseEntity.ok(service.getTopicsByUserIdentifier(userDetails.get()));
     }
 
     @PostMapping("/unsubscribe/{chatId}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<Map<Long, TopicDto>> unsubscribeFromDirectMessaging(@PathVariable Long chatId) {
         return ResponseEntity.ok(service.deleteChatView(userDetails.get(), chatId));
     }
 
     @PostMapping("/direct/{advertId}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<Map<Long, TopicDto>> directMessage(@PathVariable Long advertId) {
-        return ResponseEntity.ok(
-                service.enquire(userDetails.get(), advertId)
-        );
+        return ResponseEntity.ok(service.enquire(userDetails.get(), advertId));
     }
 
     @GetMapping("/topic/{chatId}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<ChatDto> chat(@PathVariable Long chatId) {
         return service.renderUserViewForChat(userDetails.get(), chatId)
                 .map(view -> ResponseEntity.ok(ChatDto.fromTopicView(view)))

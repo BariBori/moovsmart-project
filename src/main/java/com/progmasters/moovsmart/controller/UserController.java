@@ -29,7 +29,8 @@ public class UserController {
     private UserDetailsFromSecurityContext userDetails;
 
     @Autowired
-    public UserController(UserService userService, UserActivationService userActivationService, UserFormValidator formValidator, UserDetailsFromSecurityContext userDetails) {
+    public UserController(UserService userService, UserActivationService userActivationService,
+            UserFormValidator formValidator, UserDetailsFromSecurityContext userDetails) {
         this.userService = userService;
         this.userActivationService = userActivationService;
         this.formValidator = formValidator;
@@ -55,11 +56,12 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<UserDto> authenticateUser() {
+        logger.info(String.format("User %s was logged in", userDetails.get().getUsername()));
         return ResponseEntity.ok(UserDto.fromUserDetails(userDetails.get()));
     }
 
     @GetMapping("/me")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<UserDto> currentUserId() {
         return ResponseEntity.ok(UserDto.fromUserDetails(userDetails.get()));
     }
