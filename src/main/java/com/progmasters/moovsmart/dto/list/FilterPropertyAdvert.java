@@ -20,19 +20,19 @@ public class FilterPropertyAdvert {
     @Max(1000000000)
     private Double maxPrice;
 
-    @Min(10)
+    @Min(0)
     @Max(1000)
     private Integer minArea;
 
-    @Min(10)
+    @Min(0)
     @Max(1000)
     private Integer maxArea;
 
-    @Min(1)
+    @Min(0)
     @Max(30)
     private Integer minRooms;
 
-    @Min(1)
+    @Min(0)
     @Max(30)
     private Integer maxRooms;
 

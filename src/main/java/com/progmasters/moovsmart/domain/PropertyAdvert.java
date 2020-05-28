@@ -65,19 +65,19 @@ public class PropertyAdvert {
 
     @Column
     @NotNull
-    @Min(10)
+    @Min(0)
     @Max(1000)
     private Integer area;
 
     @Column
     @NotNull
-    @Min(1)
+    @Min(0)
     @Max(30)
     private Integer numberOfRooms;
 
     @Column
     @NotNull
-    @Min(1)
+    @Min(0)
     @Max(1000)
     private Double price;
 

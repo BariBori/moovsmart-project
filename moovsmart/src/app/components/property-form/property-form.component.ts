@@ -12,8 +12,10 @@ import {HttpClient} from '@angular/common/http';
 import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
 import {Cloudinary} from '@cloudinary/angular-5.x';
 import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
-import {PropertyFormDataModel} from '../../models/propertyFormData.model';
 import {PropertyEditModel} from '../../models/propertyEdit.model';
+import DateTimeFormat = Intl.DateTimeFormat;
+import {Local} from "protractor/built/driverProviders";
+import {timestamp} from "rxjs/operators";
 
 
 @Component({
@@ -58,8 +60,6 @@ export class PropertyFormComponent implements OnInit {
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
   parkingType: ParkingTypeOptionItemModel[];
 
-  actualDateTime = new Date(new Date().getTime()).toLocaleString();
-
   propertyForm = this.formBuilder.group({
     advertStatus: ['FORAPPROVAL'],
 
@@ -91,11 +91,7 @@ export class PropertyFormComponent implements OnInit {
     startOfAuction: [null],
     endOfAuction: [null],
     actualPrice: [null],
-  }
-
-    );
-
-
+  });
 
   constructor(
     private formBuilder: FormBuilder,
@@ -423,6 +419,5 @@ export class PropertyFormComponent implements OnInit {
     );
     console.log('PropertyForm');
   }
-
 
 }

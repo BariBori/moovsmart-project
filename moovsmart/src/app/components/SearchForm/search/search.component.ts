@@ -92,6 +92,8 @@ export class SearchComponent implements OnInit {
 
   submit(filterPropertyAdvertModel) {
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
+    console.log(filterPropertyAdvertModel);
   }
+
 
 }
