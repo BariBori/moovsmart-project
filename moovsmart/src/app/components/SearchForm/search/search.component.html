@@ -61,11 +61,17 @@
 
 
     </div>
-    <p><small *ngFor=" let errorMessage of searchFrom.get('maxPrice').errors | keyvalue" class="text-danger">
+    <!--<p><small *ngFor=" let errorMessage of searchFrom.get('maxPrice').errors | keyvalue" class="text-danger">
       {{errorMessage?.value}}
-    </small></p>
+    </small></p>-->
     <p><small *ngIf="searchFrom.errors?.priceRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
       A minimum ár nem lehet nagyobb mint a maximum ár!
+    </small></p>
+    <p><small *ngIf="searchFrom.errors?.minPriceError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum ár nem lehet mínusz szám!
+    </small></p>
+    <p><small *ngIf="searchFrom.errors?.maxPriceError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A maximum ár nem lehet mínusz szám!
     </small></p>
 
     <div class="form-group form-inline ">
@@ -89,6 +95,12 @@
     <p><small *ngIf="searchFrom.errors?.areaRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
       A minimum négyzetméter nem lehet nagyobb mint a maximum négyzetméter!
     </small></p>
+    <p><small *ngIf="searchFrom.errors?.minAreaError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum nágyzetméter nem lehet mínusz szám!
+    </small></p>
+    <p><small *ngIf="searchFrom.errors?.maxAreaError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A maximum négyzetméter nem lehet mínusz szám!
+    </small></p>
 
     <div class="form-group form-inline ">
       <label class="property-form-label" for="minRooms">Szobák száma</label>
@@ -111,11 +123,17 @@
     <p><small *ngIf="searchFrom.errors?.numberOfRoomsRangeError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
       A minimum szobaszám nem lehet nagyobb mint a maximum szobaszám!
     </small></p>
+    <p><small *ngIf="searchFrom.errors?.minRoomsError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A minimum szobaszám nem lehet mínusz szám!
+    </small></p>
+    <p><small *ngIf="searchFrom.errors?.maxRoomsError && (searchFrom.touched || searchFrom.dirty)" class="cross-validation-error-message alert alert-danger">
+      A maximum szobaszám nem lehet mínusz szám!
+    </small></p>
 
 
 
     <div class="form-group">
-      <button class="btn btn-success" (click)="submit(searchFrom.value)">Keresés</button>
+      <button class="btn btn-success" (click)="submit(searchFrom.value)" [disabled]="searchFrom.errors" >Keresés</button>
     </div>
   </form>
 

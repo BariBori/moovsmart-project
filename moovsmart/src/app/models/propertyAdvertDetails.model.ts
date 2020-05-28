@@ -37,7 +37,7 @@ export interface PropertyAdvertDetailsModel {
   description: string;
   advertStatus: AdvertStatusTypeOptionItemModel;
 
-  startOfAuction: Date;
+  startOfAuction: DateTimeFormat;
   endOfAuction: DateTimeFormat;
 
 

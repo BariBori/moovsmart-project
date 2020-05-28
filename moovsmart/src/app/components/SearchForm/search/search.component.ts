@@ -4,8 +4,16 @@ import {PropertyTypeOptionItemModel} from '../../../models/propertyTypeOptionIte
 import {PropertyConditionTypeOptionItemModel} from '../../../models/propertyConditionTypeOptionItem.model';
 import {PropertyService} from '../../../services/property.service';
 import {FormInitDataModel} from '../../../models/formInitDataModel';
-import {areaValidator,  priceValidator, roomValidator} from './validator.directive';
+import {
+  areaValidator, maxAreaValidator,
+  maxPriceValidator, maxRoomsValidator, minAreaValidator,
+  minPriceValidator, minRoomsValidator,
+  priceValidator,
+  roomValidator
+} from './validator.directive';
 import {SharingSearchService} from '../../../services/sharing-search.service';
+import {validationHandler} from "../../../utils/validationHandler";
+
 
 
 
@@ -46,8 +54,11 @@ export class SearchComponent implements OnInit {
     minArea: [null, Validators.required],
     maxArea:  [null, Validators.required],
 
-  }, {validators: Validators.compose([areaValidator, priceValidator, roomValidator])}
-
+  }, {validators: Validators.compose(
+    [areaValidator, priceValidator, roomValidator,
+              minPriceValidator, maxPriceValidator,
+              minRoomsValidator, maxRoomsValidator,
+              minAreaValidator, maxAreaValidator])}
   );
 
   /*searchForm = this.formBuilder.array([], Validators.compose([Validators.required, Validators.minLength(3)]));*/
@@ -82,13 +93,17 @@ export class SearchComponent implements OnInit {
     console.log(this.cityNameList);
   }
 
-
-
   submit(filterPropertyAdvertModel) {
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
-    console.log(filterPropertyAdvertModel);
-
   }
+
+
+
+
+  /*submit(filterPropertyAdvertModel) {
+    this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
+    console.log(filterPropertyAdvertModel);
+  }*/
 
 
 
