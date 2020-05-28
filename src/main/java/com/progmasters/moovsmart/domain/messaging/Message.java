@@ -30,7 +30,7 @@ public class Message {
         this.sender = sender;
         this.conversation = conversation;
         this.text = message;
-        this.sentAt = LocalDateTime.now();
+        this.sentAt = LocalDateTime.now().plusHours(2);
     }
 
     public Long getId() {

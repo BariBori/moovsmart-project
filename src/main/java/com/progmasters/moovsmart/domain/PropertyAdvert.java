@@ -2,7 +2,6 @@ package com.progmasters.moovsmart.domain;
 
 import com.progmasters.moovsmart.domain.user.User;
 import com.progmasters.moovsmart.dto.form.PropertyAdvertFormData;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -98,6 +97,10 @@ public class PropertyAdvert {
     @Column
     private LocalDate createdAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private AuctionStatusType auctionStatusType;
+
     @Column
     private LocalDate timeOfActivation;
 
@@ -131,7 +134,7 @@ public class PropertyAdvert {
         this.placeId = propertyAdvertFormData.getPlaceId();
         this.latitude = propertyAdvertFormData.getLatitude();
         this.longitude = propertyAdvertFormData.getLongitude();
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDate.now().plusDays(1);
         this.timeOfActivation = null;
         this.advertId = new Random().nextInt(1000000);
 
@@ -153,6 +156,12 @@ public class PropertyAdvert {
         this.actualPrice = propertyAdvertFormData.getPrice();
         this.startOfAuction = propertyAdvertFormData.getStartOfAuction();
         this.endOfAuction = propertyAdvertFormData.getEndOfAuction();
+
+        if (propertyAdvertFormData.getStartOfAuction() == null && propertyAdvertFormData.getEndOfAuction() == null) {
+            this.auctionStatusType = AuctionStatusType.INACTIVE;
+        } else {
+            this.auctionStatusType = AuctionStatusType.ACTIVE;
+        }
 
     }
 
@@ -398,5 +407,13 @@ public class PropertyAdvert {
 
     public void setLikes(List<User> likes) {
         this.likes = likes;
+    }
+
+    public AuctionStatusType getAuctionStatusType() {
+        return auctionStatusType;
+    }
+
+    public void setAuctionStatusType(AuctionStatusType auctionStatusType) {
+        this.auctionStatusType = auctionStatusType;
     }
 }
