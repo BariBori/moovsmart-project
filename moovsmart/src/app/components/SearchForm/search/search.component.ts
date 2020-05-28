@@ -12,7 +12,7 @@ import {
   roomValidator
 } from './validator.directive';
 import {SharingSearchService} from '../../../services/sharing-search.service';
-import {validationHandler} from "../../../utils/validationHandler";
+
 
 
 
@@ -61,9 +61,6 @@ export class SearchComponent implements OnInit {
               minAreaValidator, maxAreaValidator])}
   );
 
-  /*searchForm = this.formBuilder.array([], Validators.compose([Validators.required, Validators.minLength(3)]));*/
-
-
 
   ngOnInit(): void {
     this.propertyService?.getCityList().subscribe(
@@ -96,16 +93,5 @@ export class SearchComponent implements OnInit {
   submit(filterPropertyAdvertModel) {
     this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
   }
-
-
-
-
-  /*submit(filterPropertyAdvertModel) {
-    this.sharingSearchService.filteredProperties.next(filterPropertyAdvertModel);
-    console.log(filterPropertyAdvertModel);
-  }*/
-
-
-
 
 }
