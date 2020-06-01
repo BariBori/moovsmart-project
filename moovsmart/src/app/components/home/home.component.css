@@ -18,6 +18,13 @@
   text-align: center;
 }
 
+.home-warning{
+  padding: 0px 0px 50px 0px;
+  color: red;
+  margin: auto;
+  text-align: center;
+}
+
 .marketing{
   padding-top: 50px;
 }
