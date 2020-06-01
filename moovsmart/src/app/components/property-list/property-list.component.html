@@ -65,12 +65,17 @@
       <ng-container matColumnDef="startOfAuction">
         <mat-header-cell  class="text-center" *matHeaderCellDef mat-sort-header>Aukció</mat-header-cell>
         <mat-cell class="text-center" *matCellDef="let row">
-          <div class="auction" class="gavel" *ngIf="row.endOfAuction > row.today; else expired">
-            <fa-icon [icon]="faGavel" ></fa-icon>
+          <div *ngIf="row.endOfAuction > row.today && row.startOfAuction < row.today">
+            Aktív
           </div>
-          <ng-template #expired>
-            <p>Lejárt</p>
-          </ng-template>
+          <div *ngIf="row.endOfAuction > row.today && row.startOfAuction > row.today">
+            Hamarosan
+          </div>
+          <div *ngIf="row.endOfAuction < row.today">
+            Lezárult
+          </div>
+          <div *ngIf="row.endOfAuction == null">
+          </div>
         </mat-cell>
       </ng-container>
 
