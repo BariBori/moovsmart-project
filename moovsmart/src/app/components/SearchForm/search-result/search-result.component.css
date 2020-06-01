@@ -36,3 +36,9 @@
   overflow: auto;
   max-height: 1000px;
 }
+
+.result-number{
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px;
+}

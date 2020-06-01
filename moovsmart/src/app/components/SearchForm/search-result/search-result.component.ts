@@ -18,6 +18,7 @@ export class SearchResultComponent implements OnInit {
 
   displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
+  dataSourceLength: number;
 
 
 
@@ -40,9 +41,11 @@ export class SearchResultComponent implements OnInit {
             propertyListItems => {
               console.log(propertyListItems);
               this.dataSource = new MatTableDataSource(propertyListItems);
+              this.dataSourceLength = propertyListItems.length;
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
               console.log(this.dataSource);
+              console.log(this.dataSourceLength);
            }
             );
         }
