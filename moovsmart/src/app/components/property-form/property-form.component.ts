@@ -390,9 +390,6 @@ export class PropertyFormComponent implements OnInit {
     propertyFormDataModel.listOfImages = this.listOfImages;
     propertyFormDataModel.userName = this.userName;
 
-
-    // this.id ? this.updateProperty(propertyFormDataModel) :
-
     this.propertyService.createProperty(propertyFormDataModel).subscribe(
       () => this.router.navigate(['../user-home/user-property']),
       error => validationHandler(error, this.propertyForm)
