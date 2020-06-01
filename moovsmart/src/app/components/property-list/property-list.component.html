@@ -65,10 +65,12 @@
       <ng-container matColumnDef="startOfAuction">
         <mat-header-cell  class="text-center" *matHeaderCellDef mat-sort-header>Aukció</mat-header-cell>
         <mat-cell class="text-center" *matCellDef="let row">
-          <div class="auction" class="gavel" *ngIf="row.endOfAuction > row.today">
+          <div class="auction" class="gavel" *ngIf="row.endOfAuction > row.today; else expired">
             <fa-icon [icon]="faGavel" ></fa-icon>
-          <!--{{row.startOfAuction | date:'yyyy.MM.dd HH:mm:ss'}} - {{row.endOfAuction  | date:'yyyy.MM.dd HH:mm:ss'}}-->
           </div>
+          <ng-template #expired>
+            <p>Lejárt</p>
+          </ng-template>
         </mat-cell>
       </ng-container>
 
