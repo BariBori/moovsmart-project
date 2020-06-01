@@ -3,9 +3,9 @@
   <hr>
   <div *ngFor="let bid of dataSource; index as i">
     <div class="property-container click">
-      <div class="row">
+      <div class="row" >
 
-        <div class="col col-12 col-sm-12 col-lg-4 img-container">
+        <div class="col col-12 col-sm-12 col-lg-4 img-container" (click)="goToDetails(bid.propertyId)">
           <span *ngIf="bid.listOfImages.length>0">
             <img class="list-img" src="{{bid.listOfImages[0]}}">
           </span>
@@ -39,7 +39,7 @@
             <div *ngIf="bid.endOfAuction >= bid.today" class="col">Aktuális ár: {{bid.actualPrice}} Millió Ft</div>
           </div>
 
-          <div class="row">
+          <div class="row justify-content-center">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" (click)="goToBids(bid.propertyId)">
               Részletek
             </button>
