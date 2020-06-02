@@ -13,27 +13,27 @@ public class FilterPropertyAdvert {
     private String city;
 
     @Min(0)
-    @Max(1000000000)
+
     private Double minPrice;
 
     @Min(0)
-    @Max(1000000000)
+
     private Double maxPrice;
 
     @Min(0)
-    @Max(1000)
+
     private Integer minArea;
 
     @Min(0)
-    @Max(1000)
+
     private Integer maxArea;
 
     @Min(0)
-    @Max(30)
+
     private Integer minRooms;
 
     @Min(0)
-    @Max(30)
+
     private Integer maxRooms;
 
     private AdvertStatusType advertStatusType;

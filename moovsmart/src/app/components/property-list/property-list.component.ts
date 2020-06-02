@@ -16,8 +16,6 @@ import {faGavel} from '@fortawesome/free-solid-svg-icons';
 })
 export class PropertyListComponent implements OnInit {
 
-
-
   displayedColumns: string[] = ['image', 'address', 'numberOfRooms', 'area', 'price', 'priceForSquareMeter', 'advertId', 'startOfAuction'];
   dataSource: MatTableDataSource<PropertyListItemModel>;
   data: PageModel;
