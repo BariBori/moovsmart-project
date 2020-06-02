@@ -13,9 +13,6 @@ import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file
 import {Cloudinary} from '@cloudinary/angular-5.x';
 import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 import {PropertyEditModel} from '../../models/propertyEdit.model';
-import DateTimeFormat = Intl.DateTimeFormat;
-import {Local} from "protractor/built/driverProviders";
-import {timestamp} from "rxjs/operators";
 
 
 @Component({
@@ -59,6 +56,8 @@ export class PropertyFormComponent implements OnInit {
   propertyType: PropertyTypeOptionItemModel[];
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
   parkingType: ParkingTypeOptionItemModel[];
+
+  auctionStatusType: String;
 
   propertyForm = this.formBuilder.group({
     advertStatus: ['FORAPPROVAL'],
@@ -341,11 +340,16 @@ export class PropertyFormComponent implements OnInit {
             listOfImages: response?.listOfImages,
 
             startOfAuction: response.startOfAuction,
-            endOfAuction: response.endOfAuction
+            endOfAuction: response.endOfAuction,
 
+            auctionStatusType: response.auctionStatus
           }, {onlySelf: true});
       },
     );
+  }
+
+  auctionIsActive(): boolean {
+    return this.auctionStatusType === 'ACTIVE';
   }
 
   // -----------GOOGLE MAPS------------

@@ -2,8 +2,8 @@ import {PropertyTypeOptionItemModel} from './propertyTypeOptionItem.model';
 import {PropertyConditionTypeOptionItemModel} from './propertyConditionTypeOptionItem.model';
 import {ParkingTypeOptionItemModel} from './parkingTypeOptionItem.model';
 import {AdvertStatusTypeOptionItemModel} from './advertStatusTypeOptionItem.model';
-import {UserFormDataModel} from './userFormData.model';
 import DateTimeFormat = Intl.DateTimeFormat;
+import {AuctionStatusTypeModel} from "./auctionStatusType.model";
 
 
 export interface PropertyAdvertDetailsModel {
@@ -15,6 +15,8 @@ export interface PropertyAdvertDetailsModel {
   propertyType: PropertyTypeOptionItemModel;
   propertyConditionType: PropertyConditionTypeOptionItemModel;
   parkingType: ParkingTypeOptionItemModel;
+
+  auctionStatus: AuctionStatusTypeModel;
 
   title: string;
   priceForSquareMeter: number;
@@ -39,9 +41,6 @@ export interface PropertyAdvertDetailsModel {
 
   startOfAuction: DateTimeFormat;
   endOfAuction: DateTimeFormat;
-
-
-
 
   actualPrice: number;
 

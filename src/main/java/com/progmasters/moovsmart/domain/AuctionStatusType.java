@@ -7,12 +7,12 @@ public enum AuctionStatusType {
 
     private String displayName;
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
     AuctionStatusType(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 }
 
