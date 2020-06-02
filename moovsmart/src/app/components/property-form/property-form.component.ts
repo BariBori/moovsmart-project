@@ -13,6 +13,7 @@ import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file
 import {Cloudinary} from '@cloudinary/angular-5.x';
 import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 import {PropertyEditModel} from '../../models/propertyEdit.model';
+import {AuctionStatusTypeModel} from "../../models/auctionStatusType.model";
 
 
 @Component({
@@ -57,7 +58,7 @@ export class PropertyFormComponent implements OnInit {
   propertyConditionType: PropertyConditionTypeOptionItemModel[];
   parkingType: ParkingTypeOptionItemModel[];
 
-  auctionStatusType: String;
+  auctionStatusType: AuctionStatusTypeModel;
 
   propertyForm = this.formBuilder.group({
     advertStatus: ['FORAPPROVAL'],
@@ -307,6 +308,8 @@ export class PropertyFormComponent implements OnInit {
     this.propertyService.fetchAdvertDetails(id).subscribe(
       (response: PropertyAdvertDetailsModel) => {
         console.log(response);
+        this.auctionStatusType = response.auctionStatus;
+        console.log(this.auctionStatusType?.displayName);
         this.propertyForm.patchValue(
           {
             advertId: response.advertId,
@@ -340,17 +343,15 @@ export class PropertyFormComponent implements OnInit {
             listOfImages: response?.listOfImages,
 
             startOfAuction: response.startOfAuction,
-            endOfAuction: response.endOfAuction,
-
-            auctionStatusType: response.auctionStatus
+            endOfAuction: response.endOfAuction
           }, {onlySelf: true});
       },
     );
   }
 
-  auctionIsActive(): boolean {
-    return this.auctionStatusType === 'ACTIVE';
-  }
+  // auctionIsActive(): boolean {
+  //   //return this.auctionStatusType === 'ACTIVE';
+  // }
 
   // -----------GOOGLE MAPS------------
   clearAddressDetails() {
