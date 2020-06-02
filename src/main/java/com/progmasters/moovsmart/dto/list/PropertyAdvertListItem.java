@@ -6,6 +6,7 @@ import com.progmasters.moovsmart.dto.form.AdvertStatusTypeOption;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 public class PropertyAdvertListItem {
@@ -44,6 +45,8 @@ public class PropertyAdvertListItem {
     private LocalDateTime startOfAuction;
     private LocalDateTime endOfAuction;
     private LocalDateTime today;
+    private ZoneId zoneId = ZoneId.of("Europe/Budapest");
+
 
     public PropertyAdvertListItem(PropertyAdvert propertyAdvert) {
         this.id = propertyAdvert.getId();
@@ -63,7 +66,7 @@ public class PropertyAdvertListItem {
         this.timeOfActivation  =propertyAdvert.getTimeOfActivation();
         this.startOfAuction = propertyAdvert.getStartOfAuction();
         this.endOfAuction = propertyAdvert.getEndOfAuction();
-        this.today = LocalDateTime.now();
+        this.today = LocalDateTime.now(zoneId);
 
     }
 

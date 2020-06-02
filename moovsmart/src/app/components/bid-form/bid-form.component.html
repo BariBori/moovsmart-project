@@ -52,7 +52,7 @@
       </ng-template>
 
 
-      <button class="btn btn-success my-buttons" (click)="openDialog(content, logging)" [disabled]="amountOfBid < nextBidNumber">Licit küldése</button>
+      <button class="btn btn-success my-buttons" (click)="openDialog(content, logging)" [disabled]="amountOfBid < nextBidNumber || amountOfBid == null">Licit küldése</button>
 
 
 
