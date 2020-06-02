@@ -1,10 +1,7 @@
 package com.progmasters.moovsmart.dto.list;
 
 import com.progmasters.moovsmart.domain.*;
-import com.progmasters.moovsmart.dto.form.AdvertStatusTypeOption;
-import com.progmasters.moovsmart.dto.form.ParkingTypeOption;
-import com.progmasters.moovsmart.dto.form.PropertyConditionOption;
-import com.progmasters.moovsmart.dto.form.PropertyTypeOption;
+import com.progmasters.moovsmart.dto.form.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +23,8 @@ public class PropertyAdvertDetailsData {
     private ParkingTypeOption parkingType;
 
     private AdvertStatusTypeOption advertStatus;
+
+    private AuctionStatusTypeOption auctionStatusType;
 
     private String title;
 
@@ -77,9 +76,9 @@ public class PropertyAdvertDetailsData {
         this.propertyType = new PropertyTypeOption(propertyAdvert.getPropertyType());
         this.propertyConditionType = new PropertyConditionOption(propertyAdvert.getPropertyConditionType());
         this.parkingType = new ParkingTypeOption(propertyAdvert.getParkingType());
+        this.auctionStatusType = new AuctionStatusTypeOption(propertyAdvert.getAuctionStatusType());
 
         if(propertyAdvert.getUser() != null){
-
             this.userName = propertyAdvert.getUser().getUserName();
        }
         this.title = propertyAdvert.getTitle();
@@ -99,6 +98,7 @@ public class PropertyAdvertDetailsData {
         this.priceForSquareMeter = Math.round(actualPrice *1000000 / area);
         this.startOfAuction = propertyAdvert.getStartOfAuction();
         this.endOfAuction = propertyAdvert.getEndOfAuction();
+
 
     }
 
@@ -312,5 +312,13 @@ public class PropertyAdvertDetailsData {
 
     public void setActualPrice(Double actualPrice) {
         this.actualPrice = actualPrice;
+    }
+
+    public AuctionStatusTypeOption getAuctionStatusType() {
+        return auctionStatusType;
+    }
+
+    public void setAuctionStatusType(AuctionStatusTypeOption auctionStatusType) {
+        this.auctionStatusType = auctionStatusType;
     }
 }

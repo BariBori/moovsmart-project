@@ -145,9 +145,6 @@ public class PropertyAdvertController {
     }
 
 
-
-
-
     @GetMapping("/formData")
     public ResponseEntity<PropertyAdvertInitFormData> getFormInitData() {
         return new ResponseEntity<>(propertyAdvertService.createPropertyAdvertFormInitData(), HttpStatus.OK);

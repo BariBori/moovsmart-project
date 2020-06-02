@@ -143,6 +143,12 @@ public class PropertyAdvert {
         this.propertyConditionType = propertyAdvertFormData.getPropertyConditionType();
         this.parkingType = propertyAdvertFormData.getParkingType();
 
+        if (propertyAdvertFormData.getStartOfAuction() == null && propertyAdvertFormData.getEndOfAuction() == null) {
+            this.auctionStatusType = AuctionStatusType.INACTIVE;
+        } else {
+            this.auctionStatusType = AuctionStatusType.ACTIVE;
+        }
+
         this.title = propertyAdvertFormData.getTitle();
         this.city = propertyAdvertFormData.getCity();
         this.address = propertyAdvertFormData.getAddress();
@@ -157,13 +163,7 @@ public class PropertyAdvert {
         this.startOfAuction = propertyAdvertFormData.getStartOfAuction();
         this.endOfAuction = propertyAdvertFormData.getEndOfAuction();
 
-        if (propertyAdvertFormData.getStartOfAuction() == null && propertyAdvertFormData.getEndOfAuction() == null) {
-            this.auctionStatusType = AuctionStatusType.INACTIVE;
-        } else {
-            this.auctionStatusType = AuctionStatusType.ACTIVE;
-        }
-
-    }
+}
 
     public PropertyAdvert() {
     }

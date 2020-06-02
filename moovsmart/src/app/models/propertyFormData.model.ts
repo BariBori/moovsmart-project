@@ -9,6 +9,7 @@ export interface PropertyFormDataModel {
   propertyType: string;
   propertyConditionType: string;
   parkingType: string;
+  auctionStatusTye: string;
   title: string;
 
   address: string;
