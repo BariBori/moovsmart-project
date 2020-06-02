@@ -13,7 +13,7 @@ import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file
 import {Cloudinary} from '@cloudinary/angular-5.x';
 import {PropertyAdvertDetailsModel} from '../../models/propertyAdvertDetails.model';
 import {PropertyEditModel} from '../../models/propertyEdit.model';
-import {AuctionStatusTypeModel} from "../../models/auctionStatusType.model";
+import {AuctionStatusTypeModel} from '../../models/auctionStatusType.model';
 
 
 @Component({
@@ -91,6 +91,7 @@ export class PropertyFormComponent implements OnInit {
     startOfAuction: [null],
     endOfAuction: [null],
     actualPrice: [null],
+
   });
 
   constructor(
@@ -127,6 +128,8 @@ export class PropertyFormComponent implements OnInit {
           error => console.warn(error)
         );
       });
+
+
 
 
     // ----------CLOUDINARY----------------------
@@ -341,9 +344,12 @@ export class PropertyFormComponent implements OnInit {
             description: response.description,
 
             listOfImages: response?.listOfImages,
+          startOfAuction: response.startOfAuction,
+            endOfAuction: response.endOfAuction,
 
-            startOfAuction: response.startOfAuction,
-            endOfAuction: response.endOfAuction
+            auctionStatusType: response.auctionStatus
+
+
           }, {onlySelf: true});
       },
     );
@@ -421,5 +427,7 @@ export class PropertyFormComponent implements OnInit {
     );
     console.log('PropertyForm');
   }
+
+
 
 }
